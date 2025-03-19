@@ -1,11 +1,10 @@
-
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProjectCard from '@/components/ProjectCard';
 import TestimonialCard from '@/components/TestimonialCard';
-import { ChevronRight, MapPin, Phone, Mail, ArrowRight, Clock, Shield, Tool } from 'lucide-react';
+import { ChevronRight, MapPin, Phone, Mail, ArrowRight, Clock, Shield, Wrench } from 'lucide-react';
 
 interface RegionData {
   [key: string]: {
@@ -119,6 +118,11 @@ const regionData: RegionData = {
         title: 'Qualitätsgarantie',
         description: '5 Jahre Garantie auf alle unsere Umbauprojekte in Zürich.',
         icon: 'Shield'
+      },
+      {
+        title: 'Regionale Materialien',
+        description: 'Wir setzen wo möglich auf Materialien aus der Region für nachhaltige Qualität.',
+        icon: 'Wrench'
       }
     ],
     faq: [
@@ -214,7 +218,7 @@ const regionData: RegionData = {
       {
         title: 'Regionale Materialien',
         description: 'Wir setzen wo möglich auf Materialien aus der Region für nachhaltige Qualität.',
-        icon: 'Tool'
+        icon: 'Wrench'
       }
     ],
     faq: [
@@ -242,7 +246,6 @@ const regionData: RegionData = {
       city: '8805 Richterswil'
     }
   },
-  // Placeholder for other regions with complete content using PAS framework
   'default': {
     title: 'Bäderberg in Ihrer Region',
     description: 'Ihr lokaler Experte für hochwertige Umbauten und Renovierungen',
@@ -312,6 +315,11 @@ const regionData: RegionData = {
         title: 'Schweizer Qualitätsstandard',
         description: 'Höchste Qualität bei Materialien und Ausführung.',
         icon: 'Shield'
+      },
+      {
+        title: 'Regionale Materialien',
+        description: 'Wir setzen wo möglich auf Materialien aus der Region für nachhaltige Qualität.',
+        icon: 'Wrench'
       }
     ],
     faq: [
@@ -470,7 +478,7 @@ const RegionPage = () => {
                   {region.benefits.map((benefit, index) => {
                     const IconComponent = benefit.icon === 'MapPin' ? MapPin : 
                                         benefit.icon === 'Clock' ? Clock : 
-                                        benefit.icon === 'Shield' ? Shield : Tool;
+                                        benefit.icon === 'Shield' ? Shield : Wrench;
                     
                     return (
                       <div 
@@ -626,132 +634,25 @@ const RegionPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
                 <div className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-primary/10 rounded-md">
-                  Kontakt {regionId}
+                  Kontakt
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 text-gray-900">
-                  Ihr persönlicher Ansprechpartner
+                  Kontaktieren Sie uns
                 </h3>
-                <p className="text-gray-600 mb-8">
-                  Unser Team in {regionId} berät Sie gerne zu Ihrem Projekt. Vereinbaren Sie einen Termin für eine kostenlose Beratung.
+                <p className="text-gray-600 text-lg">
+                  Wir sind Ihr persönlicher Berater für Renovierungen in {regionId}.
                 </p>
                 
-                <div className="bg-white rounded-md p-8 shadow-md hover:shadow-lg transition-medium border border-gray-100">
-                  <div className="flex items-center gap-6 mb-6">
-                    <div className="h-16 w-16 rounded-md bg-primary/10 flex items-center justify-center text-2xl font-bold text-primary">
-                      {region.contactPerson.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-medium text-gray-900">{region.contactPerson.name}</h4>
-                      <p className="text-gray-600">{region.contactPerson.position}</p>
-                    </div>
+                <div className="mt-8">
+                  <div className="flex items-center gap-4">
+                    <Phone size={24} />
+                    <p className="text-gray-600">{region.contactPerson.phone}</p>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                        <Phone size={20} />
-                      </div>
-                      <p className="text-gray-700">{region.contactPerson.phone}</p>
-                    </div>
-                    
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                        <Mail size={20} />
-                      </div>
-                      <p className="text-gray-700">{region.contactPerson.email}</p>
-                    </div>
-                    
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                        <MapPin size={20} />
-                      </div>
-                      <p className="text-gray-700">
-                        {region.address.street}<br />
-                        {region.address.city}
-                      </p>
-                    </div>
+                  <div className="flex items-center gap-4">
+                    <Mail size={24} />
+                    <p className="text-gray-600">{region.contactPerson.email}</p>
                   </div>
-                </div>
-              </div>
-              
-              <div>
-                <div className="bg-white rounded-md p-8 shadow-md hover:shadow-lg transition-medium border border-gray-100">
-                  <h4 className="text-xl font-medium mb-6 text-gray-900">Kontaktieren Sie uns</h4>
-                  
-                  <form>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                          Name
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                          E-Mail
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="mb-4">
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                        Telefon
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
-                    </div>
-                    
-                    <div className="mb-4">
-                      <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">
-                        Leistung
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      >
-                        <option value="">Bitte wählen</option>
-                        <option value="Badumbau">Badumbau</option>
-                        <option value="Küchenumbau">Küchenumbau</option>
-                        <option value="Innenausbau">Innenausbau</option>
-                      </select>
-                    </div>
-                    
-                    <div className="mb-6">
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nachricht
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        rows={4}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      ></textarea>
-                    </div>
-                    
-                    <button
-                      type="submit"
-                      className="w-full px-6 py-3 bg-primary text-white rounded-md flex items-center justify-center gap-2 hover:shadow-lg transition-medium"
-                    >
-                      Anfrage senden
-                      <ArrowRight size={18} />
-                    </button>
-                  </form>
                 </div>
               </div>
             </div>
