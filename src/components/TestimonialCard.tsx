@@ -1,4 +1,5 @@
 
+import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 
 interface TestimonialCardProps {
@@ -17,39 +18,86 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   project
 }) => {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300">
-      <div className="relative mb-4">
-        <Quote 
-          className="text-primary/10"
-          size={36}
-        />
-      </div>
+    <motion.div 
+      className="bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ 
+        y: -5,
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      <motion.div 
+        className="absolute top-6 right-6 text-primary/20"
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Quote size={42} />
+      </motion.div>
       
-      <p className="text-base italic mb-6 line-clamp-4">{quote}</p>
+      <motion.p 
+        className="text-base italic mb-6 relative z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
+      >
+        {quote}
+      </motion.p>
       
-      <div className="flex items-center justify-between">
+      <motion.div 
+        className="flex items-center justify-between mt-8 pt-4 border-t border-gray-100"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
         <div className="flex items-center gap-3">
           {image ? (
-            <img 
+            <motion.img 
               src={image} 
               alt={author}
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover border-2 border-primary/10"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+            <motion.div 
+              className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center"
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(var(--primary), 0.1)" }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
               <span className="text-base font-medium text-primary">{author.charAt(0)}</span>
-            </div>
+            </motion.div>
           )}
           <div>
-            <h4 className="font-medium">{author}</h4>
-            <p className="text-xs text-muted-foreground">{location}</p>
+            <motion.h4 
+              className="font-medium text-gray-900"
+              initial={{ opacity: 0, x: -5 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              {author}
+            </motion.h4>
+            <motion.p 
+              className="text-xs text-muted-foreground"
+              initial={{ opacity: 0, x: -5 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              {location}
+            </motion.p>
           </div>
         </div>
-        <div className="text-xs px-2 py-1 rounded-full bg-secondary/50 text-primary/80">
+        <motion.div 
+          className="text-xs px-3 py-1.5 rounded-full bg-secondary/70 text-primary font-medium"
+          whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--secondary), 0.9)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
           {project}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

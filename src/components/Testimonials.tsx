@@ -1,7 +1,9 @@
 
+import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import TestimonialCard from './TestimonialCard';
 import { MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const testimonials = [
   {
@@ -29,35 +31,65 @@ const Testimonials = () => {
     threshold: 0.1,
     triggerOnce: true
   });
+  
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
 
   return (
     <section className="py-24 md:py-32 bg-secondary/20">
       <div className="container px-6 md:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="flex items-center justify-center gap-2 mb-4">
+        <motion.div 
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            className="flex items-center justify-center gap-2 mb-4"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={inView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ delay: 0.2, type: "spring" }}
+          >
             <MessageCircle size={20} className="text-primary" />
             <h2 className="text-sm md:text-base text-primary font-medium">
               Kundenstimmen
             </h2>
-          </div>
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+          </motion.div>
+          <motion.h3 
+            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             Was unsere Kunden sagen
-          </h3>
-          <p className="text-muted-foreground text-lg">
+          </motion.h3>
+          <motion.p 
+            className="text-muted-foreground text-lg"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
             Erfahren Sie, wie wir die Erwartungen unserer Kunden erfüllen und übertreffen.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         
-        <div 
+        <motion.div 
           ref={ref}
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          variants={container}
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
         >
           {testimonials.map((testimonial, index) => (
-            <div 
-              key={index}
-              className={`${inView ? 'animate-slide-up opacity-100' : 'opacity-0'}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
+            <div key={index}>
               <TestimonialCard 
                 quote={testimonial.quote}
                 author={testimonial.author}
@@ -66,7 +98,7 @@ const Testimonials = () => {
               />
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
