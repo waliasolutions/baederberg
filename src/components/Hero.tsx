@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimationControls } from 'framer-motion';
 
 const slideImages = [
   {
@@ -124,6 +124,7 @@ const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
+  const controls = useAnimationControls();
 
   useEffect(() => {
     // Auto-advance slides every 5 seconds
@@ -143,12 +144,32 @@ const Hero = () => {
       }
     };
 
+    // Setup continuous animation
+    const setupContinuousAnimation = async () => {
+      await controls.start({
+        pathLength: 1,
+        opacity: 1,
+        transition: {
+          pathLength: { type: "spring", duration: 3.5, bounce: 0 },
+          opacity: { duration: 0.8 }
+        }
+      });
+      
+      // After drawing is complete, restart animation with a small delay
+      setTimeout(() => {
+        controls.set({ pathLength: 0, opacity: 0.3 });
+        setupContinuousAnimation();
+      }, 1000);
+    };
+
+    setupContinuousAnimation();
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       clearInterval(interval);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [controls]);
 
   // Get the current path based on the slide index
   const getCurrentPath = () => {
@@ -182,7 +203,7 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-primary/60 z-0" />
       
-      {/* SVG Blueprint Animation - Now more detailed and realistic */}
+      {/* SVG Blueprint Animation - Now more detailed and realistic with continuous animation */}
       <div className="absolute inset-0 z-[1] pointer-events-none flex items-center justify-center">
         <svg 
           ref={svgRef}
@@ -195,15 +216,7 @@ const Hero = () => {
           <motion.path
             d={getCurrentPath()}
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ 
-              pathLength: 1, 
-              opacity: 1,
-              transition: { 
-                pathLength: { type: "spring", duration: 3.5, bounce: 0 },
-                opacity: { duration: 0.8 }
-              }
-            }}
-            exit={{ pathLength: 0, opacity: 0 }}
+            animate={controls}
             key={currentIndex}
             stroke="white"
             strokeWidth="1.5"
