@@ -67,43 +67,6 @@ const Testimonials = () => {
             </div>
           ))}
         </div>
-
-        <div className={`mt-16 md:mt-24 bg-white rounded-lg p-8 lg:p-12 shadow-sm ${inView ? 'animate-fade-in' : 'opacity-0'}`}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6">Vorher/Nachher Vergleich</h3>
-              <p className="text-muted-foreground mb-6">
-                Dieses Bad in Zürich wurde komplett renoviert und mit modernen Elementen neu gestaltet. Der Vergleich zeigt die beeindruckende Transformation.
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold text-primary">3</span>
-                  <span className="text-sm text-muted-foreground">Wochen Bauzeit</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold text-primary">120%</span>
-                  <span className="text-sm text-muted-foreground">Wertsteigerung</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold text-primary">100%</span>
-                  <span className="text-sm text-muted-foreground">Zufriedenheit</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="comparison-slider">
-              <div 
-                className="before"
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80')" }}
-              ></div>
-              <div 
-                className="after"
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1584622781339-76d5c5904f33?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80')" }}
-              ></div>
-              <div className="slider-handle"></div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
