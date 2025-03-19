@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SlideImage } from './HeroSlideshow';
 
@@ -16,36 +16,51 @@ const HeroContent = ({ currentSlide }: HeroContentProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-8"
+          className="mb-8 max-w-4xl mx-auto"
         >
-          <div className="inline-block px-3 py-1 mb-6 text-sm md:text-base text-white border border-white/30 rounded-full bg-white/10 backdrop-blur-sm">
-            Willkommen bei Bäderberg
+          {/* Problem */}
+          <div className="inline-block px-3 py-1 mb-6 text-sm md:text-base text-white bg-white/10 backdrop-blur-sm rounded-md">
+            Stehen Sie vor veralteten {currentSlide.title}-Räumen?
           </div>
+          
+          {/* Agitation */}
           <motion.h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 md:leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 md:leading-tight"
           >
-            Ihr Spezialist für{' '}
-            <motion.span
-              key={currentSlide.title}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.7 }}
-              className="inline-block text-white"
-            >
-              {currentSlide.title}
-            </motion.span>
+            Verwandeln Sie Ihr {currentSlide.title} in einen <span className="text-secondary">modernen Lebensraum</span>
           </motion.h1>
+          
           <motion.p 
             key={currentSlide.description}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="max-w-3xl mx-auto text-lg md:text-xl text-white mb-10"
+            className="max-w-3xl mx-auto text-lg md:text-xl text-white/90 mb-10"
           >
-            {currentSlide.description}
+            {currentSlide.description}. Kein Stress, keine Verzögerungen – nur professionelle Ergebnisse.
           </motion.p>
           
+          {/* Solution Benefits */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            {[
+              "Massgeschneiderte Lösungen",
+              "Termin- und budgettreue Umsetzung",
+              "Schweizer Qualitätsarbeit"
+            ].map((benefit, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 + (index * 0.2) }}
+                className="flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm p-3 rounded-md"
+              >
+                <Check size={18} className="text-white" />
+                <span className="text-white">{benefit}</span>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Solution Call-to-Action */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

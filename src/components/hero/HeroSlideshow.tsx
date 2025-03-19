@@ -18,13 +18,14 @@ const HeroSlideshow = ({ images, currentIndex, setCurrentIndex }: HeroSlideshowP
   useEffect(() => {
     // Auto-advance slides every 5 seconds
     const slideInterval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      const nextIndex = (currentIndex + 1) % images.length;
+      setCurrentIndex(nextIndex);
     }, 5000);
 
     return () => {
       clearInterval(slideInterval);
     };
-  }, [images.length, setCurrentIndex]);
+  }, [images.length, setCurrentIndex, currentIndex]);
 
   return (
     <>
@@ -51,10 +52,8 @@ const HeroSlideshow = ({ images, currentIndex, setCurrentIndex }: HeroSlideshowP
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full ${
-              currentIndex === index ? 'bg-white' : 'bg-white/40'
-            } transition-all duration-300 ${
-              currentIndex === index ? 'w-8' : 'w-2'
+            className={`h-2 rounded-full transition-all duration-300 ${
+              currentIndex === index ? 'bg-white w-8' : 'bg-white/40 w-2'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
