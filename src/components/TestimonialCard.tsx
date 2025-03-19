@@ -1,4 +1,6 @@
 
+import { Quote } from 'lucide-react';
+
 interface TestimonialCardProps {
   quote: string;
   author: string;
@@ -15,19 +17,15 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   project
 }) => {
   return (
-    <div className="card-hover bg-white rounded-2xl p-6 md:p-8 shadow-sm">
-      <div className="relative mb-6">
-        <svg 
-          className="absolute top-0 left-0 w-10 h-10 text-primary/10 -mt-4 -ml-4"
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 24 24" 
-          fill="currentColor"
-        >
-          <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
-        </svg>
+    <div className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300">
+      <div className="relative mb-4">
+        <Quote 
+          className="text-primary/10"
+          size={36}
+        />
       </div>
       
-      <p className="text-lg italic mb-6">{quote}</p>
+      <p className="text-base italic mb-6 line-clamp-4">{quote}</p>
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -35,19 +33,19 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             <img 
               src={image} 
               alt={author}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-              <span className="text-xl font-medium">{author.charAt(0)}</span>
+            <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+              <span className="text-base font-medium text-primary">{author.charAt(0)}</span>
             </div>
           )}
           <div>
             <h4 className="font-medium">{author}</h4>
-            <p className="text-sm text-muted-foreground">{location}</p>
+            <p className="text-xs text-muted-foreground">{location}</p>
           </div>
         </div>
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs px-2 py-1 rounded-full bg-secondary/50 text-primary/80">
           {project}
         </div>
       </div>

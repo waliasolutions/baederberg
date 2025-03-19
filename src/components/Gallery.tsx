@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ProjectCard from './ProjectCard';
+import { Grid, Filter } from 'lucide-react';
 
 const projects = [
   {
@@ -88,11 +89,14 @@ const Gallery = () => {
     <section id="gallery" className="py-24 md:py-32">
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-secondary rounded-full">
-            Unsere Projekte
-          </h2>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Grid size={20} className="text-primary" />
+            <h2 className="text-sm md:text-base text-primary font-medium">
+              Unsere Referenzen
+            </h2>
+          </div>
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-            Entdecken Sie unsere Referenzen
+            Entdecken Sie unsere Projekte
           </h3>
           <p className="text-muted-foreground text-lg">
             Eine Auswahl unserer erfolgreich abgeschlossenen Projekte. Lassen Sie sich inspirieren.
@@ -100,15 +104,15 @@ const Gallery = () => {
         </div>
         
         <div className="flex justify-center mb-12">
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="inline-flex p-1 bg-secondary/30 rounded-lg">
             {filters.map((filter) => (
               <button
                 key={filter.label}
                 onClick={() => setActiveFilter(filter.value)}
-                className={`px-4 py-2 rounded-full text-sm transition-medium ${
+                className={`px-4 py-2 rounded-md text-sm transition-fast ${
                   activeFilter === filter.value 
-                    ? 'bg-primary text-white' 
-                    : 'bg-secondary hover:bg-secondary/70'
+                    ? 'bg-white text-primary shadow-sm' 
+                    : 'text-primary/70 hover:text-primary'
                 }`}
               >
                 {filter.label}

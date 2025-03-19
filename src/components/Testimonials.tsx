@@ -1,6 +1,7 @@
 
 import { useInView } from 'react-intersection-observer';
 import TestimonialCard from './TestimonialCard';
+import { MessageCircle } from 'lucide-react';
 
 const testimonials = [
   {
@@ -30,12 +31,15 @@ const Testimonials = () => {
   });
 
   return (
-    <section className="py-24 md:py-32 bg-secondary/30">
+    <section className="py-24 md:py-32 bg-secondary/20">
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-white rounded-full">
-            Kundenstimmen
-          </h2>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <MessageCircle size={20} className="text-primary" />
+            <h2 className="text-sm md:text-base text-primary font-medium">
+              Kundenstimmen
+            </h2>
+          </div>
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
             Was unsere Kunden sagen
           </h3>
@@ -64,7 +68,7 @@ const Testimonials = () => {
           ))}
         </div>
 
-        <div className={`mt-16 md:mt-24 bg-white rounded-2xl p-8 lg:p-12 shadow-sm ${inView ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className={`mt-16 md:mt-24 bg-white rounded-lg p-8 lg:p-12 shadow-sm ${inView ? 'animate-fade-in' : 'opacity-0'}`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl md:text-3xl font-bold mb-6">Vorher/Nachher Vergleich</h3>
