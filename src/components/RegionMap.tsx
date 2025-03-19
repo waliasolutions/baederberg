@@ -74,9 +74,9 @@ const RegionMap = () => {
         <div ref={mapRef} className="relative w-full h-full">
           {/* Map background */}
           <img 
-            src="https://images.unsplash.com/photo-1620293023555-272e1a0a7f59?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-            alt="Map of service regions"
-            className="absolute inset-0 w-full h-full object-cover opacity-30"
+            src="https://images.unsplash.com/photo-1581374229726-013dace1d7b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
+            alt="Map of service regions in Switzerland"
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
           />
           
           {/* Region points */}
@@ -115,6 +115,7 @@ const RegionMap = () => {
         </div>
       </div>
       
+      {/* Regions list at the bottom */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/80 to-transparent p-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
           {regions.map((region) => (
