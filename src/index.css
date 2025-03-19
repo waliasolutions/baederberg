@@ -272,3 +272,16 @@
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
+/* Hero slideshow styles */
+.hero-slide {
+  @apply absolute inset-0 bg-cover bg-center transition-opacity duration-1000;
+}
+
+.slide-indicator {
+  @apply w-2 h-2 rounded-full bg-white/40 transition-all duration-300;
+}
+
+.slide-indicator.active {
+  @apply bg-white w-4;
+}

@@ -33,7 +33,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
+					DEFAULT: 'hsl(220, 85%, 20%)',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
@@ -92,11 +92,21 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'slide-in': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' }
+        },
+        'slide-out': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'slide-in': 'slide-in 0.8s ease-out',
+        'slide-out': 'slide-out 0.8s ease-out'
 			},
 			backgroundImage: {
 				'hero-pattern': "url('/hero-bg.jpg')",
