@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -51,38 +51,113 @@ const Contact = () => {
       });
     }, 1500);
   };
+
+  const formFieldVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.2 + custom * 0.1,
+        duration: 0.5
+      }
+    })
+  };
   
   return (
     <section id="contact" className="py-24 md:py-32">
       <div className="container px-6 md:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-secondary rounded-full">
+        <motion.div 
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
+          <motion.h2 
+            className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-secondary rounded-full"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             Kontakt
-          </h2>
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+          </motion.h2>
+          <motion.h3 
+            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             Sprechen Sie mit uns
-          </h3>
-          <p className="text-muted-foreground text-lg">
+          </motion.h3>
+          <motion.p 
+            className="text-muted-foreground text-lg"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             Kontaktieren Sie uns für eine kostenlose Beratung und lassen Sie uns gemeinsam Ihr Projekt planen.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         
         <div 
           ref={ref} 
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-start ${inView ? 'animate-fade-in' : 'opacity-0'}`}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
         >
-          <div className="bg-white rounded-2xl p-8 shadow-sm hover-lift">
-            <h4 className="text-2xl font-semibold mb-6">Senden Sie uns eine Nachricht</h4>
+          <motion.div 
+            className="bg-white rounded-2xl p-8 shadow-sm"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ 
+              duration: 0.7, 
+              type: "spring",
+              stiffness: 50
+            }}
+            whileHover={{ 
+              y: -10,
+              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+              transition: { 
+                type: "spring", 
+                stiffness: 100, 
+                damping: 15 
+              }
+            }}
+          >
+            <motion.h4 
+              className="text-2xl font-semibold mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              Senden Sie uns eine Nachricht
+            </motion.h4>
             
             {isSuccess && (
-              <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-lg">
+              <motion.div 
+                className="mb-6 p-4 bg-green-50 text-green-800 rounded-lg"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze mit Ihnen in Verbindung setzen.
-              </div>
+              </motion.div>
             )}
             
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
+                <motion.div
+                  custom={0}
+                  variants={formFieldVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
                   <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">
                     Name
                   </label>
@@ -95,8 +170,14 @@ const Contact = () => {
                     required
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  custom={1}
+                  variants={formFieldVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
                   <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">
                     E-Mail
                   </label>
@@ -109,11 +190,17 @@ const Contact = () => {
                     required
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
-                </div>
+                </motion.div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
+                <motion.div
+                  custom={2}
+                  variants={formFieldVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
                   <label htmlFor="phone" className="block text-sm font-medium text-muted-foreground mb-1">
                     Telefon
                   </label>
@@ -125,8 +212,14 @@ const Contact = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  custom={3}
+                  variants={formFieldVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
                   <label htmlFor="region" className="block text-sm font-medium text-muted-foreground mb-1">
                     Region
                   </label>
@@ -149,7 +242,7 @@ const Contact = () => {
                     <option value="Horgen">Horgen</option>
                     <option value="Rüti ZH">Rüti ZH</option>
                   </select>
-                </div>
+                </motion.div>
               </div>
               
               <div className="mb-4">
@@ -184,10 +277,19 @@ const Contact = () => {
                 ></textarea>
               </div>
               
-              <button
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full px-6 py-3 bg-primary text-white rounded-lg flex items-center justify-center gap-2 hover:shadow-lg transition-medium"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                whileHover={{ 
+                  y: -5,
+                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                }}
+                whileTap={{ scale: 0.98 }}
               >
                 {isSubmitting ? (
                   <>
@@ -203,53 +305,118 @@ const Contact = () => {
                     Nachricht senden
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
           
           <div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm mb-8 hover-lift">
-              <h4 className="text-2xl font-semibold mb-6">Kontaktinformationen</h4>
+            <motion.div 
+              className="bg-white rounded-2xl p-8 shadow-sm mb-8"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ 
+                duration: 0.7, 
+                type: "spring",
+                stiffness: 50,
+                delay: 0.1
+              }}
+              whileHover={{ 
+                y: -10,
+                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                transition: { 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 15 
+                }
+              }}
+            >
+              <motion.h4 
+                className="text-2xl font-semibold mb-6"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+              >
+                Kontaktinformationen
+              </motion.h4>
               
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 h-8 w-8 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Phone size={18} />
-                  </div>
-                  <div>
-                    <h5 className="font-medium mb-1">Telefon</h5>
-                    <p className="text-muted-foreground">+41 44 123 45 67</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 h-8 w-8 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Mail size={18} />
-                  </div>
-                  <div>
-                    <h5 className="font-medium mb-1">E-Mail</h5>
-                    <p className="text-muted-foreground">info@baederberg.ch</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 h-8 w-8 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <MapPin size={18} />
-                  </div>
-                  <div>
-                    <h5 className="font-medium mb-1">Hauptsitz</h5>
-                    <p className="text-muted-foreground">
+                {[
+                  {
+                    icon: <Phone size={18} />,
+                    title: "Telefon",
+                    content: "+41 44 123 45 67"
+                  },
+                  {
+                    icon: <Mail size={18} />,
+                    title: "E-Mail",
+                    content: "info@baederberg.ch"
+                  },
+                  {
+                    icon: <MapPin size={18} />,
+                    title: "Hauptsitz",
+                    content: <>
                       Musterstrasse 123<br />
                       8000 Zürich<br />
                       Schweiz
-                    </p>
-                  </div>
-                </div>
+                    </>
+                  }
+                ].map((item, index) => (
+                  <motion.div 
+                    key={item.title}
+                    className="flex items-start gap-4"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                  >
+                    <motion.div 
+                      className="mt-1 h-8 w-8 flex items-center justify-center rounded-full bg-primary/10 text-primary"
+                      whileHover={{ scale: 1.1, backgroundColor: "rgba(var(--primary), 0.2)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      {item.icon}
+                    </motion.div>
+                    <div>
+                      <h5 className="font-medium mb-1">{item.title}</h5>
+                      <p className="text-muted-foreground">{item.content}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            </div>
+            </motion.div>
             
-            <div className="bg-white rounded-2xl p-8 shadow-sm hover-lift">
-              <h4 className="text-2xl font-semibold mb-6">Öffnungszeiten</h4>
+            <motion.div 
+              className="bg-white rounded-2xl p-8 shadow-sm"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ 
+                duration: 0.7, 
+                type: "spring",
+                stiffness: 50,
+                delay: 0.3
+              }}
+              whileHover={{ 
+                y: -10,
+                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                transition: { 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 15 
+                }
+              }}
+            >
+              <motion.h4 
+                className="text-2xl font-semibold mb-6"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+              >
+                Öffnungszeiten
+              </motion.h4>
               
               <div className="space-y-3">
                 <div className="flex justify-between">
@@ -271,7 +438,7 @@ const Contact = () => {
                   Terminvereinbarungen sind auch ausserhalb der regulären Öffnungszeiten möglich. Kontaktieren Sie uns für einen individuellen Beratungstermin.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -280,3 +447,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
