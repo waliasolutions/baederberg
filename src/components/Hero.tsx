@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
@@ -6,12 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const slideImages = [
   {
-    url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Bad',
     description: 'Moderne Bäder, die Komfort und Stil vereinen'
   },
   {
-    url: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1556909114-44e3e9399a2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Küche',
     description: 'Funktionale Küchen mit eleganter Ästhetik'
   },
