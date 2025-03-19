@@ -125,10 +125,11 @@ const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
   const controls = useAnimationControls();
+  const [currentDrawingIndex, setCurrentDrawingIndex] = useState(0);
 
   useEffect(() => {
     // Auto-advance slides every 5 seconds
-    const interval = setInterval(() => {
+    const slideInterval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slideImages.length);
     }, 5000);
 
@@ -144,8 +145,8 @@ const Hero = () => {
       }
     };
 
-    // Setup continuous animation
-    const setupContinuousAnimation = async () => {
+    // Setup continuous animation for the drawings that's independent from slides
+    const setupDrawingAnimation = async () => {
       await controls.start({
         pathLength: 1,
         opacity: 1,
@@ -155,30 +156,27 @@ const Hero = () => {
         }
       });
       
-      // After drawing is complete, restart animation with a small delay
+      // After drawing is complete, change to next drawing and restart animation
       setTimeout(() => {
+        setCurrentDrawingIndex((prevIndex) => (prevIndex + 1) % Object.keys(svgPaths).length);
         controls.set({ pathLength: 0, opacity: 0.3 });
-        setupContinuousAnimation();
-      }, 1000);
+        setupDrawingAnimation();
+      }, 1500);
     };
 
-    setupContinuousAnimation();
+    setupDrawingAnimation();
 
     window.addEventListener('scroll', handleScroll);
     return () => {
-      clearInterval(interval);
+      clearInterval(slideInterval);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [controls]);
 
-  // Get the current path based on the slide index
-  const getCurrentPath = () => {
-    switch (currentIndex) {
-      case 0: return svgPaths.bathroom;
-      case 1: return svgPaths.kitchen;
-      case 2: return svgPaths.livingroom;
-      default: return svgPaths.bathroom;
-    }
+  // Get the current path for the drawing animation (independent from slides)
+  const getCurrentDrawingPath = () => {
+    const paths = Object.values(svgPaths);
+    return paths[currentDrawingIndex];
   };
 
   return (
@@ -203,7 +201,7 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-primary/60 z-0" />
       
-      {/* SVG Blueprint Animation - Now more detailed and realistic with continuous animation */}
+      {/* SVG Blueprint Animation - Now independent from slideshow */}
       <div className="absolute inset-0 z-[1] pointer-events-none flex items-center justify-center">
         <svg 
           ref={svgRef}
@@ -214,10 +212,10 @@ const Hero = () => {
           className="opacity-30"
         >
           <motion.path
-            d={getCurrentPath()}
+            d={getCurrentDrawingPath()}
             initial={{ pathLength: 0, opacity: 0 }}
             animate={controls}
-            key={currentIndex}
+            key={currentDrawingIndex}
             stroke="white"
             strokeWidth="1.5"
             fill="none"
