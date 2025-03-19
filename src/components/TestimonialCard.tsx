@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { Quote } from 'lucide-react';
+import { Quote, User } from 'lucide-react';
 
 interface TestimonialCardProps {
   quote: string;
@@ -63,11 +63,11 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             />
           ) : (
             <motion.div 
-              className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center"
-              whileHover={{ scale: 1.1, backgroundColor: "rgba(var(--primary), 0.1)" }}
+              className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(var(--primary), 0.2)" }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <span className="text-base font-medium text-primary">{author.charAt(0)}</span>
+              <User size={20} className="text-primary/70" />
             </motion.div>
           )}
           <div>
