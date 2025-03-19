@@ -7,15 +7,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 const slideImages = [
   {
     url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-    title: 'Bad'
+    title: 'Bad',
+    description: 'Moderne Bäder, die Komfort und Stil vereinen'
   },
   {
     url: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-    title: 'Küche'
+    title: 'Küche',
+    description: 'Funktionale Küchen mit eleganter Ästhetik'
   },
   {
     url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-    title: 'Innenausbau'
+    title: 'Innenausbau',
+    description: 'Massgeschneiderte Lösungen für Ihren Wohnraum'
   }
 ];
 
@@ -56,10 +59,10 @@ const Hero = () => {
       <AnimatePresence mode="wait">
         <motion.div 
           key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
             backgroundImage: `url('${slideImages[currentIndex].url}')`,
@@ -68,7 +71,7 @@ const Hero = () => {
         />
       </AnimatePresence>
       
-      <div className="absolute inset-0 bg-primary/50 z-0" />
+      <div className="absolute inset-0 bg-primary/60 z-0" />
       
       <div className="content-container container relative z-10 px-6 md:px-12 pt-20 pb-20 text-center">
         <motion.div 
@@ -85,21 +88,24 @@ const Hero = () => {
           >
             Ihr Spezialist für{' '}
             <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="inline-block"
+              key={slideImages[currentIndex].title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.7 }}
+              className="inline-block text-white"
             >
               {slideImages[currentIndex].title}
             </motion.span>
           </motion.h1>
           <motion.p 
+            key={slideImages[currentIndex].description}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.8 }}
             className="max-w-3xl mx-auto text-lg md:text-xl text-white mb-10"
           >
-            Wir gestalten Ihre Träume von modernen Bädern, Küchen und Innenausbauten in höchster Schweizer Qualität.
+            {slideImages[currentIndex].description}
           </motion.p>
           
           <motion.div 
@@ -145,7 +151,9 @@ const Hero = () => {
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full ${
               currentIndex === index ? 'bg-white' : 'bg-white/40'
-            } transition-all duration-300`}
+            } transition-all duration-300 ${
+              currentIndex === index ? 'w-8' : 'w-2'
+            }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
