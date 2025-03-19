@@ -44,35 +44,35 @@ const ScrollToTop = () => {
       const sliders = document.querySelectorAll('.comparison-slider');
       sliders.forEach(slider => {
         let isDown = false;
-        let startX;
-        let scrollLeft;
+        let startX: number;
+        let scrollLeft: number;
 
-        const handleDrag = (e) => {
+        const handleDrag = (e: MouseEvent | TouchEvent) => {
           if (!isDown) return;
           e.preventDefault();
           
-          const x = e.pageX || (e.touches && e.touches[0].pageX);
+          const x = 'pageX' in e ? e.pageX : (e.touches && e.touches[0].pageX);
           const walk = (x - startX);
-          const sliderWidth = slider.offsetWidth;
+          const sliderWidth = (slider as HTMLElement).offsetWidth;
           const percentage = Math.max(0, Math.min(100, (scrollLeft + walk) / sliderWidth * 100));
           
-          const afterElement = slider.querySelector('.after');
-          const handleElement = slider.querySelector('.slider-handle');
+          const afterElement = slider.querySelector('.after') as HTMLElement;
+          const handleElement = slider.querySelector('.slider-handle') as HTMLElement;
           
           if (afterElement) afterElement.style.width = `${percentage}%`;
           if (handleElement) handleElement.style.left = `${percentage}%`;
         };
 
-        slider.addEventListener('mousedown', (e) => {
+        slider.addEventListener('mousedown', (e: MouseEvent) => {
           isDown = true;
           startX = e.pageX;
-          scrollLeft = slider.querySelector('.after').offsetWidth;
+          scrollLeft = (slider.querySelector('.after') as HTMLElement).offsetWidth;
         });
 
-        slider.addEventListener('touchstart', (e) => {
+        slider.addEventListener('touchstart', (e: TouchEvent) => {
           isDown = true;
           startX = e.touches[0].pageX;
-          scrollLeft = slider.querySelector('.after').offsetWidth;
+          scrollLeft = (slider.querySelector('.after') as HTMLElement).offsetWidth;
         });
 
         window.addEventListener('mouseup', () => {
@@ -83,8 +83,8 @@ const ScrollToTop = () => {
           isDown = false;
         });
 
-        window.addEventListener('mousemove', handleDrag);
-        window.addEventListener('touchmove', handleDrag);
+        window.addEventListener('mousemove', handleDrag as EventListener);
+        window.addEventListener('touchmove', handleDrag as EventListener);
       });
     };
 
