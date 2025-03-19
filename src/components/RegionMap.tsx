@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -47,7 +46,6 @@ const RegionMap = () => {
 
   useEffect(() => {
     if (inView) {
-      // Start cycling through regions
       let index = 0;
       intervalRef.current = window.setInterval(() => {
         activateRegion(regions[index].name);
@@ -74,19 +72,16 @@ const RegionMap = () => {
     <div ref={ref} className={`relative h-[500px] w-full rounded-xl overflow-hidden shadow-lg ${inView ? 'animate-fade-in' : 'opacity-0'}`}>
       <div className="absolute inset-0 bg-secondary">
         <div ref={mapRef} className="relative w-full h-full overflow-hidden">
-          {/* Map background */}
           <img 
-            src="https://images.unsplash.com/photo-1573167243872-43c6433b9d40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Switzerland_location_map.svg/1200px-Switzerland_location_map.svg.png" 
             alt="Map of service regions in Switzerland"
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            className="absolute inset-0 w-full h-full object-contain opacity-80"
           />
           
-          {/* Compass icon */}
           <div className="absolute top-5 right-5 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md">
-            <Compass size={28} className="text-primary" />
+            <Compass size={28} className="text-[#0E5A94]" />
           </div>
           
-          {/* Region points */}
           {regions.map((region) => (
             <div
               key={region.name}
@@ -123,7 +118,6 @@ const RegionMap = () => {
         </div>
       </div>
       
-      {/* Regions list at the bottom */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/90 to-transparent p-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Navigation size={20} className="text-[#0E5A94]" />
