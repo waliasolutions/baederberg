@@ -22,9 +22,17 @@ const slideImages = [
   }
 ];
 
+// SVG paths for the room outlines
+const svgPaths = {
+  kitchen: "M10,50 L100,50 L100,150 L200,150 L200,250 L10,250 L10,50 Z M120,150 L180,150 L180,190 L120,190 Z M30,50 L80,50 L80,100 L30,100 Z M140,250 L180,250 L180,210 L140,210 Z",
+  bathroom: "M10,50 L200,50 L200,250 L10,250 L10,50 Z M30,70 L60,70 L60,100 L30,100 Z M140,70 L180,70 L180,100 L140,100 Z M30,180 L90,180 L90,230 L30,230 Z M120,180 L180,180 L180,230 L120,230 Z",
+  livingroom: "M10,50 L250,50 L250,200 L10,200 L10,50 Z M10,110 L50,110 L50,150 L10,150 Z M210,50 L250,50 L250,100 L210,100 Z M100,130 L160,130 L160,180 L100,180 Z M180,130 L230,130 L230,180 L180,180 Z"
+};
+
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     // Auto-advance slides every 5 seconds
@@ -51,6 +59,16 @@ const Hero = () => {
     };
   }, []);
 
+  // Get the current path based on the slide index
+  const getCurrentPath = () => {
+    switch (currentIndex) {
+      case 0: return svgPaths.bathroom;
+      case 1: return svgPaths.kitchen;
+      case 2: return svgPaths.livingroom;
+      default: return svgPaths.bathroom;
+    }
+  };
+
   return (
     <div 
       ref={heroRef} 
@@ -72,6 +90,38 @@ const Hero = () => {
       </AnimatePresence>
       
       <div className="absolute inset-0 bg-primary/60 z-0" />
+      
+      {/* SVG Blueprint Animation */}
+      <div className="absolute inset-0 z-[1] pointer-events-none flex items-center justify-center">
+        <svg 
+          ref={svgRef}
+          width="100%" 
+          height="100%" 
+          viewBox="0 0 260 300" 
+          preserveAspectRatio="xMidYMid meet"
+          className="opacity-20"
+        >
+          <motion.path
+            d={getCurrentPath()}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: 1, 
+              opacity: 1,
+              transition: { 
+                pathLength: { type: "spring", duration: 3, bounce: 0 },
+                opacity: { duration: 0.5 }
+              }
+            }}
+            exit={{ pathLength: 0, opacity: 0 }}
+            key={currentIndex}
+            stroke="white"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
       
       <div className="content-container container relative z-10 px-6 md:px-12 pt-20 pb-20 text-center">
         <motion.div 
