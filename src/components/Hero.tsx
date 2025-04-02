@@ -8,19 +8,19 @@ const slideImages = [
     url: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Bad',
     heading: 'Ihr Traumbad wird Realität',
-    description: 'Wir gestalten Ihr Bad nach Ihren individuellen Wünschen - hochwertig, termintreu und budgetgerecht.'
+    description: 'Mir gstaltet Ihres Bad nach Ihre individuelle Wünsch - hochwertig, pünktlich und budgetgerecht.'
   },
   {
     url: 'https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-    title: 'Küche',
-    heading: 'Die Küche als Mittelpunkt Ihres Zuhauses',
-    description: 'Individuelle Küchenlösungen, die Funktionalität und Ästhetik perfekt vereinen.'
+    title: 'Chuchi',
+    heading: 'D\'Chuchi als Mittelpunkt vo Ihrem Dehai',
+    description: 'Individuelli Chuchilösige, wo Funktionalität und Ästhetik perfekt zämebringet.'
   },
   {
     url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-    title: 'Innenausbau',
-    heading: 'Räume neu gedacht',
-    description: 'Von der Planung bis zur Realisierung: Wir gestalten Ihre Wohnräume nach Maß.'
+    title: 'Inneusbau',
+    heading: 'Räum neu denkt',
+    description: 'Vo de Planig bis zur Umsetztig: Mir gstaltet Ihri Wohnräum nach Mass.'
   }
 ];
 
@@ -103,11 +103,11 @@ const Hero = () => {
               </p>
               
               {/* Benefits */}
-              <div className="flex flex-wrap justify-center gap-3 mb-8">
+              <div className="flex flex-wrap justify-center gap-3">
                 {[
-                  "Schweizer Qualitätsarbeit",
-                  "Termingerechte Umsetzung",
-                  "Persönliche Beratung"
+                  "Schwiizer Qualitätsarbet",
+                  "Pünktlichi Umsetztig",
+                  "Persönlichi Beratig"
                 ].map((benefit, index) => (
                   <span 
                     key={index}
