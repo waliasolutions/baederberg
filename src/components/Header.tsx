@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -219,11 +218,11 @@ const Header = () => {
               >
                 <Link 
                   to="/#contact" 
-                  className="px-5 py-2.5 bg-primary text-primary-foreground rounded-full"
+                  className="px-5 py-2.5 bg-primary text-primary-foreground rounded-md"
                 >
                   <motion.span
                     whileHover={{ 
-                      y: -5,
+                      y: -3,
                       boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
                     }}
                     whileTap={{ y: 0, scale: 0.98 }}
@@ -238,7 +237,6 @@ const Header = () => {
           )}
         </div>
 
-        {/* Mobile menu */}
         <AnimatePresence>
           {isMobile && isMenuOpen && (
             <motion.div 

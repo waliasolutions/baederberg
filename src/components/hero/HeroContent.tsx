@@ -25,16 +25,20 @@ const HeroContent = ({ currentSlide }: HeroContentProps) => {
           
           {/* Agitation */}
           <motion.h1 
+            key={`title-${currentSlide.title}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 md:leading-tight"
           >
             Verwandeln Sie Ihr {currentSlide.title} in einen <span className="text-secondary">modernen Lebensraum</span>
           </motion.h1>
           
           <motion.p 
-            key={currentSlide.description}
+            key={`desc-${currentSlide.description}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
             className="max-w-3xl mx-auto text-lg md:text-xl text-white/90 mb-10"
           >
             {currentSlide.description}. Kein Stress, keine Verzögerungen – nur professionelle Ergebnisse.

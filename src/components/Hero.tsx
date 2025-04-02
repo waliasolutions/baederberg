@@ -6,7 +6,7 @@ import HeroContent from './hero/HeroContent';
 
 const slideImages = [
   {
-    url: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Bad',
     description: 'Moderne Bäder, die Komfort und Stil vereinen'
   },
@@ -29,7 +29,7 @@ const Hero = () => {
   return (
     <div 
       ref={heroRef} 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-screen flex items-center justify-center overflow-hidden"
     >
       <HeroSlideshow 
         images={slideImages} 

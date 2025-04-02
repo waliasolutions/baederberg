@@ -34,7 +34,7 @@ const HeroSlideshow = ({ images, currentIndex, setCurrentIndex }: HeroSlideshowP
           key={currentIndex}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
+          exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
@@ -44,7 +44,7 @@ const HeroSlideshow = ({ images, currentIndex, setCurrentIndex }: HeroSlideshowP
         />
       </AnimatePresence>
       
-      <div className="absolute inset-0 bg-primary/60 z-0" />
+      <div className="absolute inset-0 bg-primary/70 z-0" />
 
       {/* Slide indicators */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
