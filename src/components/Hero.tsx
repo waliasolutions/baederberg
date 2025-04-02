@@ -1,25 +1,23 @@
 
-import { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const slideImages = [
   {
-    url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Bad',
     heading: 'Ihr Traumbad wird Realität',
     description: 'Wir gestalten Ihr Bad nach Ihren individuellen Wünschen - hochwertig, termintreu und budgetgerecht.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1556909114-44e3e9399a2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Küche',
     heading: 'Die Küche als Mittelpunkt Ihres Zuhauses',
     description: 'Individuelle Küchenlösungen, die Funktionalität und Ästhetik perfekt vereinen.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Innenausbau',
     heading: 'Räume neu gedacht',
     description: 'Von der Planung bis zur Realisierung: Wir gestalten Ihre Wohnräume nach Maß.'
@@ -119,25 +117,6 @@ const Hero = () => {
                     <span className="text-white text-sm">{benefit}</span>
                   </span>
                 ))}
-              </div>
-              
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button 
-                  asChild
-                  size="lg"
-                  className="bg-white text-primary hover:bg-white/90"
-                >
-                  <Link to="/#contact">Kostenlose Beratung</Link>
-                </Button>
-                <Button 
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10"
-                >
-                  <Link to="/#services">Unsere Leistungen</Link>
-                </Button>
               </div>
             </motion.div>
           </AnimatePresence>
