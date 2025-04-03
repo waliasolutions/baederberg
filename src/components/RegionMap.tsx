@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -74,7 +75,7 @@ const RegionMap = () => {
         <div ref={mapRef} className="relative w-full h-full overflow-hidden">
           <img 
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Switzerland_location_map.svg/1200px-Switzerland_location_map.svg.png" 
-            alt="Map of service regions in Switzerland"
+            alt="Karte der Serviceregionen in der Schweiz"
             className="absolute inset-0 w-full h-full object-contain opacity-80"
           />
           

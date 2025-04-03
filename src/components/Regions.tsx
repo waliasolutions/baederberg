@@ -29,7 +29,7 @@ const Regions = () => {
           >
             <MapPin size={20} className="text-primary" />
             <h2 className="text-sm md:text-base text-primary font-medium">
-              Eusi Regione
+              Unsere Regionen
             </h2>
           </motion.div>
           <motion.h3 
@@ -39,7 +39,7 @@ const Regions = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            In Ihrer Nöchi für Sie da
+            In Ihrer Nähe für Sie da
           </motion.h3>
           <motion.p 
             className="text-muted-foreground text-lg"
@@ -48,7 +48,7 @@ const Regions = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Mir sind in 10 Regione vo de Schwiiz aktiv und betreued Ihres Projekt mit lokaler Expertise und persönlichem Service.
+            Wir sind in 10 Regionen der Schweiz aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.
           </motion.p>
         </motion.div>
         
