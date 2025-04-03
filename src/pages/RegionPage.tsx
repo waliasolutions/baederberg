@@ -733,6 +733,8 @@ const RegionPage = () => {
                     description={project.description}
                     images={project.images}
                     tags={project.tags}
+                    location={project.location || regionId?.charAt(0).toUpperCase() + regionId?.slice(1) || 'Region'}
+                    index={index}
                   />
                 ))}
               </div>
@@ -753,6 +755,7 @@ const RegionPage = () => {
                     quote={testimonial.quote}
                     author={testimonial.author}
                     project={testimonial.project}
+                    location={regionId?.charAt(0).toUpperCase() + regionId?.slice(1) || 'Region'}
                   />
                 ))}
               </div>
