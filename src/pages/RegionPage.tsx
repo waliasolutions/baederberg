@@ -528,7 +528,10 @@ const regionData: RegionData = {
       position: 'Regionalleiter Wetzikon',
       phone: '+41 44 123 45 71',
       email: 'wetzikon@baederberg.ch'
-    }
-    ,
+    },
     address: {
-      street: 'Bahnhofstrasse 12
+      street: 'Bahnhofstrasse 12',
+      city: '8620 Wetzikon'
+    }
+  }
+};
