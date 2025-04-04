@@ -48,8 +48,8 @@ const Hero = () => {
   const currentSlide = slideImages[currentIndex];
 
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden">
-      <AnimatePresence mode="wait">
+    <div className="relative h-screen max-w-full overflow-hidden">
+      <AnimatePresence mode="sync">
         <motion.div 
           key={currentIndex}
           initial={{ opacity: 0 }}
@@ -66,20 +66,21 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-primary/60 z-0" />
       
-      <div className="container relative z-10 px-4 sm:px-6 md:px-12 pt-20 pb-20 max-w-full">
+      <div className="container relative z-10 px-4 mx-auto pt-20 pb-20 w-full">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
             <motion.div
               key={`content-${currentIndex}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
+              className="px-4 sm:px-6 w-full"
             >
               <span className="inline-block px-4 py-1 mb-6 text-white bg-white/10 backdrop-blur-sm rounded-full text-sm">
                 {currentSlide.title}
@@ -93,7 +94,7 @@ const Hero = () => {
                 {currentSlide.description}
               </p>
               
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-3 max-w-full">
                 {[
                   "Schweizer Qualitätsarbeit",
                   "Pünktliche Umsetzung",
