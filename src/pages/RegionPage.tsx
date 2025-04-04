@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -264,7 +263,7 @@ const regionData: RegionData = {
   'waedenswil': {
     title: 'Bäderberg in Wädenswil',
     description: 'Ihr Partner für moderne Bad- und Küchenrenovierungen in Wädenswil',
-    problem: 'Ist Ihr Bad oder Ihre Küche in Wädenswil nicht mehr zeitgemäß?',
+    problem: 'Ist Ihr Bad oder Ihre Küche in Wädenswil nicht mehr zeitgemäss?',
     agitation: 'Ein altes Bad oder eine veraltete Küche verbraucht oft zu viel Energie und passt nicht mehr zu den heutigen Bedürfnissen. In Wädenswil mit seiner Nähe zum See sollte das Zuhause ein Ort zum Wohlfühlen sein.',
     solution: 'Bäderberg bietet durchdachte Umbauten, die Ihren Wohnraum in Wädenswil schöner und funktionaler machen.',
     serviceDescription: 'Unser Team in Wädenswil plant und baut Ihr neues Bad oder Ihre Küche nach Ihren Wünschen – persönlich, zuverlässig und mit regionaler Verbundenheit.',

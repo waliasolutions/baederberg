@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -56,7 +55,7 @@ const InnenausbauPage = () => {
               >
                 <h2 className="text-3xl font-semibold mb-6">Ihr Wohnraum nach Mass</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Der Innenausbau prägt maßgeblich die Atmosphäre und Funktionalität Ihrer Wohnräume. Mit unserer Expertise in der Raumgestaltung und präzisen handwerklichen Ausführung schaffen wir einzigartige Wohnkonzepte, die perfekt zu Ihrem Lebensstil passen.
+                  Der Innenausbau prägt massgeblich die Atmosphäre und Funktionalität Ihrer Wohnräume. Mit unserer Expertise in der Raumgestaltung und präzisen handwerklichen Ausführung schaffen wir einzigartige Wohnkonzepte, die perfekt zu Ihrem Lebensstil passen.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
                   Von der optimalen Raumaufteilung über die Materialauswahl bis zur fachgerechten Umsetzung setzen wir Ihren persönlichen Wohnstil um und schaffen Räume, die nicht nur optisch begeistern, sondern auch praktisch überzeugen.

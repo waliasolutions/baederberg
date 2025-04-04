@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
@@ -19,7 +20,7 @@ const slideImages = [
     url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Innenausbau',
     heading: 'Räume neu gedacht',
-    description: 'Von der Planung bis zur Umsetzung: Wir gestalten Ihre Wohnräume nach Maß.'
+    description: 'Von der Planung bis zur Umsetzung: Wir gestalten Ihre Wohnräume nach Mass.'
   }
 ];
 
@@ -94,7 +95,7 @@ const Hero = () => {
               
               <div className="flex flex-wrap justify-center gap-3">
                 {[
-                  "Deutsche Qualitätsarbeit",
+                  "Schweizer Qualitätsarbeit",
                   "Pünktliche Umsetzung",
                   "Persönliche Beratung"
                 ].map((benefit, index) => (
