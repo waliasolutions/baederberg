@@ -1293,6 +1293,7 @@ const RegionPage = () => {
                 location={project.location}
                 images={project.images}
                 tags={project.tags}
+                index={index}
               />
             ))}
           </div>
