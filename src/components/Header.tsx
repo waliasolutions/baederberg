@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -72,7 +73,7 @@ const Header = () => {
               className="p-2 rounded-md hover:bg-secondary/20 transition-colors"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMenuOpen ? <X size={22} className="text-white" /> : <Menu size={22} className="text-white" />}
             </button>
           ) : (
             <NavigationMenu className="hidden md:flex">
