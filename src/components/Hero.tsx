@@ -66,7 +66,7 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-primary/60 z-0" />
       
-      <div className="container relative z-10 px-6 md:px-12 pt-20 pb-20">
+      <div className="container relative z-10 px-4 sm:px-6 md:px-12 pt-20 pb-20 max-w-full">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
