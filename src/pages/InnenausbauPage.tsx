@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Home, Hammer, WallpaperíˆÍ™} from 'lucide-react';
+import { ArrowLeft, CheckCircle, Home, Hammer, Wallpaper } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 
@@ -80,7 +80,7 @@ const InnenausbauPage = () => {
                   </div>
                   
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <WallpaperíˆÍ™ className="text-primary mb-3" size={32} />
+                    <Wallpaper className="text-primary mb-3" size={32} />
                     <h4 className="font-medium mb-2">Materialvielfalt</h4>
                     <p className="text-sm text-muted-foreground">
                       Hochwertige und nachhaltige Materialien
