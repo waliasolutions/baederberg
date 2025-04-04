@@ -1,0 +1,6 @@
+
+This is a placeholder for a global search and replace operation to change "Deutsche" to "Schweizer" across all project files.
+
+Files to check and replace:
+1. src/pages/RegionPage.tsx
+2. Any other pages or components containing "Deutsche"

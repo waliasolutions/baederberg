@@ -57,6 +57,11 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
+              alt="Bäderberg Logo" 
+              className="h-10 mr-2" 
+            />
             <span className="text-xl md:text-2xl font-bold tracking-tight">Bäderberg</span>
           </Link>
 
@@ -119,7 +124,7 @@ const Header = () => {
         <AnimatePresence>
           {isMobile && isMenuOpen && (
             <motion.div 
-              className="fixed inset-0 bg-background/98 z-40 pt-16 px-4"
+              className="fixed inset-0 bg-white z-40 pt-16 px-4"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
