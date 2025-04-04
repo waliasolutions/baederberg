@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const projects = [
   {
     title: "Moderne Bad-Oase",
-    location: "Zürich",
+    location: "Schweiz",
     description: "Vollständige Renovation eines Badezimmers mit freistehender Badewanne und begehbarer Dusche.",
     images: [
       "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -18,7 +18,7 @@ const projects = [
   },
   {
     title: "Offene Designküche",
-    location: "Richterswil",
+    location: "Schweiz",
     description: "Hochwertige Küche mit Kochinsel und nahtloser Integration in den Wohnbereich.",
     images: [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -28,7 +28,7 @@ const projects = [
   },
   {
     title: "Minimalistisches Gäste-WC",
-    location: "Wädenswil",
+    location: "Schweiz",
     description: "Kleine Raumlösung mit maximaler Funktionalität in klarem, reduziertem Design.",
     images: [
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -38,7 +38,7 @@ const projects = [
   },
   {
     title: "Luxuriöses Master-Bad",
-    location: "Rapperswil SG",
+    location: "Schweiz",
     description: "Grosszügiges Masterbad mit Doppelwaschtisch und bodenebener Dusche in Marmor-Optik.",
     images: [
       "https://images.unsplash.com/photo-1642371744429-7b98b7b619c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -48,7 +48,7 @@ const projects = [
   },
   {
     title: "Rustikale Landhaus-Küche",
-    location: "Horgen",
+    location: "Schweiz",
     description: "Maßgefertigte Küche im Landhausstil mit modernen Geräten und traditionellen Elementen.",
     images: [
       "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -58,7 +58,7 @@ const projects = [
   },
   {
     title: "Moderner Eingangsbereich",
-    location: "Rüti ZH",
+    location: "Schweiz",
     description: "Neugestaltung eines Eingangsbereichs mit massgeschreinerten Einbauschränken und eleganter Beleuchtung.",
     images: [
       "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",

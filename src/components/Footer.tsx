@@ -91,7 +91,6 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-6">Regionen</h4>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="font-medium mb-2 text-primary-foreground/90">Standard</p>
                 <ul className="space-y-2">
                   <li>
                     <Link to="/region/zurich" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
@@ -111,11 +110,22 @@ const Footer = () => {
                       Wädenswil
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/region/lachen" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Lachen
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/pfaeffikon" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Pfäffikon SZ
+                    </Link>
+                  </li>
                 </ul>
               </div>
               
               <div>
-                <p className="font-medium mb-2 text-primary-foreground/90">Premium <span className="text-amber-300">★</span></p>
                 <ul className="space-y-2">
                   <li>
                     <Link to="/region/zollikon" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">

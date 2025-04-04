@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -9,7 +10,6 @@ interface Region {
   coordinates: { x: number; y: number };
   active: boolean;
   icon?: JSX.Element;
-  premium?: boolean;
 }
 
 const RegionMap = () => {
@@ -24,12 +24,11 @@ const RegionMap = () => {
     { name: 'Rapperswil SG', path: '/region/rapperswil', coordinates: { x: 63, y: 43 }, active: false, icon: <Building size={12} className="mr-1" /> },
     { name: 'Horgen', path: '/region/horgen', coordinates: { x: 40, y: 48 }, active: false, icon: <Home size={12} className="mr-1" /> },
     { name: 'Rüti ZH', path: '/region/rueti', coordinates: { x: 55, y: 30 }, active: false, icon: <MapPin size={12} className="mr-1" /> },
-    
-    { name: 'Zollikon', path: '/region/zollikon', coordinates: { x: 47, y: 42 }, active: false, icon: <Building size={12} className="mr-1" />, premium: true },
-    { name: 'Kilchberg', path: '/region/kilchberg', coordinates: { x: 42, y: 44 }, active: false, icon: <Building size={12} className="mr-1" />, premium: true },
-    { name: 'Küsnacht', path: '/region/kuesnacht', coordinates: { x: 49, y: 38 }, active: false, icon: <Building size={12} className="mr-1" />, premium: true },
-    { name: 'Meilen', path: '/region/meilen', coordinates: { x: 53, y: 34 }, active: false, icon: <Building size={12} className="mr-1" />, premium: true },
-    { name: 'Erlenbach', path: '/region/erlenbach', coordinates: { x: 51, y: 36 }, active: false, icon: <Building size={12} className="mr-1" />, premium: true },
+    { name: 'Zollikon', path: '/region/zollikon', coordinates: { x: 47, y: 42 }, active: false, icon: <Building size={12} className="mr-1" /> },
+    { name: 'Kilchberg', path: '/region/kilchberg', coordinates: { x: 42, y: 44 }, active: false, icon: <Building size={12} className="mr-1" /> },
+    { name: 'Küsnacht', path: '/region/kuesnacht', coordinates: { x: 49, y: 38 }, active: false, icon: <Building size={12} className="mr-1" /> },
+    { name: 'Meilen', path: '/region/meilen', coordinates: { x: 53, y: 34 }, active: false, icon: <Building size={12} className="mr-1" /> },
+    { name: 'Erlenbach', path: '/region/erlenbach', coordinates: { x: 51, y: 36 }, active: false, icon: <Building size={12} className="mr-1" /> },
   ]);
 
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
@@ -104,17 +103,13 @@ const RegionMap = () => {
               <div 
                 className={`w-5 h-5 rounded-full ${
                   region.active 
-                    ? region.premium
-                      ? 'bg-[#D4AF37]'
-                      : 'bg-[#0E5A94]' 
-                    : region.premium
-                      ? 'bg-[#D4AF37]/60'
-                      : 'bg-[#0E5A94]/60'
+                    ? 'bg-[#0E5A94]'
+                    : 'bg-[#0E5A94]/60'
                 } relative transition-medium shadow-md flex items-center justify-center`}
               >
                 <div 
                   className={`absolute inset-0 rounded-full animate-ping ${
-                    region.active ? region.premium ? 'bg-[#D4AF37]/40' : 'bg-[#0E5A94]/40' : 'bg-primary/0'
+                    region.active ? 'bg-[#0E5A94]/40' : 'bg-primary/0'
                   }`}
                 />
                 <MapPin size={12} className="text-white" />
@@ -122,9 +117,8 @@ const RegionMap = () => {
               <div 
                 className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 whitespace-nowrap text-sm font-medium glass px-3 py-1 rounded-full shadow-md ${
                   region.active ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-                } transition-medium ${region.premium ? 'bg-amber-50 border border-amber-200' : ''}`}
+                } transition-medium`}
               >
-                {region.premium && <span className="text-amber-600 mr-1">★</span>}
                 {region.name}
               </div>
             </div>
@@ -144,18 +138,13 @@ const RegionMap = () => {
               to={region.path}
               className={`px-3 py-2 text-sm text-center rounded-lg border transition-medium hover:bg-[#0E5A94] hover:text-white hover:border-[#0E5A94] flex items-center justify-center ${
                 region.active 
-                  ? region.premium
-                    ? 'bg-[#D4AF37] text-white border-[#D4AF37] shadow-md' 
-                    : 'bg-[#0E5A94] text-white border-[#0E5A94] shadow-md'
-                  : region.premium
-                    ? 'bg-amber-50 text-amber-900 border-amber-200'
-                    : 'bg-white text-foreground border-border'
+                  ? 'bg-[#0E5A94] text-white border-[#0E5A94] shadow-md'
+                  : 'bg-white text-foreground border-border'
               }`}
               onMouseEnter={() => handleRegionHover(region.name)}
             >
               {region.icon}
               {region.name}
-              {region.premium && <span className="ml-1 text-xs">★</span>}
             </Link>
           ))}
         </div>
