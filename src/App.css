@@ -1,8 +1,9 @@
+
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .logo {
@@ -39,4 +40,22 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    word-break: break-word;
+  }
+}
+
+/* Ensure images don't cause overflow */
+img {
+  max-width: 100%;
+  height: auto;
 }

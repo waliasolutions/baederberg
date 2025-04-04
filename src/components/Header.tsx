@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -34,6 +35,13 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when resizing to desktop
+  useEffect(() => {
+    if (!isMobile && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMobile, isMenuOpen]);
+
   const regions = [
     { name: 'Zürich', path: '/region/zurich' },
     { name: 'Richterswil', path: '/region/richterswil' },
@@ -50,17 +58,17 @@ const Header = () => {
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/90 backdrop-blur-md shadow-sm py-2' : 'py-4'
+        isScrolled || isMenuOpen ? 'bg-background/90 backdrop-blur-md shadow-sm py-2' : 'py-3 md:py-4'
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <div className="bg-white p-1.5 rounded-md mr-2">
+          <Link to="/" className="flex items-center z-50">
+            <div className="bg-white p-1 md:p-1.5 rounded-md mr-2">
               <img 
                 src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
                 alt="Bäderberg Logo" 
-                className="h-10 w-10 object-contain" 
+                className="h-8 w-8 md:h-10 md:w-10 object-contain" 
               />
             </div>
           </Link>
@@ -68,10 +76,10 @@ const Header = () => {
           {isMobile ? (
             <button 
               onClick={toggleMenu} 
-              className="p-2 rounded-md hover:bg-secondary/20 transition-colors"
+              className="p-2 rounded-md hover:bg-secondary/20 transition-colors z-50"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? <X size={22} className="text-white" /> : <Menu size={22} className="text-white" />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           ) : (
             <NavigationMenu className="hidden md:flex">
@@ -124,7 +132,7 @@ const Header = () => {
         <AnimatePresence>
           {isMobile && isMenuOpen && (
             <motion.div 
-              className="fixed inset-0 bg-white z-40 pt-16 px-4"
+              className="fixed inset-0 bg-background z-40 pt-16 px-4 overflow-y-auto"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -161,7 +169,7 @@ const Header = () => {
                     <ChevronDown size={18} />
                   </button>
                   
-                  <div id="mobile-regions" className="hidden pl-2 py-2 space-y-1">
+                  <div id="mobile-regions" className="hidden pl-2 py-2 space-y-1 max-h-60 overflow-y-auto">
                     {regions.map((region) => (
                       <Link 
                         key={region.path}
@@ -175,7 +183,7 @@ const Header = () => {
                   </div>
                 </div>
                 
-                <div className="pt-4">
+                <div className="pt-4 pb-20">
                   <Link 
                     to="/#contact" 
                     className="py-3 bg-primary text-primary-foreground rounded-md text-center font-medium block"

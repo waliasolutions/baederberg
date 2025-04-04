@@ -26,15 +26,17 @@ const Index = () => {
   }, [location]);
   
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen bg-background overflow-hidden w-full">
       <Header />
       <Hero />
-      <Services />
-      <About />
-      <Gallery />
-      <Testimonials />
-      <Contact />
-      <Footer />
+      <div className="w-full max-w-full overflow-x-hidden">
+        <Services />
+        <About />
+        <Gallery />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const slideImages = [
   {
@@ -27,6 +28,7 @@ const slideImages = [
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     if (isAutoScrollPaused) return;
@@ -48,7 +50,7 @@ const Hero = () => {
   const currentSlide = slideImages[currentIndex];
 
   return (
-    <div className="relative h-screen max-w-full overflow-hidden">
+    <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden">
       <AnimatePresence mode="sync">
         <motion.div 
           key={currentIndex}
@@ -66,12 +68,12 @@ const Hero = () => {
       
       <div className="absolute inset-0 bg-primary/60 z-0" />
       
-      <div className="container relative z-10 px-4 mx-auto pt-20 pb-20 w-full">
+      <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-3xl mx-auto text-center px-4"
         >
           <AnimatePresence mode="sync">
             <motion.div
@@ -80,21 +82,21 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="px-4 sm:px-6 w-full"
+              className="w-full"
             >
-              <span className="inline-block px-4 py-1 mb-6 text-white bg-white/10 backdrop-blur-sm rounded-full text-sm">
+              <span className="inline-block px-4 py-1 mb-4 md:mb-6 text-white bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm">
                 {currentSlide.title}
               </span>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
                 {currentSlide.heading}
               </h1>
               
-              <p className="text-lg md:text-xl text-white/90 mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 md:mb-8">
                 {currentSlide.description}
               </p>
               
-              <div className="flex flex-wrap justify-center gap-3 max-w-full">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                 {[
                   "Schweizer Qualitätsarbeit",
                   "Pünktliche Umsetzung",
@@ -102,10 +104,10 @@ const Hero = () => {
                 ].map((benefit, index) => (
                   <span 
                     key={index}
-                    className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full"
+                    className="flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full"
                   >
-                    <Check size={16} className="text-white" />
-                    <span className="text-white text-sm">{benefit}</span>
+                    <Check size={isMobile ? 12 : 16} className="text-white" />
+                    <span className="text-white text-xs sm:text-sm">{benefit}</span>
                   </span>
                 ))}
               </div>
@@ -118,8 +120,8 @@ const Hero = () => {
             <button
               key={index}
               onClick={() => handleIndicatorClick(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                currentIndex === index ? 'bg-white w-8' : 'bg-white/40 w-2'
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                currentIndex === index ? 'bg-white w-6 sm:w-8' : 'bg-white/40 w-1.5 sm:w-2'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -130,13 +132,13 @@ const Hero = () => {
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 text-white"
       >
         <a 
           href="#services" 
           aria-label="Scroll down to learn more"
         >
-          <ChevronDown size={36} />
+          <ChevronDown size={isMobile ? 28 : 36} />
         </a>
       </motion.div>
     </div>
