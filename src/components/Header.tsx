@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -64,7 +63,6 @@ const Header = () => {
                 className="h-10 w-10 object-contain" 
               />
             </div>
-            <span className="text-xl md:text-2xl font-bold tracking-tight">Bäderberg</span>
           </Link>
 
           {isMobile ? (
