@@ -18,12 +18,14 @@ interface RegionData {
     projects: {
       title: string;
       description: string;
+      location: string;
       images: string[];
       tags: string[];
     }[];
     testimonials: {
       quote: string;
       author: string;
+      location: string;
       project: string;
     }[];
     benefits: {
@@ -61,6 +63,7 @@ const regionData: RegionData = {
       {
         title: 'Penthouse-Bad mit Ausblick',
         description: 'Vollständiger Umbau eines Badezimmers in einem Penthouse mit Panoramablick über Zürich.',
+        location: 'Zürich',
         images: [
           'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -70,6 +73,7 @@ const regionData: RegionData = {
       {
         title: 'Moderne Altbauküche',
         description: 'Neugestaltung einer Küche in einer Altbauwohnung unter Beibehaltung des historischen Charakters.',
+        location: 'Zürich',
         images: [
           'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -79,6 +83,7 @@ const regionData: RegionData = {
       {
         title: 'Urbanes Loft-Konzept',
         description: 'Komplette Neugestaltung eines Loft-Apartments im Zürcher Industriequartier mit offener Küche und modernem Bad.',
+        location: 'Zürich',
         images: [
           'https://images.unsplash.com/photo-1595514535115-dd5b0d141038?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -90,16 +95,19 @@ const regionData: RegionData = {
       {
         quote: 'Unser neues Badezimmer ist ein absoluter Traum geworden. Das Team von Bäderberg hat hervorragende Arbeit geleistet und alle unsere Wünsche berücksichtigt.',
         author: 'Familie Schmid',
+        location: 'Zürich',
         project: 'Badumbau'
       },
       {
         quote: 'Die Zusammenarbeit war von Anfang bis Ende professionell und unkompliziert. Wir sind mit unserer neuen Küche mehr als zufrieden.',
         author: 'Peter und Monika Herzog',
+        location: 'Zürich',
         project: 'Küchenumbau'
       },
       {
         quote: 'Perfekte Umsetzung unserer Loft-Ideen. Termintreu, budgettreu und mit höchster handwerklicher Qualität.',
         author: 'Stefan Meier',
+        location: 'Zürich',
         project: 'Loft-Renovierung'
       }
     ],
@@ -162,6 +170,7 @@ const regionData: RegionData = {
       {
         title: 'Seesicht-Badezimmer',
         description: 'Komplette Neugestaltung eines Badezimmers mit Blick auf den Zürichsee und Verwendung von natürlichen Materialien.',
+        location: 'Richterswil',
         images: [
           'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1604014438289-3b23c7f2e4e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -171,6 +180,7 @@ const regionData: RegionData = {
       {
         title: 'Landhaus-Küche mit modernem Touch',
         description: 'Renovierung einer Küche im traditionellen Landhaus-Stil mit modernen Funktionalitäten und hochwertigen Geräten.',
+        location: 'Richterswil',
         images: [
           'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -180,6 +190,7 @@ const regionData: RegionData = {
       {
         title: 'Dachgeschoss-Ausbau',
         description: 'Umwandlung eines ungenutzten Dachgeschosses in einen offenen Wohnraum mit Bad-en-suite und eindrucksvoller Seesicht.',
+        location: 'Richterswil',
         images: [
           'https://images.unsplash.com/photo-1618221639244-c1a8502c0eb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -191,16 +202,19 @@ const regionData: RegionData = {
       {
         quote: 'Die Arbeit von Bäderberg hat unsere Erwartungen übertroffen. Besonders die Termintreue und die Sauberkeit auf der Baustelle haben uns beeindruckt.',
         author: 'Familie Meier',
+        location: 'Richterswil',
         project: 'Badumbau'
       },
       {
         quote: 'Unsere neue Landhaus-Küche verbindet perfekt Tradition und Moderne. Die Beratung war ausgezeichnet und die Umsetzung präzise.',
         author: 'Christine und Thomas Weber',
+        location: 'Richterswil',
         project: 'Küchenumbau'
       },
       {
         quote: 'Der Dachausbau hat unser Haus komplett transformiert. Bäderberg hat aus einem ungenutzten Raum ein wahres Highlight gemacht.',
         author: 'Peter Müller',
+        location: 'Richterswil',
         project: 'Dachausbau'
       }
     ],
@@ -258,6 +272,7 @@ const regionData: RegionData = {
       {
         title: 'Altstadtwohnung-Renovierung',
         description: 'Sanfte Renovierung eines Bades und einer Küche in einer denkmalgeschützten Altstadtwohnung unter Erhaltung von historischen Elementen.',
+        location: 'Winterthur',
         images: [
           'https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1541123356219-284ebe98ae3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -267,6 +282,7 @@ const regionData: RegionData = {
       {
         title: 'Familienfreundliche Küche',
         description: 'Planung und Umsetzung einer großzügigen Familienküche mit kindersicheren Features und offener Wohnraumgestaltung.',
+        location: 'Winterthur',
         images: [
           'https://images.unsplash.com/photo-1570739261022-01116088b768?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -276,6 +292,7 @@ const regionData: RegionData = {
       {
         title: 'Modernes Spa-Bad',
         description: 'Umwandlung eines normalen Badezimmers in eine persönliche Wellnessoase mit Dampfdusche und freistehender Badewanne.',
+        location: 'Winterthur',
         images: [
           'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1575403071235-5dcd06cbf169?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -287,16 +304,19 @@ const regionData: RegionData = {
       {
         quote: 'Die Sensibilität des Bäderberg-Teams für unser denkmalgeschütztes Haus hat uns begeistert. Sie haben es geschafft, modernen Komfort mit dem alten Charme zu verbinden.',
         author: 'Familie Keller',
+        location: 'Winterthur',
         project: 'Altstadtwohnung-Renovierung'
       },
       {
         quote: 'Unsere neue Familienküche ist zum Herzstück des Hauses geworden. Die Planung ist genau auf unsere Bedürfnisse eingegangen und die Umsetzung war perfekt.',
         author: 'Stefanie und Marco Huber',
+        location: 'Winterthur',
         project: 'Familienküche'
       },
       {
         quote: 'Ich bin jeden Tag wieder begeistert von meinem neuen Spa-Bad. Es ist wie ein 5-Sterne-Hotel im eigenen Zuhause.',
         author: 'Lisa Schneider',
+        location: 'Winterthur',
         project: 'Spa-Bad'
       }
     ],
@@ -354,6 +374,7 @@ const regionData: RegionData = {
       {
         title: 'See-Wohnung Modernisierung',
         description: 'Komplettumbau eines Bades und einer Küche in einer Wohnung mit Blick auf den Greifensee - hell, modern und funktional.',
+        location: 'Uster',
         images: [
           'https://images.unsplash.com/photo-1632829882891-5047ccc421bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1588854337115-1c67d9247e4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -363,6 +384,7 @@ const regionData: RegionData = {
       {
         title: 'Landleben im Zürcher Oberland',
         description: 'Renovierung eines traditionellen Farmhauses mit moderner Küche und rustikalem Bad unter Verwendung von natürlichen Materialien.',
+        location: 'Uster',
         images: [
           'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -372,6 +394,7 @@ const regionData: RegionData = {
       {
         title: 'Stadtnahes Wohnen mit Komfort',
         description: 'Modernisierung eines Bades und einer Küche in einem Mehrfamilienhaus - pflegeleicht, funktional und ästhetisch anspruchsvoll.',
+        location: 'Uster',
         images: [
           'https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1584622786675-8fc421e46cd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -383,16 +406,19 @@ const regionData: RegionData = {
       {
         quote: 'Wir haben uns auf Anhieb wohlgefühlt mit dem Bäderberg Team. Von der Beratung bis zur Umsetzung ist alles gelaufen wie am Schnürchen.',
         author: 'Familie Bachmann',
+        location: 'Uster',
         project: 'Bad- und Küchenumbau'
       },
       {
         quote: 'Der Umbau unseres alten Farmhauses war eine Herausforderung, aber das Bäderberg-Team hat diese mit Bravour gemeistert. Ein wunderschönes Resultat!',
         author: 'Hans und Vreni Studer',
+        location: 'Uster',
         project: 'Landhaus-Renovierung'
       },
       {
         quote: 'Ich bin total begeistert von der Qualität und Effizienz. Meine Wohnung wurde innerhalb von nur 4 Wochen komplett transformiert.',
         author: 'Sarah Meyer',
+        location: 'Uster',
         project: 'Wohnungsumbau'
       }
     ],
@@ -450,6 +476,7 @@ const regionData: RegionData = {
       {
         title: 'Moderne Familienküche',
         description: 'Umgestaltung einer kleinen, unpraktischen Küche in einen offenen, hellen Familienraum mit Insel und genügend Stauraum.',
+        location: 'Wetzikon',
         images: [
           'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -459,6 +486,7 @@ const regionData: RegionData = {
       {
         title: 'Barrierefreies Bad',
         description: 'Umwandlung eines konventionellen Bades in ein modernes, barrierefreies Bad für generationsübergreifendes Wohnen.',
+        location: 'Wetzikon',
         images: [
           'https://images.unsplash.com/photo-1603825491103-bd638b1873b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -468,6 +496,7 @@ const regionData: RegionData = {
       {
         title: 'Einfamilienhaus-Komplettsanierung',
         description: 'Umfassende Modernisierung eines Einfamilienhauses aus den 70er Jahren mit neuen Bädern und Küche sowie energetischer Optimierung.',
+        location: 'Wetzikon',
         images: [
           'https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
@@ -479,16 +508,19 @@ const regionData: RegionData = {
       {
         quote: 'Der Umbau unserer Küche war ein riesiger Erfolg! Das Team von Bäderberg hat uns kompetent beraten und alles perfekt umgesetzt.',
         author: 'Familie Widmer',
+        location: 'Wetzikon',
         project: 'Küchenumbau'
       },
       {
         quote: 'Ein barrierefreies Bad war für uns wichtig und das Resultat ist besser als wir es uns je hätten vorstellen können.',
         author: 'Ehepaar Baumann',
+        location: 'Wetzikon',
         project: 'Barrierefreies Bad'
       },
       {
         quote: 'Die Komplettsanierung unseres Hauses ist super gelaufen. Professionell, pünktlich und im Budget. Wir können Bäderberg nur weiterempfehlen!',
         author: 'Daniel und Regula Frei',
+        location: 'Wetzikon',
         project: 'Haussanierung'
       }
     ],
@@ -620,8 +652,10 @@ export const RegionPage = () => {
                 key={index} 
                 title={project.title}
                 description={project.description}
+                location={project.location}
                 images={project.images}
                 tags={project.tags}
+                index={index}
               />
             ))}
           </div>
@@ -666,6 +700,7 @@ export const RegionPage = () => {
                 key={index}
                 quote={testimonial.quote}
                 author={testimonial.author}
+                location={testimonial.location}
                 project={testimonial.project}
               />
             ))}
