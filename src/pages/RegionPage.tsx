@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -183,7 +182,7 @@ const regionData: RegionData = {
         description: 'Umwandlung eines ungenutzten Dachgeschosses in einen offenen Wohnraum mit Bad-en-suite und eindrucksvoller Seesicht.',
         images: [
           'https://images.unsplash.com/photo-1618221639244-c1a8502c0eb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+          'https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
         ],
         tags: ['Dachausbau', 'Bad-en-suite', 'Seesicht']
       }
@@ -442,7 +441,7 @@ const regionData: RegionData = {
   'wetzikon': {
     title: 'Bäderberg in Wetzikon',
     description: 'Ihr spezialisierter Partner für Badezimmer, Küchen und Innenausbau im oberen Zürcher Oberland',
-    problem: 'Suchen Sie nach einem professionellen Partner für Ihre Umbaupläne in Wetzikon und Umgebung?',
+    problem: 'Suchen Sie nach einem professionellen Partner für Ihren Umbaupläne in Wetzikon und Umgebung?',
     agitation: 'Als pulsierendes Zentrum des oberen Zürcher Oberlands stellt Wetzikon besondere Ansprüche an Wohnraum. Veraltete Bäder und Küchen werden der modernen Lebensqualität nicht mehr gerecht und beeinträchtigen den Wohnwert Ihrer Immobilie erheblich.',
     solution: 'Bäderberg Wetzikon kombiniert lokale Kenntnisse mit schweizerischer Handwerkskunst, um Ihre Umbauträume zu verwirklichen - termingenau, im Budget und mit höchster Qualität.',
     serviceDescription: 'Von unserem Standort in Wetzikon aus betreuen wir Ihr Projekt vom ersten Beratungsgespräch bis zur Schlussabnahme - mit kurzen Wegen, schnellen Reaktionszeiten und persönlichem Kontakt.',
@@ -597,7 +596,6 @@ const RegionPage = () => {
     document.title = `${region.title} | Bäderberg`;
   }, [region.title]);
 
-  // Get icon component based on string name
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
       case 'MapPin':
@@ -618,7 +616,6 @@ const RegionPage = () => {
       <Header />
       
       <main className="min-h-screen">
-        {/* Hero Section */}
         <section 
           className="relative h-[60vh] min-h-[400px] bg-cover bg-center flex items-center"
           style={{ backgroundImage: `url(${region.heroImage})` }}
@@ -646,7 +643,6 @@ const RegionPage = () => {
           </div>
         </section>
 
-        {/* Problem-Agitation-Solution Section */}
         <section id="problem" className="py-16 bg-background">
           <div className="container px-6 max-w-5xl">
             <div className="grid md:grid-cols-3 gap-8">
@@ -668,7 +664,6 @@ const RegionPage = () => {
           </div>
         </section>
 
-        {/* Services Section */}
         <section id="services" className="py-16 bg-secondary/10">
           <div className="container px-6">
             <div className="text-center max-w-3xl mx-auto mb-12">
@@ -719,51 +714,44 @@ const RegionPage = () => {
           </div>
         </section>
 
-        {/* Projects Section */}
-        {region.projects && region.projects.length > 0 && (
-          <section id="projects" className="py-16">
-            <div className="container px-6">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Unsere Projekte in {regionId ? regionId.charAt(0).toUpperCase() + regionId.slice(1) : 'Ihrer Region'}</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {region.projects.map((project, index) => (
-                  <ProjectCard 
-                    key={`${regionId}-project-${index}`}
-                    title={project.title}
-                    description={project.description}
-                    images={project.images}
-                    tags={project.tags}
-                    location={project.location || regionId?.charAt(0).toUpperCase() + regionId?.slice(1) || 'Region'}
-                    index={index}
-                  />
-                ))}
-              </div>
+        <section id="projects" className="py-16">
+          <div className="container px-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Unsere Projekte in {regionId ? regionId.charAt(0).toUpperCase() + regionId?.slice(1) : 'Ihrer Region'}</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {region.projects.map((project, index) => (
+                <ProjectCard 
+                  key={`${regionId}-project-${index}`}
+                  title={project.title}
+                  description={project.description}
+                  images={project.images}
+                  tags={project.tags}
+                  location={regionId?.charAt(0).toUpperCase() + regionId?.slice(1) || 'Region'}
+                  index={index}
+                />
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
-        {/* Testimonials Section */}
-        {region.testimonials && region.testimonials.length > 0 && (
-          <section id="testimonials" className="py-16 bg-primary/5">
-            <div className="container px-6">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Das sagen unsere Kunden</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {region.testimonials.map((testimonial, index) => (
-                  <TestimonialCard
-                    key={`${regionId}-testimonial-${index}`}
-                    quote={testimonial.quote}
-                    author={testimonial.author}
-                    project={testimonial.project}
-                    location={regionId?.charAt(0).toUpperCase() + regionId?.slice(1) || 'Region'}
-                  />
-                ))}
-              </div>
+        <section id="testimonials" className="py-16 bg-primary/5">
+          <div className="container px-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Das sagen unsere Kunden</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {region.testimonials.map((testimonial, index) => (
+                <TestimonialCard
+                  key={`${regionId}-testimonial-${index}`}
+                  quote={testimonial.quote}
+                  author={testimonial.author}
+                  project={testimonial.project}
+                  location={regionId?.charAt(0).toUpperCase() + regionId?.slice(1) || 'Region'}
+                />
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
-        {/* Benefits Section */}
         <section id="benefits" className="py-16 bg-white">
           <div className="container px-6">
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Ihre Vorteile mit Bäderberg</h2>
@@ -784,7 +772,6 @@ const RegionPage = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
         <section id="faq" className="py-16 bg-secondary/10">
           <div className="container px-6 max-w-4xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Häufig gestellte Fragen</h2>
@@ -800,7 +787,6 @@ const RegionPage = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
         <section id="contact" className="py-16">
           <div className="container px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
