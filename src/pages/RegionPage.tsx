@@ -535,3 +535,236 @@ const regionData: RegionData = {
     }
   }
 };
+
+export const RegionPage = () => {
+  const { regionId } = useParams<{ regionId: string }>();
+  const region = regionId && regionData[regionId] ? regionData[regionId] : null;
+
+  useEffect(() => {
+    if (region) {
+      window.scrollTo(0, 0);
+    }
+  }, [region]);
+
+  if (!region) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-24 flex flex-col items-center justify-center">
+          <h1 className="text-3xl font-bold mb-4">Region nicht gefunden</h1>
+          <p className="text-muted-foreground mb-6">Die angeforderte Region existiert leider nicht.</p>
+          <Link to="/" className="text-primary hover:underline flex items-center">
+            <ChevronRight className="mr-1 h-4 w-4" />
+            Zurück zur Startseite
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      
+      {/* Hero Section */}
+      <section 
+        className="relative pt-24 pb-16 md:pt-32 md:pb-24"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url(${region.heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="container mx-auto px-4 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 max-w-4xl">{region.title}</h1>
+          <p className="text-xl md:text-2xl max-w-3xl text-white/90">{region.description}</p>
+        </div>
+      </section>
+      
+      {/* Problem-Agitation-Solution Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-secondary/10 p-6 rounded-lg">
+              <h3 className="text-xl font-bold mb-4 text-primary">Das Problem</h3>
+              <p className="text-lg">{region.problem}</p>
+            </div>
+            
+            <div className="bg-secondary/10 p-6 rounded-lg">
+              <h3 className="text-xl font-bold mb-4 text-primary">Die Situation</h3>
+              <p className="text-lg">{region.agitation}</p>
+            </div>
+            
+            <div className="bg-secondary/10 p-6 rounded-lg">
+              <h3 className="text-xl font-bold mb-4 text-primary">Unsere Lösung</h3>
+              <p className="text-lg">{region.solution}</p>
+            </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Unsere Leistungen in {region.title.split(' in ')[1]}</h2>
+            <p className="text-lg md:text-xl max-w-3xl mx-auto">{region.serviceDescription}</p>
+          </div>
+        </div>
+      </section>
+      
+      {/* Projects Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Unsere Projekte in {region.title.split(' in ')[1]}</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {region.projects.map((project, index) => (
+              <ProjectCard 
+                key={index} 
+                title={project.title}
+                description={project.description}
+                images={project.images}
+                tags={project.tags}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Benefits Section */}
+      <section className="py-16 md:py-24 bg-secondary/10">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Ihre Vorteile in {region.title.split(' in ')[1]}</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {region.benefits.map((benefit, index) => {
+              let Icon;
+              if (benefit.icon === 'MapPin') Icon = MapPin;
+              else if (benefit.icon === 'Clock') Icon = Clock;
+              else if (benefit.icon === 'Shield') Icon = Shield;
+              else if (benefit.icon === 'Wrench') Icon = Wrench;
+
+              return (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm flex flex-col">
+                  <div className="flex items-center mb-4">
+                    {Icon && <Icon className="text-primary mr-3 h-6 w-6" />}
+                    <h3 className="font-bold text-xl">{benefit.title}</h3>
+                  </div>
+                  <p>{benefit.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      
+      {/* Testimonials Section */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Was unsere Kunden sagen</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {region.testimonials.map((testimonial, index) => (
+              <TestimonialCard 
+                key={index}
+                quote={testimonial.quote}
+                author={testimonial.author}
+                project={testimonial.project}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* FAQ Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Häufig gestellte Fragen</h2>
+          
+          <div className="max-w-3xl mx-auto space-y-6">
+            {region.faq.map((item, index) => (
+              <div key={index} className="bg-secondary/5 p-6 rounded-lg">
+                <h3 className="font-bold text-xl mb-3">{item.question}</h3>
+                <p className="text-muted-foreground">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Contact Section */}
+      <section className="py-16 md:py-24 bg-secondary/10">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Kontaktieren Sie uns</h2>
+              <p className="text-lg mb-8">Wir freuen uns darauf, Ihr Projekt in {region.title.split(' in ')[1]} zu besprechen und Ihnen ein unverbindliches Angebot zu erstellen.</p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <div className="bg-primary/10 p-3 rounded mr-4">
+                    <MapPin className="text-primary h-6 w-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">Adresse</h4>
+                    <p>{region.address.street}<br/>{region.address.city}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-primary/10 p-3 rounded mr-4">
+                    <Phone className="text-primary h-6 w-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">Telefon</h4>
+                    <p>{region.contactPerson.phone}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-primary/10 p-3 rounded mr-4">
+                    <Mail className="text-primary h-6 w-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">E-Mail</h4>
+                    <p>{region.contactPerson.email}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-2xl font-bold mb-6">Ihr Ansprechpartner</h3>
+              
+              <div className="flex items-center mb-6">
+                <div className="bg-secondary/20 h-16 w-16 rounded-full flex items-center justify-center text-xl font-bold">
+                  {region.contactPerson.name.split(' ').map(n => n[0]).join('')}
+                </div>
+                <div className="ml-4">
+                  <p className="font-bold text-lg">{region.contactPerson.name}</p>
+                  <p className="text-muted-foreground">{region.contactPerson.position}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <Link 
+                  to="/#contact"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-6 rounded w-full text-center block font-medium"
+                >
+                  Jetzt Kontakt aufnehmen
+                </Link>
+                
+                <Link 
+                  to={`tel:${region.contactPerson.phone.replace(/\s/g, '')}`}
+                  className="border border-primary text-primary hover:bg-primary/5 py-3 px-6 rounded w-full text-center block font-medium"
+                >
+                  <Phone className="h-4 w-4 inline-block mr-2" />
+                  Anrufen
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <Footer />
+    </div>
+  );
+};
