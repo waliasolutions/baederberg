@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import RegionPage from "./pages/RegionPage";
 import NotFound from "./pages/NotFound";
+import BadumbauPage from "./pages/BadumbauPage";
+import KuechenumbauPage from "./pages/KuechenumbauPage";
+import InnenausbauPage from "./pages/InnenausbauPage";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();
@@ -109,6 +112,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/region/:regionId" element={<RegionPage />} />
+          <Route path="/badumbau" element={<BadumbauPage />} />
+          <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
+          <Route path="/innenausbau" element={<InnenausbauPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

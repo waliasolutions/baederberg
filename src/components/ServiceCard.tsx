@@ -34,6 +34,22 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     })
   };
   
+  // Map service title to the appropriate route
+  const getServiceRoute = (title: string) => {
+    switch (title) {
+      case "Badumbau":
+        return "/badumbau";
+      case "Küchenumbau":
+        return "/kuechenumbau";
+      case "Innenausbau":
+        return "/innenausbau";
+      default:
+        return to;
+    }
+  };
+  
+  const serviceRoute = getServiceRoute(title);
+  
   return (
     <motion.div 
       className="group relative rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300"
@@ -108,7 +124,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           transition={{ delay: 0.5, duration: 0.4 }}
         >
           <Link 
-            to={to} 
+            to={serviceRoute} 
             className="inline-flex items-center gap-1 text-primary font-medium transition-all duration-300 group-hover:gap-2"
           >
             Mehr erfahren 

@@ -16,7 +16,7 @@ const servicesData = [
       "Stilvolle Badmöbel",
       "Innovative Beleuchtungskonzepte"
     ],
-    to: "/#gallery"
+    to: "/badumbau"
   },
   {
     title: "Küchenumbau",
@@ -29,7 +29,7 @@ const servicesData = [
       "Funktionale Stauraumlösungen",
       "Energieeffiziente Lösungen"
     ],
-    to: "/#gallery"
+    to: "/kuechenumbau"
   },
   {
     title: "Innenausbau",
@@ -42,7 +42,7 @@ const servicesData = [
       "Treppen und Geländer",
       "Massgeschneiderte Möbel"
     ],
-    to: "/#gallery"
+    to: "/innenausbau"
   }
 ];
 
