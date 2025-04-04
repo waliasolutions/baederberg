@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Linkedin, ChevronRight } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, ChevronRight, Shield, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,6 +16,16 @@ const Footer = () => {
             <p className="text-primary-foreground/80 mb-6">
               Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau in der Schweiz.
             </p>
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary-foreground/80" />
+                <p className="text-primary-foreground/80 text-sm">5 Jahre Garantie auf alle Arbeiten</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary-foreground/80" />
+                <p className="text-primary-foreground/80 text-sm">Kostenlose Vermessung vor der Installation</p>
+              </div>
+            </div>
             <div className="flex items-center gap-4">
               <a 
                 href="https://facebook.com" 
@@ -51,19 +61,19 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-6">Leistungen</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/#services" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                <Link to="/badumbau" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
                   <ChevronRight size={16} className="mr-2" />
                   Badumbau
                 </Link>
               </li>
               <li>
-                <Link to="/#services" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                <Link to="/kuechenumbau" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
                   <ChevronRight size={16} className="mr-2" />
                   Küchenumbau
                 </Link>
               </li>
               <li>
-                <Link to="/#services" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                <Link to="/innenausbau" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
                   <ChevronRight size={16} className="mr-2" />
                   Innenausbau
                 </Link>
@@ -79,44 +89,67 @@ const Footer = () => {
           
           <div>
             <h4 className="font-semibold text-lg mb-6">Regionen</h4>
-            <ul className="grid grid-cols-2 gap-3">
-              <li>
-                <Link to="/region/zurich" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
-                  <ChevronRight size={16} className="mr-2" />
-                  Zürich
-                </Link>
-              </li>
-              <li>
-                <Link to="/region/richterswil" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
-                  <ChevronRight size={16} className="mr-2" />
-                  Richterswil
-                </Link>
-              </li>
-              <li>
-                <Link to="/region/waedenswil" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
-                  <ChevronRight size={16} className="mr-2" />
-                  Wädenswil
-                </Link>
-              </li>
-              <li>
-                <Link to="/region/lachen" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
-                  <ChevronRight size={16} className="mr-2" />
-                  Lachen
-                </Link>
-              </li>
-              <li>
-                <Link to="/region/pfaeffikon" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
-                  <ChevronRight size={16} className="mr-2" />
-                  Pfäffikon SZ
-                </Link>
-              </li>
-              <li>
-                <Link to="/region/menzingen" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
-                  <ChevronRight size={16} className="mr-2" />
-                  Menzingen
-                </Link>
-              </li>
-            </ul>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <p className="font-medium mb-2 text-primary-foreground/90">Standard</p>
+                <ul className="space-y-2">
+                  <li>
+                    <Link to="/region/zurich" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Zürich
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/richterswil" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Richterswil
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/waedenswil" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Wädenswil
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <p className="font-medium mb-2 text-primary-foreground/90">Premium <span className="text-amber-300">★</span></p>
+                <ul className="space-y-2">
+                  <li>
+                    <Link to="/region/zollikon" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Zollikon
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/kilchberg" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Kilchberg
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/kuesnacht" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Küsnacht
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/meilen" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Meilen
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/region/erlenbach" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-medium">
+                      <ChevronRight size={16} className="mr-2" />
+                      Erlenbach
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           
           <div>
