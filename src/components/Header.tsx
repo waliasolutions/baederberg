@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -57,11 +56,13 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img 
-              src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
-              alt="Bäderberg Logo" 
-              className="h-10 mr-2" 
-            />
+            <div className="bg-white p-1.5 rounded-md mr-2">
+              <img 
+                src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
+                alt="Bäderberg Logo" 
+                className="h-10 w-10 object-contain" 
+              />
+            </div>
             <span className="text-xl md:text-2xl font-bold tracking-tight">Bäderberg</span>
           </Link>
 
