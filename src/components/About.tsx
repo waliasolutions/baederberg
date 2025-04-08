@@ -28,11 +28,11 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Wir möchten Ihr Zuhause schöner machen
+              Wir moechten Ihr Zuhause schoener machen
             </h2>
             
             <p className="text-muted-foreground text-lg mb-8">
-              Bei Bäderberg kümmern wir uns um Ihr Badezimmer, Ihre Küche und den Innenausbau. Wir sind ein kleines Team von Handwerkern, die mit Leidenschaft bei der Sache sind und Ihre Wünsche verstehen wollen.
+              Bei Baederberg kuemmern wir uns um Ihr Badezimmer, Ihre Kueche und den Innenausbau. Wir sind ein kleines Team von Handwerkern, die mit Leidenschaft bei der Sache sind und Ihre Wuensche verstehen wollen.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

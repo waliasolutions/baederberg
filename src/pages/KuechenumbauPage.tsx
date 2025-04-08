@@ -53,12 +53,12 @@ const KuechenumbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Eine Küche, die zu Ihnen passt</h2>
+                <h2 className="text-3xl font-semibold mb-6">Eine Kueche, die zu Ihnen passt</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Die Küche ist oft der Ort, an dem das Leben zu Hause zusammenkommt. Hier wird gekocht, gegessen, geredet und gelacht. Wir möchten Ihnen helfen, eine Küche zu schaffen, die zu Ihrem Leben und Ihren Gewohnheiten passt.
+                  Die Kueche ist oft der Ort, an dem das Leben zu Hause zusammenkommt. Hier wird gekocht, gegessen, geredet und gelacht. Wir moechten Ihnen helfen, eine Kueche zu schaffen, die zu Ihrem Leben und Ihren Gewohnheiten passt.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Von der ersten Idee bis zur fertigen Küche sind wir an Ihrer Seite. Mit handwerklichem Geschick und einem Gespür für Ihre Bedürfnisse gestalten wir einen Raum, in dem Sie sich wohlfühlen.
+                  Von der ersten Idee bis zur fertigen Kueche sind wir an Ihrer Seite. Mit handwerklichem Geschick und einem Gespuer fuer Ihre Beduerfnisse gestalten wir einen Raum, in dem Sie sich wohlfuehlen.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -66,7 +66,7 @@ const KuechenumbauPage = () => {
                     <Utensils className="text-primary mb-3" size={32} />
                     <h4 className="font-medium mb-2">Funktionalität</h4>
                     <p className="text-sm text-muted-foreground">
-                      Optimale Arbeitsabläufe für effizientes Kochen
+                      Optimale Arbeitsablaufe für effizientes Kochen
                     </p>
                   </div>
                   

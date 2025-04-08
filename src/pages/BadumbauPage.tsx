@@ -55,10 +55,10 @@ const BadumbauPage = () => {
               >
                 <h2 className="text-3xl font-semibold mb-6">Ein Bad ganz nach Ihren Vorstellungen</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Das Badezimmer ist mehr als nur ein funktionaler Raum – es ist der Ort, an dem Ihr Tag beginnt und oft auch endet. Wir möchten mit Ihnen gemeinsam herausfinden, wie wir diesen Raum so gestalten können, dass er Ihnen Freude bereitet.
+                  Das Badezimmer ist mehr als nur ein funktionaler Raum – es ist der Ort, an dem Ihr Tag beginnt und oft auch endet. Wir moechten mit Ihnen gemeinsam herausfinden, wie wir diesen Raum so gestalten koennen, dass er Ihnen Freude bereitet.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Mit unserer Erfahrung und Ihren Ideen können wir ein Bad schaffen, das Ihren Alltag bereichert. Wir begleiten Sie von den ersten Gedanken bis zum fertigen Bad.
+                  Mit unserer Erfahrung und Ihren Ideen koennen wir ein Bad schaffen, das Ihren Alltag bereichert. Wir begleiten Sie von den ersten Gedanken bis zum fertigen Bad.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
