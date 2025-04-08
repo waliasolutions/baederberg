@@ -229,16 +229,6 @@ const InnenausbauPage = () => {
         {/* Gallery Section */}
         <section className="py-16 md:py-24">
           <div className="container px-6 md:px-12">
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold text-center mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              Unsere Innenausbau-Projekte
-            </motion.h2>
-            
             <motion.div 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               initial={{ opacity: 0, y: 20 }}
