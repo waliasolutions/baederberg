@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Award, Smile } from 'lucide-react';
@@ -27,21 +28,20 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Wir sind mehr als nur Handwerker
+              Wir möchten Ihr Zuhause schöner machen
             </h2>
             
             <p className="text-muted-foreground text-lg mb-8">
-              Bäderberg steht für innovative Badgestaltung, hochwertige Küchen und massgeschneiderte Innenausbauten. 
-              Wir verbinden traditionelles Handwerk mit modernster Technik, um Ihre Wohnträume zu verwirklichen.
+              Bei Bäderberg kümmern wir uns um Ihr Badezimmer, Ihre Küche und den Innenausbau. Wir sind ein kleines Team von Handwerkern, die mit Leidenschaft bei der Sache sind und Ihre Wünsche verstehen wollen.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-center gap-3">
                 <Heart className="text-primary" size={24} />
                 <div>
-                  <h4 className="font-semibold">Leidenschaft</h4>
+                  <h4 className="font-semibold">Mit Leidenschaft</h4>
                   <p className="text-sm text-muted-foreground">
-                    Wir lieben, was wir tun, und das sieht man in jedem Detail.
+                    Wir lieben unsere Arbeit und freuen uns, wenn Sie sich in Ihrem neuen Raum wohlfühlen.
                   </p>
                 </div>
               </div>
@@ -49,9 +49,9 @@ const About = () => {
               <div className="flex items-center gap-3">
                 <Award className="text-primary" size={24} />
                 <div>
-                  <h4 className="font-semibold">Qualität</h4>
+                  <h4 className="font-semibold">Mit Sorgfalt</h4>
                   <p className="text-sm text-muted-foreground">
-                    Wir verwenden nur die besten Materialien und Techniken.
+                    Wir arbeiten sorgfältig und achten auf jedes Detail.
                   </p>
                 </div>
               </div>
@@ -59,9 +59,9 @@ const About = () => {
               <div className="flex items-center gap-3">
                 <Smile className="text-primary" size={24} />
                 <div>
-                  <h4 className="font-semibold">Kundenzufriedenheit</h4>
+                  <h4 className="font-semibold">Für Ihr Wohlbefinden</h4>
                   <p className="text-sm text-muted-foreground">
-                    Ihre Wünsche stehen bei uns an erster Stelle.
+                    Ihre Zufriedenheit liegt uns am Herzen.
                   </p>
                 </div>
               </div>

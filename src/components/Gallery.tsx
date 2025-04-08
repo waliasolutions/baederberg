@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const projects = [
   {
-    title: "Moderne Bad-Oase",
+    title: "Ein neues Badezimmer für Familie Müller",
     location: "Schweiz",
-    description: "Vollständige Renovation eines Badezimmers mit freistehender Badewanne und begehbarer Dusche.",
+    description: "Wir haben ein altes Bad in einen hellen, freundlichen Raum mit viel Platz für die ganze Familie verwandelt.",
     images: [
       "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -17,9 +17,9 @@ const projects = [
     tags: ["Badumbau", "Modern", "Freistehende Badewanne"]
   },
   {
-    title: "Offene Designküche",
+    title: "Offene Küche für mehr Familienzeit",
     location: "Schweiz",
-    description: "Hochwertige Küche mit Kochinsel und nahtloser Integration in den Wohnbereich.",
+    description: "Diese Küche haben wir so umgestaltet, dass die Familie beim Kochen zusammen sein und sich unterhalten kann.",
     images: [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1586208958839-06c17cacf2b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -27,9 +27,9 @@ const projects = [
     tags: ["Küchenumbau", "Kochinsel", "Offenes Konzept"]
   },
   {
-    title: "Minimalistisches Gäste-WC",
+    title: "Kleines Gäste-WC mit großer Wirkung",
     location: "Schweiz",
-    description: "Kleine Raumlösung mit maximaler Funktionalität in klarem, reduziertem Design.",
+    description: "Auch auf kleinem Raum kann man viel erreichen. Hier haben wir ein Gäste-WC geschaffen, das Eindruck macht.",
     images: [
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1599639668273-ce573e036294?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -37,9 +37,9 @@ const projects = [
     tags: ["Badumbau", "Gäste-WC", "Minimalistisch"]
   },
   {
-    title: "Luxuriöses Master-Bad",
+    title: "Großzügiges Bad zum Entspannen",
     location: "Schweiz",
-    description: "Grosszügiges Masterbad mit Doppelwaschtisch und bodenebener Dusche in Marmor-Optik.",
+    description: "Dieses Badezimmer haben wir in einen Ort der Ruhe und Entspannung verwandelt, mit viel Platz und hochwertigen Materialien.",
     images: [
       "https://images.unsplash.com/photo-1642371744429-7b98b7b619c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -47,9 +47,9 @@ const projects = [
     tags: ["Badumbau", "Luxus", "Marmor"]
   },
   {
-    title: "Rustikale Landhaus-Küche",
+    title: "Gemütliche Küche im Landhausstil",
     location: "Schweiz",
-    description: "Maßgefertigte Küche im Landhausstil mit modernen Geräten und traditionellen Elementen.",
+    description: "Diese Küche verbindet traditionellen Charme mit moderner Funktionalität – handgefertigt und genau nach den Wünschen der Familie.",
     images: [
       "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1590301157890-4810ed352733?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -57,9 +57,9 @@ const projects = [
     tags: ["Küchenumbau", "Landhaus", "Holz"]
   },
   {
-    title: "Moderner Eingangsbereich",
+    title: "Einladender Eingangsbereich",
     location: "Schweiz",
-    description: "Neugestaltung eines Eingangsbereichs mit massgeschreinerten Einbauschränken und eleganter Beleuchtung.",
+    description: "Hier haben wir einen Eingangsbereich gestaltet, der Gäste willkommen heißt und praktischen Stauraum für die Familie bietet.",
     images: [
       "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1618219878616-8d7690e9b7c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
@@ -105,7 +105,7 @@ const Gallery = () => {
           >
             <Grid size={20} className="text-primary" />
             <h2 className="text-sm md:text-base text-primary font-medium">
-              Unsere Referenzen
+              Unsere Arbeiten
             </h2>
           </motion.div>
           <motion.h3 
@@ -115,7 +115,7 @@ const Gallery = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Entdecken Sie unsere Projekte
+            Was wir für andere gestaltet haben
           </motion.h3>
           <motion.p 
             className="text-muted-foreground text-lg"
@@ -124,7 +124,7 @@ const Gallery = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Eine Auswahl unserer erfolgreich abgeschlossenen Projekte. Lassen Sie sich inspirieren.
+            Hier sehen Sie einige unserer abgeschlossenen Projekte. Vielleicht entdecken Sie etwas, das Ihnen gefällt und Sie inspiriert.
           </motion.p>
         </motion.div>
         

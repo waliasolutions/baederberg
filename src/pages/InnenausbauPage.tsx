@@ -17,7 +17,7 @@ const InnenausbauPage = () => {
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <img 
             src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
-            alt="Hochwertiger Innenausbau" 
+            alt="Innenausbau" 
             className="w-full h-full object-cover"
           />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
@@ -37,7 +37,7 @@ const InnenausbauPage = () => {
               </h1>
               
               <p className="text-xl text-white/90">
-                Durchdachte Raumkonzepte und präzise Ausführung für ein harmonisches Wohnerlebnis in allen Bereichen.
+                Wir helfen Ihnen dabei, Ihre Wohnräume persönlicher und komfortabler zu gestalten – ganz nach Ihren Wünschen und Bedürfnissen.
               </p>
             </motion.div>
           </div>
@@ -53,12 +53,12 @@ const InnenausbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Ihr Wohnraum nach Mass</h2>
+                <h2 className="text-3xl font-semibold mb-6">Ihr Wohnraum nach Ihren Vorstellungen</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Der Innenausbau prägt massgeblich die Atmosphäre und Funktionalität Ihrer Wohnräume. Mit unserer Expertise in der Raumgestaltung und präzisen handwerklichen Ausführung schaffen wir einzigartige Wohnkonzepte, die perfekt zu Ihrem Lebensstil passen.
+                  Die Räume, in denen wir leben, haben einen großen Einfluss auf unser Wohlbefinden. Mit unserer Erfahrung im Innenausbau möchten wir Ihnen helfen, Ihre Räume so zu gestalten, dass sie zu Ihrer Persönlichkeit und Ihrem Alltag passen.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Von der optimalen Raumaufteilung über die Materialauswahl bis zur fachgerechten Umsetzung setzen wir Ihren persönlichen Wohnstil um und schaffen Räume, die nicht nur optisch begeistern, sondern auch praktisch überzeugen.
+                  Ob Sie mehr Stauraum benötigen, einen Raum neu aufteilen möchten oder bestimmte Materialien lieben – gemeinsam finden wir Lösungen, die Ihnen Freude bereiten und Ihren Alltag bereichern.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -181,30 +181,30 @@ const InnenausbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              Unser Innenausbau-Prozess
+              Unser gemeinsamer Weg
             </motion.h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
                   step: "1",
-                  title: "Beratung & Konzept",
-                  description: "Wir erfassen Ihre Wünsche und entwickeln ein individuelles Raumkonzept für Sie."
+                  title: "Ideen & Wünsche",
+                  description: "Wir hören Ihnen zu und erfassen Ihre Vorstellungen für Ihre Räume."
                 },
                 {
                   step: "2",
-                  title: "Planung & Material",
-                  description: "Detaillierte Planungen und sorgfältige Auswahl der perfekten Materialien."
+                  title: "Planung & Materialien",
+                  description: "Gemeinsam planen wir die Umsetzung und wählen passende Materialien aus."
                 },
                 {
                   step: "3",
-                  title: "Handwerkliche Umsetzung",
-                  description: "Präzise Fertigung und fachgerechte Montage durch erfahrene Handwerker."
+                  title: "Handwerkliche Arbeit",
+                  description: "Mit Liebe zum Detail setzen wir Ihre Wünsche handwerklich um."
                 },
                 {
                   step: "4",
-                  title: "Abnahme & Übergabe",
-                  description: "Qualitätskontrolle und Übergabe Ihres neuen Wohnraums."
+                  title: "Ihr neuer Wohnraum",
+                  description: "Nach sorgfältiger Prüfung übergeben wir Ihnen Ihren neuen Wohnraum."
                 }
               ].map((item, index) => (
                 <motion.div 
@@ -277,13 +277,13 @@ const InnenausbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Bereit für Ihren individuellen Innenausbau?</h2>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Möchten Sie Ihre Wohnräume verändern?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Kontaktieren Sie uns für eine kostenlose Beratung und lassen Sie uns gemeinsam Ihre Wohnräume perfekt gestalten.
+                Lassen Sie uns bei einem Gespräch herausfinden, wie wir Ihre Wohnträume verwirklichen können.
               </p>
               <Link to="/#contact">
                 <Button size="lg" className="px-8">
-                  Kostenlose Beratung vereinbaren
+                  Gespräch vereinbaren
                 </Button>
               </Link>
             </motion.div>

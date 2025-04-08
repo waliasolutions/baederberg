@@ -8,20 +8,20 @@ const slideImages = [
   {
     url: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Bad',
-    heading: 'Ihr Traumbad wird Realität',
-    description: 'Wir gestalten Ihr Bad nach Ihren individuellen Wünschen - hochwertig, pünktlich und budgetgerecht.'
+    heading: 'Wir gestalten Ihr Bad gemeinsam',
+    description: 'Ihr persönlicher Rückzugsort sollte genau zu Ihnen passen. Lassen Sie uns zusammen Ihr Bad in einen Ort der Entspannung verwandeln.'
   },
   {
     url: 'https://images.unsplash.com/photo-1565183928294-7063f23ce0f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Küche',
-    heading: 'Die Küche als Mittelpunkt Ihres Zuhauses',
-    description: 'Individuelle Küchenlösungen, die Funktionalität und Ästhetik perfekt vereinen.'
+    heading: 'Eine Küche, die zu Ihnen passt',
+    description: 'Die Küche ist das Herz Ihres Zuhauses. Gemeinsam finden wir heraus, wie wir sie persönlich und praktisch für Sie gestalten können.'
   },
   {
     url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Innenausbau',
-    heading: 'Räume neu gedacht',
-    description: 'Von der Planung bis zur Umsetzung: Wir gestalten Ihre Wohnräume nach Mass.'
+    heading: 'Mehr Wohnlichkeit in Ihren Räumen',
+    description: 'Wir helfen Ihnen dabei, Ihre persönlichen Ideen für Ihren Wohnraum umzusetzen und ein Zuhause zu schaffen, in dem Sie sich rundum wohlfühlen.'
   }
 ];
 
@@ -98,9 +98,9 @@ const Hero = () => {
               
               <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                 {[
-                  "Schweizer Qualitätsarbeit",
-                  "Pünktliche Umsetzung",
-                  "Persönliche Beratung"
+                  "Handwerkskunst mit Herz",
+                  "Flexible Zeitplanung",
+                  "Persönliche Betreuung"
                 ].map((benefit, index) => (
                   <span 
                     key={index}

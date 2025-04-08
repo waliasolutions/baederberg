@@ -90,7 +90,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Sprechen Sie mit uns
+            Lassen Sie uns ins Gespräch kommen
           </motion.h3>
           <motion.p 
             className="text-muted-foreground text-lg"
@@ -99,7 +99,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Kontaktieren Sie uns für eine kostenlose Beratung und lassen Sie uns gemeinsam Ihr Projekt planen.
+            Wir freuen uns darauf, Sie kennenzulernen und Ihre Ideen zu hören. Schreiben Sie uns oder rufen Sie an.
           </motion.p>
         </motion.div>
         
@@ -134,7 +134,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              Senden Sie uns eine Nachricht
+              Schreiben Sie uns
             </motion.h4>
             
             {isSuccess && (
@@ -145,7 +145,7 @@ const Contact = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze mit Ihnen in Verbindung setzen.
+                Vielen Dank für Ihre Nachricht! Wir melden uns bald bei Ihnen.
               </motion.div>
             )}
             
@@ -338,7 +338,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.5 }}
               >
-                Kontaktinformationen
+                So erreichen Sie uns
               </motion.h4>
               
               <div className="space-y-6">
@@ -355,7 +355,7 @@ const Contact = () => {
                   },
                   {
                     icon: <MapPin size={18} />,
-                    title: "Hauptsitz",
+                    title: "Unser Standort",
                     content: <>
                       Musterstrasse 123<br />
                       8000 Zürich<br />
@@ -415,7 +415,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
-                Öffnungszeiten
+                Wann Sie uns finden
               </motion.h4>
               
               <div className="space-y-3">
@@ -435,7 +435,7 @@ const Contact = () => {
               
               <div className="mt-6 pt-6 border-t border-border">
                 <p className="text-sm text-muted-foreground">
-                  Terminvereinbarungen sind auch ausserhalb der regulären Öffnungszeiten möglich. Kontaktieren Sie uns für einen individuellen Beratungstermin.
+                  Wir können uns auch gerne außerhalb dieser Zeiten treffen, wenn es besser für Sie passt. Rufen Sie einfach an oder schreiben Sie uns.
                 </p>
               </div>
             </motion.div>
@@ -447,4 +447,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

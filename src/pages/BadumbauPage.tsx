@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -18,7 +17,7 @@ const BadumbauPage = () => {
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <img 
             src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
-            alt="Luxuriöses Badezimmer" 
+            alt="Badezimmer" 
             className="w-full h-full object-cover"
           />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
@@ -38,7 +37,7 @@ const BadumbauPage = () => {
               </h1>
               
               <p className="text-xl text-white/90">
-                Verwandeln Sie Ihr Badezimmer in eine luxuriöse Wohlfühloase mit eleganten Designs und hochwertigen Materialien.
+                Ihr Bad soll ein Ort sein, an dem Sie sich erholen und entspannen können. Wir helfen Ihnen, es nach Ihren Wünschen zu gestalten.
               </p>
             </motion.div>
           </div>
@@ -54,12 +53,12 @@ const BadumbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Ihr Traumbad wird Wirklichkeit</h2>
+                <h2 className="text-3xl font-semibold mb-6">Ein Bad ganz nach Ihren Vorstellungen</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Ein Badezimmer ist mehr als nur ein funktionaler Raum – es ist ein persönlicher Rückzugsort für Entspannung und Selbstpflege. Unser erfahrenes Team gestaltet Ihr individuelles Traumbad, das Ästhetik und Funktionalität perfekt vereint.
+                  Das Badezimmer ist mehr als nur ein funktionaler Raum – es ist der Ort, an dem Ihr Tag beginnt und oft auch endet. Wir möchten mit Ihnen gemeinsam herausfinden, wie wir diesen Raum so gestalten können, dass er Ihnen Freude bereitet.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Mit jahrelanger Erfahrung und detailgenauer Planung realisieren wir Bäder, die nicht nur optisch begeistern, sondern auch langfristig Freude bereiten. Wir begleiten Sie von der ersten Idee bis zur finalen Übergabe.
+                  Mit unserer Erfahrung und Ihren Ideen können wir ein Bad schaffen, das Ihren Alltag bereichert. Wir begleiten Sie von den ersten Gedanken bis zum fertigen Bad.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -97,7 +96,7 @@ const BadumbauPage = () => {
                 className="rounded-xl overflow-hidden shadow-lg"
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                  src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
                   alt="Modernes Badezimmer Detail" 
                   className="w-full h-full object-cover"
                 />
@@ -182,30 +181,30 @@ const BadumbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              Unser Badumbau-Prozess
+              So gehen wir gemeinsam vor
             </motion.h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
                   step: "1",
-                  title: "Beratung & Planung",
-                  description: "Wir besprechen Ihre Wünsche und erstellen ein individuelles Konzept für Ihr neues Bad."
+                  title: "Gespräch & Ideen",
+                  description: "Wir lernen uns kennen und sprechen über Ihre Wünsche und Vorstellungen für Ihr neues Bad."
                 },
                 {
                   step: "2",
-                  title: "Design & Visualisierung",
-                  description: "Wir erstellen detaillierte Entwürfe und 3D-Visualisierungen Ihres zukünftigen Badezimmers."
+                  title: "Gemeinsame Planung",
+                  description: "Wir erstellen Entwürfe und besprechen mit Ihnen die Details und Materialien."
                 },
                 {
                   step: "3",
-                  title: "Fachgerechte Umsetzung",
-                  description: "Unsere erfahrenen Handwerker setzen das Projekt präzise und termingerecht um."
+                  title: "Sorgfältige Umsetzung",
+                  description: "Unsere Handwerker setzen den Plan mit Geschick und Sorgfalt um."
                 },
                 {
                   step: "4",
-                  title: "Abnahme & Übergabe",
-                  description: "Nach einer gründlichen Qualitätsprüfung übergeben wir Ihr neues Traumbad."
+                  title: "Ihr neues Bad",
+                  description: "Nach einer gründlichen Prüfung übergeben wir Ihnen Ihr neues Bad."
                 }
               ].map((item, index) => (
                 <motion.div 
@@ -278,13 +277,13 @@ const BadumbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Bereit für Ihr neues Traumbad?</h2>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Möchten Sie mit uns über Ihr Bad sprechen?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Kontaktieren Sie uns für eine kostenlose Beratung und lassen Sie uns gemeinsam Ihr individuelles Badezimmer gestalten.
+                Wir nehmen uns gerne Zeit für Sie und besprechen gemeinsam, wie wir Ihr Bad nach Ihren Wünschen gestalten können.
               </p>
               <Link to="/#contact">
                 <Button size="lg" className="px-8">
-                  Kostenlose Beratung vereinbaren
+                  Gespräch vereinbaren
                 </Button>
               </Link>
             </motion.div>

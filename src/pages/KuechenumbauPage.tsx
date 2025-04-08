@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -18,7 +17,7 @@ const KuechenumbauPage = () => {
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <img 
             src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
-            alt="Luxuriöse Küche" 
+            alt="Küche" 
             className="w-full h-full object-cover"
           />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
@@ -38,7 +37,7 @@ const KuechenumbauPage = () => {
               </h1>
               
               <p className="text-xl text-white/90">
-                Perfekte Küchen, die Funktionalität und Design harmonisch verbinden, für ein optimales Koch- und Wohnerlebnis.
+                Die Küche ist oft der Mittelpunkt des Zuhauses. Gemeinsam gestalten wir einen Ort, an dem Sie gerne kochen und Zeit verbringen.
               </p>
             </motion.div>
           </div>
@@ -54,12 +53,12 @@ const KuechenumbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Ihre Traumküche wird Wirklichkeit</h2>
+                <h2 className="text-3xl font-semibold mb-6">Eine Küche, die zu Ihnen passt</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Die Küche ist das Herz des Hauses – ein Ort, an dem Funktionalität, Ästhetik und Gemeinschaft harmonisch zusammenkommen. Unsere erfahrenen Küchenplaner gestalten eine Küche, die perfekt auf Ihre Bedürfnisse abgestimmt ist.
+                  Die Küche ist oft der Ort, an dem das Leben zu Hause zusammenkommt. Hier wird gekocht, gegessen, geredet und gelacht. Wir möchten Ihnen helfen, eine Küche zu schaffen, die zu Ihrem Leben und Ihren Gewohnheiten passt.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Von der ersten Planung bis zur fertigen Küche begleiten wir Sie mit fachlicher Expertise und handwerklicher Präzision. Das Ergebnis: Eine Küche, die Ihren Alltag bereichert und zum Verweilen einlädt.
+                  Von der ersten Idee bis zur fertigen Küche sind wir an Ihrer Seite. Mit handwerklichem Geschick und einem Gespür für Ihre Bedürfnisse gestalten wir einen Raum, in dem Sie sich wohlfühlen.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -182,30 +181,30 @@ const KuechenumbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              Unser Küchenumbau-Prozess
+              So entsteht Ihre neue Küche
             </motion.h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
                   step: "1",
-                  title: "Beratung & Planung",
-                  description: "Wir analysieren Ihre Wünsche und den vorhandenen Raum für ein optimales Küchenkonzept."
+                  title: "Kennenlernen & Verstehen",
+                  description: "Wir lernen Ihre Kochgewohnheiten und Wünsche kennen, um die perfekte Küche für Sie zu planen."
                 },
                 {
                   step: "2",
-                  title: "Design & Auswahl",
-                  description: "Gemeinsam entscheiden wir über Materialien, Geräte und das finale Design Ihrer Küche."
+                  title: "Gemeinsame Gestaltung",
+                  description: "Wir besprechen zusammen Material, Stil und Geräte für Ihre neue Küche."
                 },
                 {
                   step: "3",
-                  title: "Präzise Umsetzung",
-                  description: "Unsere Fachhandwerker sorgen für eine exakte und termingerechte Montage."
+                  title: "Handwerkliche Umsetzung",
+                  description: "Mit Sorgfalt und Präzision bauen wir Ihre neue Küche genau nach Plan."
                 },
                 {
                   step: "4",
-                  title: "Übergabe & Service",
-                  description: "Nach einer Qualitätsprüfung übergeben wir Ihre neue Küche und bleiben Ihr Ansprechpartner."
+                  title: "Ihre neue Küche",
+                  description: "Nach einer gründlichen Prüfung können Sie Ihre neue Küche in Besitz nehmen und genießen."
                 }
               ].map((item, index) => (
                 <motion.div 
@@ -278,13 +277,13 @@ const KuechenumbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Bereit für Ihre neue Traumküche?</h2>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Haben Sie Fragen zu Ihrer neuen Küche?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Kontaktieren Sie uns für eine kostenlose Beratung und lassen Sie uns gemeinsam Ihre ideale Küche planen.
+                Kontaktieren Sie uns für ein persönliches Gespräch. Wir freuen uns darauf, Ihre Ideen zu hören und gemeinsam Ihre Traumküche zu planen.
               </p>
               <Link to="/#contact">
                 <Button size="lg" className="px-8">
-                  Kostenlose Beratung vereinbaren
+                  Gespräch vereinbaren
                 </Button>
               </Link>
             </motion.div>
