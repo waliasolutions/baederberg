@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -38,7 +37,7 @@ const KuechenumbauPage = () => {
               </h1>
               
               <p className="text-xl text-white/90">
-                Die Küche ist oft der Mittelpunkt des Zuhauses. Gemeinsam gestalten wir einen Ort, an dem Sie gerne kochen und Zeit verbringen.
+                Die Küche ist oft der Mittelpunkt des Zuhauses. Gemeinsam möchten wir einen Ort gestalten, an dem Sie gerne kochen und Zeit verbringen.
               </p>
             </motion.div>
           </div>
@@ -54,9 +53,9 @@ const KuechenumbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Eine Kueche, die zu Ihnen passt</h2>
+                <h2 className="text-3xl font-semibold mb-6">Eine Küche, die zu Ihnen passt</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Die Kueche ist oft der Ort, an dem das Leben zu Hause zusammenkommt. Hier wird gekocht, gegessen, geredet und gelacht. Wir moechten Ihnen helfen, eine Kueche zu schaffen, die zu Ihrem Leben und Ihren Gewohnheiten passt.
+                  Die Küche ist oft der Ort, an dem das Leben zu Hause zusammenkommt. Hier wird gekocht, gegessen, geredet und gelacht. Wir möchten Ihnen helfen, eine Küche zu schaffen, die zu Ihrem Leben und Ihren Gewohnheiten passt.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
                   Von der ersten Idee bis zur fertigen Kueche sind wir an Ihrer Seite. Mit handwerklichem Geschick und einem Gespuer fuer Ihre Beduerfnisse gestalten wir einen Raum, in dem Sie sich wohlfuehlen.

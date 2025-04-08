@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -38,7 +37,7 @@ const InnenausbauPage = () => {
               </h1>
               
               <p className="text-xl text-white/90">
-                Wir helfen Ihnen dabei, Ihre Wohnräume persönlicher und komfortabler zu gestalten – ganz nach Ihren Wünschen und Bedürfnissen.
+                Wir möchten Ihnen helfen, Ihre Wohnräume persönlicher und komfortabler zu gestalten – ganz nach Ihren Wünschen und Bedürfnissen.
               </p>
             </motion.div>
           </div>
@@ -48,7 +47,7 @@ const InnenausbauPage = () => {
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-              <motion.div
+              <div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -56,7 +55,7 @@ const InnenausbauPage = () => {
               >
                 <h2 className="text-3xl font-semibold mb-6">Ihr Wohnraum nach Ihren Vorstellungen</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Die Raeume, in denen wir leben, haben einen grossen Einfluss auf unser Wohlbefinden. Mit unserer Erfahrung im Innenausbau moechten wir Ihnen helfen, Ihre Raeume so zu gestalten, dass sie zu Ihrer Persoenlichkeit und Ihrem Alltag passen.
+                  Die Räume, in denen wir leben, haben einen großen Einfluss auf unser Wohlbefinden. Mit unserer Erfahrung im Innenausbau möchten wir Ihnen helfen, Ihre Räume so zu gestalten, dass sie zu Ihrer Persönlichkeit und Ihrem Alltag passen.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
                   Ob Sie mehr Stauraum benoetigen, einen Raum neu aufteilen moechten oder bestimmte Materialien lieben – gemeinsam finden wir Loesungen, die Ihnen Freude bereiten und Ihren Alltag bereichern.
@@ -87,7 +86,7 @@ const InnenausbauPage = () => {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
               
               <motion.div
                 initial={{ opacity: 0, x: 20 }}

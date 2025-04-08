@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -38,7 +37,7 @@ const BadumbauPage = () => {
               </h1>
               
               <p className="text-xl text-white/90">
-                Ihr Bad soll ein Ort sein, an dem Sie sich erholen und entspannen können. Wir helfen Ihnen, es nach Ihren Wünschen zu gestalten.
+                Ihr Bad soll ein Ort sein, an dem Sie sich erholen und entspannen können. Wir möchten Ihnen helfen, es nach Ihren Wünschen zu gestalten.
               </p>
             </motion.div>
           </div>
@@ -56,7 +55,7 @@ const BadumbauPage = () => {
               >
                 <h2 className="text-3xl font-semibold mb-6">Ein Bad ganz nach Ihren Vorstellungen</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Das Badezimmer ist mehr als nur ein funktionaler Raum – es ist der Ort, an dem Ihr Tag beginnt und oft auch endet. Wir moechten mit Ihnen gemeinsam herausfinden, wie wir diesen Raum so gestalten koennen, dass er Ihnen Freude bereitet.
+                  Das Badezimmer ist mehr als nur ein funktionaler Raum – es ist der Ort, an dem Ihr Tag beginnt und oft auch endet. Wir möchten mit Ihnen gemeinsam herausfinden, wie wir diesen Raum so gestalten können, dass er Ihnen Freude bereitet.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
                   Mit unserer Erfahrung und Ihren Ideen koennen wir ein Bad schaffen, das Ihren Alltag bereichert. Wir begleiten Sie von den ersten Gedanken bis zum fertigen Bad.
