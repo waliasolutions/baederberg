@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -35,7 +34,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when resizing to desktop
   useEffect(() => {
     if (!isMobile && isMenuOpen) {
       setIsMenuOpen(false);
@@ -64,11 +62,11 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center z-50">
-            <div className="bg-white p-1 md:p-1.5 rounded-md mr-2">
+            <div className="bg-white p-1.5 md:p-2 rounded-md mr-2">
               <img 
                 src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
                 alt="Bäderberg Logo" 
-                className="h-8 w-8 md:h-10 md:w-10 object-contain" 
+                className="h-12 w-12 md:h-16 md:w-16 object-contain" 
               />
             </div>
           </Link>
