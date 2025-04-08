@@ -1,8 +1,14 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,10 +21,15 @@ import { cn } from "@/lib/utils";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeRegion, setActiveRegion] = useState(false);
   const isMobile = useIsMobile();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleRegions = () => {
+    setActiveRegion(!activeRegion);
   };
 
   useEffect(() => {
@@ -53,10 +64,17 @@ const Header = () => {
     { name: 'Rüti ZH', path: '/region/rueti' },
   ];
 
+  const mainNavItems = [
+    { title: "Leistungen", path: "/#services" },
+    { title: "Projekte", path: "/#gallery" },
+    { title: "Über Uns", path: "/#about" },
+    { title: "Kontakt", path: "/#contact" },
+  ];
+
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled || isMenuOpen ? 'bg-background/90 backdrop-blur-md shadow-sm py-2' : 'py-3 md:py-4'
+        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm py-2' : 'py-3 md:py-4'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -72,13 +90,84 @@ const Header = () => {
           </Link>
 
           {isMobile ? (
-            <button 
-              onClick={toggleMenu} 
-              className="p-2 rounded-md hover:bg-secondary/20 transition-colors z-50"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+            <Sheet>
+              <SheetTrigger asChild>
+                <button 
+                  className="p-2 rounded-md hover:bg-secondary/20 transition-colors focus:outline-none"
+                  aria-label="Open menu"
+                >
+                  <Menu size={24} />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="p-0 pt-14 w-full sm:max-w-sm">
+                <div className="flex flex-col h-full">
+                  <div className="px-4 py-3 border-b border-border">
+                    <h3 className="text-lg font-medium">Menü</h3>
+                  </div>
+                  
+                  <nav className="flex flex-col px-2 py-4 overflow-y-auto flex-1">
+                    {mainNavItems.map((item) => (
+                      <Link 
+                        key={item.path}
+                        to={item.path} 
+                        className="flex items-center py-3 px-2 rounded-md text-lg font-medium hover:bg-secondary/20 transition-all"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                    
+                    <div className="mt-2 border-t border-border pt-3">
+                      <button 
+                        onClick={toggleRegions}
+                        className="flex items-center justify-between w-full py-3 px-2 rounded-md text-lg font-medium hover:bg-secondary/20 transition-all"
+                      >
+                        <span>Regionen</span>
+                        <ChevronDown 
+                          size={20} 
+                          className={`transition-transform ${activeRegion ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {activeRegion && (
+                          <motion.div 
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="pl-4 overflow-hidden"
+                          >
+                            <div className="grid grid-cols-1 gap-1 py-2">
+                              {regions.map((region) => (
+                                <Link 
+                                  key={region.path}
+                                  to={region.path}
+                                  className="py-2 px-2 text-muted-foreground hover:text-foreground hover:bg-secondary/10 rounded transition-colors"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  {region.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </nav>
+                  
+                  <div className="p-4 border-t border-border mt-auto">
+                    <Link 
+                      to="/#contact" 
+                      className="w-full py-3 bg-primary text-primary-foreground rounded-md text-center font-medium block hover:bg-primary/90 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Kostenlose Beratung
+                    </Link>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           ) : (
             <NavigationMenu className="hidden md:flex">
               <NavigationMenuList className="flex items-center gap-1">
@@ -126,74 +215,6 @@ const Header = () => {
             </NavigationMenu>
           )}
         </div>
-
-        <AnimatePresence>
-          {isMobile && isMenuOpen && (
-            <motion.div 
-              className="fixed inset-0 bg-background z-40 pt-16 px-4 overflow-y-auto"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <nav className="flex flex-col space-y-4 mt-4">
-                {[
-                  { title: "Leistungen", path: "/#services" },
-                  { title: "Projekte", path: "/#gallery" },
-                  { title: "Über Uns", path: "/#about" },
-                  { title: "Kontakt", path: "/#contact" },
-                ].map((item) => (
-                  <Link 
-                    key={item.path}
-                    to={item.path} 
-                    className="py-3 border-b border-border text-lg font-medium block"
-                    onClick={toggleMenu}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-
-                <div>
-                  <button 
-                    onClick={() => {
-                      const regionsEl = document.getElementById('mobile-regions');
-                      if (regionsEl) {
-                        regionsEl.classList.toggle('hidden');
-                      }
-                    }}
-                    className="flex items-center justify-between py-3 border-b border-border text-lg font-medium w-full"
-                  >
-                    <span>Regionen</span>
-                    <ChevronDown size={18} />
-                  </button>
-                  
-                  <div id="mobile-regions" className="hidden pl-2 py-2 space-y-1 max-h-60 overflow-y-auto">
-                    {regions.map((region) => (
-                      <Link 
-                        key={region.path}
-                        to={region.path}
-                        className="block py-2 text-muted-foreground hover:text-foreground"
-                        onClick={toggleMenu}
-                      >
-                        {region.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="pt-4 pb-20">
-                  <Link 
-                    to="/#contact" 
-                    className="py-3 bg-primary text-primary-foreground rounded-md text-center font-medium block"
-                    onClick={toggleMenu}
-                  >
-                    Kostenlose Beratung
-                  </Link>
-                </div>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </header>
   );
