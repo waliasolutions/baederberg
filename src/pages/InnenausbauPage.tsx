@@ -29,7 +29,7 @@ const InnenausbauPage = () => {
             >
               <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors w-fit">
                 <ArrowLeft size={16} />
-                Zurueck zur Startseite
+                Zurück zur Startseite
               </Link>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
@@ -47,7 +47,7 @@ const InnenausbauPage = () => {
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-              <div
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -58,7 +58,7 @@ const InnenausbauPage = () => {
                   Die Räume, in denen wir leben, haben einen großen Einfluss auf unser Wohlbefinden. Mit unserer Erfahrung im Innenausbau möchten wir Ihnen helfen, Ihre Räume so zu gestalten, dass sie zu Ihrer Persönlichkeit und Ihrem Alltag passen.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Ob Sie mehr Stauraum benoetigen, einen Raum neu aufteilen moechten oder bestimmte Materialien lieben – gemeinsam finden wir Loesungen, die Ihnen Freude bereiten und Ihren Alltag bereichern.
+                  Ob Sie mehr Stauraum benötigen, einen Raum neu aufteilen möchten oder bestimmte Materialien lieben – gemeinsam finden wir Lösungen, die Ihnen Freude bereiten und Ihren Alltag bereichern.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -66,7 +66,7 @@ const InnenausbauPage = () => {
                     <Home className="text-primary mb-3" size={32} />
                     <h4 className="font-medium mb-2">Wohnkomfort</h4>
                     <p className="text-sm text-muted-foreground">
-                      Durchdachte Loesungen für maximalen Wohnkomfort
+                      Durchdachte Lösungen für maximalen Wohnkomfort
                     </p>
                   </div>
                   
@@ -86,7 +86,7 @@ const InnenausbauPage = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
               
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
