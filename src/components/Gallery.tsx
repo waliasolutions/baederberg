@@ -27,7 +27,7 @@ const projects = [
     tags: ["Küchenumbau", "Kochinsel", "Offenes Konzept"]
   },
   {
-    title: "Kleines Gäste-WC mit großer Wirkung",
+    title: "Kleines Gäste-WC mit grosser Wirkung",
     location: "Schweiz",
     description: "Auch auf kleinem Raum kann man viel erreichen. Hier haben wir ein Gäste-WC geschaffen, das Eindruck macht.",
     images: [
@@ -37,7 +37,7 @@ const projects = [
     tags: ["Badumbau", "Gäste-WC", "Minimalistisch"]
   },
   {
-    title: "Großzügiges Bad zum Entspannen",
+    title: "Grosszügiges Bad zum Entspannen",
     location: "Schweiz",
     description: "Dieses Badezimmer haben wir in einen Ort der Ruhe und Entspannung verwandelt, mit viel Platz und hochwertigen Materialien.",
     images: [
@@ -59,7 +59,7 @@ const projects = [
   {
     title: "Einladender Eingangsbereich",
     location: "Schweiz",
-    description: "Hier haben wir einen Eingangsbereich gestaltet, der Gäste willkommen heißt und praktischen Stauraum für die Familie bietet.",
+    description: "Hier haben wir einen Eingangsbereich gestaltet, der Gäste willkommen heisst und praktischen Stauraum für die Familie bietet.",
     images: [
       "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1618219878616-8d7690e9b7c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"

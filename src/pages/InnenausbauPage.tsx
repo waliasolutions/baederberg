@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -143,7 +144,7 @@ const InnenausbauPage = () => {
               <div>
                 <BeforeAfterSlider 
                   beforeImage="https://images.unsplash.com/photo-1517581177684-8fc44a5900df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  afterImage="https://images.unsplash.com/photo-1600210491892-03d54c0aaf83?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                  afterImage="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
                   beforeLabel="Vorher"
                   afterLabel="Nachher"
                 />
@@ -222,37 +223,6 @@ const InnenausbauPage = () => {
                   <p className="text-muted-foreground">{item.description}</p>
                 </motion.div>
               ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* Gallery Section */}
-        <section className="py-16 md:py-24">
-          <div className="container px-6 md:px-12">
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              {[1, 2, 3, 4, 5, 6].map((item) => (
-                <div key={item} className="rounded-xl overflow-hidden aspect-square">
-                  <img 
-                    src={`https://images.unsplash.com/photo-${1618221195710 + item}?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                    alt={`Innenausbau-Projekt ${item}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              ))}
-            </motion.div>
-            
-            <div className="text-center mt-12">
-              <Link to="/#gallery">
-                <Button variant="outline" size="lg">
-                  Alle Projekte ansehen
-                </Button>
-              </Link>
             </div>
           </div>
         </section>
