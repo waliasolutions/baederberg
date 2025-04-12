@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
@@ -5,19 +6,19 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 const slideImages = [
   {
-    url: 'https://images.unsplash.com/photo-1632829882491-4de0c54a8d53?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Bad',
     heading: 'Wir gestalten Ihr Bad gemeinsam',
     description: 'Ihr persönlicher Rückzugsort sollte genau zu Ihnen passen. Lassen Sie uns zusammen Ihr Bad in einen Ort der Entspannung verwandeln.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Küche',
     heading: 'Eine Küche, die zu Ihnen passt',
     description: 'Die Küche ist das Herz Ihres Zuhauses. Gemeinsam finden wir heraus, wie wir sie persönlich und praktisch für Sie gestalten können.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     title: 'Innenausbau',
     heading: 'Mehr Wohnlichkeit in Ihren Räumen',
     description: 'Wir helfen Ihnen dabei, Ihre persönlichen Ideen für Ihren Wohnraum umzusetzen und ein Zuhause zu schaffen, in dem Sie sich rundum wohlfühlen.'
@@ -27,6 +28,7 @@ const slideImages = [
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
+  const [imageLoadError, setImageLoadError] = useState<string | null>(null);
   const isMobile = useIsMobile();
   
   useEffect(() => {
@@ -46,10 +48,25 @@ const Hero = () => {
     setTimeout(() => setIsAutoScrollPaused(false), 10000);
   };
 
+  // Preload images
+  useEffect(() => {
+    slideImages.forEach((slide, index) => {
+      const img = new Image();
+      img.src = slide.url;
+      img.onerror = () => setImageLoadError(`Failed to load image ${index + 1}: ${slide.url}`);
+    });
+  }, []);
+
   const currentSlide = slideImages[currentIndex];
 
   return (
     <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden">
+      {imageLoadError && (
+        <div className="absolute top-4 left-4 bg-red-500 text-white p-2 z-50 rounded">
+          {imageLoadError}
+        </div>
+      )}
+      
       <AnimatePresence mode="sync">
         <motion.div 
           key={currentIndex}
