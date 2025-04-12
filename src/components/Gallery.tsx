@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ProjectCard from './ProjectCard';
-import { Grid, Filter } from 'lucide-react';
+import { Grid } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const projects = [
@@ -10,9 +10,7 @@ const projects = [
     location: "Schweiz",
     description: "Wir haben ein altes Bad in einen hellen, freundlichen Raum mit viel Platz für die ganze Familie verwandelt.",
     images: [
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "/lovable-uploads/7b5a5a87-6002-4a90-aa3a-50bb91b165bf.png"
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
     tags: ["Badumbau", "Modern", "Freistehende Badewanne"]
   },
@@ -21,8 +19,7 @@ const projects = [
     location: "Schweiz",
     description: "Diese Küche haben wir so umgestaltet, dass die Familie beim Kochen zusammen sein und sich unterhalten kann.",
     images: [
-      "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1586208958839-06c17cacf2b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
     tags: ["Küchenumbau", "Kochinsel", "Offenes Konzept"]
   },
@@ -31,8 +28,7 @@ const projects = [
     location: "Schweiz",
     description: "Auch auf kleinem Raum kann man viel erreichen. Hier haben wir ein Gäste-WC geschaffen, das Eindruck macht.",
     images: [
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1599639668273-ce573e036294?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
     tags: ["Badumbau", "Gäste-WC", "Minimalistisch"]
   },
@@ -41,8 +37,7 @@ const projects = [
     location: "Schweiz",
     description: "Dieses Badezimmer haben wir in einen Ort der Ruhe und Entspannung verwandelt, mit viel Platz und hochwertigen Materialien.",
     images: [
-      "https://images.unsplash.com/photo-1642371744429-7b98b7b619c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1642371744429-7b98b7b619c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
     tags: ["Badumbau", "Luxus", "Marmor"]
   },
@@ -51,8 +46,7 @@ const projects = [
     location: "Schweiz",
     description: "Diese Küche verbindet traditionellen Charme mit moderner Funktionalität – handgefertigt und genau nach den Wünschen der Familie.",
     images: [
-      "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1590301157890-4810ed352733?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
     tags: ["Küchenumbau", "Landhaus", "Holz"]
   },
@@ -61,8 +55,7 @@ const projects = [
     location: "Schweiz",
     description: "Hier haben wir einen Eingangsbereich gestaltet, der Gäste willkommen heisst und praktischen Stauraum für die Familie bietet.",
     images: [
-      "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1618219878616-8d7690e9b7c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
     tags: ["Innenausbau", "Einbauschränke", "Beleuchtung"]
   }
