@@ -5,8 +5,25 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle, Home, Hammer, Wallpaper } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import ContentEditor from '@/components/ContentEditor';
+import { useState } from 'react';
 
 const InnenausbauPage = () => {
+  // State to store editable content
+  const [pageContent, setPageContent] = useState({
+    introTitle: "Ihr Wohnraum nach Ihren Vorstellungen",
+    introParagraph1: "Die Räume, in denen wir leben, haben einen großen Einfluss auf unser Wohlbefinden. Mit unserer Erfahrung im Innenausbau möchten wir Ihnen helfen, Ihre Räume so zu gestalten, dass sie zu Ihrer Persönlichkeit und Ihrem Alltag passen.",
+    introParagraph2: "Ob Sie mehr Stauraum benötigen, einen Raum neu aufteilen möchten oder bestimmte Materialien lieben – gemeinsam finden wir Lösungen, die Ihnen Freude bereiten und Ihren Alltag bereichern."
+  });
+
+  // Handler to update content
+  const handleContentUpdate = (id: string, content: string) => {
+    setPageContent(prev => ({
+      ...prev,
+      [id]: content
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -53,13 +70,27 @@ const InnenausbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Ihr Wohnraum nach Ihren Vorstellungen</h2>
-                <p className="text-lg text-muted-foreground mb-6">
-                  Die Räume, in denen wir leben, haben einen großen Einfluss auf unser Wohlbefinden. Mit unserer Erfahrung im Innenausbau möchten wir Ihnen helfen, Ihre Räume so zu gestalten, dass sie zu Ihrer Persönlichkeit und Ihrem Alltag passen.
-                </p>
-                <p className="text-lg text-muted-foreground mb-8">
-                  Ob Sie mehr Stauraum benötigen, einen Raum neu aufteilen möchten oder bestimmte Materialien lieben – gemeinsam finden wir Lösungen, die Ihnen Freude bereiten und Ihren Alltag bereichern.
-                </p>
+                <ContentEditor 
+                  id="introTitle"
+                  initialContent={pageContent.introTitle}
+                  type="heading"
+                  className="text-3xl font-semibold mb-6"
+                  onSave={handleContentUpdate}
+                />
+                
+                <ContentEditor 
+                  id="introParagraph1"
+                  initialContent={pageContent.introParagraph1}
+                  className="text-lg text-muted-foreground mb-6"
+                  onSave={handleContentUpdate}
+                />
+                
+                <ContentEditor 
+                  id="introParagraph2"
+                  initialContent={pageContent.introParagraph2}
+                  className="text-lg text-muted-foreground mb-8"
+                  onSave={handleContentUpdate}
+                />
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
@@ -105,7 +136,7 @@ const InnenausbauPage = () => {
           </div>
         </section>
         
-        {/* Before/After Section */}
+        {/* Rest of the sections */}
         <section className="py-16 md:py-24">
           <div className="container px-6 md:px-12">
             <motion.div
