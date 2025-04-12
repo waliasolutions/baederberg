@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { ChevronRight, ChevronLeft, MapPin } from 'lucide-react';
 interface ProjectCardProps {
@@ -32,6 +33,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   }}>
       <div className="relative aspect-[4/3] overflow-hidden">
         {images.map((img, i) => <img key={i} src={img} alt={`${title} - Bild ${i + 1}`} className={`absolute inset-0 w-full h-full object-cover transition-medium ${i === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} />)}
+        
+        {/* Add the new bathroom image at the end of the array if it's included in the project */}
+        {title.toLowerCase().includes('bad') && (
+          <img 
+            src="/lovable-uploads/7b5a5a87-6002-4a90-aa3a-50bb91b165bf.png" 
+            alt={`${title} - Luxusbadezimmer`} 
+            className={`absolute inset-0 w-full h-full object-cover transition-medium ${images.length === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+          />
+        )}
         
         {images.length > 1 && <>
             <button onClick={prevImage} className="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 hover:bg-white transition-fast" aria-label="Vorheriges Bild">

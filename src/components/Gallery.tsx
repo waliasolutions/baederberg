@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ProjectCard from './ProjectCard';
@@ -12,7 +11,8 @@ const projects = [
     description: "Wir haben ein altes Bad in einen hellen, freundlichen Raum mit viel Platz für die ganze Familie verwandelt.",
     images: [
       "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "/lovable-uploads/7b5a5a87-6002-4a90-aa3a-50bb91b165bf.png"
     ],
     tags: ["Badumbau", "Modern", "Freistehende Badewanne"]
   },
