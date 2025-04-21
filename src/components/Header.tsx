@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -53,15 +52,15 @@ const Header = () => {
 
   const regions = [
     { name: 'Zürich', path: '/region/zurich' },
+    { name: 'Zollikon', path: '/region/zollikon' },
+    { name: 'Kilchberg', path: '/region/kilchberg' },
+    { name: 'Küsnacht', path: '/region/kuesnacht' },
+    { name: 'Meilen', path: '/region/meilen' },
+    { name: 'Erlenbach', path: '/region/erlenbach' },
     { name: 'Richterswil', path: '/region/richterswil' },
     { name: 'Wädenswil', path: '/region/waedenswil' },
     { name: 'Lachen', path: '/region/lachen' },
     { name: 'Pfäffikon SZ', path: '/region/pfaeffikon' },
-    { name: 'Menzingen', path: '/region/menzingen' },
-    { name: 'Freienbach SZ', path: '/region/freienbach' },
-    { name: 'Rapperswil SG', path: '/region/rapperswil' },
-    { name: 'Horgen', path: '/region/horgen' },
-    { name: 'Rüti ZH', path: '/region/rueti' },
   ];
 
   const mainNavItems = [
@@ -84,7 +83,7 @@ const Header = () => {
               <img 
                 src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
                 alt="Bäderberg Logo" 
-                className="h-12 w-12 md:h-16 md:w-16 object-contain" 
+                className="h-14 w-14 md:h-16 md:w-16 object-contain" 
               />
             </div>
           </Link>
@@ -96,7 +95,7 @@ const Header = () => {
                   className="p-2 rounded-md hover:bg-secondary/20 transition-colors focus:outline-none"
                   aria-label="Open menu"
                 >
-                  <Menu size={24} color="white" />
+                  <Menu size={32} color="white" />
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="p-0 pt-14 w-full sm:max-w-sm">
