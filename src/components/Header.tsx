@@ -96,7 +96,7 @@ const Header = () => {
                   className="p-2 rounded-md hover:bg-secondary/20 transition-colors focus:outline-none"
                   aria-label="Open menu"
                 >
-                  <Menu size={24} />
+                  <Menu size={24} color="white" />
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="p-0 pt-14 w-full sm:max-w-sm">
