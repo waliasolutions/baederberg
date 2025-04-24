@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
@@ -6,19 +5,19 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 const slideImages = [
   {
-    url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: '/lovable-uploads/bad-hero.jpg',
     title: 'Bad',
     heading: 'Wir gestalten Ihr Bad gemeinsam',
     description: 'Ihr persönlicher Rückzugsort sollte genau zu Ihnen passen. Lassen Sie uns zusammen Ihr Bad in einen Ort der Entspannung verwandeln.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: '/lovable-uploads/kueche-hero.jpg',
     title: 'Küche',
     heading: 'Eine Küche, die zu Ihnen passt',
     description: 'Die Küche ist das Herz Ihres Zuhauses. Gemeinsam finden wir heraus, wie wir sie persönlich und praktisch für Sie gestalten können.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+    url: '/lovable-uploads/innenausbau-hero.jpg',
     title: 'Innenausbau',
     heading: 'Mehr Wohnlichkeit in Ihren Räumen',
     description: 'Wir helfen Ihnen dabei, Ihre persönlichen Ideen für Ihren Wohnraum umzusetzen und ein Zuhause zu schaffen, in dem Sie sich rundum wohlfühlen.'
@@ -48,7 +47,6 @@ const Hero = () => {
     setTimeout(() => setIsAutoScrollPaused(false), 10000);
   };
 
-  // Preload images
   useEffect(() => {
     slideImages.forEach((slide, index) => {
       const img = new Image();

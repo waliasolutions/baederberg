@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import ServiceCard from './ServiceCard';
 import { useInView } from 'react-intersection-observer';
@@ -8,7 +7,7 @@ const servicesData = [
   {
     title: "Badumbau",
     description: "Wir verwandeln Ihr Badezimmer in eine moderne Wohlfühloase mit eleganten Designs und hochwertigen Materialien.",
-    imageSrc: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "/lovable-uploads/bad-service.jpg",
     features: [
       "Komplettumbau nach Mass",
       "Barrierefreie Badlösungen",
@@ -21,7 +20,7 @@ const servicesData = [
   {
     title: "Küchenumbau",
     description: "Perfekte Küchen, die Funktionalität und Design harmonisch verbinden, für ein optimales Koch- und Wohnerlebnis.",
-    imageSrc: "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "/lovable-uploads/kueche-service.jpg",
     features: [
       "Massgeschneiderte Küchenplanungen",
       "Modernste Küchengeräte",
@@ -34,7 +33,7 @@ const servicesData = [
   {
     title: "Innenausbau",
     description: "Durchdachte Raumkonzepte und präzise Ausführung für ein harmonisches Wohnerlebnis in allen Bereichen.",
-    imageSrc: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "/lovable-uploads/innenausbau-service.jpg",
     features: [
       "Individuelle Schreinerarbeiten",
       "Raumkonzepte und Trennwände",
