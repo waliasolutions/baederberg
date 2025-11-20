@@ -43,6 +43,32 @@ const InnenausbauPage = () => {
                 <h2 className="text-3xl font-semibold mb-6 leading-tight">Ihr Innenausbau nach Ihren Wünschen</h2>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">Vom Bodenbelag bis zur Treppe – wir machen alles. Sauber, termintreu, mit Garantie.</p>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">Alles aus einer Hand.</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
+                    <User className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Persönlich</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Ihr Bauleiter vor Ort
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
+                    <Clock className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Termintreu</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Verlässliche Zeitplanung
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
+                    <Shield className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Mit Garantie</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Elektro und Garantie inkl.
+                    </p>
+                  </div>
+                </div>
               </motion.div>
               <motion.div className="grid grid-cols-2 gap-4" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
                 {features.map((feature, index) => (
@@ -52,6 +78,96 @@ const InnenausbauPage = () => {
                   </div>
                 ))}
               </motion.div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Why Professional Service Section */}
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container px-6 md:px-12">
+            <motion.div
+              className="max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center leading-tight">
+                Warum professioneller Innenausbau?
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Komplexe Arbeiten gehören in Profihände</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Innenausbau ist mehr als Wände streichen. Bodenbeläge müssen eben verlegt werden, Möbel passgenau eingebaut, Elektrik fachgerecht verlegt. Ein Fehler kann teuer werden. Unsere Fachkräfte wissen, worauf es ankommt.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Alles aus einer Hand spart Zeit und Nerven</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Verschiedene Handwerker zu koordinieren kostet Sie Zeit und Nerven. Bei uns läuft alles über Ihren persönlichen Bauleiter – von der Planung bis zur Übergabe. Sie haben nur einen Ansprechpartner.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Qualität macht den Unterschied</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Billige Materialien und unsaubere Arbeit sehen Sie schnell – und ärgern sich lange. Wir verbauen nur Materialien, die halten. Unsere Handwerker arbeiten sauber und präzise. Das sehen und spüren Sie jeden Tag.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Garantie und Sicherheit inklusive</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Nach dem Projekt sind wir weiter für Sie da. Mit Garantie auf alle Arbeiten. Bei Fragen oder Problemen ist Ihr Bauleiter nur einen Anruf entfernt – schnell, unkompliziert, zuverlässig.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg">
+                <p className="text-lg leading-relaxed">
+                  <strong>Unser Versprechen:</strong> Vom Boden bis zur Decke – alles aus einer Hand. Sorgfältige Planung, präzise Ausführung, verlässliche Betreuung. Keine leeren Versprechen, sondern ehrliche Handwerksarbeit.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* Process Section */}
+        <section className="py-16 md:py-24 bg-secondary/20">
+          <div className="container px-6 md:px-12">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">So läuft es ab</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Einfach und klar
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[
+                { title: "1. Erstgespräch", desc: "Wir besprechen Ihre Wünsche und Ihr Budget." },
+                { title: "2. Planung", desc: "Ihr Bauleiter plant mit Ihnen gemeinsam." },
+                { title: "3. Umbau", desc: "Unser Team arbeitet sauber und termingerecht." },
+                { title: "4. Übergabe", desc: "Sie bekommen Ihr fertiges Projekt mit Garantie." }
+              ].map((step, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-background p-6 rounded-lg shadow-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <h3 className="text-xl font-semibold mb-3 text-primary">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>

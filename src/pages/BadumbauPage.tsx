@@ -117,8 +117,60 @@ const BadumbauPage = () => {
           </div>
         </section>
         
-        {/* Before/After Section */}
+        {/* Why Professional Service Section */}
         <section className="py-16 md:py-24 bg-background">
+          <div className="container px-6 md:px-12">
+            <motion.div
+              className="max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center leading-tight">
+                Warum professioneller Badumbau?
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Fachgerechte Planung spart Geld</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Ein professionell geplantes Bad vermeidet teure Fehler. Wasserschäden durch falsch verlegte Leitungen oder undichte Abdichtungen kosten Sie später ein Vielfaches. Unsere Bauleiter kennen jede Norm und jedes Detail.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Qualität, die bleibt</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Ein Bad nutzen Sie täglich für viele Jahre. Hochwertige Materialien und fachgerechte Montage bedeuten weniger Reparaturen und mehr Freude am Raum. Wir verbauen nur, was wir auch selbst nutzen würden.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Zeitersparnis durch Koordination</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Sanitär, Elektrik, Fliesen, Maler – alles muss perfekt zusammenpassen. Ihr persönlicher Bauleiter koordiniert alle Gewerke. Sie haben nur einen Ansprechpartner und sparen wertvolle Zeit.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Garantie und Sicherheit</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Nach dem Umbau sind wir weiter für Sie da. Mit unserer Garantie sind Sie abgesichert. Bei Problemen ist Ihr Bauleiter nur einen Anruf entfernt – ohne Diskussion, ohne Verzögerung.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg">
+                <p className="text-lg leading-relaxed">
+                  <strong>Unser Versprechen:</strong> Wir bauen Ihr Bad so, wie wir es für uns selbst bauen würden. Sorgfältig geplant, sauber ausgeführt, mit Materialien die halten. Kein Marketing-Versprechen – sondern unser Standard.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* Before/After Section */}
+        <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
             <motion.div
               className="text-center mb-12"

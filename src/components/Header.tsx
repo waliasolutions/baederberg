@@ -75,7 +75,7 @@ const Header = () => {
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm py-2' : 'py-3 md:py-4'
+        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm py-2' : 'bg-gradient-to-b from-black/40 to-transparent py-3 md:py-4'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -138,7 +138,7 @@ const Header = () => {
                   <NavigationMenuItem key={item.path}>
                     <Link 
                       to={item.path} 
-                      className="px-3 py-2 text-sm font-medium rounded-md hover:bg-secondary/20 transition-colors"
+                      className="px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-white/10 transition-colors"
                     >
                       {item.title}
                     </Link>
@@ -148,7 +148,7 @@ const Header = () => {
                 <NavigationMenuItem>
                   <Link 
                     to="/#contact" 
-                    className="ml-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                    className="ml-2 px-4 py-2 bg-white text-primary font-semibold rounded-md hover:bg-white/90 transition-colors shadow-md"
                   >
                     Kostenlose Beratung
                   </Link>

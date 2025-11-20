@@ -117,8 +117,60 @@ const KuechenumbauPage = () => {
           </div>
         </section>
         
-        {/* Before/After Section */}
+        {/* Why Professional Service Section */}
         <section className="py-16 md:py-24 bg-background">
+          <div className="container px-6 md:px-12">
+            <motion.div
+              className="max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center leading-tight">
+                Warum professioneller Küchenumbau?
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Millimeterarbeit ist Pflicht</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Eine Küche muss passen – auf den Millimeter. Schiefe Arbeitsplatten, Lücken an den Wänden oder falsch eingebaute Geräte ruinieren das Ergebnis. Unsere Monteure arbeiten mit Präzision und jahrelanger Erfahrung.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Elektrik und Wasser – keine Experimente</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Herd, Geschirrspüler, Dunstabzug – alles braucht Strom und oft auch Wasser. Fehler bei der Installation sind gefährlich und teuer. Wir planen und installieren fachgerecht, damit alles sicher funktioniert.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Langlebige Materialien, die sich lohnen</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Eine Küche ist eine Investition für 15-20 Jahre. Billige Materialien sehen nach wenigen Jahren abgenutzt aus. Wir beraten Sie ehrlich, welche Arbeitsplatten, Fronten und Geräte wirklich halten.
+                  </p>
+                </div>
+                
+                <div className="bg-secondary/20 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold mb-4 text-primary">Alles aus einer Hand – stressfrei</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Küche ausbauen, Elektrik anpassen, neue Küche montieren, Wände streichen – wir koordinieren alles. Sie haben einen Ansprechpartner und müssen sich um nichts kümmern. Termintreu und zuverlässig.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg">
+                <p className="text-lg leading-relaxed">
+                  <strong>Unser Versprechen:</strong> Ihre Küche wird so gebaut, dass Sie jahrelang Freude daran haben. Präzise Montage, hochwertige Materialien, fachgerechte Installation. Das ist unser Standard.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* Before/After Section */}
+        <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
             <motion.div
               className="text-center mb-12"
