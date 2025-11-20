@@ -1,5 +1,13 @@
 import { motion } from 'framer-motion';
-import { Quote, User, Star } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
+
+const getInitials = (name: string) => {
+  const names = name.split(' ');
+  if (names.length >= 2) {
+    return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+};
 
 interface TestimonialCardProps {
   quote: string;
@@ -66,23 +74,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         transition={{ delay: 0.3 }}
       >
         <div className="flex items-center gap-4">
-          {image ? (
-            <motion.img 
-              src={image} 
-              alt={author}
-              className="w-14 h-14 rounded-full object-cover border-2 border-primary/20 shadow-sm"
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            />
-          ) : (
-            <motion.div 
-              className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary/20"
-              whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.15)" }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <User size={24} className="text-primary" />
-            </motion.div>
-          )}
+          <motion.div 
+            className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary/20 font-bold text-primary text-lg"
+            whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.15)" }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            {getInitials(author)}
+          </motion.div>
           <div>
             <motion.h4 
               className="font-semibold text-foreground text-lg"
@@ -90,18 +88,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
             >
-              {author}
+              {getInitials(author)}
             </motion.h4>
-            {location && (
-              <motion.p 
-                className="text-sm text-muted-foreground"
-                initial={{ opacity: 0, x: -5 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                {location}
-              </motion.p>
-            )}
           </div>
         </div>
         <motion.div 

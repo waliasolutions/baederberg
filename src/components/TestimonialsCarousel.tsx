@@ -68,6 +68,8 @@ const TestimonialsCarousel = ({
     return () => clearInterval(intervalId);
   }, [emblaApi, autoplay, autoplayDelay]);
 
+  const showNavigation = testimonials.length > 3;
+
   return (
     <div className="relative">
       {/* Carousel Container */}
@@ -89,8 +91,8 @@ const TestimonialsCarousel = ({
         </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex items-center justify-center gap-4 mt-12">
+      {/* Navigation Buttons - Hidden on desktop when 3 or fewer testimonials */}
+      <div className={`flex items-center justify-center gap-4 mt-12 ${!showNavigation ? 'md:hidden' : ''}`}>
         <Button
           variant="outline"
           size="icon"
@@ -130,7 +132,7 @@ const TestimonialsCarousel = ({
 
       {/* Progress Indicator */}
       <motion.div 
-        className="mt-6 text-center text-sm text-muted-foreground"
+        className={`mt-6 text-center text-sm text-muted-foreground ${!showNavigation ? 'md:hidden' : ''}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
