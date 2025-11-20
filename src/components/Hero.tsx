@@ -17,7 +17,7 @@ const slideImages = [
     ctaLink: '/kuechenumbau'
   },
   {
-    url: '/images/interior-modern.jpg',
+    url: '/images/interior-living.jpg',
     heading: 'Facharbeiten im Innenausbau',
     description: 'Alles aus einer Hand',
     ctaLink: '/innenausbau'
@@ -70,7 +70,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
             backgroundImage: `url('${currentSlide.url}')`,
@@ -78,7 +78,7 @@ const Hero = () => {
         />
       </AnimatePresence>
       
-      <div className="absolute inset-0 bg-primary/60 z-0" />
+      <div className="absolute inset-0 bg-black/50 z-0" />
       
       <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center px-4">
