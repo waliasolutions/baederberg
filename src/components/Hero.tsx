@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 
 const slideImages = [
   {
-    url: '/lovable-uploads/bad-hero.jpg',
+    url: '/images/bathroom-modern.jpg',
     heading: 'Wir bauen Ihr Bad gemeinsam um',
     description: 'Persönlich geplant, professionell ausgeführt',
     ctaLink: '/badumbau'
   },
   {
-    url: '/lovable-uploads/kueche-hero.jpg',
+    url: '/images/kitchen-modern.jpg',
     heading: 'Küchenbau Spezialist',
     description: 'Ihre neue Küche nach Mass',
     ctaLink: '/kuechenumbau'
   },
   {
-    url: '/lovable-uploads/innenausbau-hero.jpg',
+    url: '/images/interior-modern.jpg',
     heading: 'Facharbeiten im Innenausbau',
     description: 'Alles aus einer Hand',
     ctaLink: '/innenausbau'
@@ -82,19 +82,14 @@ const Hero = () => {
       <div className="absolute inset-0 bg-primary/60 z-0" />
       
       <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center px-4"
-        >
+        <div className="max-w-3xl mx-auto text-center px-4">
           <AnimatePresence mode="sync">
             <motion.div
               key={`content-${currentIndex}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
               className="w-full"
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
@@ -112,7 +107,7 @@ const Hero = () => {
               </Button>
             </motion.div>
           </AnimatePresence>
-        </motion.div>
+        </div>
         
         <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
           {slideImages.map((_, index) => (
