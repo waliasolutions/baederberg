@@ -1125,8 +1125,6 @@ const RegionPage = () => {
               <ProjectCard
                 key={index}
                 title={project.title}
-                description={project.description}
-                location={project.location}
                 images={project.images}
                 tags={project.tags}
                 index={index}

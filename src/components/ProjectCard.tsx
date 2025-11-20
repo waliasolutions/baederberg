@@ -1,11 +1,7 @@
-
 import { useState } from 'react';
-import { MapPin } from 'lucide-react';
 
 interface ProjectCardProps {
   title: string;
-  location: string;
-  description: string;
   images: string[];
   tags: string[];
   index: number;
@@ -13,8 +9,6 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
-  location,
-  description,
   images,
   tags,
   index
@@ -22,7 +16,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const delay = index * 100;
   return (
     <div 
-      className="group overflow-hidden bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md" 
+      className="group overflow-hidden bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-lg" 
       style={{
         animationDelay: `${delay}ms`,
         transitionDelay: `${delay}ms`
@@ -31,27 +25,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="relative aspect-[4/3] overflow-hidden">
         <img 
           src={images[0]} 
-          alt={`${title} - Bild`} 
-          className="absolute inset-0 w-full h-full object-cover" 
+          alt={title} 
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
         />
         
-        <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1">
-          <div className="flex items-center gap-1 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium">
-            <MapPin size={12} className="text-primary" />
-            <span>{location}</span>
-          </div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       
-      <div className="p-4">
-        <h3 className="text-lg font-medium mb-2">{title}</h3>
-        <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{description}</p>
+      <div className="p-5">
+        <h3 className="text-lg font-semibold mb-3 text-foreground">{title}</h3>
         
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-2">
           {tags.map((tag, i) => (
             <span 
               key={i} 
-              className="inline-block px-2 py-0.5 text-xs rounded-full bg-secondary/50 text-primary/80"
+              className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary"
             >
               {tag}
             </span>
