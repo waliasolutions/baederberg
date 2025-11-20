@@ -1,26 +1,28 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const slideImages = [
   {
     url: '/lovable-uploads/bad-hero.jpg',
-    title: 'Professioneller',
-    heading: 'Badumbau',
-    description: 'Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt'
+    heading: 'Wir bauen Ihr Bad gemeinsam um',
+    description: 'Persönlich geplant, professionell ausgeführt',
+    ctaLink: '/badumbau'
   },
   {
     url: '/lovable-uploads/kueche-hero.jpg',
-    title: 'Moderne',
-    heading: 'Küchen',
-    description: 'Ihre neue Küche nach Mass – funktional und schön'
+    heading: 'Küchenbau Spezialist',
+    description: 'Ihre neue Küche nach Mass',
+    ctaLink: '/kuechenumbau'
   },
   {
     url: '/lovable-uploads/innenausbau-hero.jpg',
-    title: 'Hochwertiger',
-    heading: 'Innenausbau',
-    description: 'Räume nach Ihren Wünschen – alles aus einer Hand'
+    heading: 'Facharbeiten im Innenausbau',
+    description: 'Alles aus einer Hand',
+    ctaLink: '/innenausbau'
   }
 ];
 
@@ -98,10 +100,6 @@ const Hero = () => {
               transition={{ duration: 0.5 }}
               className="w-full"
             >
-              <span className="inline-block px-4 py-1 mb-4 md:mb-6 text-white bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm">
-                {currentSlide.title}
-              </span>
-              
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
                 {currentSlide.heading}
               </h1>
@@ -110,21 +108,11 @@ const Hero = () => {
                 {currentSlide.description}
               </p>
               
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-                {[
-                  "Handwerkskunst mit Herz",
-                  "Flexible Zeitplanung",
-                  "Persönliche Betreuung"
-                ].map((benefit, index) => (
-                  <span 
-                    key={index}
-                    className="flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full"
-                  >
-                    <Check size={isMobile ? 12 : 16} className="text-white" />
-                    <span className="text-white text-xs sm:text-sm">{benefit}</span>
-                  </span>
-                ))}
-              </div>
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
+                <Link to={currentSlide.ctaLink}>
+                  Mehr erfahren
+                </Link>
+              </Button>
             </motion.div>
           </AnimatePresence>
         </motion.div>
