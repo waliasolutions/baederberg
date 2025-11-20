@@ -73,24 +73,15 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className="flex items-center gap-4">
-          <motion.div 
-            className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary/20 font-bold text-primary text-lg"
-            whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.15)" }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        <div>
+          <motion.h4 
+            className="font-semibold text-foreground text-lg"
+            initial={{ opacity: 0, x: -5 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
           >
             {getInitials(author)}
-          </motion.div>
-          <div>
-            <motion.h4 
-              className="font-semibold text-foreground text-lg"
-              initial={{ opacity: 0, x: -5 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              {getInitials(author)}
-            </motion.h4>
-          </div>
+          </motion.h4>
         </div>
         <motion.div 
           className="text-sm px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold border border-primary/20"
