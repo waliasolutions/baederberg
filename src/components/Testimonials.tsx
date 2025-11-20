@@ -1,26 +1,15 @@
 
 import { useInView } from 'react-intersection-observer';
-import TestimonialCard from './TestimonialCard';
+import TestimonialsCarousel from './TestimonialsCarousel';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { homepageTestimonials } from '@/data/testimonials';
+import { realTestimonials } from '@/data/testimonials';
 
 const Testimonials = () => {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
-  
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
 
   return (
     <section ref={ref} className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30" id="testimonials">
@@ -60,22 +49,16 @@ const Testimonials = () => {
           </motion.p>
         </motion.div>
         
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
-          variants={container}
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5, duration: 0.6 }}
         >
-          {homepageTestimonials.map((testimonial, index) => (
-            <div key={index}>
-              <TestimonialCard 
-                quote={testimonial.quote}
-                author={testimonial.author}
-                project={testimonial.project}
-                rating={testimonial.rating}
-              />
-            </div>
-          ))}
+          <TestimonialsCarousel 
+            testimonials={realTestimonials}
+            autoplay={true}
+            autoplayDelay={6000}
+          />
         </motion.div>
       </div>
     </section>

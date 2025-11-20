@@ -4,9 +4,8 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle, User, Clock, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import TestimonialCard from '@/components/TestimonialCard';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { innenausbauTestimonials } from '@/data/testimonials';
-import { useInView } from 'react-intersection-observer';
 
 const InnenausbauPage = () => {
   const features = [
@@ -81,18 +80,11 @@ const InnenausbauPage = () => {
               </p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {innenausbauTestimonials.map((testimonial, index) => (
-                <div key={index}>
-                  <TestimonialCard 
-                    quote={testimonial.quote}
-                    author={testimonial.author}
-                    project={testimonial.project}
-                    rating={testimonial.rating}
-                  />
-                </div>
-              ))}
-            </div>
+            <TestimonialsCarousel 
+              testimonials={innenausbauTestimonials}
+              autoplay={true}
+              autoplayDelay={7000}
+            />
           </div>
         </section>
         
