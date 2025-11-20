@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, ShowerHead, Droplets, Paintbrush, User, Clock, Shield, MessageCircle } from 'lucide-react';
+import { CheckCircle, ShowerHead, Droplets, Paintbrush, User, Clock, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
@@ -38,11 +38,6 @@ const BadumbauPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors w-fit">
-                <ArrowLeft size={16} />
-                Zurück zur Startseite
-              </Link>
-              
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                 Badumbau
               </h1>

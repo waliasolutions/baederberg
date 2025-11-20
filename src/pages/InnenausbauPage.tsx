@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, User, Clock, Shield, MessageCircle } from 'lucide-react';
+import { CheckCircle, User, Clock, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { innenausbauTestimonials } from '@/data/testimonials';
@@ -27,9 +27,6 @@ const InnenausbauPage = () => {
           <img src="/lovable-uploads/innenausbau-hero.jpg" alt="Innenausbau" className="w-full h-full object-cover" />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
             <motion.div className="flex flex-col gap-6 max-w-3xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors w-fit">
-                <ArrowLeft size={16} />Zurück zur Startseite
-              </Link>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">Innenausbau</h1>
               <p className="text-xl text-white/90 leading-relaxed">Räume nach Ihren Wünschen – alles aus einer Hand.</p>
             </motion.div>
