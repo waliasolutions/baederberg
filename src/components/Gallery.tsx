@@ -6,46 +6,46 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const projects = [
   {
-    title: "Ein neues Badezimmer für Familie Müller",
+    title: "Badezimmer Umbau",
     images: [
       "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
-    tags: ["Badumbau", "Modern", "Freistehende Badewanne"]
+    tags: ["Badumbau"]
   },
   {
-    title: "Offene Küche für mehr Familienzeit",
+    title: "Offene Küche",
     images: [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
-    tags: ["Küchenumbau", "Kochinsel", "Offenes Konzept"]
+    tags: ["Küchenumbau"]
   },
   {
-    title: "Kleines Gäste-WC mit grosser Wirkung",
+    title: "Gäste-WC Modern",
     images: [
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
-    tags: ["Badumbau", "Gäste-WC", "Minimalistisch"]
+    tags: ["Badumbau"]
   },
   {
-    title: "Grosszügiges Bad zum Entspannen",
+    title: "Luxus Bad",
     images: [
       "https://images.unsplash.com/photo-1642371744429-7b98b7b619c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
-    tags: ["Badumbau", "Luxus", "Marmor"]
+    tags: ["Badumbau"]
   },
   {
-    title: "Gemütliche Küche im Landhausstil",
+    title: "Landhaus Küche",
     images: [
       "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
-    tags: ["Küchenumbau", "Landhaus", "Holz"]
+    tags: ["Küchenumbau"]
   },
   {
-    title: "Einladender Eingangsbereich",
+    title: "Eingangsbereich Umbau",
     images: [
       "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
-    tags: ["Innenausbau", "Einbauschränke", "Beleuchtung"]
+    tags: ["Innenausbau"]
   }
 ];
 

@@ -1115,25 +1115,6 @@ const RegionPage = () => {
         </div>
       </section>
       
-      {/* Projects */}
-      <section id="projects" className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-10">Unsere Projekte in {region.address.city}</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {region.projects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                images={project.images}
-                tags={project.tags}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-      
       {/* Testimonials */}
       <section id="testimonials" className="py-16">
         <div className="container mx-auto px-4">
