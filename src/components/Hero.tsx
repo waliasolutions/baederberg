@@ -27,17 +27,33 @@ const slideImages = [
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
-  const [imageLoadError, setImageLoadError] = useState<string | null>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  
+  // Preload all images on mount
+  useEffect(() => {
+    const imagePromises = slideImages.map((slide) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = slide.url;
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    });
+
+    Promise.all(imagePromises)
+      .then(() => setImagesLoaded(true))
+      .catch((error) => console.error('Failed to preload images:', error));
+  }, []);
   
   useEffect(() => {
-    if (isAutoScrollPaused) return;
+    if (isAutoScrollPaused || !imagesLoaded) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slideImages.length);
     }, 6000);
     
     return () => clearInterval(interval);
-  }, [isAutoScrollPaused]);
+  }, [isAutoScrollPaused, imagesLoaded]);
   
   const handleIndicatorClick = (index: number) => {
     setCurrentIndex(index);
@@ -46,39 +62,25 @@ const Hero = () => {
     setTimeout(() => setIsAutoScrollPaused(false), 10000);
   };
 
-  useEffect(() => {
-    slideImages.forEach((slide, index) => {
-      const img = new Image();
-      img.src = slide.url;
-      img.onerror = () => setImageLoadError(`Failed to load image ${index + 1}: ${slide.url}`);
-    });
-  }, []);
-
   const currentSlide = slideImages[currentIndex];
 
   return (
     <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden">
-      {imageLoadError && (
-        <div className="absolute top-4 left-4 bg-red-500 text-white p-2 z-50 rounded">
-          {imageLoadError}
-        </div>
-      )}
-      
       <AnimatePresence mode="wait">
         <motion.div 
           key={currentIndex}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
             backgroundImage: `url('${currentSlide.url}')`,
           }}
-        />
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+        </motion.div>
       </AnimatePresence>
-      
-      <div className="absolute inset-0 bg-black/50 z-0" />
       
       <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center px-4">
