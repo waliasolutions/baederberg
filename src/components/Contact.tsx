@@ -397,7 +397,15 @@ const Contact = () => {
               delay: 0.5,
               duration: 0.5
             }}>
-                Wann Sie uns finden
+                Wann Sie uns erreichen
+
+
+
+
+
+
+
+
               </motion.h4>
               
               <div className="space-y-3">
@@ -409,17 +417,10 @@ const Contact = () => {
                   <span>Samstag</span>
                   <span className="font-medium">09:00 - 16:00</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Sonntag</span>
-                  <span className="font-medium">Geschlossen</span>
-                </div>
+                
               </div>
               
-              <div className="mt-6 pt-6 border-t border-border">
-                <p className="text-sm text-muted-foreground">
-                  Wir können uns auch gerne ausserhalb dieser Zeiten treffen, wenn es besser für Sie passt. Rufen Sie einfach an oder schreiben Sie uns.
-                </p>
-              </div>
+              
             </motion.div>
           </div>
         </div>
