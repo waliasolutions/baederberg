@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -69,7 +69,7 @@ const Header = () => {
           </Link>
 
           {isMobile ? (
-            <Sheet>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <button 
                   className="p-2 rounded-md hover:bg-secondary/20 transition-colors focus:outline-none"
@@ -78,10 +78,17 @@ const Header = () => {
                   <Menu size={32} className="text-foreground" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="p-0 pt-14 w-full sm:max-w-sm">
+              <SheetContent side="right" className="p-0 w-full sm:max-w-sm">
                 <div className="flex flex-col h-full">
-                  <div className="px-4 py-3 border-b border-border">
+                  <div className="px-4 py-4 border-b border-border flex items-center justify-between">
                     <h3 className="text-lg font-medium">Menü</h3>
+                    <button
+                      onClick={() => setIsMenuOpen(false)}
+                      className="p-2 rounded-md hover:bg-secondary/20 transition-colors"
+                      aria-label="Close menu"
+                    >
+                      <X size={24} />
+                    </button>
                   </div>
                   
                   <nav className="flex flex-col px-2 py-4 overflow-y-auto flex-1">
