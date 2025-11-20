@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -30,7 +28,6 @@ const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
   const [imageLoadError, setImageLoadError] = useState<string | null>(null);
-  const isMobile = useIsMobile();
   
   useEffect(() => {
     if (isAutoScrollPaused) return;
@@ -94,10 +91,10 @@ const Hero = () => {
           <AnimatePresence mode="sync">
             <motion.div
               key={`content-${currentIndex}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
               className="w-full"
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
@@ -117,7 +114,7 @@ const Hero = () => {
           </AnimatePresence>
         </motion.div>
         
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
           {slideImages.map((_, index) => (
             <button
               key={index}
@@ -130,19 +127,6 @@ const Hero = () => {
           ))}
         </div>
       </div>
-      
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 text-white"
-      >
-        <a 
-          href="#services" 
-          aria-label="Scroll down to learn more"
-        >
-          <ChevronDown size={isMobile ? 28 : 36} />
-        </a>
-      </motion.div>
     </div>
   );
 };
