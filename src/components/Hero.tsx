@@ -65,20 +65,20 @@ const Hero = () => {
   const currentSlide = slideImages[currentIndex];
 
   return (
-    <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden">
-      <AnimatePresence mode="wait">
+    <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden bg-gray-900">
+      <AnimatePresence initial={false}>
         <motion.div 
           key={currentIndex}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
             backgroundImage: `url('${currentSlide.url}')`,
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
         </motion.div>
       </AnimatePresence>
       
