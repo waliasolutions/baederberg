@@ -2,21 +2,30 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, ShowerHead, Droplets, Paintbrush } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ShowerHead, Droplets, Paintbrush, User, Clock, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 
 const BadumbauPage = () => {
+  const features = [
+    "Persönlicher Bauleiter",
+    "Individuelle Badplanung",
+    "Einbau hochwertiger Sanitäranlagen",
+    "Montage stilvoller Badmöbel",
+    "Innovative Beleuchtungskonzepte",
+    "Elektroarbeiten und Garantie inklusive"
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <main className="pt-24 md:pt-32">
-        {/* Hero Section with Full-Width Header Image */}
+        {/* Hero Section */}
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
+          <div className="absolute inset-0 bg-black/50 z-10"></div>
           <img 
-            src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
+            src="/lovable-uploads/bad-hero.jpg" 
             alt="Badezimmer" 
             className="w-full h-full object-cover"
           />
@@ -32,12 +41,12 @@ const BadumbauPage = () => {
                 Zurück zur Startseite
               </Link>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                 Badumbau
               </h1>
               
-              <p className="text-xl text-white/90">
-                Ihr Bad soll ein Ort sein, an dem Sie sich erholen und entspannen können. Wir möchten Ihnen helfen, es nach Ihren Wünschen zu gestalten.
+              <p className="text-xl text-white/90 leading-relaxed">
+                Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.
               </p>
             </motion.div>
           </div>
@@ -53,120 +62,88 @@ const BadumbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                <h2 className="text-3xl font-semibold mb-6">Ein Bad ganz nach Ihren Vorstellungen</h2>
-                <p className="text-lg text-muted-foreground mb-6">
-                  Das Badezimmer ist mehr als nur ein funktionaler Raum – es ist der Ort, an dem Ihr Tag beginnt und oft auch endet. Wir möchten mit Ihnen gemeinsam herausfinden, wie wir diesen Raum so gestalten können, dass er Ihnen Freude bereitet.
+                <h2 className="text-3xl font-semibold mb-6 leading-tight">Ihr Bad nach Ihren Wünschen</h2>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  Ihr Bauleiter plant mit Ihnen gemeinsam. Sie bekommen ein Bad, das zu Ihnen passt.
                 </p>
-                <p className="text-lg text-muted-foreground mb-8">
-                  Mit unserer Erfahrung und Ihren Ideen koennen wir ein Bad schaffen, das Ihren Alltag bereichert. Wir begleiten Sie von den ersten Gedanken bis zum fertigen Bad.
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                  Saubere Arbeit, termintreu, mit Garantie.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <ShowerHead className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Moderne Anlagen</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Hochwertige Sanitäranlagen für maximalen Komfort
+                    <User className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Persönlich</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Ihr Bauleiter vor Ort
                     </p>
                   </div>
                   
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Droplets className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Wassersparend</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Umweltfreundliche und energieeffiziente Lösungen
+                    <Clock className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Termintreu</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Verlässliche Zeitplanung
                     </p>
                   </div>
                   
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Paintbrush className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Individuelle Designs</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Massgeschneiderte Lösungen für jeden Geschmack
+                    <Shield className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Mit Garantie</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Elektro und Garantie inkl.
                     </p>
                   </div>
                 </div>
               </motion.div>
               
               <motion.div
+                className="grid grid-cols-2 gap-4"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="rounded-xl overflow-hidden shadow-lg"
+                transition={{ duration: 0.7 }}
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Modernes Badezimmer Detail" 
-                  className="w-full h-full object-cover"
-                />
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-start gap-2 bg-background p-4 rounded-lg shadow-sm">
+                    <CheckCircle className="text-primary flex-shrink-0 mt-0.5" size={20} />
+                    <span className="text-sm font-medium leading-relaxed">{feature}</span>
+                  </div>
+                ))}
               </motion.div>
             </div>
           </div>
         </section>
         
         {/* Before/After Section */}
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24 bg-background">
           <div className="container px-6 md:px-12">
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Vor und Nach der Verwandlung</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Sehen Sie selbst, wie wir Bäder komplett umgestalten und ihnen ein völlig neues Leben einhauchen. Bewegen Sie den Schieberegler, um die Transformation zu entdecken.
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">Vorher / Nachher</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Echte Projekte aus der Region
               </p>
             </motion.div>
             
-            <motion.div 
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <div>
-                <BeforeAfterSlider 
-                  beforeImage="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  afterImage="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                  beforeLabel="Altes Bad"
-                  afterLabel="Neues Bad"
-                />
-                <p className="mt-4 text-center text-muted-foreground italic">
-                  Vollständige Renovierung eines veralteten Bades in Richterswil
-                </p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <BeforeAfterSlider
+                beforeImage="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80"
+                afterImage="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80"
+                beforeLabel="Vorher"
+                afterLabel="Nachher"
+              />
               
-              <div>
-                <BeforeAfterSlider 
-                  beforeImage="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  afterImage="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                  beforeLabel="Vorher"
-                  afterLabel="Nachher"
-                />
-                <p className="mt-4 text-center text-muted-foreground italic">
-                  Moderne Umgestaltung mit neuer Dusche und Waschtisch
-                </p>
-              </div>
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {["Komplettumbau nach Mass", "Barrierefreie Badlösungen", "Hochwertige Sanitäranlagen", "Stilvolle Badmöbel", "Innovative Beleuchtungskonzepte", "Energieeffiziente Lösungen"].map((feature, index) => (
-                <motion.div 
-                  key={index} 
-                  className="flex items-start gap-3 bg-background p-4 rounded-lg shadow-sm"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                >
-                  <CheckCircle size={20} className="text-primary mt-1 shrink-0" />
-                  <span className="text-muted-foreground">{feature}</span>
-                </motion.div>
-              ))}
+              <BeforeAfterSlider
+                beforeImage="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80"
+                afterImage="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&q=80"
+                beforeLabel="Vorher"
+                afterLabel="Nachher"
+              />
             </div>
           </div>
         </section>
@@ -174,75 +151,57 @@ const BadumbauPage = () => {
         {/* Process Section */}
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold text-center mb-16"
+            <motion.div
+              className="text-center mb-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
             >
-              So gehen wir gemeinsam vor
-            </motion.h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">So läuft es ab</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Einfach und klar
+              </p>
+            </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {[
-                {
-                  step: "1",
-                  title: "Gespräch & Ideen",
-                  description: "Wir lernen uns kennen und sprechen über Ihre Wünsche und Vorstellungen für Ihr neues Bad."
-                },
-                {
-                  step: "2",
-                  title: "Gemeinsame Planung",
-                  description: "Wir erstellen Entwürfe und besprechen mit Ihnen die Details und Materialien."
-                },
-                {
-                  step: "3",
-                  title: "Sorgfältige Umsetzung",
-                  description: "Unsere Handwerker setzen den Plan mit Geschick und Sorgfalt um."
-                },
-                {
-                  step: "4",
-                  title: "Ihr neues Bad",
-                  description: "Nach einer gründlichen Prüfung übergeben wir Ihnen Ihr neues Bad."
-                }
-              ].map((item, index) => (
-                <motion.div 
+                { title: "1. Erstgespräch", desc: "Wir besprechen Ihre Wünsche und Ihr Budget." },
+                { title: "2. Planung", desc: "Ihr Bauleiter plant mit Ihnen gemeinsam." },
+                { title: "3. Umbau", desc: "Unser Team baut sauber und termingerecht." },
+                { title: "4. Übergabe", desc: "Sie bekommen Ihr fertiges Bad mit Garantie." }
+              ].map((step, index) => (
+                <motion.div
                   key={index}
-                  className="bg-background p-6 rounded-xl shadow-md relative"
+                  className="bg-background p-6 rounded-lg shadow-sm"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="absolute -top-5 -left-5 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 mt-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
+                  <h3 className="text-xl font-semibold mb-3 text-primary">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
         
-        {/* Call to Action */}
-        <section className="py-16 md:py-24 bg-primary/10">
-          <div className="container px-6 md:px-12">
-            <motion.div 
-              className="rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+        {/* CTA Section */}
+        <section className="py-16 md:py-24 bg-primary text-white">
+          <div className="container px-6 md:px-12 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              className="max-w-3xl mx-auto"
             >
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Möchten Sie mit uns über Ihr Bad sprechen?</h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Wir nehmen uns gerne Zeit für Sie und besprechen gemeinsam, wie wir Ihr Bad nach Ihren Wünschen gestalten können.
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Jetzt Termin vereinbaren</h2>
+              <p className="text-xl mb-8 text-white/90 leading-relaxed">
+                Wir beraten Sie gerne – kostenlos und unverbindlich.
               </p>
               <Link to="/#contact">
-                <Button size="lg" className="px-8">
-                  Gespräch vereinbaren
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
+                  Jetzt Kontakt aufnehmen
                 </Button>
               </Link>
             </motion.div>

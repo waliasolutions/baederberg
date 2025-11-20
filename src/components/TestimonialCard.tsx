@@ -1,6 +1,5 @@
-
 import { motion } from 'framer-motion';
-import { Quote, User } from 'lucide-react';
+import { Quote, User, Star } from 'lucide-react';
 
 interface TestimonialCardProps {
   quote: string;
@@ -8,6 +7,7 @@ interface TestimonialCardProps {
   location: string;
   image?: string;
   project: string;
+  rating?: number;
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({ 
@@ -15,64 +15,77 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   author, 
   location, 
   image,
-  project
+  project,
+  rating = 5
 }) => {
   return (
     <motion.div 
-      className="bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative"
+      className="bg-card rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative border border-border/50"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ 
-        y: -5,
-        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+        y: -8,
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <motion.div 
-        className="absolute top-6 right-6 text-primary/20"
+        className="absolute top-6 right-6 text-primary/10"
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <Quote size={42} />
+        <Quote size={56} strokeWidth={1.5} />
+      </motion.div>
+      
+      {/* Star Rating */}
+      <motion.div 
+        className="flex gap-1 mb-6"
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.1 }}
+      >
+        {[...Array(rating)].map((_, i) => (
+          <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+        ))}
       </motion.div>
       
       <motion.p 
-        className="text-base italic mb-6 relative z-10"
+        className="text-lg italic mb-8 relative z-10 text-foreground leading-relaxed font-medium"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.1 }}
+        transition={{ delay: 0.15 }}
       >
-        {quote}
+        "{quote}"
       </motion.p>
       
       <motion.div 
-        className="flex items-center justify-between mt-8 pt-4 border-t border-gray-100"
+        className="flex items-center justify-between mt-auto pt-6 border-t border-border/50"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {image ? (
             <motion.img 
               src={image} 
               alt={author}
-              className="w-12 h-12 rounded-full object-cover border-2 border-primary/10"
+              className="w-14 h-14 rounded-full object-cover border-2 border-primary/20 shadow-sm"
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             />
           ) : (
             <motion.div 
-              className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"
-              whileHover={{ scale: 1.1, backgroundColor: "rgba(var(--primary), 0.2)" }}
+              className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary/20"
+              whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.15)" }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <User size={20} className="text-primary/70" />
+              <User size={24} className="text-primary" />
             </motion.div>
           )}
           <div>
             <motion.h4 
-              className="font-medium text-gray-900"
+              className="font-semibold text-foreground text-lg"
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
@@ -80,7 +93,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
               {author}
             </motion.h4>
             <motion.p 
-              className="text-xs text-muted-foreground"
+              className="text-sm text-muted-foreground"
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
@@ -90,8 +103,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           </div>
         </div>
         <motion.div 
-          className="text-xs px-3 py-1.5 rounded-full bg-secondary/70 text-primary font-medium"
-          whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--secondary), 0.9)" }}
+          className="text-sm px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold border border-primary/20"
+          whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--primary) / 0.15)" }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           {project}

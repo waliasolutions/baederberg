@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Award, Smile } from 'lucide-react';
+import modernBathroom from '/lovable-uploads/modern-bathroom-interior.jpg';
 
 const About = () => {
   return (
@@ -15,7 +16,7 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <img 
-              src="/lovable-uploads/modern-bathroom-interior-with-shower-and-sink.jpg" 
+              src={modernBathroom}
               alt="Modernes Badezimmer" 
               className="w-full rounded-2xl shadow-lg object-cover h-[500px]"
             />
@@ -27,21 +28,25 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Wir möchten Ihr Zuhause schöner machen
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-tight">
+              Ihr Bad, Ihre Küche, Ihr Innenausbau
             </h2>
             
-            <p className="text-muted-foreground text-lg mb-8">
-              Bei Baederberg kümmern wir uns um Ihr Badezimmer, Ihre Küche und den Innenausbau. Wir sind ein kleines Team von Handwerkern, die mit Leidenschaft bei der Sache sind und Ihre Wünsche verstehen wollen.
+            <p className="text-muted-foreground text-lg mb-4 leading-relaxed">
+              Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.
+            </p>
+            
+            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+              Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-center gap-3">
                 <Heart className="text-primary" size={24} />
                 <div>
-                  <h4 className="font-semibold">Mit Leidenschaft</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Wir lieben unsere Arbeit und freuen uns, wenn Sie sich in Ihrem neuen Raum wohlfühlen.
+                  <h4 className="font-semibold">Persönliche Betreuung</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Ihr persönlicher Bauleiter begleitet Ihr Projekt von Anfang bis Ende.
                   </p>
                 </div>
               </div>
@@ -49,9 +54,9 @@ const About = () => {
               <div className="flex items-center gap-3">
                 <Award className="text-primary" size={24} />
                 <div>
-                  <h4 className="font-semibold">Mit Sorgfalt</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Wir arbeiten sorgfältig und achten auf jedes Detail.
+                  <h4 className="font-semibold">Sorgfältige Arbeit</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Wir achten auf Details und arbeiten sauber.
                   </p>
                 </div>
               </div>
@@ -59,9 +64,9 @@ const About = () => {
               <div className="flex items-center gap-3">
                 <Smile className="text-primary" size={24} />
                 <div>
-                  <h4 className="font-semibold">Für Ihr Wohlbefinden</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Ihre Zufriedenheit liegt uns am Herzen.
+                  <h4 className="font-semibold">Garantie inklusive</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Elektroarbeiten und Garantie sind bei uns immer dabei.
                   </p>
                 </div>
               </div>

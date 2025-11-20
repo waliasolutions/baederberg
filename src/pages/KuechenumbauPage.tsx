@@ -2,257 +2,128 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, Utensils, Lightbulb, Layout } from 'lucide-react';
+import { ArrowLeft, CheckCircle, User, Clock, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 
 const KuechenumbauPage = () => {
+  const features = [
+    "Individuelle Küchenplanung",
+    "Persönlicher Projektleiter",
+    "Installation hochwertiger Küchengeräte",
+    "Einbau von Arbeitsplatten und individuellen Rückwänden",
+    "Fachgerechte Montage",
+    "Elektroarbeiten und Garantie inklusive"
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <main className="pt-24 md:pt-32">
-        {/* Hero Section with Full-Width Header Image */}
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
-          <img 
-            src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
-            alt="Küche" 
-            className="w-full h-full object-cover"
-          />
+          <div className="absolute inset-0 bg-black/50 z-10"></div>
+          <img src="/lovable-uploads/kueche-hero.jpg" alt="Küche" className="w-full h-full object-cover" />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
-            <motion.div 
-              className="flex flex-col gap-6 max-w-3xl text-white"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-            >
+            <motion.div className="flex flex-col gap-6 max-w-3xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
               <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors w-fit">
-                <ArrowLeft size={16} />
-                Zurück zur Startseite
+                <ArrowLeft size={16} />Zurück zur Startseite
               </Link>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                Küchenumbau
-              </h1>
-              
-              <p className="text-xl text-white/90">
-                Die Küche ist oft der Mittelpunkt des Zuhauses. Gemeinsam möchten wir einen Ort gestalten, an dem Sie gerne kochen und Zeit verbringen.
-              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">Küchenumbau</h1>
+              <p className="text-xl text-white/90 leading-relaxed">Ihre neue Küche nach Mass – funktional und schön.</p>
             </motion.div>
           </div>
         </section>
         
-        {/* Introduction Section */}
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-              >
-                <h2 className="text-3xl font-semibold mb-6">Eine Küche, die zu Ihnen passt</h2>
-                <p className="text-lg text-muted-foreground mb-6">
-                  Die Küche ist oft der Ort, an dem das Leben zu Hause zusammenkommt. Hier wird gekocht, gegessen, geredet und gelacht. Wir möchten Ihnen helfen, eine Küche zu schaffen, die zu Ihrem Leben und Ihren Gewohnheiten passt.
-                </p>
-                <p className="text-lg text-muted-foreground mb-8">
-                  Von der ersten Idee bis zur fertigen Kueche sind wir an Ihrer Seite. Mit handwerklichem Geschick und einem Gespuer fuer Ihre Beduerfnisse gestalten wir einen Raum, in dem Sie sich wohlfuehlen.
-                </p>
-                
+              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+                <h2 className="text-3xl font-semibold mb-6 leading-tight">Ihre Küche nach Ihren Wünschen</h2>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">Ihr Projektleiter plant mit Ihnen gemeinsam. Sie bekommen eine Küche, die zu Ihnen passt.</p>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">Saubere Arbeit, termintreu, mit Garantie.</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Utensils className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Funktionalität</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Optimale Arbeitsablaufe für effizientes Kochen
-                    </p>
+                    <User className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Persönlich</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Ihr Projektleiter vor Ort</p>
                   </div>
-                  
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Lightbulb className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Energieeffizienz</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Moderne Geräte für nachhaltiges Kochen
-                    </p>
+                    <Clock className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Termintreu</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Verlässliche Zeitplanung</p>
                   </div>
-                  
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Layout className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Raumkonzept</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Perfekte Integration in Ihren Wohnraum
-                    </p>
+                    <Shield className="text-primary mb-3" size={32} />
+                    <h4 className="font-medium mb-2">Mit Garantie</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Elektro und Garantie inkl.</p>
                   </div>
                 </div>
               </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="rounded-xl overflow-hidden shadow-lg"
-              >
-                <img 
-                  src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Moderne Küche Detail" 
-                  className="w-full h-full object-cover"
-                />
+              <motion.div className="grid grid-cols-2 gap-4" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-start gap-2 bg-background p-4 rounded-lg shadow-sm">
+                    <CheckCircle className="text-primary flex-shrink-0 mt-0.5" size={20} />
+                    <span className="text-sm font-medium leading-relaxed">{feature}</span>
+                  </div>
+                ))}
               </motion.div>
             </div>
           </div>
         </section>
+
         
-        {/* Before/After Section */}
         <section className="py-16 md:py-24">
           <div className="container px-6 md:px-12">
-            <motion.div
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Vor und Nach der Verwandlung</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Entdecken Sie die beeindruckende Transformation, die unsere Küchenumbau-Projekte bewirken. Bewegen Sie den Schieberegler, um die Veränderung zu sehen.
-              </p>
-            </motion.div>
-            
-            <motion.div 
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <div>
-                <BeforeAfterSlider 
-                  beforeImage="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  afterImage="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                  beforeLabel="Alte Küche"
-                  afterLabel="Neue Küche"
-                />
-                <p className="mt-4 text-center text-muted-foreground italic">
-                  Komplette Modernisierung einer veralteten Küche in Richterswil
-                </p>
+            <h2 className="text-3xl font-semibold mb-8 text-center">Vorher/Nachher</h2>
+            <BeforeAfterSlider before="/lovable-uploads/kueche-vorher.jpg" after="/lovable-uploads/kueche-nachher.jpg" />
+          </div>
+        </section>
+
+        
+        <section className="py-16 md:py-24 bg-secondary/10">
+          <div className="container px-6 md:px-12">
+            <h2 className="text-3xl font-semibold mb-8 text-center">So läuft es ab</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
+                  1
+                </div>
+                <h3 className="font-medium mb-2">Beratung</h3>
+                <p className="text-sm text-muted-foreground">Wir besprechen Ihre Wünsche und Ideen.</p>
               </div>
-              
-              <div>
-                <BeforeAfterSlider 
-                  beforeImage="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  afterImage="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                  beforeLabel="Vorher"
-                  afterLabel="Nachher"
-                />
-                <p className="mt-4 text-center text-muted-foreground italic">
-                  Moderne Traumküche mit offener Gestaltung und Kochinsel
-                </p>
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
+                  2
+                </div>
+                <h3 className="font-medium mb-2">Planung</h3>
+                <p className="text-sm text-muted-foreground">Wir planen Ihre neue Küche nach Mass.</p>
               </div>
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {["Massgeschneiderte Küchenplanungen", "Modernste Küchengeräte", "Hochwertige Arbeitsflächen", "Funktionale Stauraumlösungen", "Energieeffiziente Lösungen", "Beleuchtungskonzepte"].map((feature, index) => (
-                <motion.div 
-                  key={index} 
-                  className="flex items-start gap-3 bg-background p-4 rounded-lg shadow-sm"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                >
-                  <CheckCircle size={20} className="text-primary mt-1 shrink-0" />
-                  <span className="text-muted-foreground">{feature}</span>
-                </motion.div>
-              ))}
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
+                  3
+                </div>
+                <h3 className="font-medium mb-2">Umsetzung</h3>
+                <p className="text-sm text-muted-foreground">Wir bauen Ihre neue Küche ein – sauber und termintreu.</p>
+              </div>
             </div>
           </div>
         </section>
         
-        {/* Process Section */}
-        <section className="py-16 md:py-24 bg-secondary/20">
-          <div className="container px-6 md:px-12">
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold text-center mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              So entsteht Ihre neue Küche
-            </motion.h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  step: "1",
-                  title: "Kennenlernen & Verstehen",
-                  description: "Wir lernen Ihre Kochgewohnheiten und Wünsche kennen, um die perfekte Küche für Sie zu planen."
-                },
-                {
-                  step: "2",
-                  title: "Gemeinsame Gestaltung",
-                  description: "Wir besprechen zusammen Material, Stil und Geräte für Ihre neue Küche."
-                },
-                {
-                  step: "3",
-                  title: "Handwerkliche Umsetzung",
-                  description: "Mit Sorgfalt und Präzision bauen wir Ihre neue Küche genau nach Plan."
-                },
-                {
-                  step: "4",
-                  title: "Ihre neue Küche",
-                  description: "Nach einer gründlichen Prüfung können Sie Ihre neue Küche in Besitz nehmen und genießen."
-                }
-              ].map((item, index) => (
-                <motion.div 
-                  key={index}
-                  className="bg-background p-6 rounded-xl shadow-md relative"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                >
-                  <div className="absolute -top-5 -left-5 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 mt-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* Call to Action */}
-        <section className="py-16 md:py-24 bg-primary/10">
-          <div className="container px-6 md:px-12">
-            <motion.div 
-              className="rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <h2 className="text-2xl md:text-3xl font-semibold mb-4">Haben Sie Fragen zu Ihrer neuen Küche?</h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Kontaktieren Sie uns für ein persönliches Gespräch. Wir freuen uns darauf, Ihre Ideen zu hören und gemeinsam Ihre Traumküche zu planen.
-              </p>
-              <Link to="/#contact">
-                <Button size="lg" className="px-8">
-                  Gespräch vereinbaren
-                </Button>
-              </Link>
+        <section className="py-16 md:py-24 bg-primary text-white">
+          <div className="container px-6 md:px-12 text-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Jetzt Termin vereinbaren</h2>
+              <p className="text-xl mb-8 text-white/90 leading-relaxed">Wir beraten Sie gerne – kostenlos und unverbindlich.</p>
+              <Link to="/#contact"><Button size="lg" variant="secondary" className="text-lg px-8 py-6">Jetzt Kontakt aufnehmen</Button></Link>
             </motion.div>
           </div>
         </section>
       </main>
-      
       <Footer />
     </div>
   );
 };
 
 export default KuechenumbauPage;
+
