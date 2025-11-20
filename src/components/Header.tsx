@@ -64,7 +64,9 @@ const Header = () => {
   ];
 
   const mainNavItems = [
-    { title: "Leistungen", path: "/#services" },
+    { title: "Badumbau", path: "/badumbau" },
+    { title: "Küchen", path: "/kuechenumbau" },
+    { title: "Innenausbau", path: "/innenausbau" },
     { title: "Projekte", path: "/#gallery" },
     { title: "Über Uns", path: "/#about" },
     { title: "Kontakt", path: "/#contact" },
@@ -115,44 +117,6 @@ const Header = () => {
                         {item.title}
                       </Link>
                     ))}
-                    
-                    <div className="mt-2 border-t border-border pt-3">
-                      <button 
-                        onClick={toggleRegions}
-                        className="flex items-center justify-between w-full py-3 px-2 rounded-md text-lg font-medium hover:bg-secondary/20 transition-all"
-                      >
-                        <span>Regionen</span>
-                        <ChevronDown 
-                          size={20} 
-                          className={`transition-transform ${activeRegion ? 'rotate-180' : ''}`}
-                        />
-                      </button>
-                      
-                      <AnimatePresence>
-                        {activeRegion && (
-                          <motion.div 
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="pl-4 overflow-hidden"
-                          >
-                            <div className="grid grid-cols-1 gap-1 py-2">
-                              {regions.map((region) => (
-                                <Link 
-                                  key={region.path}
-                                  to={region.path}
-                                  className="py-2 px-2 text-muted-foreground hover:text-foreground hover:bg-secondary/10 rounded transition-colors"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  {region.name}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
                   </nav>
                   
                   <div className="p-4 border-t border-border mt-auto">
@@ -170,11 +134,7 @@ const Header = () => {
           ) : (
             <NavigationMenu className="hidden md:flex">
               <NavigationMenuList className="flex items-center gap-1">
-                {[
-                  { title: "Leistungen", path: "/#services" },
-                  { title: "Projekte", path: "/#gallery" },
-                  { title: "Über Uns", path: "/#about" },
-                ].map((item) => (
+                {mainNavItems.map((item) => (
                   <NavigationMenuItem key={item.path}>
                     <Link 
                       to={item.path} 
@@ -184,23 +144,6 @@ const Header = () => {
                     </Link>
                   </NavigationMenuItem>
                 ))}
-                
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-sm font-medium">Regionen</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid grid-cols-2 w-[400px] gap-1 p-4">
-                      {regions.map((region) => (
-                        <Link
-                          key={region.path}
-                          to={region.path}
-                          className="px-3 py-2 text-sm rounded-md hover:bg-secondary/20 transition-colors"
-                        >
-                          {region.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
                 
                 <NavigationMenuItem>
                   <Link 
