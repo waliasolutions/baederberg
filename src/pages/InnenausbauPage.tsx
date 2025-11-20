@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, User, Clock, Shield, MessageCircle } from 'lucide-react';
+import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { innenausbauTestimonials } from '@/data/testimonials';
@@ -35,37 +35,18 @@ const InnenausbauPage = () => {
         
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-                <h2 className="text-3xl font-semibold mb-6 leading-tight">Ihr Innenausbau nach Ihren Wünschen</h2>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">Vom Bodenbelag bis zur Treppe – wir machen alles. Sauber, termintreu, mit Garantie.</p>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">Alles aus einer Hand.</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <User className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Persönlich</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Ihr Bauleiter vor Ort
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Clock className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Termintreu</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Verlässliche Zeitplanung
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
-                    <Shield className="text-primary mb-3" size={32} />
-                    <h4 className="font-medium mb-2">Mit Garantie</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Elektro und Garantie inkl.
-                    </p>
-                  </div>
-                </div>
+                <h2 className="text-3xl font-semibold mb-6 leading-tight">Was Sie bekommen</h2>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  Ein persönlicher Bauleiter koordiniert alle Arbeiten für Sie. Vom Boden bis zur Decke – Sie haben nur einen Ansprechpartner.
+                </p>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  Bodenbeläge, Wandverkleidungen, Möbeleinbau, Treppen, Elektrik – wir übernehmen alle Gewerke. Alles aus einer Hand.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Fester Preis, fester Termin, 5 Jahre Garantie auf die Handwerksleistungen.
+                </p>
               </motion.div>
               <motion.div className="grid grid-cols-2 gap-4" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
                 {features.map((feature, index) => (
