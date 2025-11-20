@@ -6,40 +6,44 @@ import { motion } from 'framer-motion';
 const servicesData = [
   {
     title: "Badumbau",
-    description: "Wir verwandeln Ihr Badezimmer in eine moderne Wohlfühloase mit eleganten Designs und hochwertigen Materialien.",
+    description: "Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.",
     imageSrc: "/lovable-uploads/bad-service.jpg",
     features: [
-      "Komplettumbau nach Mass",
-      "Barrierefreie Badlösungen",
-      "Hochwertige Sanitäranlagen",
-      "Stilvolle Badmöbel",
-      "Innovative Beleuchtungskonzepte"
+      "Persönlicher Bauleiter",
+      "Individuelle Badplanung",
+      "Einbau hochwertiger Sanitäranlagen",
+      "Montage stilvoller Badmöbel",
+      "Innovative Beleuchtungskonzepte",
+      "Elektroarbeiten und Garantie inklusive"
     ],
     to: "/badumbau"
   },
   {
     title: "Küchenumbau",
-    description: "Perfekte Küchen, die Funktionalität und Design harmonisch verbinden, für ein optimales Koch- und Wohnerlebnis.",
+    description: "Ihre neue Küche nach Mass – funktional und schön.",
     imageSrc: "/lovable-uploads/kueche-service.jpg",
     features: [
-      "Massgeschneiderte Küchenplanungen",
-      "Modernste Küchengeräte",
-      "Hochwertige Arbeitsflächen",
-      "Funktionale Stauraumlösungen",
-      "Energieeffiziente Lösungen"
+      "Individuelle Küchenplanung",
+      "Persönlicher Projektleiter",
+      "Installation hochwertiger Küchengeräte",
+      "Einbau von Arbeitsplatten und individuellen Rückwänden",
+      "Fachgerechte Montage",
+      "Elektroarbeiten und Garantie inklusive"
     ],
     to: "/kuechenumbau"
   },
   {
     title: "Innenausbau",
-    description: "Durchdachte Raumkonzepte und präzise Ausführung für ein harmonisches Wohnerlebnis in allen Bereichen.",
+    description: "Räume nach Ihren Wünschen – alles aus einer Hand.",
     imageSrc: "/lovable-uploads/innenausbau-service.jpg",
     features: [
-      "Individuelle Schreinerarbeiten",
-      "Raumkonzepte und Trennwände",
+      "Fachgerechte Bauleitung",
+      "Individuelle Raumplanung",
+      "Massgeschneiderter Möbeleinbau",
       "Bodenbeläge und Wandverkleidungen",
       "Treppen und Geländer",
-      "Massgeschneiderte Möbel"
+      "Elektroarbeiten und Garantie inklusive",
+      "Alles aus einer Hand"
     ],
     to: "/innenausbau"
   }
@@ -87,16 +91,16 @@ const Services = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            Perfekte Räume mit höchster Qualität
+            Unsere Leistungen für Ihr Zuhause
           </motion.h3>
           <motion.p 
-            className="text-muted-foreground text-lg"
+            className="text-muted-foreground text-lg leading-relaxed"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
-            Vom ersten Entwurf bis zur finalen Umsetzung begleiten wir Ihr Projekt mit Schweizer Präzision und individuellem Design.
+            Bad, Küche, Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.
           </motion.p>
         </motion.div>
         

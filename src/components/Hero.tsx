@@ -6,21 +6,21 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const slideImages = [
   {
     url: '/lovable-uploads/bad-hero.jpg',
-    title: 'Bad',
-    heading: 'Wir gestalten Ihr Bad gemeinsam',
-    description: 'Ihr persönlicher Rückzugsort sollte genau zu Ihnen passen. Lassen Sie uns zusammen Ihr Bad in einen Ort der Entspannung verwandeln.'
+    title: 'Professioneller',
+    heading: 'Badumbau',
+    description: 'Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt'
   },
   {
     url: '/lovable-uploads/kueche-hero.jpg',
-    title: 'Küche',
-    heading: 'Eine Küche, die zu Ihnen passt',
-    description: 'Die Küche ist das Herz Ihres Zuhauses. Gemeinsam finden wir heraus, wie wir sie persönlich und praktisch für Sie gestalten können.'
+    title: 'Moderne',
+    heading: 'Küchen',
+    description: 'Ihre neue Küche nach Mass – funktional und schön'
   },
   {
     url: '/lovable-uploads/innenausbau-hero.jpg',
-    title: 'Innenausbau',
-    heading: 'Mehr Wohnlichkeit in Ihren Räumen',
-    description: 'Wir helfen Ihnen dabei, Ihre persönlichen Ideen für Ihren Wohnraum umzusetzen und ein Zuhause zu schaffen, in dem Sie sich rundum wohlfühlen.'
+    title: 'Hochwertiger',
+    heading: 'Innenausbau',
+    description: 'Räume nach Ihren Wünschen – alles aus einer Hand'
   }
 ];
 
