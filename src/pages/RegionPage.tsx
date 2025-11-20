@@ -1034,9 +1034,6 @@ const RegionPage = () => {
           <div className="text-center p-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">Region nicht gefunden</h1>
             <p className="text-gray-600 mb-8">Die gesuchte Region ist nicht verfügbar.</p>
-            <Link to="/" className="inline-flex items-center bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition-colors">
-              Zurück zur Startseite
-            </Link>
           </div>
         </div>
         <Footer />
