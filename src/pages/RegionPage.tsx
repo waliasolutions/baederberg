@@ -28,6 +28,7 @@ interface RegionData {
       author: string;
       location: string;
       project: string;
+      rating?: number;
     }[];
     benefits: {
       title: string;
@@ -54,16 +55,16 @@ interface RegionData {
 const regionData: RegionData = {
   'zurich': {
     title: 'Bäderberg in Zürich',
-    description: 'Ihr Experte für Bad- und Küchenumbauten sowie Innenausbau in Zürich',
-    problem: 'Ist Ihr Badezimmer oder Ihre Küche veraltet und funktioniert nicht mehr richtig?',
-    agitation: 'In Zürich spiegelt sich Ihr Zuhause in Ihrer Wohn- und Lebensqualität wider. Veraltete Bäder und Küchen können den Alltag erschweren und den Wert Ihrer Wohnung oder Ihres Hauses mindern.',
-    solution: 'Bäderberg bietet kompetente Renovierungslösungen für Zürcher Wohnungen und Häuser mit lokalem Fachwissen.',
-    serviceDescription: 'Unser Team in Zürich unterstützt Sie von der ersten Idee bis zur Fertigstellung. Wir kennen die örtlichen Gegebenheiten und finden passende Lösungen für Ihr Zuhause.',
+    description: 'Bad, Küche und Innenausbau in Zürich',
+    problem: 'Bad oder Küche brauchen einen Umbau?',
+    agitation: 'Wir kennen Zürich und die Besonderheiten von Altbauten und modernen Wohnungen.',
+    solution: 'Wir bauen um – sauber, termintreu, mit Garantie.',
+    serviceDescription: 'Unser Team in Zürich begleitet Sie von Anfang bis Ende. Persönliche Betreuung, sorgfältige Arbeit.',
     heroImage: 'https://images.unsplash.com/photo-1589395937772-7c69f7cf1a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     projects: [
       {
-        title: 'Modernes Badezimmer',
-        description: 'Umbau eines Badezimmers in einer Wohnung mit optimaler Raumnutzung.',
+        title: 'Modernes Bad',
+        description: 'Badumbau in Zürich – komplett erneuert.',
         location: 'Zürich',
         images: [
           "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -72,8 +73,8 @@ const regionData: RegionData = {
         tags: ['Badumbau', 'Modern', 'Stadthaus']
       },
       {
-        title: 'Küche mit Charakter',
-        description: 'Neugestaltung einer Altbauküche mit Erhalt des historischen Flairs.',
+        title: 'Neue Küche',
+        description: 'Küchenumbau in Altbau – modern und funktional.',
         location: 'Zürich',
         images: [
           "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -94,10 +95,11 @@ const regionData: RegionData = {
     ],
     testimonials: [
       {
-        quote: 'Unser neues Bad ist super geworden! Das Team hat tolle Arbeit geleistet und alles lief nach Plan.',
+        quote: 'Unser Bad ist super geworden. Saubere Arbeit, nettes Team.',
         author: 'Familie Huber',
         location: 'Zürich',
-        project: 'Badumbau'
+        project: 'Badumbau',
+        rating: 5
       },
       {
         quote: 'Die Zusammenarbeit war unkompliziert und professionell. Unsere Küche ist jetzt viel praktischer und schöner.',
