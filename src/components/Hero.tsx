@@ -64,7 +64,7 @@ const Hero = () => {
         </div>
       )}
       
-      <AnimatePresence mode="sync">
+      <AnimatePresence mode="wait">
         <motion.div 
           key={currentIndex}
           initial={{ opacity: 0 }}
@@ -74,7 +74,6 @@ const Hero = () => {
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
             backgroundImage: `url('${currentSlide.url}')`,
-            zIndex: -1,
           }}
         />
       </AnimatePresence>
@@ -83,30 +82,19 @@ const Hero = () => {
       
       <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center px-4">
-          <AnimatePresence mode="sync">
-            <motion.div
-              key={`content-${currentIndex}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="w-full"
-            >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
-                {currentSlide.heading}
-              </h1>
-              
-              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 md:mb-8">
-                {currentSlide.description}
-              </p>
-              
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
-                <Link to={currentSlide.ctaLink}>
-                  Mehr erfahren
-                </Link>
-              </Button>
-            </motion.div>
-          </AnimatePresence>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
+            {currentSlide.heading}
+          </h1>
+          
+          <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 md:mb-8">
+            {currentSlide.description}
+          </p>
+          
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
+            <Link to={currentSlide.ctaLink}>
+              Mehr erfahren
+            </Link>
+          </Button>
         </div>
         
         <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
