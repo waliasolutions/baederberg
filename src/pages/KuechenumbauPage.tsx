@@ -21,46 +21,89 @@ const KuechenumbauPage = () => {
       <Header />
       
       <main className="pt-24 md:pt-32">
+        {/* Hero Section */}
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
-          <img src="/lovable-uploads/kueche-hero.jpg" alt="Küche" className="w-full h-full object-cover" />
+          <img 
+            src="/lovable-uploads/kueche-hero.jpg" 
+            alt="Küche" 
+            className="w-full h-full object-cover"
+          />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
-            <motion.div className="flex flex-col gap-6 max-w-3xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <motion.div 
+              className="flex flex-col gap-6 max-w-3xl text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
               <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors w-fit">
-                <ArrowLeft size={16} />Zurück zur Startseite
+                <ArrowLeft size={16} />
+                Zurück zur Startseite
               </Link>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">Küchenumbau</h1>
-              <p className="text-xl text-white/90 leading-relaxed">Ihre neue Küche nach Mass – funktional und schön.</p>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+                Küchenumbau
+              </h1>
+              
+              <p className="text-xl text-white/90 leading-relaxed">
+                Ihre neue Küche nach Mass – funktional und schön.
+              </p>
             </motion.div>
           </div>
         </section>
         
+        {/* Introduction Section */}
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
                 <h2 className="text-3xl font-semibold mb-6 leading-tight">Ihre Küche nach Ihren Wünschen</h2>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">Ihr Projektleiter plant mit Ihnen gemeinsam. Sie bekommen eine Küche, die zu Ihnen passt.</p>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">Saubere Arbeit, termintreu, mit Garantie.</p>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  Ihr Projektleiter plant mit Ihnen gemeinsam. Sie bekommen eine Küche, die zu Ihnen passt.
+                </p>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                  Saubere Arbeit, termintreu, mit Garantie.
+                </p>
+                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
                     <User className="text-primary mb-3" size={32} />
                     <h4 className="font-medium mb-2">Persönlich</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Ihr Projektleiter vor Ort</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Ihr Projektleiter vor Ort
+                    </p>
                   </div>
+                  
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
                     <Clock className="text-primary mb-3" size={32} />
                     <h4 className="font-medium mb-2">Termintreu</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Verlässliche Zeitplanung</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Verlässliche Zeitplanung
+                    </p>
                   </div>
+                  
                   <div className="flex flex-col items-center text-center p-4 rounded-lg bg-background shadow-sm">
                     <Shield className="text-primary mb-3" size={32} />
                     <h4 className="font-medium mb-2">Mit Garantie</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Elektro und Garantie inkl.</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Elektro und Garantie inkl.
+                    </p>
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="grid grid-cols-2 gap-4" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+              
+              <motion.div
+                className="grid grid-cols-2 gap-4"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-start gap-2 bg-background p-4 rounded-lg shadow-sm">
                     <CheckCircle className="text-primary flex-shrink-0 mt-0.5" size={20} />
@@ -71,59 +114,104 @@ const KuechenumbauPage = () => {
             </div>
           </div>
         </section>
-
         
-        <section className="py-16 md:py-24">
+        {/* Before/After Section */}
+        <section className="py-16 md:py-24 bg-background">
           <div className="container px-6 md:px-12">
-            <h2 className="text-3xl font-semibold mb-8 text-center">Vorher/Nachher</h2>
-            <BeforeAfterSlider before="/lovable-uploads/kueche-vorher.jpg" after="/lovable-uploads/kueche-nachher.jpg" />
-          </div>
-        </section>
-
-        
-        <section className="py-16 md:py-24 bg-secondary/10">
-          <div className="container px-6 md:px-12">
-            <h2 className="text-3xl font-semibold mb-8 text-center">So läuft es ab</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
-                  1
-                </div>
-                <h3 className="font-medium mb-2">Beratung</h3>
-                <p className="text-sm text-muted-foreground">Wir besprechen Ihre Wünsche und Ideen.</p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
-                  2
-                </div>
-                <h3 className="font-medium mb-2">Planung</h3>
-                <p className="text-sm text-muted-foreground">Wir planen Ihre neue Küche nach Mass.</p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
-                  3
-                </div>
-                <h3 className="font-medium mb-2">Umsetzung</h3>
-                <p className="text-sm text-muted-foreground">Wir bauen Ihre neue Küche ein – sauber und termintreu.</p>
-              </div>
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">Vorher / Nachher</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Echte Projekte aus der Region
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <BeforeAfterSlider
+                beforeImage="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&q=80"
+                afterImage="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&q=80"
+                beforeLabel="Vorher"
+                afterLabel="Nachher"
+              />
+              
+              <BeforeAfterSlider
+                beforeImage="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&q=80"
+                afterImage="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&q=80"
+                beforeLabel="Vorher"
+                afterLabel="Nachher"
+              />
             </div>
           </div>
         </section>
         
+        {/* Process Section */}
+        <section className="py-16 md:py-24 bg-secondary/20">
+          <div className="container px-6 md:px-12">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">So läuft es ab</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Einfach und klar
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[
+                { title: "1. Erstgespräch", desc: "Wir besprechen Ihre Wünsche und Ihr Budget." },
+                { title: "2. Planung", desc: "Ihr Projektleiter plant mit Ihnen gemeinsam." },
+                { title: "3. Umbau", desc: "Unser Team baut sauber und termingerecht." },
+                { title: "4. Übergabe", desc: "Sie bekommen Ihre fertige Küche mit Garantie." }
+              ].map((step, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-background p-6 rounded-lg shadow-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <h3 className="text-xl font-semibold mb-3 text-primary">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
         <section className="py-16 md:py-24 bg-primary text-white">
           <div className="container px-6 md:px-12 text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-3xl mx-auto"
+            >
               <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Jetzt Termin vereinbaren</h2>
-              <p className="text-xl mb-8 text-white/90 leading-relaxed">Wir beraten Sie gerne – kostenlos und unverbindlich.</p>
-              <Link to="/#contact"><Button size="lg" variant="secondary" className="text-lg px-8 py-6">Jetzt Kontakt aufnehmen</Button></Link>
+              <p className="text-xl mb-8 text-white/90 leading-relaxed">
+                Wir beraten Sie gerne – kostenlos und unverbindlich.
+              </p>
+              <Link to="/#contact">
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
+                  Jetzt Kontakt aufnehmen
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </section>
       </main>
+      
       <Footer />
     </div>
   );
 };
 
 export default KuechenumbauPage;
-
