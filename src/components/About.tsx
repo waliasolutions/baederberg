@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Heart, Award, Smile } from 'lucide-react';
 import modernBathroom from '/lovable-uploads/modern-bathroom-interior.jpg';
 
@@ -9,25 +7,15 @@ const About = () => {
     <section id="about" className="py-24 md:py-32 bg-white">
       <div className="container px-6 md:px-12">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <img 
               src={modernBathroom}
               alt="Modernes Badezimmer" 
               className="w-full rounded-2xl shadow-lg object-cover h-[500px]"
             />
-          </motion.div>
+          </div>
           
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-tight">
               Ihr Bad, Ihre Küche, Ihr Innenausbau
             </h2>
@@ -71,7 +59,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
