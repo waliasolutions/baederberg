@@ -21,7 +21,7 @@ const InnenausbauPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-24 md:pt-32">
+      <main className="pt-20">
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <img src="/lovable-uploads/innenausbau-hero.jpg" alt="Innenausbau" className="w-full h-full object-cover" />
