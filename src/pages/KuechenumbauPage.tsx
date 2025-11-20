@@ -5,9 +5,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle, User, Clock, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
-import TestimonialCard from '@/components/TestimonialCard';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { kuechenumbauTestimonials } from '@/data/testimonials';
-import { useInView } from 'react-intersection-observer';
 
 const KuechenumbauPage = () => {
   const features = [
@@ -213,18 +212,11 @@ const KuechenumbauPage = () => {
               </p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {kuechenumbauTestimonials.map((testimonial, index) => (
-                <div key={index}>
-                  <TestimonialCard 
-                    quote={testimonial.quote}
-                    author={testimonial.author}
-                    project={testimonial.project}
-                    rating={testimonial.rating}
-                  />
-                </div>
-              ))}
-            </div>
+            <TestimonialsCarousel 
+              testimonials={kuechenumbauTestimonials}
+              autoplay={true}
+              autoplayDelay={7000}
+            />
           </div>
         </section>
         
