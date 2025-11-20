@@ -84,15 +84,11 @@ const Hero = () => {
       
       <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 md:mb-10">
             {currentSlide.heading}
           </h1>
           
-          <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 md:mb-8">
-            {currentSlide.description}
-          </p>
-          
-          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 text-base md:text-lg px-8 py-3">
             <Link to={currentSlide.ctaLink}>
               Mehr erfahren
             </Link>
