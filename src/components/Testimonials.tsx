@@ -1,33 +1,9 @@
 
-import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import TestimonialCard from './TestimonialCard';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const testimonials = [
-  {
-    quote: "Unser Bad ist genau geworden wie wir es wollten. Der Bauleiter hat uns gut beraten und alles lief reibungslos.",
-    author: "Lisa Müller",
-    location: "Zürich",
-    project: "Badumbau",
-    rating: 5
-  },
-  {
-    quote: "Die Küche wurde termingerecht fertig. Saubere Arbeit, freundliches Team. Wir sind sehr zufrieden.",
-    author: "Thomas Weber",
-    location: "Richterswil",
-    project: "Küchenumbau",
-    rating: 5
-  },
-  {
-    quote: "Das barrierefreie Bad für meine Mutter ist perfekt geworden. Praktisch und schön. Danke!",
-    author: "Claudia Schmidt",
-    location: "Lachen",
-    project: "Barrierefreies Bad",
-    rating: 5
-  }
-];
+import { homepageTestimonials } from '@/data/testimonials';
 
 const Testimonials = () => {
   const { ref, inView } = useInView({
@@ -90,12 +66,11 @@ const Testimonials = () => {
           initial="hidden"
           animate={inView ? "show" : "hidden"}
         >
-          {testimonials.map((testimonial, index) => (
+          {homepageTestimonials.map((testimonial, index) => (
             <div key={index}>
               <TestimonialCard 
                 quote={testimonial.quote}
                 author={testimonial.author}
-                location={testimonial.location}
                 project={testimonial.project}
                 rating={testimonial.rating}
               />

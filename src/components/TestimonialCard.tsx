@@ -4,7 +4,7 @@ import { Quote, User, Star } from 'lucide-react';
 interface TestimonialCardProps {
   quote: string;
   author: string;
-  location: string;
+  location?: string;
   image?: string;
   project: string;
   rating?: number;
@@ -92,14 +92,16 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             >
               {author}
             </motion.h4>
-            <motion.p 
-              className="text-sm text-muted-foreground"
-              initial={{ opacity: 0, x: -5 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              {location}
-            </motion.p>
+            {location && (
+              <motion.p 
+                className="text-sm text-muted-foreground"
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                {location}
+              </motion.p>
+            )}
           </div>
         </div>
         <motion.div 

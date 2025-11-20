@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, User, Clock, Shield } from 'lucide-react';
+import { ArrowLeft, CheckCircle, User, Clock, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import TestimonialCard from '@/components/TestimonialCard';
+import { innenausbauTestimonials } from '@/data/testimonials';
+import { useInView } from 'react-intersection-observer';
 
 const InnenausbauPage = () => {
   const features = [
@@ -50,6 +53,45 @@ const InnenausbauPage = () => {
                   </div>
                 ))}
               </motion.div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Testimonials Section */}
+        <section className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30">
+          <div className="container px-6 md:px-12">
+            <motion.div 
+              className="text-center max-w-3xl mx-auto mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <MessageCircle size={20} className="text-primary" />
+                <h2 className="text-sm md:text-base text-primary font-medium">
+                  Kundenstimmen
+                </h2>
+              </div>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-tight">
+                Zufriedene Kunden
+              </h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Echte Erfahrungen von unseren Kunden
+              </p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {innenausbauTestimonials.map((testimonial, index) => (
+                <div key={index}>
+                  <TestimonialCard 
+                    quote={testimonial.quote}
+                    author={testimonial.author}
+                    project={testimonial.project}
+                    rating={testimonial.rating}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>
