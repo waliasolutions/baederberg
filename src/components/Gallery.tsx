@@ -7,8 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const projects = [
   {
     title: "Ein neues Badezimmer für Familie Müller",
-    location: "Schweiz",
-    description: "Wir haben ein altes Bad in einen hellen, freundlichen Raum mit viel Platz für die ganze Familie verwandelt.",
     images: [
       "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
@@ -16,8 +14,6 @@ const projects = [
   },
   {
     title: "Offene Küche für mehr Familienzeit",
-    location: "Schweiz",
-    description: "Diese Küche haben wir so umgestaltet, dass die Familie beim Kochen zusammen sein und sich unterhalten kann.",
     images: [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
@@ -25,8 +21,6 @@ const projects = [
   },
   {
     title: "Kleines Gäste-WC mit grosser Wirkung",
-    location: "Schweiz",
-    description: "Auch auf kleinem Raum kann man viel erreichen. Hier haben wir ein Gäste-WC geschaffen, das Eindruck macht.",
     images: [
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
@@ -34,8 +28,6 @@ const projects = [
   },
   {
     title: "Grosszügiges Bad zum Entspannen",
-    location: "Schweiz",
-    description: "Dieses Badezimmer haben wir in einen Ort der Ruhe und Entspannung verwandelt, mit viel Platz und hochwertigen Materialien.",
     images: [
       "https://images.unsplash.com/photo-1642371744429-7b98b7b619c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
@@ -43,8 +35,6 @@ const projects = [
   },
   {
     title: "Gemütliche Küche im Landhausstil",
-    location: "Schweiz",
-    description: "Diese Küche verbindet traditionellen Charme mit moderner Funktionalität – handgefertigt und genau nach den Wünschen der Familie.",
     images: [
       "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
@@ -52,8 +42,6 @@ const projects = [
   },
   {
     title: "Einladender Eingangsbereich",
-    location: "Schweiz",
-    description: "Hier haben wir einen Eingangsbereich gestaltet, der Gäste willkommen heisst und praktischen Stauraum für die Familie bietet.",
     images: [
       "https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     ],
@@ -171,8 +159,6 @@ const Gallery = () => {
               >
                 <ProjectCard
                   title={project.title}
-                  location={project.location}
-                  description={project.description}
                   images={project.images}
                   tags={project.tags}
                   index={index}
