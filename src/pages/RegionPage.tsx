@@ -1,53 +1,39 @@
-
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ProjectCard from '@/components/ProjectCard';
 import TestimonialCard from '@/components/TestimonialCard';
-import { ChevronRight, MapPin, Phone, Mail, ArrowRight, Clock, Shield, Wrench } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { realTestimonials } from '@/data/testimonials';
 
 interface RegionData {
   [key: string]: {
     title: string;
     description: string;
-    problem: string;
-    agitation: string;
-    solution: string;
-    serviceDescription: string;
     heroImage: string;
-    projects: {
-      title: string;
-      description: string;
-      location: string;
-      images: string[];
-      tags: string[];
-    }[];
+    services: {
+      badumbau: string;
+      kuechenumbau: string;
+      innenausbau: string;
+    };
+    whyUs: string[];
     testimonials: {
       quote: string;
       author: string;
       project: string;
       rating?: number;
     }[];
-    benefits: {
-      title: string;
-      description: string;
-      icon: string;
-    }[];
     faq: {
       question: string;
       answer: string;
     }[];
-    contactPerson: {
-      name: string;
-      position: string;
+    contact: {
       phone: string;
       email: string;
-    };
-    address: {
-      street: string;
-      city: string;
+      address: {
+        street: string;
+        city: string;
+      };
     };
   };
 }
@@ -56,69 +42,22 @@ const regionData: RegionData = {
   'zurich': {
     title: 'Bäderberg in Zürich',
     description: 'Bad, Küche und Innenausbau in Zürich',
-    problem: 'Bad oder Küche brauchen einen Umbau?',
-    agitation: 'Wir kennen Zürich und die Besonderheiten von Altbauten und modernen Wohnungen.',
-    solution: 'Wir bauen um – sauber, termintreu, mit Garantie.',
-    serviceDescription: 'Unser Team in Zürich begleitet Sie von Anfang bis Ende. Persönliche Betreuung, sorgfältige Arbeit.',
     heroImage: 'https://images.unsplash.com/photo-1589395937772-7c69f7cf1a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Modernes Bad',
-        description: 'Badumbau in Zürich – komplett erneuert.',
-        location: 'Zürich',
-        images: [
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Modern', 'Stadthaus']
-      },
-      {
-        title: 'Neue Küche',
-        description: 'Küchenumbau in Altbau – modern und funktional.',
-        location: 'Zürich',
-        images: [
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Altbau', 'Modern']
-      },
-      {
-        title: 'Offenes Wohnkonzept',
-        description: 'Umgestaltung einer Wohnung mit neuer Raumaufteilung für mehr Weite und Licht.',
-        location: 'Zürich',
-        images: [
-          "https://images.unsplash.com/photo-1595514535115-dd5b0d141038?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Komplettumbau', 'Wohnkonzept', 'Modern']
-      }
+    services: {
+      badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt, mit Garantie.',
+      kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
+      innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
+    },
+    whyUs: [
+      'Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe',
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Erfahrung mit Altbauten und modernen Wohnungen in Zürich'
     ],
     testimonials: [
       realTestimonials[2],  // Christian Hess
       realTestimonials[0],  // Motorcycle Driver
       realTestimonials[4]   // Kodeli
-    ],
-    benefits: [
-      {
-        title: 'Lokales Team',
-        description: 'Wir kennen die Bausubstanz und Besonderheiten in Zürich.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Zuverlässige Termine',
-        description: 'Wir halten, was wir versprechen.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Garantie',
-        description: '5 Jahre Garantie auf unsere Handwerksleistungen.',
-        icon: 'Shield'
-      },
-      {
-        title: 'Gute Materialien',
-        description: 'Wir arbeiten mit hochwertigen Materialien für lange Freude.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -134,78 +73,34 @@ const regionData: RegionData = {
         answer: 'Ja, wir haben viel Erfahrung mit Renovierungen in bewohnten Räumen. Wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden.'
       }
     ],
-    contactPerson: {
-      name: 'Michael Becker',
-      position: 'Ansprechpartner Zürich',
+    contact: {
       phone: '+41 44 123 45 67',
-      email: 'zuerich@baederberg.ch'
-    },
-    address: {
-      street: 'Bahnhofstrasse 100',
-      city: '8000 Zürich'
+      email: 'zuerich@baederberg.ch',
+      address: {
+        street: 'Bahnhofstrasse 100',
+        city: 'Zürich'
+      }
     }
   },
   'richterswil': {
     title: 'Bäderberg in Richterswil',
-    description: 'Ihr Spezialist für Bäder, Küchen und Innenausbau am Zürichsee',
-    problem: 'Braucht Ihr Zuhause in Richterswil eine Modernisierung?',
-    agitation: 'Ein veraltetes Bad oder eine unpraktische Küche macht den Alltag mühsam und mindert den Wohnkomfort. Die besonderen Gegebenheiten am Zürichsee erfordern Fachwissen beim Umbau.',
-    solution: 'Bäderberg verbindet lokales Handwerk mit moderner Planung, um Ihre Räume zu verschönern und praktischer zu machen.',
-    serviceDescription: 'In Richterswil bieten wir passende Lösungen für Ihre Umbauvorhaben, die zur Region und Ihrem Zuhause passen.',
+    description: 'Bad, Küche und Innenausbau in Richterswil',
     heroImage: 'https://images.unsplash.com/photo-1505843795480-5cfb3c03f6ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Helles Badezimmer',
-        description: 'Neugestaltung eines Badezimmers mit viel Tageslicht und natürlichen Materialien.',
-        location: 'Richterswil',
-        images: [
-          "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1604014438289-3b23c7f2e4e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Hell', 'Naturstein']
-      },
-      {
-        title: 'Gemütliche Küche',
-        description: 'Umbau einer Küche mit traditionellen Elementen und modernen Geräten.',
-        location: 'Richterswil',
-        images: [
-          "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Gemütlich', 'Modern']
-      },
-      {
-        title: 'Dachgeschoss-Ausbau',
-        description: 'Umbau eines ungenutzten Dachbodens zu einem hellen Wohnraum mit Bad.',
-        location: 'Richterswil',
-        images: [
-          "https://images.unsplash.com/photo-1618221639244-c1a8502c0eb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1586105251261-72a756497a11?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Dachausbau', 'Badezimmer', 'Wohnraum']
-      }
+    services: {
+      badumbau: 'Badumbau am Zürichsee – individuell geplant und professionell ausgeführt. Mit Garantie.',
+      kuechenumbau: 'Küchenumbau mit allem drum und dran. Wir koordinieren alle Gewerke für Sie.',
+      innenausbau: 'Möbeleinbau, Böden, Wandverkleidungen – alles fachgerecht umgesetzt.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Erfahrung mit Häusern am Hang und besonderen Gegebenheiten',
+      'Zuverlässige Termine und Absprachen',
+      'Hochwertige Materialien und saubere Arbeit'
     ],
     testimonials: [
       realTestimonials[1],  // Nicoleta Salvadori-Curniuc
       realTestimonials[6],  // Patricia Schmid
       realTestimonials[5]   // Derk Mous
-    ],
-    benefits: [
-      {
-        title: 'Lokale Erfahrung',
-        description: 'Wir kennen die Besonderheiten der Häuser am Zürichsee.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Zuverlässigkeit',
-        description: 'Wir halten Termine und Absprachen ein.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Qualität',
-        description: 'Wir setzen auf gute Materialien und saubere Arbeit.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -221,78 +116,34 @@ const regionData: RegionData = {
         answer: 'Natürlich! Wir beraten Sie gerne bei der Gestaltung und finden gemeinsam die beste Lösung für Ihre Räume.'
       }
     ],
-    contactPerson: {
-      name: 'Sandra Weber',
-      position: 'Ansprechpartnerin Richterswil',
+    contact: {
       phone: '+41 44 123 45 68',
-      email: 'richterswil@baederberg.ch'
-    },
-    address: {
-      street: 'Hauptstrasse 25',
-      city: '8805 Richterswil'
+      email: 'richterswil@baederberg.ch',
+      address: {
+        street: 'Hauptstrasse 25',
+        city: 'Richterswil'
+      }
     }
   },
   'waedenswil': {
     title: 'Bäderberg in Wädenswil',
-    description: 'Ihr Partner für moderne Bad- und Küchenrenovierungen in Wädenswil',
-    problem: 'Ist Ihr Bad oder Ihre Küche in Wädenswil nicht mehr zeitgemäss?',
-    agitation: 'Ein altes Bad oder eine veraltete Küche verbraucht oft zu viel Energie und passt nicht mehr zu den heutigen Bedürfnissen. In Wädenswil mit seiner Nähe zum See sollte das Zuhause ein Ort zum Wohlfühlen sein.',
-    solution: 'Bäderberg bietet durchdachte Umbauten, die Ihren Wohnraum in Wädenswil schöner und funktionaler machen.',
-    serviceDescription: 'Unser Team in Wädenswil plant und baut Ihr neues Bad oder Ihre Küche nach Ihren Wünschen – persönlich, zuverlässig und mit regionaler Verbundenheit.',
+    description: 'Bad, Küche und Innenausbau in Wädenswil',
     heroImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Familienbad mit Dusche und Wanne',
-        description: 'Neues Badezimmer mit großer Dusche und komfortabler Badewanne für eine Familie.',
-        location: 'Wädenswil',
-        images: [
-          "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Familienbad', 'Dusche']
-      },
-      {
-        title: 'Offene Wohnküche',
-        description: 'Umbau einer alten Küche zu einem offenen Koch- und Essbereich mit viel Licht.',
-        location: 'Wädenswil',
-        images: [
-          "https://images.unsplash.com/photo-1586208958839-06c17cacf2b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Offene Küche', 'Wohnküche']
-      },
-      {
-        title: 'Kleines Gäste-WC',
-        description: 'Geschmackvolle Gestaltung eines kleinen Gäste-WCs mit cleverer Raumnutzung.',
-        location: 'Wädenswil',
-        images: [
-          "https://images.unsplash.com/photo-1599639668273-ce573e036294?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Gäste-WC', 'Kleiner Raum']
-      }
+    services: {
+      badumbau: 'Kompletter Badumbau – persönlich geplant, fachgerecht ausgeführt. Mit 5 Jahren Garantie.',
+      kuechenumbau: 'Küchen nach Maß. Wir planen, bauen und montieren – alles aus einer Hand.',
+      innenausbau: 'Raumgestaltung und Möbeleinbau. Professionell umgesetzt, zuverlässig fertiggestellt.'
+    },
+    whyUs: [
+      'Alles aus einer Hand – eine Anlaufstelle für Ihr Projekt',
+      'Transparente Planung mit klaren Zeitplänen',
+      'Fachkundige Beratung für passende Lösungen',
+      '5 Jahre Garantie'
     ],
     testimonials: [
       realTestimonials[15], // Coiffure Vogue Wädenswil
       realTestimonials[9],  // Lionel Sigrist
       realTestimonials[8]   // Márton Szőnyi
-    ],
-    benefits: [
-      {
-        title: 'Vor Ort für Sie da',
-        description: 'Unser Team ist in Wädenswil und Umgebung schnell bei Ihnen.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Transparente Planung',
-        description: 'Sie wissen immer, wann was passiert und was es kostet.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Fachkundige Beratung',
-        description: 'Wir finden die passende Lösung für Ihre Räume und Budget.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -308,78 +159,34 @@ const regionData: RegionData = {
         answer: 'Ja, wir sind Ihr Ansprechpartner für alle Gewerke und koordinieren den gesamten Umbau für Sie.'
       }
     ],
-    contactPerson: {
-      name: 'Martin Brunner',
-      position: 'Ansprechpartner Wädenswil',
+    contact: {
       phone: '+41 44 123 45 69',
-      email: 'waedenswil@baederberg.ch'
-    },
-    address: {
-      street: 'Seestrasse 45',
-      city: '8820 Wädenswil'
+      email: 'waedenswil@baederberg.ch',
+      address: {
+        street: 'Seestrasse 45',
+        city: 'Wädenswil'
+      }
     }
   },
   'lachen': {
     title: 'Bäderberg in Lachen',
-    description: 'Ihr kompetenter Partner für Bad- und Küchenrenovierungen in Lachen',
-    problem: 'Passt Ihr Bad oder Ihre Küche nicht mehr zu Ihren Bedürfnissen?',
-    agitation: 'Veraltete Sanitäranlagen und Küchen können den Alltag erschweren und den Wohnkomfort erheblich mindern. In Lachen am oberen Zürichsee sollte Ihr Zuhause Ihren Wünschen entsprechen.',
-    solution: 'Bäderberg gestaltet Ihren Wohnraum neu – mit praktischen Lösungen und ansprechendem Design, abgestimmt auf Ihre persönlichen Bedürfnisse.',
-    serviceDescription: 'Unsere Handwerker und Planer kennen sich in Lachen gut aus und setzen Ihr Projekt zuverlässig und fachkundig um.',
+    description: 'Bad, Küche und Innenausbau in Lachen',
     heroImage: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Modernes Familienbad',
-        description: 'Umbau eines alten Bades zu einem modernen Familienbad mit viel Stauraum und praktischer Aufteilung.',
-        location: 'Lachen',
-        images: [
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Modern', 'Familienfreundlich']
-      },
-      {
-        title: 'Helle Küche mit Essbereich',
-        description: 'Neugestaltung einer Küche mit integriertem Essbereich und großen Fenstern für viel Tageslicht.',
-        location: 'Lachen',
-        images: [
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Hell', 'Essbereich']
-      },
-      {
-        title: 'Renovierung Altbau-Bad',
-        description: 'Behutsame Renovierung eines Bades in einem Altbau mit Erhalt historischer Elemente.',
-        location: 'Lachen',
-        images: [
-          "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1599639668273-ce573e036294?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Altbau', 'Renovation']
-      }
+    services: {
+      badumbau: 'Badumbau komplett – von der Planung bis zur fertigen Ausführung. Persönlich betreut.',
+      kuechenumbau: 'Ihre neue Küche – individuell geplant, fachgerecht eingebaut, mit Garantie.',
+      innenausbau: 'Innenausbau nach Ihren Wünschen. Böden, Wände, Einbauten – alles aus einer Hand.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Pünktliche Umsetzung und regelmäßige Information',
+      'Erfahrene Handwerker mit Auge fürs Detail',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[10], // Claudio Hofer
       realTestimonials[17], // Albert Peter
       realTestimonials[11]  // Benjamin Tacquet
-    ],
-    benefits: [
-      {
-        title: 'Regionalität',
-        description: 'Wir kennen uns in Lachen und Umgebung gut aus.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Pünktlichkeit',
-        description: 'Wir halten Termine ein und informieren Sie regelmäßig.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Handwerkskunst',
-        description: 'Unsere erfahrenen Handwerker arbeiten präzise und sorgfältig.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -395,78 +202,34 @@ const regionData: RegionData = {
         answer: 'Ja, wir arbeiten wo möglich mit Partnern aus der Region zusammen und unterstützen so die lokale Wirtschaft.'
       }
     ],
-    contactPerson: {
-      name: 'Daniel Meyer',
-      position: 'Ansprechpartner Lachen',
+    contact: {
       phone: '+41 44 123 45 70',
-      email: 'lachen@baederberg.ch'
-    },
-    address: {
-      street: 'Marktgasse 12',
-      city: '8853 Lachen'
+      email: 'lachen@baederberg.ch',
+      address: {
+        street: 'Marktgasse 12',
+        city: 'Lachen'
+      }
     }
   },
   'pfaeffikon': {
     title: 'Bäderberg in Pfäffikon SZ',
-    description: 'Ihr zuverlässiger Partner für Bad- und Küchenumbauten in Pfäffikon und Umgebung',
-    problem: 'Möchten Sie Ihr Bad oder Ihre Küche in Pfäffikon modernisieren?',
-    agitation: 'Viele Bäder und Küchen in Pfäffikon entsprechen nicht mehr den heutigen Standards in Bezug auf Komfort, Energieeffizienz und Design. Eine Modernisierung steigert die Wohnqualität erheblich.',
-    solution: 'Bäderberg realisiert Ihren Umbau fachkundig, termintreu und nach Ihren individuellen Wünschen – für mehr Freude am Wohnen.',
-    serviceDescription: 'In Pfäffikon SZ und Umgebung bieten wir umfassende Beratung, detaillierte Planung und sorgfältige Umsetzung für Ihre Umbauvorhaben.',
+    description: 'Bad, Küche und Innenausbau in Pfäffikon SZ',
     heroImage: 'https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Barrierefreies Bad',
-        description: 'Umbau eines herkömmlichen Bades zu einem komfortablen, barrierefreien Bad für alle Generationen.',
-        location: 'Pfäffikon SZ',
-        images: [
-          "https://images.unsplash.com/photo-1603825491103-bd638b1873b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Barrierefrei', 'Komfort']
-      },
-      {
-        title: 'Moderne Einbauküche',
-        description: 'Einbau einer neuen Küche mit praktischen Schränken und modernsten Geräten.',
-        location: 'Pfäffikon SZ',
-        images: [
-          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1586208958839-06c17cacf2b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Modern', 'Einbauküche']
-      },
-      {
-        title: 'Wohnraum-Sanierung',
-        description: 'Umfassende Sanierung eines Wohnbereichs mit neuer Küche und angrenzenden Räumen.',
-        location: 'Pfäffikon SZ',
-        images: [
-          "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1595514535115-dd5b0d141038?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Sanierung', 'Wohnraum', 'Küche']
-      }
+    services: {
+      badumbau: 'Badumbau in Pfäffikon – barrierefrei oder modern, individuell nach Ihren Bedürfnissen.',
+      kuechenumbau: 'Küchenumbau mit Planung und Montage. Wir kümmern uns um alles.',
+      innenausbau: 'Umbau und Sanierung von Wohnräumen. Fachgerecht und zuverlässig.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Verlässliche Planung und Einhaltung von Zeitplänen',
+      'Erfahrene Handwerker mit Liebe zum Detail',
+      'Beratung zu Fördermitteln für barrierefreie Umbauten'
     ],
     testimonials: [
       realTestimonials[3],  // Acilas Physiotherapie
       realTestimonials[13], // Katharina Gut
       realTestimonials[7]   // Boris Radoicic
-    ],
-    benefits: [
-      {
-        title: 'Nähe zum Kunden',
-        description: 'Wir sind vor Ort und schnell für Sie da.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Verlässliche Planung',
-        description: 'Wir halten uns an Absprachen und Zeitpläne.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Erfahrene Handwerker',
-        description: 'Unser Team arbeitet präzise und mit Liebe zum Detail.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -482,165 +245,34 @@ const regionData: RegionData = {
         answer: 'Ja, wenn sie noch in gutem Zustand sind und zu Ihren neuen Möbeln passen, können wir bestehende Geräte in die neue Küche integrieren.'
       }
     ],
-    contactPerson: {
-      name: 'Sabine Meier',
-      position: 'Ansprechpartnerin Pfäffikon',
+    contact: {
       phone: '+41 44 123 45 71',
-      email: 'pfaeffikon@baederberg.ch'
-    },
-    address: {
-      street: 'Zürcherstrasse 28',
-      city: '8808 Pfäffikon SZ'
-    }
-  },
-  'menzingen': {
-    title: 'Bäderberg in Menzingen',
-    description: 'Ihr kompetenter Ansprechpartner für Bad- und Küchenumbauten in Menzingen',
-    problem: 'Ist Ihr Bad oder Ihre Küche in die Jahre gekommen und benötigt eine Auffrischung?',
-    agitation: 'Ältere Bäder und Küchen können den Alltag erschweren und entsprechen oft nicht mehr den heutigen Ansprüchen an Komfort und Energieeffizienz. In Menzingen mit seiner besonderen Topografie braucht es durchdachte Lösungen.',
-    solution: 'Bäderberg realisiert Ihren Umbau nach Ihren Wünschen – mit lokaler Erfahrung und einem Gespür für die regionalen Besonderheiten.',
-    serviceDescription: 'In Menzingen bieten wir von der ersten Skizze bis zur fertigen Umsetzung alles aus einer Hand – mit persönlicher Betreuung und kurzen Wegen.',
-    heroImage: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Badezimmer mit Naturblick',
-        description: 'Umbau eines kleinen Bades zu einem hellen Wohlfühlraum mit optimaler Raumnutzung.',
-        location: 'Menzingen',
-        images: [
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Hell', 'Naturmaterialien']
-      },
-      {
-        title: 'Landhaus-Küche',
-        description: 'Gestaltung einer rustikalen Küche mit modernen Elementen für ein Haus im Grünen.',
-        location: 'Menzingen',
-        images: [
-          "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Landhausstil', 'Modern']
-      },
-      {
-        title: 'Barrierefreier Umbau',
-        description: 'Umgestaltung eines Bades für mehr Komfort und Sicherheit im Alter.',
-        location: 'Menzingen',
-        images: [
-          "https://images.unsplash.com/photo-1603825491103-bd638b1873b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Barrierefrei', 'Seniorengerecht']
+      email: 'pfaeffikon@baederberg.ch',
+      address: {
+        street: 'Zürcherstrasse 28',
+        city: 'Pfäffikon SZ'
       }
-    ],
-    testimonials: [
-      realTestimonials[19], // Marzia Mura
-      realTestimonials[14], // Rolf Haller
-      realTestimonials[16]  // victor poalelungi
-    ],
-    benefits: [
-      {
-        title: 'Regionale Expertise',
-        description: 'Wir kennen die Gegebenheiten in Menzingen sehr gut.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Pünktliche Umsetzung',
-        description: 'Wir halten unsere Zeitpläne zuverlässig ein.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Hochwertige Materialien',
-        description: 'Wir verwenden nur Qualitätsprodukte für Ihren Umbau.',
-        icon: 'Wrench'
-      }
-    ],
-    faq: [
-      {
-        question: 'Können Sie auch Umbauten in älteren Häusern durchführen?',
-        answer: 'Ja, wir haben viel Erfahrung mit Umbauten in älteren Gebäuden und kennen die typischen Herausforderungen.'
-      },
-      {
-        question: 'Wie lange dauert ein Badumbau in Menzingen?',
-        answer: 'Ein Badumbau dauert je nach Umfang zwischen 3 und 6 Wochen. Wir erstellen vorab einen detaillierten Zeitplan.'
-      },
-      {
-        question: 'Gibt es Fördermittel für barrierefreie Umbauten?',
-        answer: 'Ja, für barrierefreie Umbauten gibt es verschiedene Fördermöglichkeiten. Wir beraten Sie gerne zu den aktuellen Programmen.'
-      }
-    ],
-    contactPerson: {
-      name: 'Markus Fischer',
-      position: 'Ansprechpartner Menzingen',
-      phone: '+41 44 123 45 72',
-      email: 'menzingen@baederberg.ch'
-    },
-    address: {
-      street: 'Bergstrasse 15',
-      city: '6313 Menzingen'
     }
   },
   'zollikon': {
     title: 'Bäderberg in Zollikon',
-    description: 'Ihr Spezialist für hochwertige Bad- und Küchenumbauten in Zollikon',
-    problem: 'Suchen Sie nach einem verlässlichen Partner für Ihren Umbau in Zollikon?',
-    agitation: 'In den exklusiven Wohnlagen Zollikons sind Qualität und Präzision bei Umbauten besonders wichtig. Veraltete Bäder und Küchen entsprechen oft nicht mehr dem gehobenen Anspruch.',
-    solution: 'Bäderberg setzt Ihre Wünsche mit Schweizer Präzision und einem Gespür für hochwertige Materialien um.',
-    serviceDescription: 'Für unsere Kunden in Zollikon bieten wir erstklassige Beratung, detaillierte Planung und exzellente Handwerksarbeit für anspruchsvolle Umbauprojekte.',
+    description: 'Bad, Küche und Innenausbau in Zollikon',
     heroImage: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Luxusbad mit Seeblick',
-        description: 'Komplette Neugestaltung eines Badezimmers mit edlen Materialien und perfekter Aussicht.',
-        location: 'Zollikon',
-        images: [
-          "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Luxus', 'Seeblick']
-      },
-      {
-        title: 'Designer-Küche',
-        description: 'Einbau einer modernen Designerküche mit hochwertigen Geräten und exklusiver Ausstattung.',
-        location: 'Zollikon',
-        images: [
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Design', 'Luxusausstattung']
-      },
-      {
-        title: 'Wellness-Oase',
-        description: 'Umbau eines Kellers zu einem privaten Spa-Bereich mit Sauna und Regendusche.',
-        location: 'Zollikon',
-        images: [
-          "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Wellness', 'Spa', 'Sauna']
-      }
+    services: {
+      badumbau: 'Badumbau mit hochwertigen Materialien und Schweizer Präzision. Individuell geplant.',
+      kuechenumbau: 'Küchenumbau auf höchstem Niveau – mit exklusiver Ausstattung und perfekter Ausführung.',
+      innenausbau: 'Innenausbau für anspruchsvolle Wohnungen. Hochwertig und detailgenau.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Premium-Materialien und erstklassige Ausführung',
+      'Diskrete Arbeitsweise mit minimalen Störungen',
+      'Massgeschneiderte Lösungen für Ihre Wünsche'
     ],
     testimonials: [
       realTestimonials[12], // Kay Moeller-Heske
       realTestimonials[4],  // Kodeli
       realTestimonials[18]  // Läubli Daniel
-    ],
-    benefits: [
-      {
-        title: 'Premium-Qualität',
-        description: 'Wir verwenden nur erstklassige Materialien und Produkte.',
-        icon: 'Shield'
-      },
-      {
-        title: 'Diskrete Umsetzung',
-        description: 'Wir arbeiten rücksichtsvoll und mit minimalen Störungen.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Massgeschneiderte Lösungen',
-        description: 'Jedes Projekt wird individuell nach Ihren Wünschen gestaltet.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -656,78 +288,34 @@ const regionData: RegionData = {
         answer: 'Ja, auf Wunsch arbeiten wir mit renommierten Innenarchitekten zusammen, um ein stimmiges Gesamtkonzept zu erstellen.'
       }
     ],
-    contactPerson: {
-      name: 'Christina Huber',
-      position: 'Ansprechpartnerin Zollikon',
+    contact: {
       phone: '+41 44 123 45 73',
-      email: 'zollikon@baederberg.ch'
-    },
-    address: {
-      street: 'Seestrasse 120',
-      city: '8702 Zollikon'
+      email: 'zollikon@baederberg.ch',
+      address: {
+        street: 'Seestrasse 120',
+        city: 'Zollikon'
+      }
     }
   },
   'kilchberg': {
     title: 'Bäderberg in Kilchberg',
-    description: 'Ihr Partner für stilvolle Bad- und Küchenrenovierungen in Kilchberg',
-    problem: 'Entspricht Ihr Bad oder Ihre Küche in Kilchberg nicht mehr Ihren Ansprüchen?',
-    agitation: 'In den schönen Häusern Kilchbergs sollten auch die Bäder und Küchen dem hohen Wohnstandard entsprechen. Veraltete Räume mindern den Wohnkomfort und die Freude am Zuhause.',
-    solution: 'Bäderberg gestaltet Ihre Räume nach Ihren Wünschen – stilsicher, hochwertig und mit einem Blick für das Besondere.',
-    serviceDescription: 'In Kilchberg bieten wir massgeschneiderte Lösungen für anspruchsvolle Kunden, die Wert auf Qualität und durchdachte Konzepte legen.',
+    description: 'Bad, Küche und Innenausbau in Kilchberg',
     heroImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Elegantes Badezimmer',
-        description: 'Umbau eines Badezimmers zu einem eleganten Wohlfühlraum mit hochwertiger Ausstattung.',
-        location: 'Kilchberg',
-        images: [
-          "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Eleganz', 'Hochwertig']
-      },
-      {
-        title: 'Offene Wohnküche',
-        description: 'Gestaltung einer offenen Küche mit Kochinsel und nahtlosem Übergang zum Wohnbereich.',
-        location: 'Kilchberg',
-        images: [
-          "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1586208958839-06c17cacf2b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Wohnküche', 'Kochinsel']
-      },
-      {
-        title: 'Gästebad im Vintage-Stil',
-        description: 'Gestaltung eines kleinen Gästebades mit Charakter und besonderen Details.',
-        location: 'Kilchberg',
-        images: [
-          "https://images.unsplash.com/photo-1599639668273-ce573e036294?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Vintage', 'Gästebad']
-      }
+    services: {
+      badumbau: 'Badumbau mit Stil – hochwertig geplant und präzise ausgeführt.',
+      kuechenumbau: 'Offene Wohnküchen oder klassische Küchen – individuell nach Ihren Wünschen.',
+      innenausbau: 'Innenausbau mit Auge fürs Detail. Für Räume mit Charakter.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Designkompetenz und Gespür für Ästhetik',
+      'Qualitätshandwerk mit Liebe zum Detail',
+      'Termintreue und Budgeteinhaltung'
     ],
     testimonials: [
       realTestimonials[0],  // Motorcycle Driver
       realTestimonials[11], // Benjamin Tacquet
       realTestimonials[6]   // Patricia Schmid
-    ],
-    benefits: [
-      {
-        title: 'Designkompetenz',
-        description: 'Wir haben ein Auge für Ästhetik und aktuelle Trends.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Qualitätshandwerk',
-        description: 'Unsere Handwerker arbeiten präzise und mit Liebe zum Detail.',
-        icon: 'Wrench'
-      },
-      {
-        title: 'Termintreue',
-        description: 'Wir halten uns an vereinbarte Zeitpläne und Budgets.',
-        icon: 'Clock'
-      }
     ],
     faq: [
       {
@@ -743,78 +331,34 @@ const regionData: RegionData = {
         answer: 'Ein umfassender Küchenumbau dauert in der Regel 4-6 Wochen. Wir planen den Ablauf so, dass Sie möglichst wenig Einschränkungen haben.'
       }
     ],
-    contactPerson: {
-      name: 'Stefan Wagner',
-      position: 'Ansprechpartner Kilchberg',
+    contact: {
       phone: '+41 44 123 45 74',
-      email: 'kilchberg@baederberg.ch'
-    },
-    address: {
-      street: 'Seestrasse 85',
-      city: '8802 Kilchberg'
+      email: 'kilchberg@baederberg.ch',
+      address: {
+        street: 'Seestrasse 85',
+        city: 'Kilchberg'
+      }
     }
   },
   'kuesnacht': {
     title: 'Bäderberg in Küsnacht',
-    description: 'Ihr Experte für exklusive Bad- und Küchenumbauten in Küsnacht',
-    problem: 'Suchen Sie einen zuverlässigen Partner für Ihren hochwertigen Umbau in Küsnacht?',
-    agitation: 'In der gehobenen Wohnlage Küsnachts sind Qualität und Exklusivität bei Umbauten besonders wichtig. Ihr Zuhause verdient Räume, die Ihrem Lebensstil entsprechen.',
-    solution: 'Bäderberg realisiert anspruchsvolle Umbauprojekte mit höchster Präzision und einem feinen Gespür für exklusive Materialien und Details.',
-    serviceDescription: 'Für unsere Kunden in Küsnacht bieten wir massgeschneiderte Konzepte, persönliche Betreuung und erstklassige Handwerkskunst.',
+    description: 'Bad, Küche und Innenausbau in Küsnacht',
     heroImage: 'https://images.unsplash.com/photo-1589395937772-7c69f7cf1a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Luxuriöses Masterbad',
-        description: 'Komplettsanierung eines grosszügigen Masterbads mit edlen Materialien und intelligenter Technik.',
-        location: 'Küsnacht',
-        images: [
-          "https://images.unsplash.com/photo-1603825491103-bd638b1873b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Luxus', 'Smart Home']
-      },
-      {
-        title: 'Exklusive Küche',
-        description: 'Massgeschneiderte Küche mit Naturstein, hochwertigen Geräten und perfekter Funktionalität.',
-        location: 'Küsnacht',
-        images: [
-          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Exklusiv', 'Naturstein']
-      },
-      {
-        title: 'Spa & Wellness',
-        description: 'Gestaltung eines privaten Spa-Bereichs mit Sauna, Dampfbad und Erlebnisdusche.',
-        location: 'Küsnacht',
-        images: [
-          "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1583417319070-4a69db38a482?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Wellness', 'Spa', 'Premium']
-      }
+    services: {
+      badumbau: 'Exklusive Badumbauten mit edlen Materialien und intelligenter Technik.',
+      kuechenumbau: 'Massgeschneiderte Küchen mit Naturstein und hochwertigen Geräten.',
+      innenausbau: 'Spa-Bereiche, Wellnesszonen und individuelle Raumkonzepte.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Exklusive Materialien für langlebige Qualität',
+      'Höchste Präzision in der Ausführung',
+      'Persönliche Betreuung durch einen festen Ansprechpartner'
     ],
     testimonials: [
       realTestimonials[2],  // Christian Hess
       realTestimonials[5],  // Derk Mous
       realTestimonials[9]   // Lionel Sigrist
-    ],
-    benefits: [
-      {
-        title: 'Exklusive Materialien',
-        description: 'Wir arbeiten mit den besten Materialien für langlebige Qualität.',
-        icon: 'Shield'
-      },
-      {
-        title: 'Präzision',
-        description: 'Unsere Handwerker arbeiten mit höchster Genauigkeit.',
-        icon: 'Wrench'
-      },
-      {
-        title: 'Persönliche Betreuung',
-        description: 'Ein fester Ansprechpartner begleitet Ihr Projekt von Anfang bis Ende.',
-        icon: 'MapPin'
-      }
     ],
     faq: [
       {
@@ -830,78 +374,34 @@ const regionData: RegionData = {
         answer: 'Ja, wir integrieren moderne Smart-Home-Technologien in Ihre Bäder und Küchen für mehr Komfort und Effizienz.'
       }
     ],
-    contactPerson: {
-      name: 'Dr. Andreas Baumann',
-      position: 'Ansprechpartner Küsnacht',
+    contact: {
       phone: '+41 44 123 45 75',
-      email: 'kuesnacht@baederberg.ch'
-    },
-    address: {
-      street: 'Seestrasse 160',
-      city: '8700 Küsnacht'
+      email: 'kuesnacht@baederberg.ch',
+      address: {
+        street: 'Seestrasse 160',
+        city: 'Küsnacht'
+      }
     }
   },
   'meilen': {
     title: 'Bäderberg in Meilen',
-    description: 'Ihr zuverlässiger Partner für stilvolle Bad- und Küchenumbauten in Meilen',
-    problem: 'Ist es Zeit für eine Modernisierung Ihres Bades oder Ihrer Küche in Meilen?',
-    agitation: 'Viele Bewohner in Meilen leben in Häusern mit veralteten Bädern und Küchen, die nicht mehr zeitgemäss sind. Ein moderner Umbau steigert nicht nur den Wohnkomfort, sondern auch den Wert Ihrer Immobilie.',
-    solution: 'Bäderberg realisiert Ihren Umbau mit Schweizer Qualitätsarbeit, termingerecht und nach Ihren individuellen Wünschen.',
-    serviceDescription: 'In Meilen bieten wir ein Rundum-Sorglos-Paket für Ihren Umbau – von der ersten Beratung über die detaillierte Planung bis zur fachgerechten Umsetzung.',
+    description: 'Bad, Küche und Innenausbau in Meilen',
     heroImage: 'https://images.unsplash.com/photo-1505843795480-5cfb3c03f6ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Modernes Familienbad',
-        description: 'Umbau eines veralteten Bades zu einem modernen Familienbad mit viel Stauraum und praktischer Aufteilung.',
-        location: 'Meilen',
-        images: [
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Modern', 'Familie']
-      },
-      {
-        title: 'Küche mit Seeblick',
-        description: 'Gestaltung einer offenen Küche, die die herrliche Aussicht auf den See optimal einbezieht.',
-        location: 'Meilen',
-        images: [
-          "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Seeblick', 'Offene Küche']
-      },
-      {
-        title: 'Gäste-WC mit Stil',
-        description: 'Neugestaltung eines kleinen Gäste-WCs mit effektvoller Beleuchtung und hochwertigen Materialien.',
-        location: 'Meilen',
-        images: [
-          "https://images.unsplash.com/photo-1599639668273-ce573e036294?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Gäste-WC', 'Design']
-      }
+    services: {
+      badumbau: 'Moderner Badumbau – funktional und schön. Mit Garantie.',
+      kuechenumbau: 'Küchen mit Seeblick – wir nutzen Ihre Aussicht optimal.',
+      innenausbau: 'Gäste-WCs und Wohnraumumbauten – stilsicher umgesetzt.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Lokales Handwerk aus der Region',
+      'Zuverlässige Termine und saubere Arbeit',
+      'Persönliche Beratung für individuelle Wünsche'
     ],
     testimonials: [
       realTestimonials[8],  // Márton Szőnyi
       realTestimonials[1],  // Nicoleta Salvadori-Curniuc
       realTestimonials[10]  // Claudio Hofer
-    ],
-    benefits: [
-      {
-        title: 'Lokales Handwerk',
-        description: 'Wir arbeiten mit Handwerkern aus der Region zusammen.',
-        icon: 'MapPin'
-      },
-      {
-        title: 'Zuverlässigkeit',
-        description: 'Wir halten unsere Termine ein und arbeiten sauber.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Persönliche Beratung',
-        description: 'Wir nehmen uns Zeit für Ihre individuellen Wünsche.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -917,78 +417,34 @@ const regionData: RegionData = {
         answer: 'Natürlich, wir haben viel Erfahrung mit Umbauten in bewohnten Wohnungen und Häusern und minimieren die Belastung für Sie.'
       }
     ],
-    contactPerson: {
-      name: 'Martin Keller',
-      position: 'Ansprechpartner Meilen',
+    contact: {
       phone: '+41 44 123 45 76',
-      email: 'meilen@baederberg.ch'
-    },
-    address: {
-      street: 'Dorfstrasse 42',
-      city: '8706 Meilen'
+      email: 'meilen@baederberg.ch',
+      address: {
+        street: 'Dorfstrasse 42',
+        city: 'Meilen'
+      }
     }
   },
   'erlenbach': {
     title: 'Bäderberg in Erlenbach',
-    description: 'Ihr Partner für hochwertige Bad- und Küchenrenovierungen in Erlenbach',
-    problem: 'Ist Ihr Bad oder Ihre Küche in Erlenbach nicht mehr zeitgemäss?',
-    agitation: 'In den schönen Wohnlagen Erlenbachs sollte jedes Detail stimmen. Veraltete Bäder und Küchen mindern nicht nur den Wohnkomfort, sondern passen auch optisch nicht mehr zu Ihrem gepflegten Zuhause.',
-    solution: 'Bäderberg gestaltet Ihre Räume neu – mit hochwertigen Materialien, durchdachter Planung und perfekter Umsetzung.',
-    serviceDescription: 'Für unsere Kunden in Erlenbach bieten wir massgeschneiderte Lösungen, die zu ihrem individuellen Lebensstil und den hohen Ansprüchen der Region passen.',
+    description: 'Bad, Küche und Innenausbau in Erlenbach',
     heroImage: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    projects: [
-      {
-        title: 'Elegantes Marmorbad',
-        description: 'Gestaltung eines luxuriösen Badezimmers mit hochwertigen Marmorelementen und goldenen Akzenten.',
-        location: 'Erlenbach',
-        images: [
-          "https://images.unsplash.com/photo-1603825491103-bd638b1873b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Marmor', 'Luxus']
-      },
-      {
-        title: 'Gourmetküche',
-        description: 'Einbau einer professionellen Küche für Hobbyköche mit erstklassiger Ausstattung.',
-        location: 'Erlenbach',
-        images: [
-          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1586208958839-06c17cacf2b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Küchenumbau', 'Gourmet', 'Profi-Ausstattung']
-      },
-      {
-        title: 'Duschbad mit Glaswand',
-        description: 'Modernes, helles Badezimmer mit grosszügiger Dusche und eleganter Glasabtrennung.',
-        location: 'Erlenbach',
-        images: [
-          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        ],
-        tags: ['Badumbau', 'Modern', 'Glas']
-      }
+    services: {
+      badumbau: 'Luxuriöse Bäder mit Marmor und hochwertigen Materialien. Perfekt geplant.',
+      kuechenumbau: 'Gourmetküchen für Hobbyköche – mit erstklassiger Ausstattung.',
+      innenausbau: 'Moderne Duschbäder und individuelle Raumgestaltungen.'
+    },
+    whyUs: [
+      'Alles aus einer Hand',
+      'Hochwertige Materialien für langlebige Qualität',
+      'Termingerechte Ausführung ohne Verzögerungen',
+      'Detailliebe und Präzision'
     ],
     testimonials: [
       realTestimonials[17], // Albert Peter
       realTestimonials[19], // Marzia Mura
       realTestimonials[7]   // Boris Radoicic
-    ],
-    benefits: [
-      {
-        title: 'Hochwertige Materialen',
-        description: 'Wir verwenden nur die besten Materialien für langlebige Qualität.',
-        icon: 'Shield'
-      },
-      {
-        title: 'Termingerechte Ausführung',
-        description: 'Wir halten uns strikt an vereinbarte Zeitpläne.',
-        icon: 'Clock'
-      },
-      {
-        title: 'Detailliebe',
-        description: 'Wir achten auf jedes noch so kleine Detail.',
-        icon: 'Wrench'
-      }
     ],
     faq: [
       {
@@ -1004,15 +460,13 @@ const regionData: RegionData = {
         answer: 'Wir arbeiten mit speziellen Staubschutztüren und leistungsstarken Absauganlagen, um die Belastung für Sie so gering wie möglich zu halten.'
       }
     ],
-    contactPerson: {
-      name: 'Laura Brunner',
-      position: 'Ansprechpartnerin Erlenbach',
+    contact: {
       phone: '+41 44 123 45 77',
-      email: 'erlenbach@baederberg.ch'
-    },
-    address: {
-      street: 'Seestrasse 78',
-      city: '8703 Erlenbach'
+      email: 'erlenbach@baederberg.ch',
+      address: {
+        street: 'Seestrasse 78',
+        city: 'Erlenbach'
+      }
     }
   }
 };
@@ -1057,63 +511,62 @@ const RegionPage = () => {
         </div>
       </div>
       
-      {/* Problem-Agitation-Solution Section */}
+      {/* Services Section */}
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Ihre Herausforderung, unsere Lösung</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Unsere Leistungen in {region.contact.address.city}</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Badumbau */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Badumbau</h3>
+              <p className="text-gray-600 mb-6">{region.services.badumbau}</p>
+              <Link to="/badumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
+                Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
             
-            <div className="space-y-8">
-              <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">Die Herausforderung</h3>
-                <p className="text-gray-600">{region.problem}</p>
-              </div>
-              
-              <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">Das Problem</h3>
-                <p className="text-gray-600">{region.agitation}</p>
-              </div>
-              
-              <div className="bg-primary p-6 md:p-8 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-white mb-3">Unsere Lösung</h3>
-                <p className="text-white/90">{region.solution}</p>
-              </div>
+            {/* Küchenumbau */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Küchenumbau</h3>
+              <p className="text-gray-600 mb-6">{region.services.kuechenumbau}</p>
+              <Link to="/kuechenumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
+                Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+            
+            {/* Innenausbau */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Innenausbau</h3>
+              <p className="text-gray-600 mb-6">{region.services.innenausbau}</p>
+              <Link to="/innenausbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
+                Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Services Description */}
+      {/* Why Us Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Unser Service für {region.address.city}</h2>
-            <p className="text-lg text-gray-600 mb-10">{region.serviceDescription}</p>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Warum Bäderberg in {region.contact.address.city}?</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-              {region.benefits.map((benefit, index) => {
-                const IconComponent = 
-                  benefit.icon === 'MapPin' ? MapPin :
-                  benefit.icon === 'Clock' ? Clock :
-                  benefit.icon === 'Shield' ? Shield : Wrench;
-                
-                return (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                      <IconComponent className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">{benefit.title}</h3>
-                    <p className="text-gray-600">{benefit.description}</p>
-                  </div>
-                );
-              })}
-            </div>
+            <ul className="space-y-4">
+              {region.whyUs.map((point, index) => (
+                <li key={index} className="flex items-start">
+                  <span className="text-primary mr-3 mt-1">•</span>
+                  <span className="text-lg text-gray-700">{point}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
       
       {/* Testimonials */}
-      <section id="testimonials" className="py-16">
+      <section id="testimonials" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-10">Was unsere Kunden sagen</h2>
           
@@ -1132,14 +585,14 @@ const RegionPage = () => {
       </section>
       
       {/* FAQ */}
-      <section id="faq" className="py-16 bg-gray-50">
+      <section id="faq" className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-10">Häufige Fragen</h2>
           
           <div className="max-w-3xl mx-auto">
             <div className="space-y-4">
               {region.faq.map((item, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">{item.question}</h3>
                   <p className="text-gray-600">{item.answer}</p>
                 </div>
@@ -1150,10 +603,10 @@ const RegionPage = () => {
       </section>
       
       {/* Contact */}
-      <section id="contact" className="py-16">
+      <section id="contact" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">Kontaktieren Sie uns</h2>
                 <p className="text-lg text-gray-600 mb-8">
@@ -1162,85 +615,73 @@ const RegionPage = () => {
                 
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <MapPin className="h-5 w-5 text-primary mr-3 mt-0.5" />
+                    <MapPin className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-gray-800">{region.address.street}</p>
-                      <p className="text-gray-600">{region.address.city}</p>
+                      <p className="font-medium text-gray-800">{region.contact.address.street}</p>
+                      <p className="text-gray-600">{region.contact.address.city}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center">
-                    <Phone className="h-5 w-5 text-primary mr-3" />
-                    <p>
-                      <a href={`tel:${region.contactPerson.phone}`} className="text-gray-800 hover:text-primary transition-colors">
-                        {region.contactPerson.phone}
-                      </a>
-                    </p>
+                    <Phone className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                    <a href={`tel:${region.contact.phone}`} className="text-gray-800 hover:text-primary transition-colors">
+                      {region.contact.phone}
+                    </a>
                   </div>
                   
                   <div className="flex items-center">
-                    <Mail className="h-5 w-5 text-primary mr-3" />
-                    <p>
-                      <a href={`mailto:${region.contactPerson.email}`} className="text-gray-800 hover:text-primary transition-colors">
-                        {region.contactPerson.email}
-                      </a>
-                    </p>
+                    <Mail className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                    <a href={`mailto:${region.contact.email}`} className="text-gray-800 hover:text-primary transition-colors">
+                      {region.contact.email}
+                    </a>
                   </div>
-                </div>
-                
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">Ihr Ansprechpartner</h3>
-                  <p className="font-medium text-gray-800">{region.contactPerson.name}</p>
-                  <p className="text-gray-600">{region.contactPerson.position}</p>
                 </div>
               </div>
               
-              <div className="bg-white p-8 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-800 mb-6">Schreiben Sie uns</h3>
-                
-                <form>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label htmlFor="name" className="block text-gray-700 mb-1">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-gray-700 mb-1">E-Mail</label>
-                      <input
-                        type="email"
-                        id="email"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="mb-4">
-                    <label htmlFor="subject" className="block text-gray-700 mb-1">Betreff</label>
-                    <input
-                      type="text"
-                      id="subject"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Anfrage senden</h3>
+                <form className="space-y-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input 
+                      type="text" 
+                      id="name" 
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                   
-                  <div className="mb-6">
-                    <label htmlFor="message" className="block text-gray-700 mb-1">Nachricht</label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Telefon</label>
+                    <input 
+                      type="tel" 
+                      id="phone" 
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Nachricht</label>
+                    <textarea 
+                      id="message" 
+                      rows={4}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
                     ></textarea>
                   </div>
                   
-                  <button
+                  <button 
                     type="submit"
-                    className="w-full bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors"
+                    className="w-full bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors font-medium"
                   >
-                    Nachricht senden
+                    Anfrage senden
                   </button>
                 </form>
               </div>
@@ -1249,26 +690,23 @@ const RegionPage = () => {
         </div>
       </section>
       
-      {/* Related Regions */}
-      <section className="py-12 bg-gray-50">
+      {/* Other Regions */}
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">Weitere Regionen entdecken</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-10">Weitere Regionen</h2>
           
-          <div className="flex overflow-x-auto pb-4 space-x-4 -mx-4 px-4 scrollbar-hide">
-            {Object.entries(regionData)
-              .filter(([key]) => key !== regionId)
-              .slice(0, 5)
-              .map(([key, value]) => (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
+            {Object.keys(regionData)
+              .filter(key => key !== regionId)
+              .map((key) => (
                 <Link
                   key={key}
                   to={`/region/${key}`}
-                  className="min-w-[280px] flex-shrink-0 bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                  className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 hover:border-primary hover:shadow-md transition-all text-center"
                 >
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">{value.title}</h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{value.description}</p>
-                  <div className="flex items-center text-primary font-medium">
-                    Mehr erfahren <ChevronRight className="ml-1 h-4 w-4" />
-                  </div>
+                  <span className="text-gray-800 hover:text-primary transition-colors font-medium">
+                    {regionData[key].contact.address.city}
+                  </span>
                 </Link>
               ))}
           </div>
