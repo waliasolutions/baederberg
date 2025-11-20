@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ProjectCard from '@/components/ProjectCard';
 import TestimonialCard from '@/components/TestimonialCard';
 import { ChevronRight, MapPin, Phone, Mail, ArrowRight, Clock, Shield, Wrench } from 'lucide-react';
+import { realTestimonials } from '@/data/testimonials';
 
 interface RegionData {
   [key: string]: {
@@ -26,7 +27,6 @@ interface RegionData {
     testimonials: {
       quote: string;
       author: string;
-      location: string;
       project: string;
       rating?: number;
     }[];
@@ -94,25 +94,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Unser Bad ist super geworden. Saubere Arbeit, nettes Team.',
-        author: 'Familie Huber',
-        location: 'Zürich',
-        project: 'Badumbau',
-        rating: 5
-      },
-      {
-        quote: 'Die Zusammenarbeit war unkompliziert und professionell. Unsere Küche ist jetzt viel praktischer und schöner.',
-        author: 'Peter und Anna Meyer',
-        location: 'Zürich',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Wir sind mit dem Umbau sehr zufrieden. Die Handwerker waren pünktlich, freundlich und haben sauber gearbeitet.',
-        author: 'Stefan Keller',
-        location: 'Zürich',
-        project: 'Wohnungsumbau'
-      }
+      realTestimonials[2],  // Christian Hess
+      realTestimonials[0],  // Motorcycle Driver
+      realTestimonials[4]   // Kodeli
     ],
     benefits: [
       {
@@ -202,24 +186,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Die Arbeit von Bäderberg hat uns überzeugt. Alles wurde pünktlich fertig und die Baustelle war immer ordentlich.',
-        author: 'Familie Meier',
-        location: 'Richterswil',
-        project: 'Badumbau'
-      },
-      {
-        quote: 'Unsere neue Küche ist genau so geworden, wie wir sie uns vorgestellt haben. Die Beratung war sehr hilfreich.',
-        author: 'Christine und Thomas',
-        location: 'Richterswil',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Der Dachausbau hat unser Haus völlig verändert. Wir haben jetzt viel mehr Platz und Licht.',
-        author: 'Peter Müller',
-        location: 'Richterswil',
-        project: 'Dachausbau'
-      }
+      realTestimonials[1],  // Nicoleta Salvadori-Curniuc
+      realTestimonials[6],  // Patricia Schmid
+      realTestimonials[5]   // Derk Mous
     ],
     benefits: [
       {
@@ -304,24 +273,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Wir sind sehr zufrieden mit unserem neuen Badezimmer. Die Beratung war kompetent und die Handwerker sehr freundlich.',
-        author: 'Familie Schmidt',
-        location: 'Wädenswil',
-        project: 'Badumbau'
-      },
-      {
-        quote: 'Unsere offene Küche ist ein Traum geworden! Wir kochen jetzt viel öfter zusammen und genießen den neuen Raum.',
-        author: 'Thomas und Maria',
-        location: 'Wädenswil',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Das kleine Gäste-WC sieht jetzt viel größer aus. Die Ideen des Bäderberg-Teams haben uns überzeugt.',
-        author: 'Familie Berger',
-        location: 'Wädenswil',
-        project: 'Gäste-WC'
-      }
+      realTestimonials[15], // Coiffure Vogue Wädenswil
+      realTestimonials[9],  // Lionel Sigrist
+      realTestimonials[8]   // Márton Szőnyi
     ],
     benefits: [
       {
@@ -406,24 +360,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Der Umbau unseres Bades lief reibungslos und das Ergebnis ist genau das, was wir uns gewünscht haben.',
-        author: 'Familie Huber',
-        location: 'Lachen',
-        project: 'Badumbau'
-      },
-      {
-        quote: 'Endlich haben wir eine Küche, in der das Kochen wirklich Spaß macht! Das Team war super und die Arbeit ist top.',
-        author: 'Andreas und Lisa',
-        location: 'Lachen',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Die alte Substanz wurde respektiert und trotzdem haben wir jetzt ein modernes Bad. Vielen Dank!',
-        author: 'Familie Schneider',
-        location: 'Lachen',
-        project: 'Altbau-Renovation'
-      }
+      realTestimonials[10], // Claudio Hofer
+      realTestimonials[17], // Albert Peter
+      realTestimonials[11]  // Benjamin Tacquet
     ],
     benefits: [
       {
@@ -508,24 +447,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Unser barrierefreies Bad ist ein echter Gewinn für die ganze Familie. Die Beratung war kompetent und einfühlsam.',
-        author: 'Ehepaar Müller',
-        location: 'Pfäffikon SZ',
-        project: 'Barrierefreies Bad'
-      },
-      {
-        quote: 'Die neue Küche ist super praktisch und sieht toll aus. Alles wurde pünktlich fertig und hat gut geklappt.',
-        author: 'Julia und Marco',
-        location: 'Pfäffikon SZ',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Die Sanierung hat unser Haus aufgewertet. Das Team war immer freundlich und hat sauber gearbeitet.',
-        author: 'Familie Keller',
-        location: 'Pfäffikon SZ',
-        project: 'Wohnraum-Sanierung'
-      }
+      realTestimonials[3],  // Acilas Physiotherapie
+      realTestimonials[13], // Katharina Gut
+      realTestimonials[7]   // Boris Radoicic
     ],
     benefits: [
       {
@@ -610,24 +534,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Das Team von Bäderberg hat unsere Vorstellungen perfekt umgesetzt. Das neue Bad ist genau so, wie wir es uns gewünscht haben.',
-        author: 'Familie Weber',
-        location: 'Menzingen',
-        project: 'Badumbau'
-      },
-      {
-        quote: 'Die neue Küche passt wunderbar zu unserem Haus. Die Beratung war top und die Arbeit wurde sauber ausgeführt.',
-        author: 'Hans und Monika',
-        location: 'Menzingen',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Der barrierefreie Umbau war die beste Entscheidung. Jetzt können wir noch lange in unserem Haus bleiben.',
-        author: 'Ehepaar Meier',
-        location: 'Menzingen',
-        project: 'Barrierefreier Umbau'
-      }
+      realTestimonials[19], // Marzia Mura
+      realTestimonials[14], // Rolf Haller
+      realTestimonials[16]  // victor poalelungi
     ],
     benefits: [
       {
@@ -712,24 +621,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Die Qualität der Arbeit ist aussergewöhnlich. Unser neues Bad ist ein echtes Schmuckstück geworden.',
-        author: 'Familie Berger',
-        location: 'Zollikon',
-        project: 'Badumbau'
-      },
-      {
-        quote: 'Die Zusammenarbeit mit Bäderberg war stets professionell. Das Ergebnis übertrifft unsere Erwartungen.',
-        author: 'Dr. und Fr. Mayer',
-        location: 'Zollikon',
-        project: 'Designer-Küche'
-      },
-      {
-        quote: 'Unser Spa-Bereich ist nun der Lieblingsort im Haus. Die Umsetzung war perfekt.',
-        author: 'Thomas Schmidt',
-        location: 'Zollikon',
-        project: 'Wellness-Oase'
-      }
+      realTestimonials[12], // Kay Moeller-Heske
+      realTestimonials[4],  // Kodeli
+      realTestimonials[18]  // Läubli Daniel
     ],
     benefits: [
       {
@@ -814,24 +708,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Unser neues Bad ist ein Traum geworden. Die Handwerker waren sehr professionell und die Arbeit ist tadellos.',
-        author: 'Familie Schneider',
-        location: 'Kilchberg',
-        project: 'Badumbau'
-      },
-      {
-        quote: 'Die offene Küche hat unser Wohnkonzept komplett verändert. Wir sind begeistert von der Qualität und dem Design.',
-        author: 'Peter und Sarah',
-        location: 'Kilchberg',
-        project: 'Wohnküche'
-      },
-      {
-        quote: 'Das kleine Gästebad hat so viel Charakter bekommen! Die kreativen Ideen des Teams haben uns überzeugt.',
-        author: 'Claudia Müller',
-        location: 'Kilchberg',
-        project: 'Gästebad'
-      }
+      realTestimonials[0],  // Motorcycle Driver
+      realTestimonials[11], // Benjamin Tacquet
+      realTestimonials[6]   // Patricia Schmid
     ],
     benefits: [
       {
@@ -916,24 +795,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Die Arbeit von Bäderberg war in jeder Hinsicht erstklassig. Das Ergebnis übertrifft unsere hohen Erwartungen.',
-        author: 'Dr. Müller',
-        location: 'Küsnacht',
-        project: 'Masterbad'
-      },
-      {
-        quote: 'Unsere neue Küche ist ein wahres Meisterwerk. Die Beratung war exzellent und die Umsetzung makellos.',
-        author: 'Familie Zimmermann',
-        location: 'Küsnacht',
-        project: 'Küchenumbau'
-      },
-      {
-        quote: 'Der Wellness-Bereich ist die perfekte Ergänzung zu unserem Zuhause. Eine Investition, die sich jeden Tag lohnt.',
-        author: 'Alexandra und Thomas',
-        location: 'Küsnacht',
-        project: 'Spa & Wellness'
-      }
+      realTestimonials[2],  // Christian Hess
+      realTestimonials[5],  // Derk Mous
+      realTestimonials[9]   // Lionel Sigrist
     ],
     benefits: [
       {
@@ -1018,24 +882,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Die Zusammenarbeit mit Bäderberg war sehr angenehm. Unser neues Badezimmer ist praktisch und schön zugleich.',
-        author: 'Familie Brunner',
-        location: 'Meilen',
-        project: 'Familienbad'
-      },
-      {
-        quote: 'Die Küche ist jetzt unser Lieblingsraum. Die Aussicht auf den See kommt viel besser zur Geltung.',
-        author: 'Thomas und Lisa',
-        location: 'Meilen',
-        project: 'Küche mit Seeblick'
-      },
-      {
-        quote: 'Das kleine Gäste-WC hat eine grosse Wirkung. Unsere Gäste sind jedes Mal beeindruckt.',
-        author: 'Markus Schmid',
-        location: 'Meilen',
-        project: 'Gäste-WC'
-      }
+      realTestimonials[8],  // Márton Szőnyi
+      realTestimonials[1],  // Nicoleta Salvadori-Curniuc
+      realTestimonials[10]  // Claudio Hofer
     ],
     benefits: [
       {
@@ -1120,24 +969,9 @@ const regionData: RegionData = {
       }
     ],
     testimonials: [
-      {
-        quote: 'Die Qualität und Präzision der Arbeit von Bäderberg hat uns überzeugt. Unser Marmorbad ist ein echtes Highlight.',
-        author: 'Familie Weber',
-        location: 'Erlenbach',
-        project: 'Marmorbad'
-      },
-      {
-        quote: 'Als Hobbykoch habe ich jetzt endlich eine Küche, die keine Wünsche offen lässt. Die Beratung war erstklassig.',
-        author: 'Michael Steiner',
-        location: 'Erlenbach',
-        project: 'Gourmetküche'
-      },
-      {
-        quote: 'Das neue Duschbad ist nicht nur schön, sondern auch praktisch. Die Glaswand war eine hervorragende Idee.',
-        author: 'Sabine und Peter',
-        location: 'Erlenbach',
-        project: 'Duschbad'
-      }
+      realTestimonials[17], // Albert Peter
+      realTestimonials[19], // Marzia Mura
+      realTestimonials[7]   // Boris Radoicic
     ],
     benefits: [
       {
@@ -1313,8 +1147,8 @@ const RegionPage = () => {
                 key={index}
                 quote={testimonial.quote}
                 author={testimonial.author}
-                location={testimonial.location}
                 project={testimonial.project}
+                rating={testimonial.rating}
               />
             ))}
           </div>
