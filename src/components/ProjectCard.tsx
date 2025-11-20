@@ -10,7 +10,6 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   images,
-  tags,
   index
 }) => {
   const delay = index * 100;
@@ -33,18 +32,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
       
       <div className="p-5">
-        <h3 className="text-lg font-semibold mb-3 text-foreground">{title}</h3>
-        
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag, i) => (
-            <span 
-              key={i} 
-              className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        <h3 className="text-xl font-semibold text-foreground">{title}</h3>
       </div>
     </div>
   );
