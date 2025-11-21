@@ -47,7 +47,7 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Zürich',
     heroImage: zurichHero,
     services: {
-      badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt, mit Garantie.',
+      badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.',
       kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
       innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
     },
@@ -55,7 +55,7 @@ const regionData: RegionData = {
       'Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe',
       '5 Jahre Garantie auf unsere Handwerksleistungen',
       'Sorgfältige Arbeit mit hochwertigen Materialien',
-      'Erfahrung mit Altbauten und modernen Wohnungen in Zürich'
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[2],  // Christian Hess
@@ -64,16 +64,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Wie lange dauert ein Badumbau?',
-        answer: 'Je nach Umfang dauert ein Badumbau zwischen 3 und 6 Wochen. Wir erstellen vor Beginn einen Zeitplan mit Ihnen.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Brauche ich für einen Badumbau eine Genehmigung?',
-        answer: 'Für die meisten Badumbauten ist keine Baugenehmigung nötig. Wir beraten Sie zu den Anforderungen für Ihr Projekt.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
         question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
-        answer: 'Ja, wir haben viel Erfahrung mit Renovierungen in bewohnten Räumen. Wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden.'
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -90,15 +98,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Richterswil',
     heroImage: richterswilHero,
     services: {
-      badumbau: 'Badumbau am Zürichsee – individuell geplant und professionell ausgeführt. Mit Garantie.',
+      badumbau: 'Badumbau – individuell geplant und professionell ausgeführt.',
       kuechenumbau: 'Küchenumbau mit allem drum und dran. Wir koordinieren alle Gewerke für Sie.',
       innenausbau: 'Möbeleinbau, Böden, Wandverkleidungen – alles fachgerecht umgesetzt.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Erfahrung mit Häusern am Hang und besonderen Gegebenheiten',
-      'Zuverlässige Termine und Absprachen',
-      'Hochwertige Materialien und saubere Arbeit'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[1],  // Nicoleta Salvadori-Curniuc
@@ -107,16 +115,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Könnt ihr auch an Hanglage arbeiten?',
-        answer: 'Ja, wir haben viel Erfahrung mit Häusern am Hang in Richterswil und kennen die Herausforderungen.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Wie lange dauert ein Badumbau bei euch?',
-        answer: 'Ein normaler Badumbau dauert bei uns etwa 4 bis 7 Wochen, je nach Größe und Aufwand.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Helft ihr auch bei der Planung?',
-        answer: 'Natürlich! Wir beraten Sie gerne bei der Gestaltung und finden gemeinsam die beste Lösung für Ihre Räume.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -133,15 +149,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Wädenswil',
     heroImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
-      badumbau: 'Kompletter Badumbau – persönlich geplant, fachgerecht ausgeführt. Mit 5 Jahren Garantie.',
+      badumbau: 'Kompletter Badumbau – persönlich geplant, fachgerecht ausgeführt.',
       kuechenumbau: 'Küchen nach Maß. Wir planen, bauen und montieren – alles aus einer Hand.',
       innenausbau: 'Raumgestaltung und Möbeleinbau. Professionell umgesetzt, zuverlässig fertiggestellt.'
     },
     whyUs: [
       'Alles aus einer Hand – eine Anlaufstelle für Ihr Projekt',
-      'Transparente Planung mit klaren Zeitplänen',
-      'Fachkundige Beratung für passende Lösungen',
-      '5 Jahre Garantie'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[15], // Coiffure Vogue Wädenswil
@@ -150,16 +166,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Kann ich während des Umbaus in der Wohnung bleiben?',
-        answer: 'Ja, in den meisten Fällen ist das möglich. Wir planen die Arbeiten so, dass Sie möglichst wenig eingeschränkt werden.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Wie lange dauert ein Küchenumbau?',
-        answer: 'Eine Küche braucht etwa 3-5 Wochen für den Umbau, je nach Größe und Umfang der Arbeiten.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Kümmert ihr euch um alles?',
-        answer: 'Ja, wir sind Ihr Ansprechpartner für alle Gewerke und koordinieren den gesamten Umbau für Sie.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -177,13 +201,13 @@ const regionData: RegionData = {
     heroImage: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
       badumbau: 'Badumbau komplett – von der Planung bis zur fertigen Ausführung. Persönlich betreut.',
-      kuechenumbau: 'Ihre neue Küche – individuell geplant, fachgerecht eingebaut, mit Garantie.',
+      kuechenumbau: 'Ihre neue Küche – individuell geplant, fachgerecht eingebaut.',
       innenausbau: 'Innenausbau nach Ihren Wünschen. Böden, Wände, Einbauten – alles aus einer Hand.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Pünktliche Umsetzung und regelmäßige Information',
-      'Erfahrene Handwerker mit Auge fürs Detail',
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
       'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
@@ -193,16 +217,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Kommen auch versteckte Kosten auf mich zu?',
-        answer: 'Wir bemühen uns um transparente Preise. Sollten während des Umbaus unvorhersehbare Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Wie läuft der erste Beratungstermin ab?',
-        answer: 'Beim ersten Termin schauen wir uns Ihre Räume an, hören Ihre Wünsche und geben erste Ideen. Anschließend erarbeiten wir einen konkreten Vorschlag mit Kostenrahmen.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Arbeitet ihr mit lokalen Lieferanten?',
-        answer: 'Ja, wir arbeiten wo möglich mit Partnern aus der Region zusammen und unterstützen so die lokale Wirtschaft.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -219,15 +251,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Pfäffikon SZ',
     heroImage: pfaffikonHero,
     services: {
-      badumbau: 'Badumbau in Pfäffikon – barrierefrei oder modern, individuell nach Ihren Bedürfnissen.',
+      badumbau: 'Badumbau – barrierefrei oder modern, individuell nach Ihren Bedürfnissen.',
       kuechenumbau: 'Küchenumbau mit Planung und Montage. Wir kümmern uns um alles.',
       innenausbau: 'Umbau und Sanierung von Wohnräumen. Fachgerecht und zuverlässig.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Verlässliche Planung und Einhaltung von Zeitplänen',
-      'Erfahrene Handwerker mit Liebe zum Detail',
-      'Beratung zu Fördermitteln für barrierefreie Umbauten'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[3],  // Acilas Physiotherapie
@@ -236,16 +268,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Welche Fördermittel gibt es für barrierefreie Umbauten?',
-        answer: 'Es gibt verschiedene Möglichkeiten zur Förderung, besonders für altersgerechte Umbauten. Wir beraten Sie gerne zu den aktuellen Optionen.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Wie lange dauert ein Küchenumbau bei Ihnen?',
-        answer: 'Je nach Umfang rechnen Sie mit 2-4 Wochen. Darin ist alles enthalten: Demontage, eventuell nötige Elektro- und Sanitärarbeiten, Einbau der neuen Küche und Feinarbeiten.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Kann ich meine alten Geräte behalten?',
-        answer: 'Ja, wenn sie noch in gutem Zustand sind und zu Ihren neuen Möbeln passen, können wir bestehende Geräte in die neue Küche integrieren.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -262,15 +302,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Zollikon',
     heroImage: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
-      badumbau: 'Badumbau mit hochwertigen Materialien und Schweizer Präzision. Individuell geplant.',
-      kuechenumbau: 'Küchenumbau auf höchstem Niveau – mit exklusiver Ausstattung und perfekter Ausführung.',
-      innenausbau: 'Innenausbau für anspruchsvolle Wohnungen. Hochwertig und detailgenau.'
+      badumbau: 'Badumbau mit hochwertigen Materialien. Individuell geplant.',
+      kuechenumbau: 'Küchenumbau mit guter Ausstattung und sorgfältiger Ausführung.',
+      innenausbau: 'Innenausbau für Wohnungen. Hochwertig und detailgenau.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Premium-Materialien und erstklassige Ausführung',
-      'Diskrete Arbeitsweise mit minimalen Störungen',
-      'Massgeschneiderte Lösungen für Ihre Wünsche'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[12], // Kay Moeller-Heske
@@ -279,16 +319,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Können Sie auch besondere Materialwünsche erfüllen?',
-        answer: 'Natürlich, wir arbeiten mit exklusiven Lieferanten zusammen und können nahezu jeden Materialwunsch erfüllen.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Wie wird der Baulärm minimiert?',
-        answer: 'Wir nutzen modernste Werkzeuge und Techniken zur Lärmreduzierung und stimmen laute Arbeiten mit Ihnen ab.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Übernehmen Sie auch die Inneneinrichtung?',
-        answer: 'Ja, auf Wunsch arbeiten wir mit renommierten Innenarchitekten zusammen, um ein stimmiges Gesamtkonzept zu erstellen.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -305,15 +353,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Kilchberg',
     heroImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
-      badumbau: 'Badumbau mit Stil – hochwertig geplant und präzise ausgeführt.',
+      badumbau: 'Badumbau – hochwertig geplant und präzise ausgeführt.',
       kuechenumbau: 'Offene Wohnküchen oder klassische Küchen – individuell nach Ihren Wünschen.',
-      innenausbau: 'Innenausbau mit Auge fürs Detail. Für Räume mit Charakter.'
+      innenausbau: 'Innenausbau mit Auge fürs Detail.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Designkompetenz und Gespür für Ästhetik',
-      'Qualitätshandwerk mit Liebe zum Detail',
-      'Termintreue und Budgeteinhaltung'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[0],  // Motorcycle Driver
@@ -322,16 +370,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Können Sie auch nach Feng Shui planen?',
-        answer: 'Ja, wir haben Erfahrung mit Feng Shui und berücksichtigen diese Prinzipien gerne in der Planung Ihrer Räume.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Bieten Sie auch eine 3D-Visualisierung an?',
-        answer: 'Natürlich, wir erstellen für Sie realistische 3D-Visualisierungen, damit Sie sich Ihr neues Bad oder Ihre neue Küche besser vorstellen können.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Wie lange dauert ein kompletter Küchenumbau?',
-        answer: 'Ein umfassender Küchenumbau dauert in der Regel 4-6 Wochen. Wir planen den Ablauf so, dass Sie möglichst wenig Einschränkungen haben.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -348,15 +404,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Küsnacht',
     heroImage: 'https://images.unsplash.com/photo-1589395937772-7c69f7cf1a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
-      badumbau: 'Exklusive Badumbauten mit edlen Materialien und intelligenter Technik.',
-      kuechenumbau: 'Massgeschneiderte Küchen mit Naturstein und hochwertigen Geräten.',
-      innenausbau: 'Spa-Bereiche, Wellnesszonen und individuelle Raumkonzepte.'
+      badumbau: 'Badumbau mit hochwertigen Materialien und sorgfältiger Planung.',
+      kuechenumbau: 'Massgeschneiderte Küchen individuell nach Ihren Wünschen.',
+      innenausbau: 'Innenausbau und individuelle Raumkonzepte.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Exklusive Materialien für langlebige Qualität',
-      'Höchste Präzision in der Ausführung',
-      'Persönliche Betreuung durch einen festen Ansprechpartner'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[2],  // Christian Hess
@@ -365,16 +421,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Arbeiten Sie auch mit eigenen Innenarchitekten zusammen?',
-        answer: 'Ja, wir kooperieren gerne mit Ihrem Innenarchitekten oder empfehlen Ihnen bei Bedarf einen aus unserem Netzwerk.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Können Sie auch besondere Materialien importieren?',
-        answer: 'Natürlich, wir haben Zugang zu exklusiven Materialien aus aller Welt und organisieren den Import für Ihr Projekt.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Bieten Sie auch Smart-Home-Integration an?',
-        answer: 'Ja, wir integrieren moderne Smart-Home-Technologien in Ihre Bäder und Küchen für mehr Komfort und Effizienz.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -391,15 +455,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Meilen',
     heroImage: 'https://images.unsplash.com/photo-1505843795480-5cfb3c03f6ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
-      badumbau: 'Moderner Badumbau – funktional und schön. Mit Garantie.',
-      kuechenumbau: 'Küchen mit Seeblick – wir nutzen Ihre Aussicht optimal.',
-      innenausbau: 'Gäste-WCs und Wohnraumumbauten – stilsicher umgesetzt.'
+      badumbau: 'Badumbau – funktional und schön.',
+      kuechenumbau: 'Küchen individuell nach Ihren Wünschen geplant.',
+      innenausbau: 'Gäste-WCs und Wohnraumumbauten – fachgerecht umgesetzt.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Lokales Handwerk aus der Region',
-      'Zuverlässige Termine und saubere Arbeit',
-      'Persönliche Beratung für individuelle Wünsche'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[8],  // Márton Szőnyi
@@ -408,16 +472,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Wie lange dauert ein Badumbau in Meilen?',
-        answer: 'Ein Badumbau dauert in der Regel 3-5 Wochen, abhängig vom Umfang der Arbeiten und den baulichen Gegebenheiten.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Können Sie auch den Rückbau übernehmen?',
-        answer: 'Ja, wir kümmern uns um den kompletten Rückbau und die fachgerechte Entsorgung der alten Einrichtung.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Arbeiten Sie auch in bewohnten Räumen?',
-        answer: 'Natürlich, wir haben viel Erfahrung mit Umbauten in bewohnten Wohnungen und Häusern und minimieren die Belastung für Sie.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
@@ -434,15 +506,15 @@ const regionData: RegionData = {
     description: 'Bad, Küche und Innenausbau in Erlenbach',
     heroImage: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
     services: {
-      badumbau: 'Luxuriöse Bäder mit Marmor und hochwertigen Materialien. Perfekt geplant.',
-      kuechenumbau: 'Gourmetküchen für Hobbyköche – mit erstklassiger Ausstattung.',
-      innenausbau: 'Moderne Duschbäder und individuelle Raumgestaltungen.'
+      badumbau: 'Badumbau mit hochwertigen Materialien. Sorgfältig geplant.',
+      kuechenumbau: 'Küchen individuell nach Ihren Wünschen.',
+      innenausbau: 'Duschbäder und individuelle Raumgestaltungen.'
     },
     whyUs: [
       'Alles aus einer Hand',
-      'Hochwertige Materialien für langlebige Qualität',
-      'Termingerechte Ausführung ohne Verzögerungen',
-      'Detailliebe und Präzision'
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
     ],
     testimonials: [
       realTestimonials[17], // Albert Peter
@@ -451,16 +523,24 @@ const regionData: RegionData = {
     ],
     faq: [
       {
-        question: 'Können Sie spezielle Wünsche umsetzen?',
-        answer: 'Natürlich, wir spezialisieren uns auf individuelle Lösungen und setzen auch ausgefallene Ideen professionell um.'
+        question: 'Wie lange dauert ein Umbau?',
+        answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
       },
       {
-        question: 'Arbeiten Sie auch mit bestehenden Möbeln?',
-        answer: 'Ja, wir integrieren gerne vorhandene Möbelstücke oder andere Elemente, die Ihnen wichtig sind, in das neue Konzept.'
+        question: 'Brauche ich eine Baugenehmigung?',
+        answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
       },
       {
-        question: 'Wie wird der Staub während der Bauarbeiten minimiert?',
-        answer: 'Wir arbeiten mit speziellen Staubschutztüren und leistungsstarken Absauganlagen, um die Belastung für Sie so gering wie möglich zu halten.'
+        question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
+        answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
+      },
+      {
+        question: 'Was ist im Preis inbegriffen?',
+        answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
+      },
+      {
+        question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
+        answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
       }
     ],
     contact: {
