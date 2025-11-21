@@ -773,29 +773,6 @@ const RegionPage = () => {
         </div>
       </section>
       
-      {/* Other Regions */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-10">Weitere Regionen</h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
-            {Object.keys(regionData)
-              .filter(key => key !== regionId)
-              .map((key) => (
-                <Link
-                  key={key}
-                  to={`/region/${key}`}
-                  className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 hover:border-primary hover:shadow-md transition-all text-center"
-                >
-                  <span className="text-gray-800 hover:text-primary transition-colors font-medium">
-                    {regionData[key].contact.address.city}
-                  </span>
-                </Link>
-              ))}
-          </div>
-        </div>
-      </section>
-      
       <Footer />
     </div>
   );
