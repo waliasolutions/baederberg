@@ -5,7 +5,7 @@ import modernBathroom from '@/assets/projects/modern-bathroom-renovation.jpg';
 import contemporaryKitchen from '@/assets/projects/contemporary-kitchen-island.jpg';
 import guestBathroom from '@/assets/projects/guest-bathroom-compact.jpg';
 import masterBathroom from '@/assets/projects/master-bathroom-spa.jpg';
-import farmhouseKitchen from '@/assets/projects/farmhouse-kitchen-rustic.jpg';
+import modernKitchenInduction from '@/assets/projects/modern-kitchen-induction.jpg';
 import builtInWardrobe from '@/assets/projects/built-in-wardrobe.jpg';
 
 const projects = [
@@ -30,8 +30,8 @@ const projects = [
     tags: ["Badumbau"]
   },
   {
-    title: "Küche Landhausstil",
-    images: [farmhouseKitchen],
+    title: "Küche Induktion Modern",
+    images: [modernKitchenInduction],
     tags: ["Küchenumbau"]
   },
   {
