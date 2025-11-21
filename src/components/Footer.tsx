@@ -166,12 +166,13 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-6">Kontakt</h4>
             <ul className="space-y-3">
               <li className="text-primary-foreground/80">
-                Musterstrasse 123<br />
-                8000 Zürich<br />
+                Bäderberg GmbH<br />
+                Zugerstrasse 18<br />
+                8805 Richterswil<br />
                 Schweiz
               </li>
               <li className="text-primary-foreground/80">
-                +41 44 123 45 67
+                +41 76 753 44 78
               </li>
               <li className="text-primary-foreground/80">
                 info@baederberg.ch
