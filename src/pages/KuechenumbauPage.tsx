@@ -3,12 +3,15 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, MessageCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { kuechenumbauTestimonials } from '@/data/testimonials';
 
 const KuechenumbauPage = () => {
+  const { scrollY } = useScroll();
+  const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
+  
   const features = [
     "Individuelle Küchenplanung",
     "Persönlicher Projektleiter",
@@ -26,10 +29,11 @@ const KuechenumbauPage = () => {
         {/* Hero Section */}
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
-          <img 
+          <motion.img 
             src="/images/kitchen-modern.jpg" 
             alt="Küche" 
             className="w-full h-full object-cover"
+            style={{ scale: imageScale }}
           />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
             <motion.div 
