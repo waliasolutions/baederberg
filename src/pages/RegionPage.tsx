@@ -5,6 +5,9 @@ import Footer from '@/components/Footer';
 import TestimonialCard from '@/components/TestimonialCard';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { realTestimonials } from '@/data/testimonials';
+import zurichHero from '@/assets/regions/zurich-hero.jpg';
+import richterswilHero from '@/assets/regions/richterswil-hero.jpg';
+import pfaffikonHero from '@/assets/regions/pfaffikon-hero.jpg';
 
 interface RegionData {
   [key: string]: {
@@ -42,7 +45,7 @@ const regionData: RegionData = {
   'zurich': {
     title: 'Bäderberg in Zürich',
     description: 'Bad, Küche und Innenausbau in Zürich',
-    heroImage: 'https://images.unsplash.com/photo-1589395937772-7c69f7cf1a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
+    heroImage: zurichHero,
     services: {
       badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt, mit Garantie.',
       kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
@@ -85,7 +88,7 @@ const regionData: RegionData = {
   'richterswil': {
     title: 'Bäderberg in Richterswil',
     description: 'Bad, Küche und Innenausbau in Richterswil',
-    heroImage: 'https://images.unsplash.com/photo-1505843795480-5cfb3c03f6ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
+    heroImage: richterswilHero,
     services: {
       badumbau: 'Badumbau am Zürichsee – individuell geplant und professionell ausgeführt. Mit Garantie.',
       kuechenumbau: 'Küchenumbau mit allem drum und dran. Wir koordinieren alle Gewerke für Sie.',
@@ -214,7 +217,7 @@ const regionData: RegionData = {
   'pfaeffikon': {
     title: 'Bäderberg in Pfäffikon SZ',
     description: 'Bad, Küche und Innenausbau in Pfäffikon SZ',
-    heroImage: 'https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
+    heroImage: pfaffikonHero,
     services: {
       badumbau: 'Badumbau in Pfäffikon – barrierefrei oder modern, individuell nach Ihren Bedürfnissen.',
       kuechenumbau: 'Küchenumbau mit Planung und Montage. Wir kümmern uns um alles.',
