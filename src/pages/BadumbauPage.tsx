@@ -145,39 +145,6 @@ const BadumbauPage = () => {
           </div>
         </section>
         
-        {/* Before/After Section */}
-        <section className="py-16 md:py-24 bg-secondary/20">
-          <div className="container px-6 md:px-12">
-            <motion.div
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">Vorher / Nachher</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Echte Projekte aus der Region
-              </p>
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              <BeforeAfterSlider
-                beforeImage="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80"
-                afterImage="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80"
-                beforeLabel="Vorher"
-                afterLabel="Nachher"
-              />
-              
-              <BeforeAfterSlider
-                beforeImage="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80"
-                afterImage="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&q=80"
-                beforeLabel="Vorher"
-                afterLabel="Nachher"
-              />
-            </div>
-          </div>
-        </section>
-        
         {/* Process Section */}
         <section className="py-16 md:py-24 bg-secondary/20">
           <div className="container px-6 md:px-12">
