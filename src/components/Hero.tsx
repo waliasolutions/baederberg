@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -28,6 +28,10 @@ const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  
+  // Subtle parallax effect
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
   
   // Preload all images on mount
   useEffect(() => {
@@ -69,15 +73,19 @@ const Hero = () => {
       <AnimatePresence initial={false}>
         <motion.div 
           key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
+          style={{ y }}
           className="absolute inset-0 bg-cover bg-center"
-          style={{ 
-            backgroundImage: `url('${currentSlide.url}')`,
-          }}
         >
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ 
+              backgroundImage: `url('${currentSlide.url}')`,
+            }}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
         </motion.div>
       </AnimatePresence>

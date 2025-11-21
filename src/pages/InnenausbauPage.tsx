@@ -3,11 +3,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, MessageCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { innenausbauTestimonials } from '@/data/testimonials';
 
 const InnenausbauPage = () => {
+  const { scrollY } = useScroll();
+  const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
+  
   const features = [
     "Fachgerechte Bauleitung",
     "Individuelle Raumplanung",
@@ -24,7 +27,12 @@ const InnenausbauPage = () => {
       <main className="pt-20">
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
-          <img src="/images/interior-living.jpg" alt="Innenausbau" className="w-full h-full object-cover" />
+          <motion.img 
+            src="/images/interior-living.jpg" 
+            alt="Innenausbau" 
+            className="w-full h-full object-cover"
+            style={{ scale: imageScale }}
+          />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
             <motion.div className="flex flex-col gap-6 max-w-3xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">Innenausbau</h1>
