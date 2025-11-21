@@ -77,11 +77,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 67',
-      email: 'zuerich@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Bahnhofstrasse 100',
-        city: 'Zürich'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -120,10 +120,10 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 68',
-      email: 'richterswil@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Hauptstrasse 25',
+        street: 'Zugerstrasse 18',
         city: 'Richterswil'
       }
     }
@@ -163,11 +163,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 69',
-      email: 'waedenswil@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Seestrasse 45',
-        city: 'Wädenswil'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -206,11 +206,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 70',
-      email: 'lachen@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Marktgasse 12',
-        city: 'Lachen'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -249,11 +249,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 71',
-      email: 'pfaeffikon@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Zürcherstrasse 28',
-        city: 'Pfäffikon SZ'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -292,11 +292,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 73',
-      email: 'zollikon@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Seestrasse 120',
-        city: 'Zollikon'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -335,11 +335,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 74',
-      email: 'kilchberg@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Seestrasse 85',
-        city: 'Kilchberg'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -378,11 +378,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 75',
-      email: 'kuesnacht@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Seestrasse 160',
-        city: 'Küsnacht'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -421,11 +421,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 76',
-      email: 'meilen@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Dorfstrasse 42',
-        city: 'Meilen'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   },
@@ -464,11 +464,11 @@ const regionData: RegionData = {
       }
     ],
     contact: {
-      phone: '+41 44 123 45 77',
-      email: 'erlenbach@baederberg.ch',
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
       address: {
-        street: 'Seestrasse 78',
-        city: 'Erlenbach'
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
       }
     }
   }

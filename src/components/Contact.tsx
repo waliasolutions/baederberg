@@ -7,7 +7,6 @@ const Contact = () => {
     name: '',
     email: '',
     phone: '',
-    region: '',
     service: '',
     message: ''
   });
@@ -49,7 +48,6 @@ const Contact = () => {
         name: '',
         email: '',
         phone: '',
-        region: '',
         service: '',
         message: ''
       });
@@ -197,7 +195,7 @@ const Contact = () => {
                 </motion.div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="mb-4">
                 <motion.div custom={2} variants={formFieldVariants} initial="hidden" whileInView="visible" viewport={{
                 once: true
               }}>
@@ -205,26 +203,6 @@ const Contact = () => {
                     Telefon
                   </label>
                   <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
-                </motion.div>
-                <motion.div custom={3} variants={formFieldVariants} initial="hidden" whileInView="visible" viewport={{
-                once: true
-              }}>
-                  <label htmlFor="region" className="block text-sm font-medium text-muted-foreground mb-1">
-                    Region
-                  </label>
-                  <select id="region" name="region" value={formData.region} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20">
-                    <option value="">Bitte wählen</option>
-                    <option value="Zürich">Zürich</option>
-                    <option value="Richterswil">Richterswil</option>
-                    <option value="Wädenswil">Wädenswil</option>
-                    <option value="Lachen">Lachen</option>
-                    <option value="Pfäffikon SZ">Pfäffikon SZ</option>
-                    <option value="Menzingen">Menzingen</option>
-                    <option value="Freienbach SZ">Freienbach SZ</option>
-                    <option value="Rapperswil SG">Rapperswil SG</option>
-                    <option value="Horgen">Horgen</option>
-                    <option value="Rüti ZH">Rüti ZH</option>
-                  </select>
                 </motion.div>
               </div>
               
@@ -320,7 +298,7 @@ const Contact = () => {
                 {[{
                 icon: <Phone size={18} />,
                 title: "Telefon",
-                content: "+41 44 123 45 67"
+                content: "+41 76 753 44 78"
               }, {
                 icon: <Mail size={18} />,
                 title: "E-Mail",
@@ -329,8 +307,9 @@ const Contact = () => {
                 icon: <MapPin size={18} />,
                 title: "Unser Standort",
                 content: <>
-                      Musterstrasse 123<br />
-                      8000 Zürich<br />
+                      Bäderberg GmbH<br />
+                      Zugerstrasse 18<br />
+                      8805 Richterswil<br />
                       Schweiz
                     </>
               }].map((item, index) => <motion.div key={item.title} className="flex items-start gap-4" initial={{
