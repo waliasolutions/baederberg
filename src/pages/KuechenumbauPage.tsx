@@ -27,7 +27,7 @@ const KuechenumbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <img 
-            src="/lovable-uploads/kueche-hero.jpg" 
+            src="/images/kitchen-modern.jpg" 
             alt="Küche" 
             className="w-full h-full object-cover"
           />

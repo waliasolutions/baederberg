@@ -5,7 +5,7 @@ const servicesData = [
   {
     title: "Badumbau",
     description: "Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.",
-    imageSrc: "/lovable-uploads/bad-hero.jpg",
+    imageSrc: "/images/bathroom-modern.jpg",
     features: [
       "Persönlicher Bauleiter",
       "Individuelle Badplanung",
@@ -19,7 +19,7 @@ const servicesData = [
   {
     title: "Küchenumbau",
     description: "Ihre neue Küche nach Mass – funktional und schön.",
-    imageSrc: "/lovable-uploads/kueche-hero.jpg",
+    imageSrc: "/images/kitchen-modern.jpg",
     features: [
       "Individuelle Küchenplanung",
       "Persönlicher Projektleiter",
@@ -33,7 +33,7 @@ const servicesData = [
   {
     title: "Innenausbau",
     description: "Räume nach Ihren Wünschen – alles aus einer Hand.",
-    imageSrc: "/lovable-uploads/innenausbau-hero.jpg",
+    imageSrc: "/images/interior-living.jpg",
     features: [
       "Fachgerechte Bauleitung",
       "Individuelle Raumplanung",
