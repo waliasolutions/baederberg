@@ -27,7 +27,7 @@ const InnenausbauPage = () => {
           <img src="/lovable-uploads/innenausbau-hero.jpg" alt="Innenausbau" className="w-full h-full object-cover" />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
             <motion.div className="flex flex-col gap-6 max-w-3xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">Innenausbau</h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">Innenausbau</h1>
               <p className="text-xl text-white/90 leading-relaxed">Räume nach Ihren Wünschen – alles aus einer Hand.</p>
             </motion.div>
           </div>

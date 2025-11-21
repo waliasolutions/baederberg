@@ -120,19 +120,19 @@ const Header = () => {
               <NavigationMenuList className="flex items-center gap-2">
                 {mainNavItems.map((item) => (
                   <NavigationMenuItem key={item.path}>
-                    <Link 
-                      to={item.path} 
-                      className="px-4 py-2 text-base font-medium text-foreground rounded-lg hover:bg-secondary/20 transition-colors"
-                    >
-                      {item.title}
-                    </Link>
+            <Link 
+              to={item.path} 
+              className="px-4 py-2 text-base font-medium text-foreground rounded-lg hover:bg-secondary/20 transition-colors font-inter"
+            >
+              {item.title}
+            </Link>
                   </NavigationMenuItem>
                 ))}
                 
                 <NavigationMenuItem>
                   <Link 
                     to="/#contact" 
-                    className="ml-3 px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-sm text-base"
+                    className="ml-3 px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-sm text-base font-inter"
                   >
                     Kontakt
                   </Link>
