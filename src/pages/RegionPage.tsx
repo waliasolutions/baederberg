@@ -5,9 +5,9 @@ import Footer from '@/components/Footer';
 import TestimonialCard from '@/components/TestimonialCard';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { realTestimonials } from '@/data/testimonials';
-import zurichHero from '@/assets/regions/zurich-hero.jpg';
-import richterswilHero from '@/assets/regions/richterswil-hero.jpg';
-import pfaffikonHero from '@/assets/regions/pfaffikon-hero.jpg';
+import zurichHero from '@/assets/regions/zurich-interior.jpg';
+import richterswilHero from '@/assets/regions/richterswil-interior.jpg';
+import pfaffikonHero from '@/assets/regions/pfaffikon-interior.jpg';
 
 interface RegionData {
   [key: string]: {

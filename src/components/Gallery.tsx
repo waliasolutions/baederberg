@@ -6,7 +6,7 @@ import contemporaryKitchen from '@/assets/projects/contemporary-kitchen-island.j
 import guestBathroom from '@/assets/projects/guest-bathroom-compact.jpg';
 import masterBathroom from '@/assets/projects/master-bathroom-spa.jpg';
 import farmhouseKitchen from '@/assets/projects/farmhouse-kitchen-rustic.jpg';
-import entrywayStorage from '@/assets/projects/entryway-built-in-storage.jpg';
+import builtInWardrobe from '@/assets/projects/built-in-wardrobe.jpg';
 
 const projects = [
   {
@@ -35,8 +35,8 @@ const projects = [
     tags: ["Küchenumbau"]
   },
   {
-    title: "Einbauschrank Garderobe",
-    images: [entrywayStorage],
+    title: "Einbauschrank Modern",
+    images: [builtInWardrobe],
     tags: ["Innenausbau"]
   }
 ];
