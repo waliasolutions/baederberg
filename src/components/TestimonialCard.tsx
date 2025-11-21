@@ -29,7 +29,6 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       className="bg-card/50 backdrop-blur-sm rounded-xl p-8 border border-border/30 h-full flex flex-col"
       whileHover={{ 
         y: -4,
-        borderColor: "hsl(var(--primary) / 0.3)",
         backgroundColor: "hsl(var(--card))"
       }}
       transition={{ duration: 0.2 }}
@@ -46,11 +45,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </p>
       
       <div className="flex items-center justify-between pt-4 border-t border-border/30">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-            <span className="text-sm font-semibold text-primary">{getInitials(author)}</span>
-          </div>
-          <span className="font-medium text-foreground">{getInitials(author)}</span>
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+          <span className="text-sm font-semibold text-primary">{getInitials(author)}</span>
         </div>
         <span className="text-xs px-3 py-1 rounded-full bg-secondary/50 text-muted-foreground font-medium">
           {project}
