@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 
 const slideImages = [
   {
-    url: '/images/bathroom-modern.jpg',
+    url: '/lovable-uploads/bad-hero.jpg',
     heading: 'Wir bauen Ihr Bad gemeinsam um',
     description: 'Persönlich geplant, professionell ausgeführt',
     ctaLink: '/badumbau'
   },
   {
-    url: '/images/kitchen-modern.jpg',
+    url: '/lovable-uploads/kueche-hero.jpg',
     heading: 'Küchenbau Spezialist',
     description: 'Ihre neue Küche nach Mass',
     ctaLink: '/kuechenumbau'
   },
   {
-    url: '/images/interior-living.jpg',
+    url: '/lovable-uploads/innenausbau-hero.jpg',
     heading: 'Facharbeiten im Innenausbau',
     description: 'Alles aus einer Hand',
     ctaLink: '/innenausbau'
