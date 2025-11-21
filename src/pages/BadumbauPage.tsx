@@ -27,7 +27,7 @@ const BadumbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <img 
-            src="/lovable-uploads/bad-hero.jpg" 
+            src="/images/bathroom-modern.jpg" 
             alt="Badezimmer" 
             className="w-full h-full object-cover"
           />
