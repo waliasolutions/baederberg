@@ -15,7 +15,7 @@ export const realTestimonials: Testimonial[] = [
   },
   {
     author: "Nicoleta Salvadori-Curniuc",
-    quote: "Sehr zufrieden mit der kompletten Renovation unseren Badezimmer. Nach 3 Jahren alles funktioniert immer einwandfrei. Vielen Dank!",
+    quote: "Sehr zufrieden mit der kompletten Renovation unserem Badezimmer. Nach 3 Jahren funktioniert alles immer einwandfrei. Vielen Dank!",
     rating: 5,
     project: "Badumbau"
   },
@@ -87,7 +87,7 @@ export const realTestimonials: Testimonial[] = [
   },
   {
     author: "Katharina Gut",
-    quote: "Wir können die Firma Bäderberg unbedingt weiter empfehlen! Wir sind mit der hoch-professionellen Arbeit, der Zuverlässigkeit und der Freundlichkeit außerordentlich zufrieden gewesen. Danke an Herrn Capatina und sein Team!",
+    quote: "Wir können die Firma Bäderberg unbedingt weiter empfehlen! Wir sind mit der hoch-professionellen Arbeit, der Zuverlässigkeit und der Freundlichkeit ausserordentlich zufrieden gewesen. Danke an Herrn Capatina und sein Team!",
     rating: 5,
     project: "Innenausbau"
   },
@@ -111,7 +111,7 @@ export const realTestimonials: Testimonial[] = [
   },
   {
     author: "Albert Peter",
-    quote: "Danke viel mals für das Traumbadezimmer, das ihr genau nach meinen Wünschen so professionell und speditiv erledigt habt. Nur empfehlenswert. DANKE",
+    quote: "Danke vielmals für das Traumbadezimmer, das ihr genau nach meinen Wünschen so professionell und speditiv erledigt habt. Nur empfehlenswert. DANKE",
     rating: 5,
     project: "Badumbau"
   },

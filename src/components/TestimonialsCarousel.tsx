@@ -74,11 +74,11 @@ const TestimonialsCarousel = ({
     <div className="relative">
       {/* Carousel Container */}
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-6 md:gap-8">
+        <div className="flex gap-6">
           {testimonials.map((testimonial, index) => (
             <div 
               key={index} 
-              className="flex-[0_0_100%] md:flex-[0_0_calc(50%-1rem)] lg:flex-[0_0_calc(33.333%-1.333rem)] min-w-0"
+              className="flex-[0_0_100%] md:flex-[0_0_calc(50%-0.75rem)] lg:flex-[0_0_calc(33.333%-1rem)] min-w-0"
             >
               <TestimonialCard 
                 quote={testimonial.quote}
@@ -91,16 +91,16 @@ const TestimonialsCarousel = ({
         </div>
       </div>
 
-      {/* Navigation Buttons - Hidden on desktop when 3 or fewer testimonials */}
-      <div className={`flex items-center justify-center gap-4 mt-12 ${!showNavigation ? 'md:hidden' : ''}`}>
+      {/* Navigation Controls */}
+      <div className={`flex items-center justify-center gap-6 mt-10 ${!showNavigation ? 'md:hidden' : ''}`}>
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           onClick={scrollPrev}
-          className="rounded-full h-12 w-12 border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+          className="rounded-full h-10 w-10 hover:bg-primary/10 hover:text-primary transition-colors"
           aria-label="Previous testimonial"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={20} />
         </Button>
 
         {/* Dot Indicators */}
@@ -109,10 +109,10 @@ const TestimonialsCarousel = ({
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
+              className={`h-2 rounded-full transition-all duration-300 ${
                 index === selectedIndex 
-                  ? 'w-8 bg-primary' 
-                  : 'w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  ? 'w-6 bg-primary' 
+                  : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -120,25 +120,15 @@ const TestimonialsCarousel = ({
         </div>
 
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           onClick={scrollNext}
-          className="rounded-full h-12 w-12 border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+          className="rounded-full h-10 w-10 hover:bg-primary/10 hover:text-primary transition-colors"
           aria-label="Next testimonial"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={20} />
         </Button>
       </div>
-
-      {/* Progress Indicator */}
-      <motion.div 
-        className={`mt-6 text-center text-sm text-muted-foreground ${!showNavigation ? 'md:hidden' : ''}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        {selectedIndex + 1} / {scrollSnaps.length}
-      </motion.div>
     </div>
   );
 };
