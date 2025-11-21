@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import ProjectCard from './ProjectCard';
-import { Grid } from 'lucide-react';
 import modernBathroom from '@/assets/projects/modern-bathroom-renovation.jpg';
 import contemporaryKitchen from '@/assets/projects/contemporary-kitchen-island.jpg';
 import guestBathroom from '@/assets/projects/guest-bathroom-compact.jpg';
@@ -59,15 +58,9 @@ const Gallery = () => {
     <section id="gallery" className="py-24 md:py-32">
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Grid size={20} className="text-primary" />
-            <h2 className="text-sm md:text-base text-primary font-medium">
-              Unsere Arbeiten
-            </h2>
-          </div>
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">
             Was wir für andere gestaltet haben
-          </h3>
+          </h2>
           <p className="text-muted-foreground text-lg">
             Hier sehen Sie einige unserer abgeschlossenen Projekte. Vielleicht entdecken Sie etwas, das Ihnen gefällt und Sie inspiriert.
           </p>

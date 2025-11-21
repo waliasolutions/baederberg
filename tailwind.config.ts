@@ -24,6 +24,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
 				inter: ['Inter', 'sans-serif'],
 			},
 			colors: {
