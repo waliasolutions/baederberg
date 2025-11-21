@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import About from '@/components/About';
+import VideoSection from '@/components/VideoSection';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
@@ -32,6 +33,7 @@ const Index = () => {
       <div className="w-full max-w-full overflow-x-hidden">
         <Services />
         <About />
+        <VideoSection />
         <Gallery />
         <Testimonials />
         <Contact />
