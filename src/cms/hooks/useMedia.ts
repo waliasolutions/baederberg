@@ -1,0 +1,193 @@
+import { useState, useCallback } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import type { MediaItem } from '../types';
+
+export function useMedia() {
+  const [media, setMedia] = useState<MediaItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+
+  // Fetch all media
+  const fetchMedia = useCallback(async (folder?: string) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      let query = supabase.from('media').select('*').order('created_at', { ascending: false });
+      
+      if (folder) {
+        query = query.eq('folder', folder);
+      }
+      
+      const { data, error: fetchError } = await query;
+      
+      if (fetchError) throw fetchError;
+      
+      setMedia(data || []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch media');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Upload image
+  const uploadImage = useCallback(async (
+    file: File,
+    folder: string = '/',
+    altText?: string
+  ) => {
+    setUploadProgress(0);
+    setError(null);
+    
+    try {
+      // Validate file
+      const maxSize = 20 * 1024 * 1024; // 20MB
+      if (file.size > maxSize) {
+        throw new Error('File too large. Maximum size is 20MB.');
+      }
+      
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'];
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error('Invalid file type. Allowed: JPG, PNG, WebP, GIF, SVG');
+      }
+      
+      // Generate unique filename
+      const timestamp = Date.now();
+      const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const filename = `${timestamp}-${sanitizedName}`;
+      const path = folder === '/' ? filename : `${folder}/${filename}`;
+      
+      setUploadProgress(20);
+      
+      // Upload to Supabase Storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('cms-media')
+        .upload(path, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+      
+      if (uploadError) throw uploadError;
+      
+      setUploadProgress(60);
+      
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('cms-media')
+        .getPublicUrl(uploadData.path);
+      
+      // Get image dimensions
+      let width: number | undefined;
+      let height: number | undefined;
+      
+      if (file.type.startsWith('image/')) {
+        const dimensions = await getImageDimensions(file);
+        width = dimensions.width;
+        height = dimensions.height;
+      }
+      
+      setUploadProgress(80);
+      
+      // Save to database
+      const { data: mediaData, error: dbError } = await supabase
+        .from('media')
+        .insert({
+          filename: file.name,
+          original_url: urlData.publicUrl,
+          alt_text: altText || file.name.replace(/\.[^/.]+$/, ''),
+          mime_type: file.type,
+          size_bytes: file.size,
+          width,
+          height,
+          folder,
+        })
+        .select()
+        .single();
+      
+      if (dbError) throw dbError;
+      
+      setUploadProgress(100);
+      setMedia(prev => [mediaData, ...prev]);
+      
+      return { data: mediaData, error: null };
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Upload failed';
+      setError(errorMsg);
+      return { data: null, error: errorMsg };
+    }
+  }, []);
+
+  // Delete image
+  const deleteImage = useCallback(async (mediaId: string, storagePath: string) => {
+    try {
+      // Delete from storage
+      const { error: storageError } = await supabase.storage
+        .from('cms-media')
+        .remove([storagePath]);
+      
+      if (storageError) throw storageError;
+      
+      // Delete from database
+      const { error: dbError } = await supabase
+        .from('media')
+        .delete()
+        .eq('id', mediaId);
+      
+      if (dbError) throw dbError;
+      
+      setMedia(prev => prev.filter(m => m.id !== mediaId));
+      return { error: null };
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Delete failed';
+      setError(errorMsg);
+      return { error: errorMsg };
+    }
+  }, []);
+
+  // Update alt text
+  const updateAltText = useCallback(async (mediaId: string, altText: string) => {
+    try {
+      const { error: updateError } = await supabase
+        .from('media')
+        .update({ alt_text: altText })
+        .eq('id', mediaId);
+      
+      if (updateError) throw updateError;
+      
+      setMedia(prev => prev.map(m => 
+        m.id === mediaId ? { ...m, alt_text: altText } : m
+      ));
+      return { error: null };
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Update failed';
+      setError(errorMsg);
+      return { error: errorMsg };
+    }
+  }, []);
+
+  return {
+    media,
+    isLoading,
+    error,
+    uploadProgress,
+    fetchMedia,
+    uploadImage,
+    deleteImage,
+    updateAltText,
+  };
+}
+
+// Helper to get image dimensions
+function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
