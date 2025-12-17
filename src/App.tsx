@@ -12,99 +12,19 @@ import KuechenumbauPage from "./pages/KuechenumbauPage";
 import InnenausbauPage from "./pages/InnenausbauPage";
 import { useEffect } from "react";
 
+// CMS Pages
+import { AdminLogin } from "./cms/pages/AdminLogin";
+import { AdminDashboard } from "./cms/pages/AdminDashboard";
+import { ContentList } from "./cms/pages/ContentList";
+
 const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Scroll to top on route change
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  useEffect(() => {
-    // Add intersection observer for animations
-    const setupIntersectionObserver = () => {
-      const animationObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('animate-fade-in');
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-
-      // Add smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          if (targetId && targetId !== '#') {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        });
-      });
-
-      // Initialize comparison sliders
-      const sliders = document.querySelectorAll('.comparison-slider');
-      sliders.forEach(slider => {
-        let isDown = false;
-        let startX: number;
-        let scrollLeft: number;
-
-        const handleDrag = (e: MouseEvent | TouchEvent) => {
-          if (!isDown) return;
-          e.preventDefault();
-          
-          const x = 'pageX' in e ? e.pageX : (e.touches && e.touches[0].pageX);
-          const walk = (x - startX);
-          const sliderWidth = (slider as HTMLElement).offsetWidth;
-          const percentage = Math.max(0, Math.min(100, (scrollLeft + walk) / sliderWidth * 100));
-          
-          const afterElement = slider.querySelector('.after') as HTMLElement;
-          const handleElement = slider.querySelector('.slider-handle') as HTMLElement;
-          
-          if (afterElement) afterElement.style.width = `${percentage}%`;
-          if (handleElement) handleElement.style.left = `${percentage}%`;
-        };
-
-        slider.addEventListener('mousedown', (e: MouseEvent) => {
-          isDown = true;
-          startX = e.pageX;
-          scrollLeft = (slider.querySelector('.after') as HTMLElement).offsetWidth;
-        });
-
-        slider.addEventListener('touchstart', (e: TouchEvent) => {
-          isDown = true;
-          startX = e.touches[0].pageX;
-          scrollLeft = (slider.querySelector('.after') as HTMLElement).offsetWidth;
-        });
-
-        window.addEventListener('mouseup', () => {
-          isDown = false;
-        });
-
-        window.addEventListener('touchend', () => {
-          isDown = false;
-        });
-
-        window.addEventListener('mousemove', handleDrag as EventListener);
-        window.addEventListener('touchmove', handleDrag as EventListener);
-      });
-    };
-
-    // Setup animations and interactive elements after the content is loaded
-    window.addEventListener('load', setupIntersectionObserver);
-    
-    return () => {
-      window.removeEventListener('load', setupIntersectionObserver);
-    };
-  }, []);
 
   return null;
 };
@@ -122,6 +42,12 @@ const App = () => (
           <Route path="/badumbau" element={<BadumbauPage />} />
           <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
           <Route path="/innenausbau" element={<InnenausbauPage />} />
+          
+          {/* CMS Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/content" element={<ContentList />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
