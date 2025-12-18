@@ -4,13 +4,13 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
-import { badumbauTestimonials } from '@/data/testimonials';
+import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 
 const BadumbauPage = () => {
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
+  const { testimonials } = useTestimonialsByProject('Badumbau');
   
   const features = [
     "Persönlicher Bauleiter",
@@ -208,7 +208,7 @@ const BadumbauPage = () => {
             </motion.div>
             
             <TestimonialsCarousel 
-              testimonials={badumbauTestimonials}
+              testimonials={testimonials}
               autoplay={true}
               autoplayDelay={7000}
             />
