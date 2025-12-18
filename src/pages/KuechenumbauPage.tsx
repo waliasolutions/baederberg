@@ -4,13 +4,13 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
-import { kuechenumbauTestimonials } from '@/data/testimonials';
+import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 
 const KuechenumbauPage = () => {
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
+  const { testimonials } = useTestimonialsByProject('Küchenumbau');
   
   const features = [
     "Individuelle Küchenplanung",
@@ -208,7 +208,7 @@ const KuechenumbauPage = () => {
             </motion.div>
             
             <TestimonialsCarousel 
-              testimonials={kuechenumbauTestimonials}
+              testimonials={testimonials}
               autoplay={true}
               autoplayDelay={7000}
             />

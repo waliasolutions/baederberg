@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Trash2, UserPlus, Shield, Edit2, Users } from 'lucide-react';
+import { Trash2, UserPlus, Shield, Users, Mail, Loader2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -48,12 +48,9 @@ export function UserManagement() {
 
       if (error) throw error;
 
-      // For now, we show user_id since we can't access auth.users directly
-      // In production, you'd use an edge function to get user emails
       setUsers((data || []).map(u => ({
         ...u,
         role: u.role as 'admin' | 'editor',
-        email: u.user_id // We'll show user_id for now
       })));
     } catch (err) {
       toast({
@@ -70,35 +67,45 @@ export function UserManagement() {
     fetchUsers();
   }, []);
 
-  const handleAddUser = async (e: React.FormEvent) => {
+  const handleInviteUser = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newEmail.trim()) return;
 
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+      toast({
+        title: 'Ungültige E-Mail',
+        description: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+        variant: 'destructive'
+      });
+      return;
+    }
+
     setIsAdding(true);
     try {
-      // Note: In production, you'd invite users via Supabase Auth
-      // For now, we add a role entry for an existing user ID
-      const { error } = await supabase
-        .from('user_roles')
-        .insert({
-          user_id: newEmail, // This should be a valid UUID
-          role: newRole
-        });
+      const { data, error } = await supabase.functions.invoke('invite-user', {
+        body: { email: newEmail, role: newRole }
+      });
 
       if (error) throw error;
 
+      if (data?.error) {
+        throw new Error(data.error);
+      }
+
       toast({
         title: 'Erfolg',
-        description: 'Benutzerrolle wurde hinzugefügt'
+        description: data?.message || 'Einladung wurde gesendet'
       });
       
       setNewEmail('');
       setNewRole('editor');
       fetchUsers();
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Fehler',
-        description: 'Benutzerrolle konnte nicht hinzugefügt werden. Stellen Sie sicher, dass die User-ID gültig ist.',
+        description: err.message || 'Einladung konnte nicht gesendet werden',
         variant: 'destructive'
       });
     } finally {
@@ -131,7 +138,6 @@ export function UserManagement() {
   };
 
   const handleDeleteUser = async (userId: string) => {
-    // Prevent deleting yourself
     if (userId === user?.id) {
       toast({
         title: 'Fehler',
@@ -188,27 +194,32 @@ export function UserManagement() {
           </p>
         </div>
 
-        {/* Add User Form */}
+        {/* Invite User Form */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserPlus className="h-5 w-5" />
-              Benutzerrolle hinzufügen
+              Benutzer einladen
             </CardTitle>
             <CardDescription>
-              Fügen Sie einem existierenden Benutzer eine Rolle hinzu
+              Senden Sie eine Einladung per E-Mail an einen neuen Benutzer
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleAddUser} className="flex flex-col sm:flex-row gap-4">
+            <form onSubmit={handleInviteUser} className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
-                <Label htmlFor="userId" className="sr-only">User ID</Label>
-                <Input
-                  id="userId"
-                  placeholder="User ID (UUID)"
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
-                />
+                <Label htmlFor="email" className="sr-only">E-Mail</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="name@beispiel.ch"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
               </div>
               <div className="w-full sm:w-40">
                 <Label htmlFor="role" className="sr-only">Rolle</Label>
@@ -223,7 +234,14 @@ export function UserManagement() {
                 </Select>
               </div>
               <Button type="submit" disabled={isAdding || !newEmail.trim()}>
-                {isAdding ? 'Wird hinzugefügt...' : 'Hinzufügen'}
+                {isAdding ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Wird gesendet...
+                  </>
+                ) : (
+                  'Einladen'
+                )}
               </Button>
             </form>
           </CardContent>
@@ -242,10 +260,12 @@ export function UserManagement() {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="text-slate-500 py-8 text-center">Laden...</div>
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+              </div>
             ) : users.length === 0 ? (
               <div className="text-slate-500 py-8 text-center">
-                Keine Benutzer gefunden
+                Keine Benutzer gefunden. Laden Sie den ersten Benutzer ein!
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
@@ -261,10 +281,10 @@ export function UserManagement() {
                         <Shield size={18} />
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900 text-sm truncate max-w-[200px]">
+                        <p className="font-medium text-slate-900 text-sm truncate max-w-[250px]">
                           {u.user_id}
                           {u.user_id === user?.id && (
-                            <span className="ml-2 text-xs text-slate-500">(Sie)</span>
+                            <span className="ml-2 text-xs bg-slate-100 px-2 py-0.5 rounded">(Sie)</span>
                           )}
                         </p>
                         <p className="text-xs text-slate-500">

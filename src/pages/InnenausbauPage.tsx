@@ -5,11 +5,12 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
-import { innenausbauTestimonials } from '@/data/testimonials';
+import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 
 const InnenausbauPage = () => {
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
+  const { testimonials } = useTestimonialsByProject('Innenausbau');
   
   const features = [
     "Fachgerechte Bauleitung",
@@ -183,7 +184,7 @@ const InnenausbauPage = () => {
             </motion.div>
             
             <TestimonialsCarousel 
-              testimonials={innenausbauTestimonials}
+              testimonials={testimonials}
               autoplay={true}
               autoplayDelay={7000}
             />
