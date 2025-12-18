@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import ImagePicker from './ImagePicker';
 import type { FieldSchema } from '../schema';
 
 interface FormFieldProps {
@@ -116,21 +117,11 @@ const FormField: React.FC<FormFieldProps> = ({ name, schema, value, onChange, la
 
       case 'image':
         return (
-          <div className="space-y-2">
-            <Input
-              id={name}
-              value={value || ''}
-              onChange={(e) => onChange(e.target.value)}
-              placeholder="Image URL or upload from Media Library"
-            />
-            {value && (
-              <img
-                src={value}
-                alt="Preview"
-                className="w-32 h-24 object-cover rounded border"
-              />
-            )}
-          </div>
+          <ImagePicker
+            value={value || ''}
+            onChange={onChange}
+            aspect={schema.aspect}
+          />
         );
 
       case 'icon':
