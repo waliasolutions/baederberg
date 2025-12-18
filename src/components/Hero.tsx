@@ -2,32 +2,61 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useSectionContent } from '@/cms/context/ContentProvider';
 
-const slideImages = [
+// Default slides (fallback)
+const defaultSlides = [
   {
     url: '/images/bathroom-modern.jpg',
     heading: 'Wir bauen Ihr Bad gemeinsam um',
     description: 'Persönlich geplant, professionell ausgeführt',
-    ctaLink: '/badumbau'
+    ctaLink: '/badumbau',
+    ctaText: 'Mehr erfahren'
   },
   {
     url: '/images/kitchen-modern.jpg',
     heading: 'Küchenbau Spezialist',
     description: 'Ihre neue Küche nach Mass',
-    ctaLink: '/kuechenumbau'
+    ctaLink: '/kuechenumbau',
+    ctaText: 'Mehr erfahren'
   },
   {
     url: '/images/interior-living.jpg',
     heading: 'Facharbeiten im Innenausbau',
     description: 'Alles aus einer Hand',
-    ctaLink: '/innenausbau'
+    ctaLink: '/innenausbau',
+    ctaText: 'Mehr erfahren'
   }
 ];
 
+interface HeroSlide {
+  heading: string;
+  description?: string;
+  backgroundImage?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+interface HeroContent {
+  slides?: HeroSlide[];
+}
+
 const Hero = () => {
+  const heroContent = useSectionContent<HeroContent>('hero');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  
+  // Use CMS slides if available, otherwise use defaults
+  const slideImages = heroContent?.slides?.length 
+    ? heroContent.slides.map((slide, index) => ({
+        url: slide.backgroundImage || defaultSlides[index]?.url || '/images/bathroom-modern.jpg',
+        heading: slide.heading || defaultSlides[index]?.heading || '',
+        description: slide.description || '',
+        ctaLink: slide.ctaLink || defaultSlides[index]?.ctaLink || '/',
+        ctaText: slide.ctaText || 'Mehr erfahren'
+      }))
+    : defaultSlides;
   
   // Subtle parallax effect
   const { scrollY } = useScroll();
@@ -47,7 +76,7 @@ const Hero = () => {
     Promise.all(imagePromises)
       .then(() => setImagesLoaded(true))
       .catch((error) => console.error('Failed to preload images:', error));
-  }, []);
+  }, [slideImages]);
   
   useEffect(() => {
     if (isAutoScrollPaused || !imagesLoaded) return;
@@ -57,7 +86,7 @@ const Hero = () => {
     }, 6000);
     
     return () => clearInterval(interval);
-  }, [isAutoScrollPaused, imagesLoaded]);
+  }, [isAutoScrollPaused, imagesLoaded, slideImages.length]);
   
   const handleIndicatorClick = (index: number) => {
     setCurrentIndex(index);
@@ -98,7 +127,7 @@ const Hero = () => {
           
           <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 text-base md:text-lg px-8 py-3">
             <Link to={currentSlide.ctaLink}>
-              Mehr erfahren
+              {currentSlide.ctaText || 'Mehr erfahren'}
             </Link>
           </Button>
         </div>

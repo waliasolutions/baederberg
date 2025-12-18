@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
 import ServiceCard from './ServiceCard';
+import { useSectionContent } from '@/cms/context/ContentProvider';
 
-const servicesData = [
+// Default services data (fallback)
+const defaultServicesData = [
   {
     title: "Badumbau",
     description: "Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.",
@@ -47,16 +48,46 @@ const servicesData = [
   }
 ];
 
+interface ServiceItem {
+  title: string;
+  description: string;
+  image?: string;
+  features?: string[];
+  link?: string;
+}
+
+interface ServicesContent {
+  heading?: string;
+  subheading?: string;
+  items?: ServiceItem[];
+}
+
 const Services = () => {
+  const servicesContent = useSectionContent<ServicesContent>('services');
+  
+  // Use CMS data if available, otherwise use defaults
+  const heading = servicesContent?.heading || 'Unsere Leistungen für Ihr Zuhause';
+  const subheading = servicesContent?.subheading || 'Bad, Küche, Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.';
+  
+  const servicesData = servicesContent?.items?.length 
+    ? servicesContent.items.map((item, index) => ({
+        title: item.title || defaultServicesData[index]?.title || '',
+        description: item.description || defaultServicesData[index]?.description || '',
+        imageSrc: item.image || defaultServicesData[index]?.imageSrc || '',
+        features: item.features || defaultServicesData[index]?.features || [],
+        to: item.link || defaultServicesData[index]?.to || '/'
+      }))
+    : defaultServicesData;
+
   return (
     <section id="services" className="py-24 md:py-32 bg-secondary/50">
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">
-            Unsere Leistungen für Ihr Zuhause
+            {heading}
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Bad, Küche, Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.
+            {subheading}
           </p>
         </div>
         
