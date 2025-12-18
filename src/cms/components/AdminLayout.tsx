@@ -10,7 +10,8 @@ import {
   History, 
   LogOut,
   Menu,
-  X
+  X,
+  Users
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -23,6 +24,7 @@ const navItems = [
   { path: '/admin/content', label: 'Inhalt', icon: FileText },
   { path: '/admin/media', label: 'Medien', icon: Image },
   { path: '/admin/themes', label: 'Design', icon: Palette },
+  { path: '/admin/users', label: 'Benutzer', icon: Users, adminOnly: true },
   { path: '/admin/revisions', label: 'Verlauf', icon: History },
 ];
 
@@ -79,6 +81,11 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
         <nav className="p-4 space-y-1">
           {navItems.map(item => {
+            // Skip admin-only items for non-admins
+            if ('adminOnly' in item && item.adminOnly && !isAdmin) {
+              return null;
+            }
+            
             const isActive = item.exact 
               ? location.pathname === item.path
               : location.pathname.startsWith(item.path);

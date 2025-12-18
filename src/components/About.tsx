@@ -1,7 +1,8 @@
 import React from 'react';
-import { Heart, Award, Smile } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { useSectionContent } from '@/cms/context/ContentProvider';
 import { DynamicIcon } from '@/lib/DynamicIcon';
+import { defaultContent } from '@/cms/schema';
 import modernBathroom from '/lovable-uploads/modern-bathroom-interior.jpg';
 
 interface AboutFeature {
@@ -18,33 +19,19 @@ interface AboutContent {
   features?: AboutFeature[];
 }
 
-// Default features if not in CMS
-const defaultFeatures: AboutFeature[] = [
-  {
-    icon: 'Heart',
-    title: 'Persönliche Betreuung',
-    description: 'Ihr persönlicher Bauleiter begleitet Ihr Projekt von Anfang bis Ende.'
-  },
-  {
-    icon: 'Award',
-    title: 'Sorgfältige Arbeit',
-    description: 'Wir achten auf Details und arbeiten sauber.'
-  },
-  {
-    icon: 'Smile',
-    title: 'Garantie inklusive',
-    description: 'Elektroarbeiten und Garantie sind bei uns immer dabei.'
-  }
-];
-
 const About = () => {
   const aboutContent = useSectionContent<AboutContent>('about');
   
-  const heading = aboutContent?.heading || 'Ihr Bad, Ihre Küche, Ihr Innenausbau';
-  const paragraph1 = aboutContent?.paragraph1 || 'Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.';
-  const paragraph2 = aboutContent?.paragraph2 || 'Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.';
+  // Use schema defaults (SSOT)
+  const schemaDefaults = defaultContent.about || {};
+  
+  const heading = aboutContent?.heading || schemaDefaults.heading || 'Ihr Bad, Ihre Küche, Ihr Innenausbau';
+  const paragraph1 = aboutContent?.paragraph1 || schemaDefaults.paragraph1 || '';
+  const paragraph2 = aboutContent?.paragraph2 || schemaDefaults.paragraph2 || '';
   const imageUrl = aboutContent?.image || modernBathroom;
-  const features = aboutContent?.features?.length ? aboutContent.features : defaultFeatures;
+  const features = aboutContent?.features?.length 
+    ? aboutContent.features 
+    : schemaDefaults.features || [];
 
   return (
     <section id="about" className="py-24 md:py-32 bg-white">
