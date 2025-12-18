@@ -2,6 +2,23 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import FormField from './FormField';
 import type { FieldSchema } from '../schema';
 
@@ -17,9 +34,140 @@ interface ArrayEditorProps {
   label?: string;
 }
 
+interface SortableItemProps {
+  id: string;
+  index: number;
+  item: any;
+  schema: Record<string, FieldSchema>;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+  onRemove: () => void;
+  onUpdate: (key: string, value: any) => void;
+  totalItems: number;
+}
+
+function SortableItem({
+  id,
+  index,
+  item,
+  schema,
+  isExpanded,
+  onToggleExpand,
+  onRemove,
+  onUpdate,
+  totalItems,
+}: SortableItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  const itemLabel = item.title || item.heading || item.author || item.name || `Item ${index + 1}`;
+
+  return (
+    <Card ref={setNodeRef} style={style} className={`border ${isDragging ? 'shadow-lg' : ''}`}>
+      <CardHeader className="py-3 px-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="cursor-grab active:cursor-grabbing p-1 hover:bg-muted rounded"
+              {...attributes}
+              {...listeners}
+            >
+              <GripVertical className="w-4 h-4 text-muted-foreground" />
+            </button>
+            <CardTitle className="text-sm font-medium truncate max-w-[200px]">
+              {itemLabel}
+            </CardTitle>
+          </div>
+          <div className="flex items-center gap-1">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={onToggleExpand}
+            >
+              {isExpanded ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={onRemove}
+              className="text-destructive hover:text-destructive"
+            >
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
+      {isExpanded && (
+        <CardContent className="pt-0 px-4 pb-4">
+          <div className="grid gap-4">
+            {Object.entries(schema).map(([key, fieldSchema]) => {
+              if (fieldSchema.type === 'array') {
+                return (
+                  <ArrayEditor
+                    key={key}
+                    name={key}
+                    schema={fieldSchema as any}
+                    value={item[key] || []}
+                    onChange={(newValue) => onUpdate(key, newValue)}
+                  />
+                );
+              }
+              return (
+                <FormField
+                  key={key}
+                  name={key}
+                  schema={fieldSchema}
+                  value={item[key]}
+                  onChange={(newValue) => onUpdate(key, newValue)}
+                />
+              );
+            })}
+          </div>
+        </CardContent>
+      )}
+    </Card>
+  );
+}
+
 const ArrayEditor: React.FC<ArrayEditorProps> = ({ name, schema, value = [], onChange, label }) => {
   const displayLabel = label || name.charAt(0).toUpperCase() + name.slice(1);
-  const [expandedItems, setExpandedItems] = React.useState<Set<number>>(new Set([0]));
+  const [expandedItems, setExpandedItems] = React.useState<Set<string>>(new Set());
+
+  // Generate stable IDs for items
+  const itemIds = React.useMemo(() => 
+    value.map((_, index) => `item-${index}`),
+    [value.length]
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const addItem = () => {
     if (schema.maxItems && value.length >= schema.maxItems) return;
@@ -33,8 +181,9 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({ name, schema, value = [], onC
       }
     });
     
+    const newId = `item-${value.length}`;
     onChange([...value, newItem]);
-    setExpandedItems(prev => new Set([...prev, value.length]));
+    setExpandedItems(prev => new Set([...prev, newId]));
   };
 
   const removeItem = (index: number) => {
@@ -48,25 +197,26 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({ name, schema, value = [], onC
     onChange(updated);
   };
 
-  const moveItem = (index: number, direction: 'up' | 'down') => {
-    const newIndex = direction === 'up' ? index - 1 : index + 1;
-    if (newIndex < 0 || newIndex >= value.length) return;
-    
-    const newValue = [...value];
-    [newValue[index], newValue[newIndex]] = [newValue[newIndex], newValue[index]];
-    onChange(newValue);
-  };
-
-  const toggleExpand = (index: number) => {
+  const toggleExpand = (id: string) => {
     setExpandedItems(prev => {
       const next = new Set(prev);
-      if (next.has(index)) {
-        next.delete(index);
+      if (next.has(id)) {
+        next.delete(id);
       } else {
-        next.add(index);
+        next.add(id);
       }
       return next;
     });
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    
+    if (over && active.id !== over.id) {
+      const oldIndex = itemIds.indexOf(active.id as string);
+      const newIndex = itemIds.indexOf(over.id as string);
+      onChange(arrayMove(value, oldIndex, newIndex));
+    }
   };
 
   return (
@@ -91,94 +241,33 @@ const ArrayEditor: React.FC<ArrayEditorProps> = ({ name, schema, value = [], onC
         </p>
       )}
 
-      <div className="space-y-3">
-        {value.map((item, index) => (
-          <Card key={index} className="border">
-            <CardHeader className="py-3 px-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <GripVertical className="w-4 h-4 text-muted-foreground" />
-                  <CardTitle className="text-sm font-medium">
-                    Item {index + 1}
-                    {item.title && `: ${item.title}`}
-                    {item.heading && `: ${item.heading}`}
-                    {item.author && `: ${item.author}`}
-                  </CardTitle>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => moveItem(index, 'up')}
-                    disabled={index === 0}
-                  >
-                    <ChevronUp className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => moveItem(index, 'down')}
-                    disabled={index === value.length - 1}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleExpand(index)}
-                  >
-                    {expandedItems.has(index) ? (
-                      <ChevronUp className="w-4 h-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => removeItem(index)}
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-            {expandedItems.has(index) && (
-              <CardContent className="pt-0 px-4 pb-4">
-                <div className="grid gap-4">
-                  {Object.entries(schema.item).map(([key, fieldSchema]) => {
-                    if (fieldSchema.type === 'array') {
-                      return (
-                        <ArrayEditor
-                          key={key}
-                          name={key}
-                          schema={fieldSchema as any}
-                          value={item[key] || []}
-                          onChange={(newValue) => updateItem(index, key, newValue)}
-                        />
-                      );
-                    }
-                    return (
-                      <FormField
-                        key={key}
-                        name={key}
-                        schema={fieldSchema}
-                        value={item[key]}
-                        onChange={(newValue) => updateItem(index, key, newValue)}
-                      />
-                    );
-                  })}
-                </div>
-              </CardContent>
-            )}
-          </Card>
-        ))}
-      </div>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
+          <div className="space-y-3">
+            {value.map((item, index) => {
+              const id = itemIds[index];
+              return (
+                <SortableItem
+                  key={id}
+                  id={id}
+                  index={index}
+                  item={item}
+                  schema={schema.item}
+                  isExpanded={expandedItems.has(id)}
+                  onToggleExpand={() => toggleExpand(id)}
+                  onRemove={() => removeItem(index)}
+                  onUpdate={(key, newValue) => updateItem(index, key, newValue)}
+                  totalItems={value.length}
+                />
+              );
+            })}
+          </div>
+        </SortableContext>
+      </DndContext>
 
       {value.length === 0 && (
         <div className="text-center py-8 border-2 border-dashed rounded-lg">

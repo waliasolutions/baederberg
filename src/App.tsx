@@ -12,7 +12,8 @@ import KuechenumbauPage from "./pages/KuechenumbauPage";
 import InnenausbauPage from "./pages/InnenausbauPage";
 import { useEffect } from "react";
 
-// CMS Pages
+// CMS
+import { ContentProvider } from "./cms/context/ContentProvider";
 import { AdminLogin } from "./cms/pages/AdminLogin";
 import { AdminDashboard } from "./cms/pages/AdminDashboard";
 import { ContentList } from "./cms/pages/ContentList";
@@ -35,28 +36,30 @@ const ScrollToTop = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/region/:regionId" element={<RegionPage />} />
-          <Route path="/badumbau" element={<BadumbauPage />} />
-          <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
-          <Route path="/innenausbau" element={<InnenausbauPage />} />
-          
-          {/* CMS Admin Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/content" element={<ContentList />} />
-          <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
-          <Route path="/admin/media" element={<MediaLibrary />} />
-          <Route path="/admin/themes" element={<ThemeEditor />} />
-          
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <ContentProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/region/:regionId" element={<RegionPage />} />
+            <Route path="/badumbau" element={<BadumbauPage />} />
+            <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
+            <Route path="/innenausbau" element={<InnenausbauPage />} />
+            
+            {/* CMS Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/content" element={<ContentList />} />
+            <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
+            <Route path="/admin/media" element={<MediaLibrary />} />
+            <Route path="/admin/themes" element={<ThemeEditor />} />
+            
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </ContentProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

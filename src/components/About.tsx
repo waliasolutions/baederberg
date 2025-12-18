@@ -1,15 +1,30 @@
 import React from 'react';
 import { Heart, Award, Smile } from 'lucide-react';
+import { useSectionContent } from '@/cms/context/ContentProvider';
 import modernBathroom from '/lovable-uploads/modern-bathroom-interior.jpg';
 
+interface AboutContent {
+  heading?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  image?: string;
+}
+
 const About = () => {
+  const aboutContent = useSectionContent<AboutContent>('about');
+  
+  const heading = aboutContent?.heading || 'Ihr Bad, Ihre Küche, Ihr Innenausbau';
+  const paragraph1 = aboutContent?.paragraph1 || 'Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.';
+  const paragraph2 = aboutContent?.paragraph2 || 'Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.';
+  const imageUrl = aboutContent?.image || modernBathroom;
+
   return (
     <section id="about" className="py-24 md:py-32 bg-white">
       <div className="container px-6 md:px-12">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <img 
-              src={modernBathroom}
+              src={imageUrl}
               alt="Modernes Badezimmer" 
               className="w-full rounded-2xl shadow-lg object-cover h-[500px]"
             />
@@ -17,15 +32,15 @@ const About = () => {
           
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-tight font-inter">
-              Ihr Bad, Ihre Küche, Ihr Innenausbau
+              {heading}
             </h2>
             
             <p className="text-muted-foreground text-lg mb-4 leading-relaxed">
-              Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.
+              {paragraph1}
             </p>
             
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.
+              {paragraph2}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
