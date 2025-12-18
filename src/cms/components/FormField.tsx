@@ -4,6 +4,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ImagePicker from './ImagePicker';
+import IconPicker from './IconPicker';
 import type { FieldSchema } from '../schema';
 
 interface FormFieldProps {
@@ -126,11 +127,9 @@ const FormField: React.FC<FormFieldProps> = ({ name, schema, value, onChange, la
 
       case 'icon':
         return (
-          <Input
-            id={name}
+          <IconPicker
             value={value || ''}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="Icon name (e.g., Home, Settings)"
+            onChange={onChange}
           />
         );
 
