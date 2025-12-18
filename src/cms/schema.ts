@@ -247,6 +247,24 @@ export const contentSchema: Record<string, SectionSchema> = {
       type: 'text',
       maxLength: 100,
       label: 'Copyright Text'
+    },
+    socialLinks: {
+      type: 'array',
+      maxItems: 5,
+      label: 'Social Media Links',
+      item: {
+        platform: {
+          type: 'select',
+          options: ['facebook', 'instagram', 'linkedin', 'twitter', 'youtube'],
+          label: 'Plattform',
+          required: true
+        },
+        url: {
+          type: 'link',
+          label: 'URL',
+          required: true
+        }
+      }
     }
   },
   
@@ -322,6 +340,28 @@ export const defaultContent: Record<string, any> = {
     company: 'Bäderberg GmbH',
     street: 'Zugerstrasse 18',
     city: '8805 Richterswil'
+  },
+  about: {
+    heading: 'Ihr Bad, Ihre Küche, Ihr Innenausbau',
+    paragraph1: 'Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.',
+    paragraph2: 'Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.',
+    features: [
+      {
+        icon: 'Heart',
+        title: 'Persönliche Betreuung',
+        description: 'Ihr persönlicher Bauleiter begleitet Ihr Projekt von Anfang bis Ende.'
+      },
+      {
+        icon: 'Award',
+        title: 'Sorgfältige Arbeit',
+        description: 'Wir achten auf Details und arbeiten sauber.'
+      },
+      {
+        icon: 'Smile',
+        title: 'Garantie inklusive',
+        description: 'Elektroarbeiten und Garantie sind bei uns immer dabei.'
+      }
+    ]
   },
   theme: {
     primaryColor: '#0ea5e9',

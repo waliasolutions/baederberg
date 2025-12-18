@@ -1,27 +1,8 @@
 import TestimonialsCarousel from './TestimonialsCarousel';
-import { useSectionContent } from '@/cms/context/ContentProvider';
-import { realTestimonials } from '@/data/testimonials';
-
-interface TestimonialItem {
-  author: string;
-  quote: string;
-  rating: number;
-  project: string;
-}
-
-interface TestimonialsContent {
-  heading?: string;
-  items?: TestimonialItem[];
-}
+import { useHomepageTestimonials } from '@/cms/hooks/useTestimonials';
 
 const Testimonials = () => {
-  const testimonialsContent = useSectionContent<TestimonialsContent>('testimonials');
-  
-  const heading = testimonialsContent?.heading || 'Kundenstimmen';
-  // Use CMS testimonials if available, otherwise fall back to hardcoded data
-  const testimonials = testimonialsContent?.items?.length 
-    ? testimonialsContent.items 
-    : realTestimonials;
+  const { testimonials, heading } = useHomepageTestimonials();
 
   return (
     <section className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30" id="testimonials">

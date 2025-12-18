@@ -3,31 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useSectionContent } from '@/cms/context/ContentProvider';
-
-// Default slides (fallback)
-const defaultSlides = [
-  {
-    url: '/images/bathroom-modern.jpg',
-    heading: 'Wir bauen Ihr Bad gemeinsam um',
-    description: 'Persönlich geplant, professionell ausgeführt',
-    ctaLink: '/badumbau',
-    ctaText: 'Mehr erfahren'
-  },
-  {
-    url: '/images/kitchen-modern.jpg',
-    heading: 'Küchenbau Spezialist',
-    description: 'Ihre neue Küche nach Mass',
-    ctaLink: '/kuechenumbau',
-    ctaText: 'Mehr erfahren'
-  },
-  {
-    url: '/images/interior-living.jpg',
-    heading: 'Facharbeiten im Innenausbau',
-    description: 'Alles aus einer Hand',
-    ctaLink: '/innenausbau',
-    ctaText: 'Mehr erfahren'
-  }
-];
+import { defaultContent } from '@/cms/schema';
 
 interface HeroSlide {
   heading: string;
@@ -47,16 +23,23 @@ const Hero = () => {
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   
-  // Use CMS slides if available, otherwise use defaults
+  // Use CMS slides if available, otherwise use schema defaults (SSOT)
+  const schemaDefaults = defaultContent.hero?.slides || [];
   const slideImages = heroContent?.slides?.length 
     ? heroContent.slides.map((slide, index) => ({
-        url: slide.backgroundImage || defaultSlides[index]?.url || '/images/bathroom-modern.jpg',
-        heading: slide.heading || defaultSlides[index]?.heading || '',
+        url: slide.backgroundImage || schemaDefaults[index]?.backgroundImage || '/images/bathroom-modern.jpg',
+        heading: slide.heading || schemaDefaults[index]?.heading || '',
         description: slide.description || '',
-        ctaLink: slide.ctaLink || defaultSlides[index]?.ctaLink || '/',
+        ctaLink: slide.ctaLink || schemaDefaults[index]?.ctaLink || '/',
         ctaText: slide.ctaText || 'Mehr erfahren'
       }))
-    : defaultSlides;
+    : schemaDefaults.map(slide => ({
+        url: slide.backgroundImage || '/images/bathroom-modern.jpg',
+        heading: slide.heading || '',
+        description: '',
+        ctaLink: slide.ctaLink || '/',
+        ctaText: slide.ctaText || 'Mehr erfahren'
+      }));
   
   // Subtle parallax effect
   const { scrollY } = useScroll();

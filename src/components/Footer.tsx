@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Linkedin, ChevronRight, Shield, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, ChevronRight, Shield, MapPin, Twitter, Youtube } from 'lucide-react';
 import { useSectionContent } from '@/cms/context/ContentProvider';
+
+interface SocialLink {
+  platform: 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'youtube';
+  url: string;
+}
 
 interface FooterContent {
   companyName?: string;
   tagline?: string;
   copyright?: string;
+  socialLinks?: SocialLink[];
 }
 
 interface ContactContent {
@@ -16,6 +22,20 @@ interface ContactContent {
   city?: string;
 }
 
+const socialIcons = {
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  youtube: Youtube
+};
+
+const defaultSocialLinks: SocialLink[] = [
+  { platform: 'facebook', url: 'https://facebook.com' },
+  { platform: 'instagram', url: 'https://instagram.com' },
+  { platform: 'linkedin', url: 'https://linkedin.com' }
+];
+
 const Footer = () => {
   const footerContent = useSectionContent<FooterContent>('footer');
   const contactContent = useSectionContent<ContactContent>('contact');
@@ -24,6 +44,7 @@ const Footer = () => {
   const companyName = footerContent?.companyName || 'Bäderberg';
   const tagline = footerContent?.tagline || 'Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau in der Schweiz.';
   const copyright = footerContent?.copyright || `© ${currentYear} Bäderberg. Alle Rechte vorbehalten.`;
+  const socialLinks = footerContent?.socialLinks?.length ? footerContent.socialLinks : defaultSocialLinks;
   
   const phone = contactContent?.phone || '+41 76 753 44 78';
   const email = contactContent?.email || 'info@baederberg.ch';
@@ -53,33 +74,21 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={18} />
-              </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram size={18} />
-              </a>
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={18} />
-              </a>
+              {socialLinks.map((link, index) => {
+                const Icon = socialIcons[link.platform];
+                return (
+                  <a 
+                    key={index}
+                    href={link.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+                    aria-label={link.platform}
+                  >
+                    <Icon size={18} />
+                  </a>
+                );
+              })}
             </div>
           </div>
           

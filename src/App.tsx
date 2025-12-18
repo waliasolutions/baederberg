@@ -20,6 +20,7 @@ import { ContentList } from "./cms/pages/ContentList";
 import { ContentSectionEditor } from "./cms/pages/ContentSectionEditor";
 import { MediaLibrary } from "./cms/pages/MediaLibrary";
 import { ThemeEditor } from "./cms/pages/ThemeEditor";
+import { UserManagement } from "./cms/pages/UserManagement";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
             <Route path="/admin/media" element={<MediaLibrary />} />
             <Route path="/admin/themes" element={<ThemeEditor />} />
+            <Route path="/admin/users" element={<UserManagement />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>

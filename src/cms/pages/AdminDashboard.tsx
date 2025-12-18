@@ -5,7 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { useContent } from '../hooks/useContent';
 import { useMedia } from '../hooks/useMedia';
+import { useTheme } from '../hooks/useTheme';
 import { sectionLabels } from '../schema';
+import { ThemePreview } from '../components/ThemePreview';
 import { 
   FileText, 
   Image, 
@@ -18,6 +20,7 @@ import {
 export function AdminDashboard() {
   const { content, isLoading: contentLoading, isDirty, lastSaved } = useContent();
   const { media, fetchMedia } = useMedia();
+  const { activeTheme } = useTheme();
 
   React.useEffect(() => {
     fetchMedia();
@@ -174,6 +177,12 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Theme Preview */}
+        <ThemePreview 
+          colors={activeTheme?.colors}
+          themeName={activeTheme?.name}
+        />
 
         {/* Content Sections Overview */}
         <Card>
