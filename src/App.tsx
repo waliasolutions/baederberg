@@ -16,6 +16,9 @@ import { useEffect } from "react";
 import { AdminLogin } from "./cms/pages/AdminLogin";
 import { AdminDashboard } from "./cms/pages/AdminDashboard";
 import { ContentList } from "./cms/pages/ContentList";
+import { ContentSectionEditor } from "./cms/pages/ContentSectionEditor";
+import { MediaLibrary } from "./cms/pages/MediaLibrary";
+import { ThemeEditor } from "./cms/pages/ThemeEditor";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +50,9 @@ const App = () => (
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/content" element={<ContentList />} />
+          <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
+          <Route path="/admin/media" element={<MediaLibrary />} />
+          <Route path="/admin/themes" element={<ThemeEditor />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
