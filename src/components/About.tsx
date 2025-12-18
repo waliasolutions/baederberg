@@ -1,14 +1,41 @@
 import React from 'react';
 import { Heart, Award, Smile } from 'lucide-react';
 import { useSectionContent } from '@/cms/context/ContentProvider';
+import { DynamicIcon } from '@/lib/DynamicIcon';
 import modernBathroom from '/lovable-uploads/modern-bathroom-interior.jpg';
+
+interface AboutFeature {
+  icon?: string;
+  title?: string;
+  description?: string;
+}
 
 interface AboutContent {
   heading?: string;
   paragraph1?: string;
   paragraph2?: string;
   image?: string;
+  features?: AboutFeature[];
 }
+
+// Default features if not in CMS
+const defaultFeatures: AboutFeature[] = [
+  {
+    icon: 'Heart',
+    title: 'Persönliche Betreuung',
+    description: 'Ihr persönlicher Bauleiter begleitet Ihr Projekt von Anfang bis Ende.'
+  },
+  {
+    icon: 'Award',
+    title: 'Sorgfältige Arbeit',
+    description: 'Wir achten auf Details und arbeiten sauber.'
+  },
+  {
+    icon: 'Smile',
+    title: 'Garantie inklusive',
+    description: 'Elektroarbeiten und Garantie sind bei uns immer dabei.'
+  }
+];
 
 const About = () => {
   const aboutContent = useSectionContent<AboutContent>('about');
@@ -17,6 +44,7 @@ const About = () => {
   const paragraph1 = aboutContent?.paragraph1 || 'Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.';
   const paragraph2 = aboutContent?.paragraph2 || 'Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.';
   const imageUrl = aboutContent?.image || modernBathroom;
+  const features = aboutContent?.features?.length ? aboutContent.features : defaultFeatures;
 
   return (
     <section id="about" className="py-24 md:py-32 bg-white">
@@ -44,35 +72,22 @@ const About = () => {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-center gap-3">
-                <Heart className="text-primary" size={24} />
-                <div>
-                  <h4 className="font-semibold">Persönliche Betreuung</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Ihr persönlicher Bauleiter begleitet Ihr Projekt von Anfang bis Ende.
-                  </p>
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <DynamicIcon 
+                    name={feature.icon || 'Star'} 
+                    className="text-primary" 
+                    size={24}
+                    fallback={<Heart className="text-primary" size={24} />}
+                  />
+                  <div>
+                    <h4 className="font-semibold">{feature.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <Award className="text-primary" size={24} />
-                <div>
-                  <h4 className="font-semibold">Sorgfältige Arbeit</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Wir achten auf Details und arbeiten sauber.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <Smile className="text-primary" size={24} />
-                <div>
-                  <h4 className="font-semibold">Garantie inklusive</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Elektroarbeiten und Garantie sind bei uns immer dabei.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
