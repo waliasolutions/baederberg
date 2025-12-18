@@ -7,6 +7,7 @@ export function useMedia() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [optimizingIds, setOptimizingIds] = useState<Set<string>>(new Set());
 
   // Fetch all media
   const fetchMedia = useCallback(async (folder?: string) => {
@@ -29,6 +30,43 @@ export function useMedia() {
       setError(err instanceof Error ? err.message : 'Failed to fetch media');
     } finally {
       setIsLoading(false);
+    }
+  }, []);
+
+  // Optimize image via edge function
+  const optimizeImage = useCallback(async (mediaId: string, storagePath: string, mimeType: string) => {
+    setOptimizingIds(prev => new Set(prev).add(mediaId));
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('optimize-image', {
+        body: { mediaId, storagePath, mimeType },
+      });
+
+      if (error) {
+        console.error('Optimization failed:', error);
+        return { success: false, error: error.message };
+      }
+
+      if (data?.success && !data?.skipped) {
+        // Update local state with optimized URLs
+        setMedia(prev => prev.map(m => 
+          m.id === mediaId 
+            ? { ...m, webp_url: data.webpUrl, optimized_url: data.optimizedUrl }
+            : m
+        ));
+        return { success: true, data };
+      }
+
+      return { success: true, skipped: data?.skipped };
+    } catch (err) {
+      console.error('Optimization error:', err);
+      return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
+    } finally {
+      setOptimizingIds(prev => {
+        const next = new Set(prev);
+        next.delete(mediaId);
+        return next;
+      });
     }
   }, []);
 
@@ -71,7 +109,7 @@ export function useMedia() {
       
       if (uploadError) throw uploadError;
       
-      setUploadProgress(60);
+      setUploadProgress(50);
       
       // Get public URL
       const { data: urlData } = supabase.storage
@@ -88,7 +126,7 @@ export function useMedia() {
         height = dimensions.height;
       }
       
-      setUploadProgress(80);
+      setUploadProgress(70);
       
       // Save to database
       const { data: mediaData, error: dbError } = await supabase
@@ -108,8 +146,15 @@ export function useMedia() {
       
       if (dbError) throw dbError;
       
-      setUploadProgress(100);
+      setUploadProgress(90);
       setMedia(prev => [mediaData, ...prev]);
+      
+      // Trigger optimization in background (non-blocking)
+      if (file.type !== 'image/svg+xml' && file.type !== 'image/gif') {
+        optimizeImage(mediaData.id, uploadData.path, file.type);
+      }
+      
+      setUploadProgress(100);
       
       return { data: mediaData, error: null };
     } catch (err) {
@@ -117,17 +162,22 @@ export function useMedia() {
       setError(errorMsg);
       return { data: null, error: errorMsg };
     }
-  }, []);
+  }, [optimizeImage]);
 
   // Delete image
   const deleteImage = useCallback(async (mediaId: string, storagePath: string) => {
     try {
-      // Delete from storage
+      // Delete from storage (original)
       const { error: storageError } = await supabase.storage
         .from('cms-media')
         .remove([storagePath]);
       
       if (storageError) throw storageError;
+      
+      // Try to delete optimized versions (ignore errors if they don't exist)
+      const baseName = storagePath.split('/').pop()?.replace(/\.[^/.]+$/, '') || '';
+      await supabase.storage.from('cms-media').remove([`webp/${baseName}.webp`]);
+      await supabase.storage.from('cms-media').remove([`optimized/${baseName}.jpg`]);
       
       // Delete from database
       const { error: dbError } = await supabase
@@ -167,6 +217,11 @@ export function useMedia() {
     }
   }, []);
 
+  // Check if an image is currently being optimized
+  const isOptimizing = useCallback((mediaId: string) => {
+    return optimizingIds.has(mediaId);
+  }, [optimizingIds]);
+
   return {
     media,
     isLoading,
@@ -176,6 +231,8 @@ export function useMedia() {
     uploadImage,
     deleteImage,
     updateAltText,
+    optimizeImage,
+    isOptimizing,
   };
 }
 
