@@ -32,8 +32,15 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange, aspect }) =>
   );
 
   const handleSelect = (item: MediaItem) => {
-    onChange(item.original_url);
+    // Prefer optimized versions: webp > optimized > original
+    const url = item.webp_url || item.optimized_url || item.original_url;
+    onChange(url);
     setIsOpen(false);
+  };
+
+  // Get the best available URL for display
+  const getBestUrl = (item: MediaItem) => {
+    return item.webp_url || item.optimized_url || item.original_url;
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -181,27 +188,36 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ value, onChange, aspect }) =>
               </div>
             ) : (
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 p-1">
-                {filteredMedia.map((item) => (
-                  <Card
-                    key={item.id}
-                    className={`cursor-pointer overflow-hidden transition-all hover:ring-2 hover:ring-primary ${
-                      value === item.original_url ? 'ring-2 ring-primary' : ''
-                    }`}
-                    onClick={() => handleSelect(item)}
-                  >
-                    <div className="aspect-square relative bg-muted">
-                      <img
-                        src={item.original_url}
-                        alt={item.alt_text || item.filename}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                    <CardContent className="p-2">
-                      <p className="text-xs truncate">{item.filename}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                {filteredMedia.map((item) => {
+                  const bestUrl = getBestUrl(item);
+                  const isSelected = value === item.original_url || value === item.webp_url || value === item.optimized_url;
+                  return (
+                    <Card
+                      key={item.id}
+                      className={`cursor-pointer overflow-hidden transition-all hover:ring-2 hover:ring-primary ${
+                        isSelected ? 'ring-2 ring-primary' : ''
+                      }`}
+                      onClick={() => handleSelect(item)}
+                    >
+                      <div className="aspect-square relative bg-muted">
+                        <img
+                          src={bestUrl}
+                          alt={item.alt_text || item.filename}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        {item.webp_url && (
+                          <span className="absolute top-1 right-1 px-1 py-0.5 text-[9px] bg-green-500/90 text-white rounded">
+                            WebP
+                          </span>
+                        )}
+                      </div>
+                      <CardContent className="p-2">
+                        <p className="text-xs truncate">{item.filename}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
             )}
           </div>

@@ -13,7 +13,7 @@ import type { MediaItem } from '../types';
 
 export const MediaLibrary: React.FC = () => {
   const { toast } = useToast();
-  const { media, isLoading, error, uploadProgress, fetchMedia, uploadImage, deleteImage, updateAltText } = useMedia();
+  const { media, isLoading, error, uploadProgress, fetchMedia, uploadImage, deleteImage, updateAltText, isOptimizing } = useMedia();
   
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedImage, setSelectedImage] = useState<MediaItem | null>(null);
@@ -29,6 +29,13 @@ export const MediaLibrary: React.FC = () => {
     item.filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.alt_text?.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const getOptimizationStatus = (item: MediaItem) => {
+    if (isOptimizing(item.id)) return 'optimizing';
+    if (item.webp_url) return 'optimized';
+    if (item.mime_type === 'image/svg+xml' || item.mime_type === 'image/gif') return 'skipped';
+    return 'pending';
+  };
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -237,31 +244,48 @@ export const MediaLibrary: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {filteredMedia.map((item) => (
-              <Card
-                key={item.id}
-                className="cursor-pointer overflow-hidden hover:ring-2 hover:ring-primary transition-all"
-                onClick={() => {
-                  setSelectedImage(item);
-                  setEditingAltText(item.alt_text || '');
-                }}
-              >
-                <div className="aspect-square relative bg-muted">
-                  <img
-                    src={item.original_url}
-                    alt={item.alt_text || item.filename}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <CardContent className="p-2">
-                  <p className="text-xs font-medium truncate">{item.filename}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatFileSize(item.size_bytes)}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+            {filteredMedia.map((item) => {
+              const status = getOptimizationStatus(item);
+              return (
+                <Card
+                  key={item.id}
+                  className="cursor-pointer overflow-hidden hover:ring-2 hover:ring-primary transition-all"
+                  onClick={() => {
+                    setSelectedImage(item);
+                    setEditingAltText(item.alt_text || '');
+                  }}
+                >
+                  <div className="aspect-square relative bg-muted">
+                    <img
+                      src={item.webp_url || item.optimized_url || item.original_url}
+                      alt={item.alt_text || item.filename}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    {/* Optimization status badge */}
+                    <div className="absolute top-1 right-1">
+                      {status === 'optimizing' && (
+                        <span className="px-1.5 py-0.5 text-[10px] bg-yellow-500/90 text-white rounded flex items-center gap-1">
+                          <Loader2 className="w-2.5 h-2.5 animate-spin" />
+                          Optimizing
+                        </span>
+                      )}
+                      {status === 'optimized' && (
+                        <span className="px-1.5 py-0.5 text-[10px] bg-green-500/90 text-white rounded">
+                          WebP
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <CardContent className="p-2">
+                    <p className="text-xs font-medium truncate">{item.filename}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatFileSize(item.size_bytes)}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         )}
 
@@ -306,6 +330,36 @@ export const MediaLibrary: React.FC = () => {
                         ? new Date(selectedImage.created_at).toLocaleDateString('de-CH')
                         : 'Unknown'}
                     </span>
+                  </div>
+                </div>
+
+                {/* Optimization Status */}
+                <div className="p-3 rounded-lg bg-muted/50 space-y-2">
+                  <p className="text-sm font-medium">Optimization Status</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    {selectedImage.webp_url ? (
+                      <span className="px-2 py-1 bg-green-500/20 text-green-700 dark:text-green-300 rounded">
+                        ✓ WebP Available
+                      </span>
+                    ) : isOptimizing(selectedImage.id) ? (
+                      <span className="px-2 py-1 bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 rounded flex items-center gap-1">
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                        Optimizing...
+                      </span>
+                    ) : selectedImage.mime_type === 'image/svg+xml' || selectedImage.mime_type === 'image/gif' ? (
+                      <span className="px-2 py-1 bg-muted text-muted-foreground rounded">
+                        Not optimizable (vector/animated)
+                      </span>
+                    ) : (
+                      <span className="px-2 py-1 bg-muted text-muted-foreground rounded">
+                        Pending optimization
+                      </span>
+                    )}
+                    {selectedImage.optimized_url && (
+                      <span className="px-2 py-1 bg-blue-500/20 text-blue-700 dark:text-blue-300 rounded">
+                        ✓ Resized Version
+                      </span>
+                    )}
                   </div>
                 </div>
 
