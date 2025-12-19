@@ -4,14 +4,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Save, Eye, Clock, RotateCcw, Loader2 } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ArrowLeft, Save, Eye, Clock, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminLayout } from '../components/AdminLayout';
 import FormField from '../components/FormField';
 import ArrayEditor from '../components/ArrayEditor';
+import RevisionHistory from '../components/RevisionHistory';
 import { useContent } from '../hooks/useContent';
+import { supabase } from '@/integrations/supabase/client';
 import { contentSchema, sectionLabels, type SectionSchema } from '../schema';
-
+import type { ContentRevision } from '../types';
 export const ContentSectionEditor: React.FC = () => {
   const { section } = useParams<{ section: string }>();
   const navigate = useNavigate();
@@ -21,19 +24,26 @@ export const ContentSectionEditor: React.FC = () => {
   const [localContent, setLocalContent] = useState<Record<string, any>>({});
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [revisions, setRevisions] = useState<any[]>([]);
+  const [revisions, setRevisions] = useState<ContentRevision[]>([]);
+  const [revisionsLoading, setRevisionsLoading] = useState(false);
+  const [selectedContentKey, setSelectedContentKey] = useState<string>('');
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
   const sectionKey = section as keyof typeof contentSchema;
   const schema = contentSchema[sectionKey] as SectionSchema | undefined;
   const sectionLabel = sectionLabels[sectionKey] || section;
 
-  // Load content on mount
+  // Load content on mount and set default selected key
   useEffect(() => {
     if (content[sectionKey]) {
       setLocalContent(content[sectionKey]);
+      // Set first key as default for revision history
+      const keys = Object.keys(schema || {});
+      if (keys.length > 0 && !selectedContentKey) {
+        setSelectedContentKey(keys[0]);
+      }
     }
-  }, [content, sectionKey]);
+  }, [content, sectionKey, schema, selectedContentKey]);
 
   // Autosave every 30 seconds
   useEffect(() => {
@@ -97,10 +107,48 @@ export const ContentSectionEditor: React.FC = () => {
     }
   };
 
+  // Fetch revisions when content key changes
+  const fetchRevisions = useCallback(async (contentKey: string) => {
+    if (!contentKey || !sectionKey) return;
+    
+    setRevisionsLoading(true);
+    try {
+      // First get the content ID for this section/key
+      const { data: contentItem } = await supabase
+        .from('content')
+        .select('id')
+        .eq('section_key', sectionKey)
+        .eq('content_key', contentKey)
+        .maybeSingle();
+      
+      if (contentItem) {
+        const revisionData = await getRevisions(contentItem.id);
+        setRevisions(revisionData);
+      } else {
+        setRevisions([]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch revisions:', error);
+      setRevisions([]);
+    } finally {
+      setRevisionsLoading(false);
+    }
+  }, [sectionKey, getRevisions]);
+
+  // Fetch revisions when selected content key changes
+  useEffect(() => {
+    if (selectedContentKey) {
+      fetchRevisions(selectedContentKey);
+    }
+  }, [selectedContentKey, fetchRevisions]);
+
   const handleRestore = async (revisionId: string, revisionContent: any) => {
     try {
-      // Get content ID from current content
-      setLocalContent(revisionContent);
+      // Restore only the selected field
+      setLocalContent(prev => ({
+        ...prev,
+        [selectedContentKey]: revisionContent
+      }));
       setIsDirty(true);
       toast({
         title: 'Restored',
@@ -216,12 +264,31 @@ export const ContentSectionEditor: React.FC = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Version History</CardTitle>
-                <CardDescription>Revision history is tracked per content field</CardDescription>
+                <CardDescription>Select a content field to view its revision history</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center py-8">
-                  Revisions are automatically saved when you save content.
-                </p>
+              <CardContent className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <label className="text-sm font-medium">Content Field:</label>
+                  <Select value={selectedContentKey} onValueChange={setSelectedContentKey}>
+                    <SelectTrigger className="w-[250px]">
+                      <SelectValue placeholder="Select a field" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(schema).map(([key, fieldSchema]) => (
+                        <SelectItem key={key} value={key}>
+                          {(fieldSchema as any).label || key}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <RevisionHistory
+                  revisions={revisions}
+                  isLoading={revisionsLoading}
+                  onRestore={handleRestore}
+                  contentKey={selectedContentKey}
+                />
               </CardContent>
             </Card>
           </TabsContent>
