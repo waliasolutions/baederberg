@@ -21,6 +21,7 @@ import { ContentSectionEditor } from "./cms/pages/ContentSectionEditor";
 import { MediaLibrary } from "./cms/pages/MediaLibrary";
 import { ThemeEditor } from "./cms/pages/ThemeEditor";
 import { UserManagement } from "./cms/pages/UserManagement";
+import { RegionsEditor } from "./cms/pages/RegionsEditor";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,8 @@ const App = () => (
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/content" element={<ContentList />} />
             <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
+            <Route path="/admin/regions" element={<RegionsEditor />} />
+            <Route path="/admin/regions/:regionSlug" element={<RegionsEditor />} />
             <Route path="/admin/media" element={<MediaLibrary />} />
             <Route path="/admin/themes" element={<ThemeEditor />} />
             <Route path="/admin/users" element={<UserManagement />} />

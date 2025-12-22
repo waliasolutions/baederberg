@@ -9,7 +9,8 @@ import {
   FileText,
   ChevronRight,
   Check,
-  Clock
+  Clock,
+  MapPin
 } from 'lucide-react';
 
 export function ContentList() {
@@ -32,8 +33,36 @@ export function ContentList() {
           </p>
         </div>
 
+        {/* Special Regions Editor Link */}
+        <Card className="hover:shadow-md transition-shadow border-primary/20 bg-primary/5">
+          <CardContent className="p-0">
+            <Link
+              to="/admin/regions"
+              className="flex items-center justify-between p-6 group"
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                  <MapPin className="text-primary" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg text-slate-900 group-hover:text-primary transition-colors">
+                    Regionen Editor
+                  </h3>
+                  <p className="text-sm text-slate-500">
+                    Regionsseiten mit FAQs, Bewertungen und Leistungen bearbeiten
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="text-primary/60 group-hover:text-primary transition-colors" size={20} />
+            </Link>
+          </CardContent>
+        </Card>
+
         <div className="grid gap-4">
           {Object.entries(sectionLabels).map(([key, label]) => {
+            // Skip regions in regular list since we have a special editor
+            if (key === 'regions') return null;
+            
             const schema = contentSchema[key];
             const fieldCount = schema ? Object.keys(schema).length : 0;
             
