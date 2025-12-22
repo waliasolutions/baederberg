@@ -332,6 +332,30 @@ export const defaultContent: Record<string, any> = {
       }
     ]
   },
+  services: {
+    heading: 'Unsere Leistungen für Ihr Zuhause',
+    subheading: 'Bad, Küche, Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.',
+    items: [
+      {
+        title: 'Badumbau',
+        description: 'Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.',
+        image: '/images/bathroom-modern.jpg',
+        link: '/badumbau'
+      },
+      {
+        title: 'Küchenumbau',
+        description: 'Ihre neue Küche nach Mass – funktional und schön.',
+        image: '/images/kitchen-modern.jpg',
+        link: '/kuechenumbau'
+      },
+      {
+        title: 'Innenausbau',
+        description: 'Räume nach Ihren Wünschen – alles aus einer Hand.',
+        image: '/images/interior-living.jpg',
+        link: '/innenausbau'
+      }
+    ]
+  },
   contact: {
     heading: 'Kontakt',
     subheading: 'Wir freuen uns auf Ihre Anfrage',
@@ -362,6 +386,15 @@ export const defaultContent: Record<string, any> = {
         description: 'Elektroarbeiten und Garantie sind bei uns immer dabei.'
       }
     ]
+  },
+  testimonials: {
+    heading: 'Zufriedene Kunden',
+    items: []
+  },
+  footer: {
+    companyName: 'Bäderberg GmbH',
+    tagline: 'Ihr Partner für Bad, Küche und Innenausbau',
+    copyright: '© 2024 Bäderberg GmbH. Alle Rechte vorbehalten.'
   },
   theme: {
     primaryColor: '#0ea5e9',

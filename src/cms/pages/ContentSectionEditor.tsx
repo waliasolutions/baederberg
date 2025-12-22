@@ -5,16 +5,57 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowLeft, Save, Eye, Clock, Loader2 } from 'lucide-react';
+import { ArrowLeft, Save, Eye, Clock, Loader2, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminLayout } from '../components/AdminLayout';
 import FormField from '../components/FormField';
 import ArrayEditor from '../components/ArrayEditor';
 import RevisionHistory from '../components/RevisionHistory';
+import ContentPreview from '../components/ContentPreview';
 import { useContent } from '../hooks/useContent';
 import { supabase } from '@/integrations/supabase/client';
-import { contentSchema, sectionLabels, type SectionSchema } from '../schema';
+import { contentSchema, sectionLabels, type SectionSchema, type FieldSchema } from '../schema';
 import type { ContentRevision } from '../types';
+
+// Validation helper
+function validateContent(content: Record<string, any>, schema: SectionSchema): string[] {
+  const errors: string[] = [];
+  
+  for (const [key, fieldSchema] of Object.entries(schema)) {
+    const value = content[key];
+    const field = fieldSchema as FieldSchema;
+    
+    if (field.required) {
+      if (field.type === 'array') {
+        if (!Array.isArray(value) || value.length === 0) {
+          errors.push(`${field.label || key} ist erforderlich`);
+        } else {
+          // Validate array items
+          const itemSchema = field.item as Record<string, FieldSchema>;
+          if (itemSchema) {
+            value.forEach((item, index) => {
+              for (const [itemKey, itemField] of Object.entries(itemSchema)) {
+                if (itemField.required && (!item[itemKey] || item[itemKey] === '')) {
+                  errors.push(`${field.label || key} Item ${index + 1}: ${itemField.label || itemKey} ist erforderlich`);
+                }
+              }
+            });
+          }
+        }
+      } else if (value === undefined || value === null || value === '') {
+        errors.push(`${field.label || key} ist erforderlich`);
+      }
+    }
+    
+    // Validate maxLength
+    if (field.maxLength && typeof value === 'string' && value.length > field.maxLength) {
+      errors.push(`${field.label || key} darf maximal ${field.maxLength} Zeichen haben`);
+    }
+  }
+  
+  return errors;
+}
+
 export const ContentSectionEditor: React.FC = () => {
   const { section } = useParams<{ section: string }>();
   const navigate = useNavigate();
@@ -62,6 +103,25 @@ export const ContentSectionEditor: React.FC = () => {
   }, []);
 
   const handleSave = async (autosave = false) => {
+    // Validate before saving (skip validation for autosave)
+    if (!autosave && schema) {
+      const validationErrors = validateContent(localContent, schema);
+      if (validationErrors.length > 0) {
+        toast({
+          title: 'Validierungsfehler',
+          description: (
+            <ul className="list-disc pl-4 mt-2">
+              {validationErrors.map((err, i) => (
+                <li key={i}>{err}</li>
+              ))}
+            </ul>
+          ),
+          variant: 'destructive',
+        });
+        return;
+      }
+    }
+    
     setIsSaving(true);
     try {
       // Save each field in the section
@@ -72,14 +132,14 @@ export const ContentSectionEditor: React.FC = () => {
       setLastSaved(new Date());
       if (!autosave) {
         toast({
-          title: 'Saved',
-          description: 'Your changes have been saved as draft.',
+          title: 'Gespeichert',
+          description: 'Ihre Änderungen wurden als Entwurf gespeichert.',
         });
       }
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'Failed to save changes.',
+        title: 'Fehler',
+        description: 'Änderungen konnten nicht gespeichert werden.',
         variant: 'destructive',
       });
     } finally {
@@ -217,8 +277,12 @@ export const ContentSectionEditor: React.FC = () => {
         {/* Content Tabs */}
         <Tabs defaultValue="edit" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="edit">Edit Content</TabsTrigger>
-            <TabsTrigger value="revisions">Revisions</TabsTrigger>
+            <TabsTrigger value="edit">Bearbeiten</TabsTrigger>
+            <TabsTrigger value="preview">
+              <Eye className="w-4 h-4 mr-1" />
+              Vorschau
+            </TabsTrigger>
+            <TabsTrigger value="revisions">Versionen</TabsTrigger>
           </TabsList>
 
           <TabsContent value="edit" className="space-y-6">
@@ -260,18 +324,22 @@ export const ContentSectionEditor: React.FC = () => {
             )}
           </TabsContent>
 
+          <TabsContent value="preview" className="space-y-4">
+            <ContentPreview section={sectionKey} content={localContent} />
+          </TabsContent>
+
           <TabsContent value="revisions" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Version History</CardTitle>
-                <CardDescription>Select a content field to view its revision history</CardDescription>
+                <CardTitle>Versionshistorie</CardTitle>
+                <CardDescription>Wählen Sie ein Feld, um dessen Versionshistorie anzuzeigen</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <label className="text-sm font-medium">Content Field:</label>
+                  <label className="text-sm font-medium">Inhaltsfeld:</label>
                   <Select value={selectedContentKey} onValueChange={setSelectedContentKey}>
                     <SelectTrigger className="w-[250px]">
-                      <SelectValue placeholder="Select a field" />
+                      <SelectValue placeholder="Feld auswählen" />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(schema).map(([key, fieldSchema]) => (
