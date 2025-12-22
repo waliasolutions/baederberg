@@ -1,14 +1,29 @@
-
 import { useInView } from 'react-intersection-observer';
 import RegionMap from './RegionMap';
 import { MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useSectionContent } from '@/cms/context/ContentProvider';
+import { defaultContent } from '@/cms/schema';
+
+interface RegionsContent {
+  heading?: string;
+  subheading?: string;
+}
+
+// Get defaults from schema (SSOT)
+const defaultRegionsData = defaultContent.regions;
 
 const Regions = () => {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
+
+  const regionsContent = useSectionContent<RegionsContent>('regions');
+  
+  // Use CMS data if available, otherwise use schema defaults
+  const heading = regionsContent?.heading || defaultRegionsData.heading;
+  const subheading = regionsContent?.subheading || defaultRegionsData.subheading;
 
   return (
     <section id="regions" className="py-24 md:py-32 bg-secondary/20">
@@ -39,7 +54,7 @@ const Regions = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            In Ihrer Nähe für Sie da
+            {heading}
           </motion.h3>
           <motion.p 
             className="text-muted-foreground text-lg"
@@ -48,7 +63,7 @@ const Regions = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Wir sind in verschiedenen Regionen der Schweiz aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.
+            {subheading}
           </motion.p>
         </motion.div>
         
