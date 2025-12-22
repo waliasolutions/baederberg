@@ -268,6 +268,103 @@ export const contentSchema: Record<string, SectionSchema> = {
     }
   },
   
+  gallery: {
+    heading: {
+      type: 'text',
+      maxLength: 80,
+      label: 'Überschrift',
+      default: 'Was wir für andere gestaltet haben'
+    },
+    subheading: {
+      type: 'text',
+      maxLength: 200,
+      label: 'Untertitel'
+    },
+    items: {
+      type: 'array',
+      maxItems: 20,
+      label: 'Projekte',
+      item: {
+        title: {
+          type: 'text',
+          maxLength: 60,
+          required: true,
+          label: 'Projekttitel'
+        },
+        image: {
+          type: 'image',
+          aspect: '4:3',
+          label: 'Projektbild'
+        },
+        category: {
+          type: 'select',
+          options: ['Badumbau', 'Küchenumbau', 'Innenausbau'],
+          label: 'Kategorie',
+          required: true
+        }
+      }
+    }
+  },
+  
+  regions: {
+    heading: {
+      type: 'text',
+      maxLength: 60,
+      label: 'Überschrift',
+      default: 'In Ihrer Nähe für Sie da'
+    },
+    subheading: {
+      type: 'text',
+      maxLength: 200,
+      label: 'Untertitel'
+    },
+    items: {
+      type: 'array',
+      maxItems: 20,
+      label: 'Regionen',
+      item: {
+        slug: {
+          type: 'text',
+          maxLength: 30,
+          required: true,
+          label: 'URL-Slug',
+          placeholder: 'z.B. zurich, richterswil'
+        },
+        title: {
+          type: 'text',
+          maxLength: 60,
+          required: true,
+          label: 'Seitentitel'
+        },
+        description: {
+          type: 'text',
+          maxLength: 150,
+          label: 'Kurzbeschreibung'
+        },
+        heroImage: {
+          type: 'image',
+          aspect: '16:9',
+          label: 'Hero Bild'
+        },
+        badumbauText: {
+          type: 'richtext',
+          maxLength: 300,
+          label: 'Badumbau Beschreibung'
+        },
+        kuechenumbauText: {
+          type: 'richtext',
+          maxLength: 300,
+          label: 'Küchenumbau Beschreibung'
+        },
+        innenausbauText: {
+          type: 'richtext',
+          maxLength: 300,
+          label: 'Innenausbau Beschreibung'
+        }
+      }
+    }
+  },
+  
   theme: {
     primaryColor: { 
       type: 'color', 
@@ -304,6 +401,8 @@ export const sectionLabels: Record<string, string> = {
   about: 'Über uns',
   contact: 'Kontakt',
   testimonials: 'Kundenbewertungen',
+  gallery: 'Galerie',
+  regions: 'Regionen',
   footer: 'Footer',
   theme: 'Farben & Design'
 };
@@ -395,6 +494,27 @@ export const defaultContent: Record<string, any> = {
     companyName: 'Bäderberg GmbH',
     tagline: 'Ihr Partner für Bad, Küche und Innenausbau',
     copyright: '© 2024 Bäderberg GmbH. Alle Rechte vorbehalten.'
+  },
+  gallery: {
+    heading: 'Was wir für andere gestaltet haben',
+    subheading: 'Hier sehen Sie einige unserer abgeschlossenen Projekte. Vielleicht entdecken Sie etwas, das Ihnen gefällt und Sie inspiriert.',
+    items: [
+      { title: 'Badezimmer Walk-In Dusche', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
+      { title: 'Küche mit Kochinsel', image: '/images/kitchen-modern.jpg', category: 'Küchenumbau' },
+      { title: 'Gäste-WC Kompakt', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
+      { title: 'Badezimmer Spa Design', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
+      { title: 'Küche Induktion Modern', image: '/images/kitchen-modern.jpg', category: 'Küchenumbau' },
+      { title: 'Einbauschrank Modern', image: '/images/interior-living.jpg', category: 'Innenausbau' }
+    ]
+  },
+  regions: {
+    heading: 'In Ihrer Nähe für Sie da',
+    subheading: 'Wir sind in verschiedenen Regionen der Schweiz aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.',
+    items: [
+      { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich' },
+      { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil' },
+      { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ' }
+    ]
   },
   theme: {
     primaryColor: '#0ea5e9',

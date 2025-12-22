@@ -1,47 +1,39 @@
 import { useState } from 'react';
 import ProjectCard from './ProjectCard';
-import modernBathroom from '@/assets/projects/modern-bathroom-renovation.jpg';
-import contemporaryKitchen from '@/assets/projects/contemporary-kitchen-island.jpg';
-import guestBathroom from '@/assets/projects/guest-bathroom-compact.jpg';
-import masterBathroom from '@/assets/projects/master-bathroom-spa.jpg';
-import modernKitchenInduction from '@/assets/projects/modern-kitchen-induction.jpg';
-import builtInWardrobe from '@/assets/projects/built-in-wardrobe.jpg';
+import { useSectionContent } from '@/cms/context/ContentProvider';
+import { defaultContent } from '@/cms/schema';
 
-const projects = [
-  {
-    title: "Badezimmer Walk-In Dusche",
-    images: [modernBathroom],
-    tags: ["Badumbau"]
-  },
-  {
-    title: "Küche mit Kochinsel",
-    images: [contemporaryKitchen],
-    tags: ["Küchenumbau"]
-  },
-  {
-    title: "Gäste-WC Kompakt",
-    images: [guestBathroom],
-    tags: ["Badumbau"]
-  },
-  {
-    title: "Badezimmer Spa Design",
-    images: [masterBathroom],
-    tags: ["Badumbau"]
-  },
-  {
-    title: "Küche Induktion Modern",
-    images: [modernKitchenInduction],
-    tags: ["Küchenumbau"]
-  },
-  {
-    title: "Einbauschrank Modern",
-    images: [builtInWardrobe],
-    tags: ["Innenausbau"]
-  }
-];
+interface GalleryItem {
+  title: string;
+  image?: string;
+  category: string;
+}
+
+interface GalleryContent {
+  heading?: string;
+  subheading?: string;
+  items?: GalleryItem[];
+}
+
+// Get defaults from schema (SSOT)
+const defaultGalleryData = defaultContent.gallery;
 
 const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const galleryContent = useSectionContent<GalleryContent>('gallery');
+
+  // Use CMS data if available, otherwise use schema defaults
+  const heading = galleryContent?.heading || defaultGalleryData.heading;
+  const subheading = galleryContent?.subheading || defaultGalleryData.subheading;
+  
+  const projects = (galleryContent?.items?.length 
+    ? galleryContent.items 
+    : defaultGalleryData.items
+  ).map((item: GalleryItem) => ({
+    title: item.title,
+    images: [item.image || '/images/bathroom-modern.jpg'],
+    tags: [item.category]
+  }));
 
   const filters = [
     { label: "Alle", value: null },
@@ -59,10 +51,10 @@ const Gallery = () => {
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">
-            Was wir für andere gestaltet haben
+            {heading}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Hier sehen Sie einige unserer abgeschlossenen Projekte. Vielleicht entdecken Sie etwas, das Ihnen gefällt und Sie inspiriert.
+            {subheading}
           </p>
         </div>
         
