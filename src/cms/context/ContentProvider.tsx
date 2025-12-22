@@ -92,6 +92,11 @@ export function ContentProvider({ children }: ContentProviderProps) {
         };
       });
 
+      // Also include region-specific content (stored with section_key = 'region')
+      if (contentMap['region']) {
+        mergedContent['region'] = contentMap['region'];
+      }
+
       setContent(mergedContent);
     } catch (err) {
       console.error('Failed to fetch content:', err);
