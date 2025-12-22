@@ -5,8 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { supabase } from '@/integrations/supabase/client';
+import { Shield, Loader2 } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Ungültige E-Mail-Adresse'),
@@ -18,7 +22,10 @@ export function AdminLogin() {
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const { signIn, user, isAdmin, isEditor, isLoading } = useAuth();
+  const [showBootstrap, setShowBootstrap] = useState(false);
+  const [isBootstrapping, setIsBootstrapping] = useState(false);
+  const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
+  const { signIn, signUp, user, isAdmin, isEditor, isLoading } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in and has role
@@ -27,6 +34,61 @@ export function AdminLogin() {
       navigate('/admin');
     }
   }, [user, isAdmin, isEditor, isLoading, navigate]);
+
+  // Check if user is logged in but has no role (needs bootstrap)
+  useEffect(() => {
+    if (!isLoading && user && !isAdmin && !isEditor) {
+      checkIfFirstAdmin();
+    }
+  }, [user, isAdmin, isEditor, isLoading]);
+
+  const checkIfFirstAdmin = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('id')
+        .eq('role', 'admin')
+        .limit(1);
+      
+      if (!error && (!data || data.length === 0)) {
+        setShowBootstrap(true);
+      }
+    } catch (err) {
+      console.error('Error checking admin status:', err);
+    }
+  };
+
+  const handleBootstrap = async () => {
+    setIsBootstrapping(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error('Bitte melden Sie sich zuerst an');
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('bootstrap-admin', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        toast.success('Sie sind jetzt Administrator!');
+        // Refresh the page to update auth state
+        window.location.reload();
+      } else {
+        toast.error(data.error || 'Bootstrap fehlgeschlagen');
+      }
+    } catch (error: any) {
+      console.error('Bootstrap error:', error);
+      toast.error('Bootstrap fehlgeschlagen: ' + (error.message || 'Unbekannter Fehler'));
+    } finally {
+      setIsBootstrapping(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,20 +109,37 @@ export function AdminLogin() {
     
     setIsSubmitting(true);
     
-    const { error } = await signIn(email, password);
-    
-    if (error) {
-      if (error.message.includes('Invalid login credentials')) {
-        toast.error('Ungültige Anmeldedaten');
-      } else {
-        toast.error(error.message);
+    if (activeTab === 'login') {
+      const { error } = await signIn(email, password);
+      
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          toast.error('Ungültige Anmeldedaten');
+        } else {
+          toast.error(error.message);
+        }
+        setIsSubmitting(false);
+        return;
       }
-      setIsSubmitting(false);
-      return;
+      
+      toast.success('Erfolgreich angemeldet');
+    } else {
+      const { error } = await signUp(email, password);
+      
+      if (error) {
+        if (error.message.includes('already registered')) {
+          toast.error('E-Mail bereits registriert');
+        } else {
+          toast.error(error.message);
+        }
+        setIsSubmitting(false);
+        return;
+      }
+      
+      toast.success('Konto erstellt! Bitte prüfen Sie Ihre E-Mail zur Bestätigung.');
     }
     
-    toast.success('Erfolgreich angemeldet');
-    // Navigation happens via useEffect when auth state changes
+    setIsSubmitting(false);
   };
 
   if (isLoading) {
@@ -71,53 +150,114 @@ export function AdminLogin() {
     );
   }
 
+  // Show bootstrap option if user is logged in but has no role
+  if (showBootstrap && user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <Shield className="w-6 h-6 text-primary" />
+            </div>
+            <CardTitle className="text-2xl">Erster Administrator</CardTitle>
+            <CardDescription>
+              Es wurde noch kein Administrator eingerichtet. Möchten Sie der erste Administrator werden?
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Alert>
+              <AlertDescription>
+                Als Administrator können Sie alle Inhalte verwalten, Benutzer einladen und das Design anpassen.
+              </AlertDescription>
+            </Alert>
+            <Button 
+              onClick={handleBootstrap} 
+              className="w-full" 
+              disabled={isBootstrapping}
+            >
+              {isBootstrapping ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Wird eingerichtet...
+                </>
+              ) : (
+                <>
+                  <Shield className="w-4 h-4 mr-2" />
+                  Zum Administrator werden
+                </>
+              )}
+            </Button>
+            <p className="text-center text-sm text-muted-foreground">
+              Angemeldet als: {user.email}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">CMS Login</CardTitle>
+          <CardTitle className="text-2xl">CMS Zugang</CardTitle>
           <CardDescription>
-            Melden Sie sich an, um Inhalte zu bearbeiten
+            Melden Sie sich an oder erstellen Sie ein Konto
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">E-Mail</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@example.com"
-                disabled={isSubmitting}
-                autoComplete="email"
-              />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email}</p>
-              )}
-            </div>
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'login' | 'signup')}>
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="login">Anmelden</TabsTrigger>
+              <TabsTrigger value="signup">Registrieren</TabsTrigger>
+            </TabsList>
             
-            <div className="space-y-2">
-              <Label htmlFor="password">Passwort</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                disabled={isSubmitting}
-                autoComplete="current-password"
-              />
-              {errors.password && (
-                <p className="text-sm text-destructive">{errors.password}</p>
-              )}
-            </div>
-            
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Anmelden...' : 'Anmelden'}
-            </Button>
-          </form>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">E-Mail</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@example.com"
+                  disabled={isSubmitting}
+                  autoComplete="email"
+                />
+                {errors.email && (
+                  <p className="text-sm text-destructive">{errors.email}</p>
+                )}
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="password">Passwort</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  disabled={isSubmitting}
+                  autoComplete={activeTab === 'login' ? 'current-password' : 'new-password'}
+                />
+                {errors.password && (
+                  <p className="text-sm text-destructive">{errors.password}</p>
+                )}
+              </div>
+              
+              <TabsContent value="login" className="mt-0 pt-0">
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? 'Anmelden...' : 'Anmelden'}
+                </Button>
+              </TabsContent>
+              
+              <TabsContent value="signup" className="mt-0 pt-0">
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? 'Registrieren...' : 'Konto erstellen'}
+                </Button>
+              </TabsContent>
+            </form>
+          </Tabs>
           
           <div className="mt-6 text-center text-sm text-slate-500">
             <p>Nur für autorisierte Benutzer.</p>

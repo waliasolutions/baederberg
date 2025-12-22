@@ -1,58 +1,11 @@
 import ServiceCard from './ServiceCard';
 import { useSectionContent } from '@/cms/context/ContentProvider';
-
-// Default services data (fallback)
-const defaultServicesData = [
-  {
-    title: "Badumbau",
-    description: "Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.",
-    imageSrc: "/images/bathroom-modern.jpg",
-    features: [
-      "Persönlicher Bauleiter",
-      "Individuelle Badplanung",
-      "Einbau hochwertiger Sanitäranlagen",
-      "Montage stilvoller Badmöbel",
-      "Innovative Beleuchtungskonzepte",
-      "Elektroarbeiten und Garantie inklusive"
-    ],
-    to: "/badumbau"
-  },
-  {
-    title: "Küchenumbau",
-    description: "Ihre neue Küche nach Mass – funktional und schön.",
-    imageSrc: "/images/kitchen-modern.jpg",
-    features: [
-      "Individuelle Küchenplanung",
-      "Persönlicher Projektleiter",
-      "Installation hochwertiger Küchengeräte",
-      "Einbau von Arbeitsplatten und individuellen Rückwänden",
-      "Fachgerechte Montage",
-      "Elektroarbeiten und Garantie inklusive"
-    ],
-    to: "/kuechenumbau"
-  },
-  {
-    title: "Innenausbau",
-    description: "Räume nach Ihren Wünschen – alles aus einer Hand.",
-    imageSrc: "/images/interior-living.jpg",
-    features: [
-      "Fachgerechte Bauleitung",
-      "Individuelle Raumplanung",
-      "Massgeschneiderter Möbeleinbau",
-      "Bodenbeläge und Wandverkleidungen",
-      "Treppen und Geländer",
-      "Elektroarbeiten und Garantie inklusive",
-      "Alles aus einer Hand"
-    ],
-    to: "/innenausbau"
-  }
-];
+import { defaultContent } from '@/cms/schema';
 
 interface ServiceItem {
   title: string;
   description: string;
   image?: string;
-  features?: string[];
   link?: string;
 }
 
@@ -62,22 +15,27 @@ interface ServicesContent {
   items?: ServiceItem[];
 }
 
+// Get defaults from schema (SSOT)
+const defaultServicesData = defaultContent.services;
+
 const Services = () => {
   const servicesContent = useSectionContent<ServicesContent>('services');
   
-  // Use CMS data if available, otherwise use defaults
-  const heading = servicesContent?.heading || 'Unsere Leistungen für Ihr Zuhause';
-  const subheading = servicesContent?.subheading || 'Bad, Küche, Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.';
+  // Use CMS data if available, otherwise use schema defaults
+  const heading = servicesContent?.heading || defaultServicesData.heading;
+  const subheading = servicesContent?.subheading || defaultServicesData.subheading;
   
-  const servicesData = servicesContent?.items?.length 
-    ? servicesContent.items.map((item, index) => ({
-        title: item.title || defaultServicesData[index]?.title || '',
-        description: item.description || defaultServicesData[index]?.description || '',
-        imageSrc: item.image || defaultServicesData[index]?.imageSrc || '',
-        features: item.features || defaultServicesData[index]?.features || [],
-        to: item.link || defaultServicesData[index]?.to || '/'
-      }))
-    : defaultServicesData;
+  // Map CMS items or fall back to defaults
+  const servicesData = (servicesContent?.items?.length 
+    ? servicesContent.items 
+    : defaultServicesData.items
+  ).map((item: ServiceItem) => ({
+    title: item.title,
+    description: item.description,
+    imageSrc: item.image || '/images/bathroom-modern.jpg',
+    features: [], // Features not in CMS schema - kept for ServiceCard compatibility
+    to: item.link || '/'
+  }));
 
   return (
     <section id="services" className="py-24 md:py-32 bg-secondary/50">
