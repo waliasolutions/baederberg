@@ -6,7 +6,7 @@ import {
   LayoutDashboard, 
   FileText, 
   Image, 
-  Palette, 
+  Globe, 
   History, 
   LogOut,
   Menu,
@@ -23,7 +23,7 @@ const navItems = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { path: '/admin/content', label: 'Inhalt', icon: FileText },
   { path: '/admin/media', label: 'Medien', icon: Image },
-  { path: '/admin/themes', label: 'Design', icon: Palette },
+  { path: '/admin/seo', label: 'SEO & Unternehmen', icon: Globe },
   { path: '/admin/users', label: 'Benutzer', icon: Users, adminOnly: true },
   { path: '/admin/revisions', label: 'Verlauf', icon: History },
 ];

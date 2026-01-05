@@ -6,6 +6,7 @@ import TestimonialCard from '@/components/TestimonialCard';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { realTestimonials } from '@/data/testimonials';
 import { usePublicContent } from '@/cms/context/ContentProvider';
+import SEOHead from '@/components/SEOHead';
 import zurichHero from '@/assets/regions/zurich-interior.jpg';
 import richterswilHero from '@/assets/regions/richterswil-interior.jpg';
 import pfaffikonHero from '@/assets/regions/pfaffikon-interior.jpg';
@@ -278,7 +279,6 @@ const RegionPage = () => {
   
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `Bäderberg - ${region?.title || 'Region'}`;
   }, [region]);
 
   if (isLoading) {
@@ -316,6 +316,10 @@ const RegionPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead 
+        title={`${region.title} - Bäderberg`}
+        description={region.description}
+      />
       <Header />
       
       {/* Hero Section */}

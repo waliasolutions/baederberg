@@ -8,6 +8,8 @@ import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
+import GTMBody from '@/components/GTMBody';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -28,6 +30,8 @@ const Index = () => {
   
   return (
     <div className="min-h-screen bg-background overflow-hidden w-full">
+      <SEOHead />
+      <GTMBody />
       <Header />
       <Hero />
       <div className="w-full max-w-full overflow-x-hidden">

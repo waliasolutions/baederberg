@@ -19,9 +19,10 @@ import { AdminDashboard } from "./cms/pages/AdminDashboard";
 import { ContentList } from "./cms/pages/ContentList";
 import { ContentSectionEditor } from "./cms/pages/ContentSectionEditor";
 import { MediaLibrary } from "./cms/pages/MediaLibrary";
-import { ThemeEditor } from "./cms/pages/ThemeEditor";
 import { UserManagement } from "./cms/pages/UserManagement";
 import { RegionsEditor } from "./cms/pages/RegionsEditor";
+import { SEOEditor } from "./cms/pages/SEOEditor";
+import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient();
 
@@ -36,37 +37,39 @@ const ScrollToTop = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <ContentProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/region/:regionId" element={<RegionPage />} />
-            <Route path="/badumbau" element={<BadumbauPage />} />
-            <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
-            <Route path="/innenausbau" element={<InnenausbauPage />} />
-            
-            {/* CMS Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/content" element={<ContentList />} />
-            <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
-            <Route path="/admin/regions" element={<RegionsEditor />} />
-            <Route path="/admin/regions/:regionSlug" element={<RegionsEditor />} />
-            <Route path="/admin/media" element={<MediaLibrary />} />
-            <Route path="/admin/themes" element={<ThemeEditor />} />
-            <Route path="/admin/users" element={<UserManagement />} />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </ContentProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <ContentProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/region/:regionId" element={<RegionPage />} />
+              <Route path="/badumbau" element={<BadumbauPage />} />
+              <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
+              <Route path="/innenausbau" element={<InnenausbauPage />} />
+              
+              {/* CMS Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/content" element={<ContentList />} />
+              <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
+              <Route path="/admin/regions" element={<RegionsEditor />} />
+              <Route path="/admin/regions/:regionSlug" element={<RegionsEditor />} />
+              <Route path="/admin/media" element={<MediaLibrary />} />
+              <Route path="/admin/seo" element={<SEOEditor />} />
+              <Route path="/admin/users" element={<UserManagement />} />
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ContentProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

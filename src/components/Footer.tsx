@@ -22,6 +22,17 @@ interface ContactContent {
   city?: string;
 }
 
+interface BusinessContent {
+  instagram?: string;
+  facebook?: string;
+  linkedin?: string;
+  youtube?: string;
+}
+
+interface RegionsContent {
+  items?: { slug: string; title: string }[];
+}
+
 const socialIcons = {
   facebook: Facebook,
   instagram: Instagram,
@@ -30,27 +41,49 @@ const socialIcons = {
   youtube: Youtube
 };
 
-const defaultSocialLinks: SocialLink[] = [
-  { platform: 'facebook', url: 'https://facebook.com' },
-  { platform: 'instagram', url: 'https://instagram.com' },
-  { platform: 'linkedin', url: 'https://linkedin.com' }
-];
-
 const Footer = () => {
   const footerContent = useSectionContent<FooterContent>('footer');
   const contactContent = useSectionContent<ContactContent>('contact');
+  const businessContent = useSectionContent<BusinessContent>('business');
+  const regionsContent = useSectionContent<RegionsContent>('regions');
   const currentYear = new Date().getFullYear();
   
   const companyName = footerContent?.companyName || 'Bäderberg';
   const tagline = footerContent?.tagline || 'Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau in der Schweiz.';
   const copyright = footerContent?.copyright || `© ${currentYear} Bäderberg. Alle Rechte vorbehalten.`;
-  const socialLinks = footerContent?.socialLinks?.length ? footerContent.socialLinks : defaultSocialLinks;
+  
+  // Build social links from business content or footer content
+  const socialLinks: SocialLink[] = [];
+  if (businessContent?.instagram) socialLinks.push({ platform: 'instagram', url: businessContent.instagram });
+  if (businessContent?.facebook) socialLinks.push({ platform: 'facebook', url: businessContent.facebook });
+  if (businessContent?.linkedin) socialLinks.push({ platform: 'linkedin', url: businessContent.linkedin });
+  if (businessContent?.youtube) socialLinks.push({ platform: 'youtube', url: businessContent.youtube });
+  // Fallback to footer socialLinks if business has none
+  const finalSocialLinks = socialLinks.length > 0 ? socialLinks : (footerContent?.socialLinks || []);
   
   const phone = contactContent?.phone || '+41 76 753 44 78';
   const email = contactContent?.email || 'info@baederberg.ch';
   const company = contactContent?.company || 'Bäderberg GmbH';
   const street = contactContent?.street || 'Zugerstrasse 18';
   const city = contactContent?.city || '8805 Richterswil';
+  
+  // Default regions for footer
+  const defaultRegions = [
+    { slug: 'zurich', title: 'Zürich' },
+    { slug: 'richterswil', title: 'Richterswil' },
+    { slug: 'waedenswil', title: 'Wädenswil' },
+    { slug: 'lachen', title: 'Lachen' },
+    { slug: 'pfaeffikon', title: 'Pfäffikon SZ' },
+    { slug: 'zollikon', title: 'Zollikon' },
+    { slug: 'kilchberg', title: 'Kilchberg' },
+    { slug: 'kuesnacht', title: 'Küsnacht' },
+    { slug: 'meilen', title: 'Meilen' },
+    { slug: 'erlenbach', title: 'Erlenbach' }
+  ];
+  
+  const regions = regionsContent?.items?.length ? regionsContent.items : defaultRegions;
+  const regionsColumn1 = regions.slice(0, 5);
+  const regionsColumn2 = regions.slice(5, 10);
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -73,23 +106,25 @@ const Footer = () => {
                 <p className="text-primary-foreground/80 text-sm">Kostenlose Vermessung vor der Installation</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((link, index) => {
-                const Icon = socialIcons[link.platform];
-                return (
-                  <a 
-                    key={index}
-                    href={link.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                    aria-label={link.platform}
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              })}
-            </div>
+            {finalSocialLinks.length > 0 && (
+              <div className="flex items-center gap-4">
+                {finalSocialLinks.map((link, index) => {
+                  const Icon = socialIcons[link.platform];
+                  return (
+                    <a 
+                      key={index}
+                      href={link.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+                      aria-label={link.platform}
+                    >
+                      <Icon size={18} />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
           </div>
           
           <div>
@@ -127,73 +162,31 @@ const Footer = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <ul className="space-y-2">
-                  <li>
-                    <Link to="/region/zurich" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Zürich
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/richterswil" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Richterswil
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/waedenswil" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Wädenswil
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/lachen" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Lachen
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/pfaeffikon" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Pfäffikon SZ
-                    </Link>
-                  </li>
+                  {regionsColumn1.map((region) => (
+                    <li key={region.slug}>
+                      <Link to={`/region/${region.slug}`} className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                        <ChevronRight size={16} className="mr-2" />
+                        {region.title}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
               
-              <div>
-                <ul className="space-y-2">
-                  <li>
-                    <Link to="/region/zollikon" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Zollikon
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/kilchberg" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Kilchberg
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/kuesnacht" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Küsnacht
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/meilen" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Meilen
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/region/erlenbach" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
-                      <ChevronRight size={16} className="mr-2" />
-                      Erlenbach
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              {regionsColumn2.length > 0 && (
+                <div>
+                  <ul className="space-y-2">
+                    {regionsColumn2.map((region) => (
+                      <li key={region.slug}>
+                        <Link to={`/region/${region.slug}`} className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                          <ChevronRight size={16} className="mr-2" />
+                          {region.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
           

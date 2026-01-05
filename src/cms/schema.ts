@@ -365,31 +365,91 @@ export const contentSchema: Record<string, SectionSchema> = {
     }
   },
   
-  theme: {
-    primaryColor: { 
-      type: 'color', 
-      default: '#0ea5e9',
-      label: 'Primärfarbe'
+  seo: {
+    metaTitle: {
+      type: 'text',
+      maxLength: 60,
+      label: 'Meta-Titel',
+      default: 'Bäderberg - Bad, Küche & Innenausbau'
     },
-    secondaryColor: { 
-      type: 'color', 
-      default: '#f1f5f9',
-      label: 'Sekundärfarbe'
+    metaDescription: {
+      type: 'text',
+      maxLength: 160,
+      label: 'Meta-Beschreibung',
+      default: 'Ihr Spezialist für hochwertige Bad-, Küchen- und Innenrenovationen in der Region Zürich und Umgebung.'
     },
-    accentColor: { 
-      type: 'color', 
-      default: '#0284c7',
-      label: 'Akzentfarbe'
+    ogImage: {
+      type: 'image',
+      label: 'OG-Image',
+      helpText: 'Falls leer, wird das erste Hero-Bild verwendet'
     },
-    backgroundColor: {
-      type: 'color',
-      default: '#ffffff',
-      label: 'Hintergrundfarbe'
+    gtmId: {
+      type: 'text',
+      maxLength: 20,
+      label: 'GTM Container-ID',
+      placeholder: 'GTM-XXXXXXX'
     },
-    textColor: {
-      type: 'color',
-      default: '#1e293b',
-      label: 'Textfarbe'
+    gtmHead: {
+      type: 'richtext',
+      label: 'GTM Head Code'
+    },
+    gtmBody: {
+      type: 'richtext',
+      label: 'GTM Body Code'
+    },
+    language: {
+      type: 'text',
+      maxLength: 10,
+      label: 'Sprache',
+      default: 'de-CH'
+    },
+    timezone: {
+      type: 'text',
+      maxLength: 30,
+      label: 'Zeitzone',
+      default: 'Europe/Zurich'
+    },
+    hreflang: {
+      type: 'text',
+      maxLength: 10,
+      label: 'Hreflang',
+      default: 'de-CH'
+    }
+  },
+  
+  business: {
+    companyName: {
+      type: 'text',
+      maxLength: 60,
+      label: 'Firmenname',
+      default: 'Bäderberg GmbH'
+    },
+    legalName: {
+      type: 'text',
+      maxLength: 100,
+      label: 'Rechtlicher Name'
+    },
+    vatNumber: {
+      type: 'text',
+      maxLength: 30,
+      label: 'UID/MwSt-Nummer',
+      placeholder: 'CHE-123.456.789'
+    },
+    instagram: {
+      type: 'link',
+      label: 'Instagram'
+    },
+    facebook: {
+      type: 'link',
+      label: 'Facebook'
+    },
+    linkedin: {
+      type: 'link',
+      label: 'LinkedIn'
+    },
+    youtube: {
+      type: 'link',
+      label: 'YouTube'
     }
   }
 };
@@ -404,7 +464,8 @@ export const sectionLabels: Record<string, string> = {
   gallery: 'Galerie',
   regions: 'Regionen',
   footer: 'Footer',
-  theme: 'Farben & Design'
+  seo: 'SEO & Analytics',
+  business: 'Unternehmensdaten'
 };
 
 // Default content values
@@ -516,11 +577,24 @@ export const defaultContent: Record<string, any> = {
       { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ' }
     ]
   },
-  theme: {
-    primaryColor: '#0ea5e9',
-    secondaryColor: '#f1f5f9',
-    accentColor: '#0284c7',
-    backgroundColor: '#ffffff',
-    textColor: '#1e293b'
+  seo: {
+    metaTitle: 'Bäderberg - Bad, Küche & Innenausbau',
+    metaDescription: 'Ihr Spezialist für hochwertige Bad-, Küchen- und Innenrenovationen in der Region Zürich und Umgebung.',
+    ogImage: '',
+    gtmId: '',
+    gtmHead: '',
+    gtmBody: '',
+    language: 'de-CH',
+    timezone: 'Europe/Zurich',
+    hreflang: 'de-CH'
+  },
+  business: {
+    companyName: 'Bäderberg GmbH',
+    legalName: 'Bäderberg GmbH',
+    vatNumber: '',
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+    youtube: ''
   }
 };

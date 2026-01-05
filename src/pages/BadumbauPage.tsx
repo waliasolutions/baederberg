@@ -6,6 +6,7 @@ import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
+import SEOHead from '@/components/SEOHead';
 
 const BadumbauPage = () => {
   const { scrollY } = useScroll();
@@ -23,6 +24,10 @@ const BadumbauPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Badumbau - Bäderberg" 
+        description="Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt. Fester Preis, fester Termin, 5 Jahre Garantie."
+      />
       <Header />
       
       <main className="pt-20">
