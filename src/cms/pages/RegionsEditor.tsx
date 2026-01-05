@@ -34,6 +34,8 @@ interface RegionData {
   title: string;
   description: string;
   heroImage: string;
+  metaTitle: string;
+  metaDescription: string;
   services: {
     badumbau: string;
     kuechenumbau: string;
@@ -49,6 +51,8 @@ const defaultRegion: RegionData = {
   title: '',
   description: '',
   heroImage: '',
+  metaTitle: '',
+  metaDescription: '',
   services: {
     badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.',
     kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
@@ -422,6 +426,7 @@ export const RegionsEditor: React.FC = () => {
               <Tabs defaultValue="general" className="space-y-4">
                 <TabsList>
                   <TabsTrigger value="general">Allgemein</TabsTrigger>
+                  <TabsTrigger value="seo">SEO</TabsTrigger>
                   <TabsTrigger value="services">Leistungen</TabsTrigger>
                   <TabsTrigger value="testimonials">
                     <Star className="w-4 h-4 mr-1" />
@@ -500,6 +505,53 @@ export const RegionsEditor: React.FC = () => {
                           <Plus className="w-4 h-4 mr-2" />
                           Vorteil hinzufügen
                         </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                {/* SEO Tab */}
+                <TabsContent value="seo" className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>SEO Einstellungen</CardTitle>
+                      <CardDescription>Meta-Daten für Suchmaschinen</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label>Meta-Titel ({(selectedRegion.metaTitle || '').length}/60)</Label>
+                        <Input
+                          value={selectedRegion.metaTitle || ''}
+                          onChange={(e) => updateField('metaTitle', e.target.value)}
+                          placeholder={`${selectedRegion.title} - Bäderberg`}
+                          maxLength={60}
+                        />
+                        <p className="text-xs text-muted-foreground">Falls leer, wird der Seitentitel verwendet</p>
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Meta-Beschreibung ({(selectedRegion.metaDescription || '').length}/160)</Label>
+                        <Textarea
+                          value={selectedRegion.metaDescription || ''}
+                          onChange={(e) => updateField('metaDescription', e.target.value)}
+                          placeholder="Beschreibung für Suchergebnisse..."
+                          maxLength={160}
+                          rows={3}
+                        />
+                        <p className="text-xs text-muted-foreground">Falls leer, wird die Kurzbeschreibung verwendet</p>
+                      </div>
+                      
+                      {/* Preview */}
+                      <div className="mt-6 p-4 bg-muted rounded-lg">
+                        <p className="text-xs text-muted-foreground mb-2">Google Vorschau:</p>
+                        <div className="text-primary text-lg hover:underline truncate">
+                          {selectedRegion.metaTitle || `${selectedRegion.title} - Bäderberg`}
+                        </div>
+                        <div className="text-xs text-green-700">
+                          baederberg.ch/region/{selectedRegion.slug}
+                        </div>
+                        <div className="text-sm text-muted-foreground line-clamp-2">
+                          {selectedRegion.metaDescription || selectedRegion.description || 'Meta-Beschreibung...'}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
