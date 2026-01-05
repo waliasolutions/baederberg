@@ -6,6 +6,7 @@ import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
+import SEOHead from '@/components/SEOHead';
 
 const InnenausbauPage = () => {
   const { scrollY } = useScroll();
@@ -24,6 +25,10 @@ const InnenausbauPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Innenausbau - Bäderberg" 
+        description="Räume nach Ihren Wünschen – alles aus einer Hand. Fester Preis, fester Termin, 5 Jahre Garantie."
+      />
       <Header />
       <main className="pt-20">
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">

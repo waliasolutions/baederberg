@@ -6,6 +6,7 @@ import { CheckCircle, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
+import SEOHead from '@/components/SEOHead';
 
 const KuechenumbauPage = () => {
   const { scrollY } = useScroll();
@@ -23,6 +24,10 @@ const KuechenumbauPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Küchenumbau - Bäderberg" 
+        description="Ihre neue Küche nach Mass – funktional und schön. Fester Preis, fester Termin, 5 Jahre Garantie."
+      />
       <Header />
       
       <main className="pt-20">
