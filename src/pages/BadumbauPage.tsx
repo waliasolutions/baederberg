@@ -7,11 +7,13 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 import SEOHead from '@/components/SEOHead';
+import { usePageContent } from '@/cms/hooks/usePageContent';
 
 const BadumbauPage = () => {
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
   const { testimonials } = useTestimonialsByProject('Badumbau');
+  const pageContent = usePageContent('badumbau');
   
   const features = [
     "Persönlicher Bauleiter",
@@ -25,8 +27,8 @@ const BadumbauPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Badumbau - Bäderberg" 
-        description="Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt. Fester Preis, fester Termin, 5 Jahre Garantie."
+        title={pageContent.metaTitle}
+        description={pageContent.metaDescription}
       />
       <Header />
       

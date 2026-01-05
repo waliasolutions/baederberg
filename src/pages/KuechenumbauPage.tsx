@@ -7,11 +7,13 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 import SEOHead from '@/components/SEOHead';
+import { usePageContent } from '@/cms/hooks/usePageContent';
 
 const KuechenumbauPage = () => {
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
   const { testimonials } = useTestimonialsByProject('Küchenumbau');
+  const pageContent = usePageContent('kuechenumbau');
   
   const features = [
     "Individuelle Küchenplanung",
@@ -25,8 +27,8 @@ const KuechenumbauPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Küchenumbau - Bäderberg" 
-        description="Ihre neue Küche nach Mass – funktional und schön. Fester Preis, fester Termin, 5 Jahre Garantie."
+        title={pageContent.metaTitle}
+        description={pageContent.metaDescription}
       />
       <Header />
       

@@ -7,11 +7,13 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 import SEOHead from '@/components/SEOHead';
+import { usePageContent } from '@/cms/hooks/usePageContent';
 
 const InnenausbauPage = () => {
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
   const { testimonials } = useTestimonialsByProject('Innenausbau');
+  const pageContent = usePageContent('innenausbau');
   
   const features = [
     "Fachgerechte Bauleitung",
@@ -26,8 +28,8 @@ const InnenausbauPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Innenausbau - Bäderberg" 
-        description="Räume nach Ihren Wünschen – alles aus einer Hand. Fester Preis, fester Termin, 5 Jahre Garantie."
+        title={pageContent.metaTitle}
+        description={pageContent.metaDescription}
       />
       <Header />
       <main className="pt-20">
