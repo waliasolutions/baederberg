@@ -16,13 +16,12 @@ import { useEffect } from "react";
 import { ContentProvider } from "./cms/context/ContentProvider";
 import { AdminLogin } from "./cms/pages/AdminLogin";
 import { AdminDashboard } from "./cms/pages/AdminDashboard";
-import { ContentList } from "./cms/pages/ContentList";
-import { ContentSectionEditor } from "./cms/pages/ContentSectionEditor";
 import { MediaLibrary } from "./cms/pages/MediaLibrary";
 import { UserManagement } from "./cms/pages/UserManagement";
 import { RegionsEditor } from "./cms/pages/RegionsEditor";
-import { SEOEditor } from "./cms/pages/SEOEditor";
+import HomepageEditor from "./cms/pages/HomepageEditor";
 import PagesEditor from "./cms/pages/PagesEditor";
+import SettingsEditor from "./cms/pages/SettingsEditor";
 import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient();
@@ -56,13 +55,12 @@ const App = () => (
               {/* CMS Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/content" element={<ContentList />} />
-              <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
+              <Route path="/admin/homepage" element={<HomepageEditor />} />
               <Route path="/admin/pages" element={<PagesEditor />} />
               <Route path="/admin/regions" element={<RegionsEditor />} />
               <Route path="/admin/regions/:regionSlug" element={<RegionsEditor />} />
               <Route path="/admin/media" element={<MediaLibrary />} />
-              <Route path="/admin/seo" element={<SEOEditor />} />
+              <Route path="/admin/settings" element={<SettingsEditor />} />
               <Route path="/admin/users" element={<UserManagement />} />
               
               <Route path="*" element={<NotFound />} />

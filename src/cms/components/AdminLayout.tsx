@@ -4,15 +4,15 @@ import { useAuth } from '../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { 
   LayoutDashboard, 
-  FileText, 
+  Home,
+  FileEdit,
+  MapPin,
   Image, 
-  Globe, 
-  History, 
+  Settings,
   LogOut,
   Menu,
   X,
-  Users,
-  FileEdit
+  Users
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -22,12 +22,12 @@ interface AdminLayoutProps {
 
 const navItems = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { path: '/admin/content', label: 'Inhalt', icon: FileText },
-  { path: '/admin/pages', label: 'Seiten', icon: FileEdit },
+  { path: '/admin/homepage', label: 'Startseite', icon: Home },
+  { path: '/admin/pages', label: 'Leistungsseiten', icon: FileEdit },
+  { path: '/admin/regions', label: 'Regionen', icon: MapPin },
   { path: '/admin/media', label: 'Medien', icon: Image },
-  { path: '/admin/seo', label: 'SEO & Unternehmen', icon: Globe },
+  { path: '/admin/settings', label: 'Einstellungen', icon: Settings },
   { path: '/admin/users', label: 'Benutzer', icon: Users, adminOnly: true },
-  { path: '/admin/revisions', label: 'Verlauf', icon: History },
 ];
 
 export function AdminLayout({ children }: AdminLayoutProps) {
@@ -64,7 +64,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         >
           {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </Button>
-        <span className="ml-4 font-semibold text-slate-900">CMS Admin</span>
+        <span className="ml-4 font-semibold text-slate-900">Bäderberg CMS</span>
       </header>
 
       {/* Sidebar */}
@@ -90,7 +90,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
             
             const isActive = item.exact 
               ? location.pathname === item.path
-              : location.pathname.startsWith(item.path);
+              : location.pathname.startsWith(item.path) && item.path !== '/admin';
             
             return (
               <Link
