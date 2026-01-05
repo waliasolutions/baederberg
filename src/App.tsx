@@ -22,6 +22,7 @@ import { MediaLibrary } from "./cms/pages/MediaLibrary";
 import { UserManagement } from "./cms/pages/UserManagement";
 import { RegionsEditor } from "./cms/pages/RegionsEditor";
 import { SEOEditor } from "./cms/pages/SEOEditor";
+import PagesEditor from "./cms/pages/PagesEditor";
 import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/admin/content" element={<ContentList />} />
               <Route path="/admin/content/:section" element={<ContentSectionEditor />} />
+              <Route path="/admin/pages" element={<PagesEditor />} />
               <Route path="/admin/regions" element={<RegionsEditor />} />
               <Route path="/admin/regions/:regionSlug" element={<RegionsEditor />} />
               <Route path="/admin/media" element={<MediaLibrary />} />

@@ -11,7 +11,8 @@ import {
   LogOut,
   Menu,
   X,
-  Users
+  Users,
+  FileEdit
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -22,6 +23,7 @@ interface AdminLayoutProps {
 const navItems = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { path: '/admin/content', label: 'Inhalt', icon: FileText },
+  { path: '/admin/pages', label: 'Seiten', icon: FileEdit },
   { path: '/admin/media', label: 'Medien', icon: Image },
   { path: '/admin/seo', label: 'SEO & Unternehmen', icon: Globe },
   { path: '/admin/users', label: 'Benutzer', icon: Users, adminOnly: true },
