@@ -17,19 +17,32 @@ export const MediaLibrary: React.FC = () => {
   const [isSyncing, setIsSyncing] = useState(false);
   
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<MediaItem | null>(null);
   const [editingAltText, setEditingAltText] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  const folders = [
+    { value: null, label: 'Alle' },
+    { value: 'hero', label: 'Hero' },
+    { value: 'services', label: 'Services' },
+    { value: 'gallery', label: 'Galerie' },
+    { value: 'regions', label: 'Regionen' },
+    { value: 'branding', label: 'Branding' },
+    { value: 'general', label: 'Allgemein' },
+  ];
+
   useEffect(() => {
     fetchMedia();
   }, [fetchMedia]);
 
-  const filteredMedia = media.filter(item =>
-    item.filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.alt_text?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredMedia = media.filter(item => {
+    const matchesSearch = item.filename.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.alt_text?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFolder = !selectedFolder || item.folder === selectedFolder;
+    return matchesSearch && matchesFolder;
+  });
 
   const getOptimizationStatus = (item: MediaItem) => {
     if (isOptimizing(item.id)) return 'optimizing';
@@ -235,6 +248,20 @@ export const MediaLibrary: React.FC = () => {
           </p>
         </div>
 
+        {/* Folder Filter */}
+        <div className="flex flex-wrap gap-2">
+          {folders.map(folder => (
+            <Button
+              key={folder.value || 'all'}
+              variant={selectedFolder === folder.value ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setSelectedFolder(folder.value)}
+            >
+              {folder.label}
+            </Button>
+          ))}
+        </div>
+
         {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -298,6 +325,10 @@ export const MediaLibrary: React.FC = () => {
                         </span>
                       )}
                     </div>
+                    {/* Folder badge */}
+                    <span className="absolute bottom-1 left-1 px-1.5 py-0.5 text-[10px] bg-black/70 text-white rounded capitalize">
+                      {item.folder || 'general'}
+                    </span>
                   </div>
                   <CardContent className="p-2">
                     <p className="text-xs font-medium truncate">{item.filename}</p>

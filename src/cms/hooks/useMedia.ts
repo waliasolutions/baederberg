@@ -243,6 +243,22 @@ export function useMedia() {
       { url: '/images/interior-living.jpg', filename: 'interior-living.jpg', folder: 'gallery' },
       { url: '/images/interior-modern.jpg', filename: 'interior-modern.jpg', folder: 'gallery' },
       { url: '/images/kitchen-modern.jpg', filename: 'kitchen-modern.jpg', folder: 'gallery' },
+      // Gallery project images from src/assets/projects/
+      { url: '/src/assets/projects/built-in-wardrobe.jpg', filename: 'built-in-wardrobe.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/contemporary-kitchen-island.jpg', filename: 'contemporary-kitchen-island.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/entryway-built-in-storage.jpg', filename: 'entryway-built-in-storage.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/farmhouse-kitchen-rustic.jpg', filename: 'farmhouse-kitchen-rustic.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/guest-bathroom-compact.jpg', filename: 'guest-bathroom-compact.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/master-bathroom-spa.jpg', filename: 'master-bathroom-spa.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/modern-bathroom-renovation.jpg', filename: 'modern-bathroom-renovation.jpg', folder: 'gallery' },
+      { url: '/src/assets/projects/modern-kitchen-induction.jpg', filename: 'modern-kitchen-induction.jpg', folder: 'gallery' },
+      // Region images from src/assets/regions/
+      { url: '/src/assets/regions/pfaffikon-hero.jpg', filename: 'pfaffikon-hero.jpg', folder: 'regions' },
+      { url: '/src/assets/regions/pfaffikon-interior.jpg', filename: 'pfaffikon-interior.jpg', folder: 'regions' },
+      { url: '/src/assets/regions/richterswil-hero.jpg', filename: 'richterswil-hero.jpg', folder: 'regions' },
+      { url: '/src/assets/regions/richterswil-interior.jpg', filename: 'richterswil-interior.jpg', folder: 'regions' },
+      { url: '/src/assets/regions/zurich-hero.jpg', filename: 'zurich-hero.jpg', folder: 'regions' },
+      { url: '/src/assets/regions/zurich-interior.jpg', filename: 'zurich-interior.jpg', folder: 'regions' },
     ];
     
     let syncedCount = 0;
