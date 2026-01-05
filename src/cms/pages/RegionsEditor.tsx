@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { 
   ArrowLeft, Save, Plus, Trash2, Loader2, MapPin, 
-  MessageSquare, Star, HelpCircle, ChevronDown, ChevronUp 
+  MessageSquare, Star, HelpCircle, ChevronDown, ChevronUp, RefreshCw 
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminLayout } from '../components/AdminLayout';
@@ -71,6 +71,20 @@ const defaultRegion: RegionData = {
   ]
 };
 
+// Static regions from RegionPage.tsx fallback data
+const staticRegionsData = [
+  { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich', heroImage: '/src/assets/regions/zurich-interior.jpg' },
+  { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil', heroImage: '/src/assets/regions/richterswil-interior.jpg' },
+  { slug: 'waedenswil', title: 'Bäderberg in Wädenswil', description: 'Bad, Küche und Innenausbau in Wädenswil', heroImage: '' },
+  { slug: 'lachen', title: 'Bäderberg in Lachen', description: 'Bad, Küche und Innenausbau in Lachen', heroImage: '' },
+  { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ', heroImage: '/src/assets/regions/pfaffikon-interior.jpg' },
+  { slug: 'zollikon', title: 'Bäderberg in Zollikon', description: 'Bad, Küche und Innenausbau in Zollikon', heroImage: '' },
+  { slug: 'kilchberg', title: 'Bäderberg in Kilchberg', description: 'Bad, Küche und Innenausbau in Kilchberg', heroImage: '' },
+  { slug: 'kuesnacht', title: 'Bäderberg in Küsnacht', description: 'Bad, Küche und Innenausbau in Küsnacht', heroImage: '' },
+  { slug: 'meilen', title: 'Bäderberg in Meilen', description: 'Bad, Küche und Innenausbau in Meilen', heroImage: '' },
+  { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad, Küche und Innenausbau in Erlenbach', heroImage: '' },
+];
+
 export const RegionsEditor: React.FC = () => {
   const { regionSlug } = useParams<{ regionSlug?: string }>();
   const navigate = useNavigate();
@@ -80,6 +94,7 @@ export const RegionsEditor: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState<RegionData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
@@ -228,6 +243,71 @@ export const RegionsEditor: React.FC = () => {
     }
   };
 
+  const syncRegions = async () => {
+    setIsSyncing(true);
+    let syncedCount = 0;
+
+    try {
+      for (const region of staticRegionsData) {
+        // Check if region already exists
+        const { data: existing } = await supabase
+          .from('content')
+          .select('id')
+          .eq('section_key', 'region')
+          .eq('content_key', region.slug)
+          .maybeSingle();
+
+        if (!existing) {
+          const contentData: RegionData = {
+            slug: region.slug,
+            title: region.title,
+            description: region.description,
+            heroImage: region.heroImage,
+            metaTitle: `${region.title} - Bäderberg`,
+            metaDescription: region.description,
+            services: defaultRegion.services,
+            whyUs: defaultRegion.whyUs,
+            testimonials: [],
+            faq: defaultRegion.faq
+          };
+
+          const { slug, ...content } = contentData;
+          const contentJson = content as unknown as Json;
+
+          const { error } = await supabase.from('content').insert({
+            section_key: 'region',
+            content_key: slug,
+            content: contentJson,
+            is_draft: false,
+            published_at: new Date().toISOString()
+          });
+
+          if (!error) {
+            syncedCount++;
+          }
+        }
+      }
+
+      toast({
+        title: 'Synchronisiert',
+        description: syncedCount > 0 
+          ? `${syncedCount} Regionen wurden importiert.`
+          : 'Alle Regionen sind bereits vorhanden.'
+      });
+
+      await fetchRegions();
+    } catch (err) {
+      console.error('Sync error:', err);
+      toast({
+        title: 'Fehler',
+        description: 'Regionen konnten nicht synchronisiert werden.',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
   const updateField = <K extends keyof RegionData>(field: K, value: RegionData[K]) => {
     if (!selectedRegion) return;
     setSelectedRegion({ ...selectedRegion, [field]: value });
@@ -354,6 +434,10 @@ export const RegionsEditor: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={syncRegions} disabled={isSyncing}>
+              {isSyncing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
+              Regionen synchronisieren
+            </Button>
             <Button variant="outline" onClick={handleCreateRegion}>
               <Plus className="w-4 h-4 mr-2" />
               Neue Region
