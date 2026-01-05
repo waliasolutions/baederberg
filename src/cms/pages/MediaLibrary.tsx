@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { Upload, Search, Trash2, Copy, Check, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { Upload, Search, Trash2, Copy, Check, Image as ImageIcon, Loader2, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminLayout } from '../components/AdminLayout';
 import { useMedia } from '../hooks/useMedia';
@@ -13,7 +13,8 @@ import type { MediaItem } from '../types';
 
 export const MediaLibrary: React.FC = () => {
   const { toast } = useToast();
-  const { media, isLoading, error, uploadProgress, fetchMedia, uploadImage, deleteImage, updateAltText, isOptimizing } = useMedia();
+  const { media, isLoading, error, uploadProgress, fetchMedia, uploadImage, deleteImage, updateAltText, isOptimizing, syncProjectImages } = useMedia();
+  const [isSyncing, setIsSyncing] = useState(false);
   
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedImage, setSelectedImage] = useState<MediaItem | null>(null);
@@ -162,21 +163,42 @@ export const MediaLibrary: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">Media Library</h1>
-          <label>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleFileSelect}
-              className="hidden"
-            />
-            <Button asChild>
-              <span>
-                <Upload className="w-4 h-4 mr-2" />
-                Upload Images
-              </span>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={async () => {
+                setIsSyncing(true);
+                const { syncedCount, error } = await syncProjectImages();
+                setIsSyncing(false);
+                if (error) {
+                  toast({ title: 'Sync failed', description: error, variant: 'destructive' });
+                } else if (syncedCount > 0) {
+                  toast({ title: 'Sync complete', description: `${syncedCount} image(s) synced.` });
+                } else {
+                  toast({ title: 'Already synced', description: 'All project images are already in the library.' });
+                }
+              }}
+              disabled={isSyncing}
+            >
+              {isSyncing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
+              Sync Project Images
             </Button>
-          </label>
+            <label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileSelect}
+                className="hidden"
+              />
+              <Button asChild>
+                <span>
+                  <Upload className="w-4 h-4 mr-2" />
+                  Upload Images
+                </span>
+              </Button>
+            </label>
+          </div>
         </div>
 
         {/* Upload Progress */}

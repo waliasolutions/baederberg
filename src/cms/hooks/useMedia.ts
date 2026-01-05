@@ -222,6 +222,69 @@ export function useMedia() {
     return optimizingIds.has(mediaId);
   }, [optimizingIds]);
 
+  // Sync existing project images to media library
+  const syncProjectImages = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    const projectImages = [
+      // Hero and service images
+      { url: '/lovable-uploads/bad-hero.jpg', filename: 'bad-hero.jpg', folder: 'hero' },
+      { url: '/lovable-uploads/bad-service.jpg', filename: 'bad-service.jpg', folder: 'services' },
+      { url: '/lovable-uploads/kueche-hero.jpg', filename: 'kueche-hero.jpg', folder: 'hero' },
+      { url: '/lovable-uploads/kueche-service.jpg', filename: 'kueche-service.jpg', folder: 'services' },
+      { url: '/lovable-uploads/innenausbau-hero.jpg', filename: 'innenausbau-hero.jpg', folder: 'hero' },
+      { url: '/lovable-uploads/innenausbau-service.jpg', filename: 'innenausbau-service.jpg', folder: 'services' },
+      { url: '/lovable-uploads/modern-bathroom-interior.jpg', filename: 'modern-bathroom-interior.jpg', folder: 'general' },
+      { url: '/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png', filename: 'logo-1.png', folder: 'branding' },
+      { url: '/lovable-uploads/7b5a5a87-6002-4a90-aa3a-50bb91b165bf.png', filename: 'logo-2.png', folder: 'branding' },
+      // Public images
+      { url: '/images/bathroom-modern.jpg', filename: 'bathroom-modern.jpg', folder: 'gallery' },
+      { url: '/images/interior-living.jpg', filename: 'interior-living.jpg', folder: 'gallery' },
+      { url: '/images/interior-modern.jpg', filename: 'interior-modern.jpg', folder: 'gallery' },
+      { url: '/images/kitchen-modern.jpg', filename: 'kitchen-modern.jpg', folder: 'gallery' },
+    ];
+    
+    let syncedCount = 0;
+    
+    try {
+      for (const img of projectImages) {
+        // Check if already exists
+        const { data: existing } = await supabase
+          .from('media')
+          .select('id')
+          .eq('original_url', img.url)
+          .maybeSingle();
+        
+        if (!existing) {
+          const altText = img.filename
+            .replace(/[-_]/g, ' ')
+            .replace(/\.[^/.]+$/, '')
+            .replace(/^\w/, c => c.toUpperCase());
+          
+          const { error: insertError } = await supabase.from('media').insert({
+            filename: img.filename,
+            original_url: img.url,
+            alt_text: altText,
+            folder: img.folder,
+            mime_type: img.filename.endsWith('.png') ? 'image/png' : 'image/jpeg',
+          });
+          
+          if (!insertError) syncedCount++;
+        }
+      }
+      
+      await fetchMedia();
+      return { syncedCount, error: null };
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Sync failed';
+      setError(errorMsg);
+      return { syncedCount: 0, error: errorMsg };
+    } finally {
+      setIsLoading(false);
+    }
+  }, [fetchMedia]);
+
   return {
     media,
     isLoading,
@@ -233,6 +296,7 @@ export function useMedia() {
     updateAltText,
     optimizeImage,
     isOptimizing,
+    syncProjectImages,
   };
 }
 
