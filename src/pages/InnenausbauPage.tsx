@@ -14,8 +14,9 @@ const InnenausbauPage = () => {
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
   const { testimonials } = useTestimonialsByProject('Innenausbau');
   const pageContent = usePageContent('innenausbau');
-  
-  const features = [
+
+  // Use CMS features or fallback
+  const features = pageContent.features.length > 0 ? pageContent.features : [
     "Fachgerechte Bauleitung",
     "Individuelle Raumplanung",
     "Massgeschneiderter Möbeleinbau",
@@ -24,6 +25,9 @@ const InnenausbauPage = () => {
     "Elektroarbeiten und Garantie inklusive",
     "Alles aus einer Hand"
   ];
+
+  // Use CMS hero image or fallback
+  const heroImage = pageContent.heroImage || '/images/interior-living.jpg';
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,15 +40,19 @@ const InnenausbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <motion.img 
-            src="/images/interior-living.jpg" 
+            src={heroImage} 
             alt="Innenausbau" 
             className="w-full h-full object-cover"
             style={{ scale: imageScale }}
           />
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
             <motion.div className="flex flex-col gap-6 max-w-3xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">Innenausbau</h1>
-              <p className="text-xl text-white/90 leading-relaxed">Räume nach Ihren Wünschen – alles aus einer Hand.</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">
+                {pageContent.heroHeading}
+              </h1>
+              <p className="text-xl text-white/90 leading-relaxed">
+                {pageContent.heroSubheading}
+              </p>
             </motion.div>
           </div>
         </section>
@@ -54,15 +62,23 @@ const InnenausbauPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
                 <h2 className="text-3xl font-semibold mb-6 leading-tight">Was Sie bekommen</h2>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Ein persönlicher Bauleiter koordiniert alle Arbeiten für Sie. Vom Boden bis zur Decke – Sie haben nur einen Ansprechpartner.
-                </p>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Bodenbeläge, Wandverkleidungen, Möbeleinbau, Treppen, Elektrik – wir übernehmen alle Gewerke. Alles aus einer Hand.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Fester Preis, fester Termin, 5 Jahre Garantie auf die Handwerksleistungen.
-                </p>
+                {pageContent.introText ? (
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {pageContent.introText}
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      Ein persönlicher Bauleiter koordiniert alle Arbeiten für Sie. Vom Boden bis zur Decke – Sie haben nur einen Ansprechpartner.
+                    </p>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      Bodenbeläge, Wandverkleidungen, Möbeleinbau, Treppen, Elektrik – wir übernehmen alle Gewerke. Alles aus einer Hand.
+                    </p>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Fester Preis, fester Termin, 5 Jahre Garantie auf die Handwerksleistungen.
+                    </p>
+                  </>
+                )}
               </motion.div>
               <motion.div className="grid grid-cols-2 gap-4" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
                 {features.map((feature, index) => (

@@ -14,8 +14,9 @@ const KuechenumbauPage = () => {
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
   const { testimonials } = useTestimonialsByProject('Küchenumbau');
   const pageContent = usePageContent('kuechenumbau');
-  
-  const features = [
+
+  // Use CMS features or fallback
+  const features = pageContent.features.length > 0 ? pageContent.features : [
     "Individuelle Küchenplanung",
     "Persönlicher Projektleiter",
     "Installation hochwertiger Küchengeräte",
@@ -23,6 +24,9 @@ const KuechenumbauPage = () => {
     "Fachgerechte Montage",
     "Elektroarbeiten und Garantie inklusive"
   ];
+
+  // Use CMS hero image or fallback
+  const heroImage = pageContent.heroImage || '/images/kitchen-modern.jpg';
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,7 +41,7 @@ const KuechenumbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <motion.img 
-            src="/images/kitchen-modern.jpg" 
+            src={heroImage} 
             alt="Küche" 
             className="w-full h-full object-cover"
             style={{ scale: imageScale }}
@@ -50,11 +54,11 @@ const KuechenumbauPage = () => {
               transition={{ duration: 0.7 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">
-                Küchenumbau
+                {pageContent.heroHeading}
               </h1>
               
               <p className="text-xl text-white/90 leading-relaxed">
-                Ihre neue Küche nach Mass – funktional und schön.
+                {pageContent.heroSubheading}
               </p>
             </motion.div>
           </div>
@@ -71,15 +75,23 @@ const KuechenumbauPage = () => {
                 transition={{ duration: 0.7 }}
               >
                 <h2 className="text-3xl font-semibold mb-6 leading-tight">Was Sie bekommen</h2>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Ein persönlicher Projektleiter betreut Sie durch das ganze Projekt. Von der ersten Planung bis zur fertigen Küche.
-                </p>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Wir koordinieren alle Arbeiten: Ausbau der alten Küche, Anpassung von Elektrik und Wasser, Einbau der neuen Küche. Alles aus einer Hand.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Fester Preis, fester Termin, 5 Jahre Garantie.
-                </p>
+                {pageContent.introText ? (
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {pageContent.introText}
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      Ein persönlicher Projektleiter betreut Sie durch das ganze Projekt. Von der ersten Planung bis zur fertigen Küche.
+                    </p>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      Wir koordinieren alle Arbeiten: Ausbau der alten Küche, Anpassung von Elektrik und Wasser, Einbau der neuen Küche. Alles aus einer Hand.
+                    </p>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Fester Preis, fester Termin, 5 Jahre Garantie.
+                    </p>
+                  </>
+                )}
               </motion.div>
               
               <motion.div

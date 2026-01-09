@@ -14,8 +14,9 @@ const BadumbauPage = () => {
   const imageScale = useTransform(scrollY, [0, 300], [1, 1.1]);
   const { testimonials } = useTestimonialsByProject('Badumbau');
   const pageContent = usePageContent('badumbau');
-  
-  const features = [
+
+  // Use CMS features or fallback
+  const features = pageContent.features.length > 0 ? pageContent.features : [
     "Persönlicher Bauleiter",
     "Individuelle Badplanung",
     "Einbau hochwertiger Sanitäranlagen",
@@ -23,6 +24,9 @@ const BadumbauPage = () => {
     "Innovative Beleuchtungskonzepte",
     "Elektroarbeiten und Garantie inklusive"
   ];
+
+  // Use CMS hero image or fallback
+  const heroImage = pageContent.heroImage || '/images/bathroom-modern.jpg';
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,7 +41,7 @@ const BadumbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <motion.img 
-            src="/images/bathroom-modern.jpg" 
+            src={heroImage} 
             alt="Badezimmer" 
             className="w-full h-full object-cover"
             style={{ scale: imageScale }}
@@ -50,11 +54,11 @@ const BadumbauPage = () => {
               transition={{ duration: 0.7 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">
-                Badumbau
+                {pageContent.heroHeading}
               </h1>
               
               <p className="text-xl text-white/90 leading-relaxed">
-                Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.
+                {pageContent.heroSubheading}
               </p>
             </motion.div>
           </div>
@@ -71,15 +75,23 @@ const BadumbauPage = () => {
                 transition={{ duration: 0.7 }}
               >
                 <h2 className="text-3xl font-semibold mb-6 leading-tight">Was Sie bekommen</h2>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Ein persönlicher Bauleiter übernimmt Ihr Projekt von Anfang bis Ende. Sie haben einen Ansprechpartner für alles.
-                </p>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Wir planen das Bad gemeinsam mit Ihnen, bauen es um und übergeben es fertig. Elektroarbeiten, Sanitär, Fliesen – alles inklusive.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Fester Preis, fester Termin, 5 Jahre Garantie auf unsere Arbeit.
-                </p>
+                {pageContent.introText ? (
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {pageContent.introText}
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      Ein persönlicher Bauleiter übernimmt Ihr Projekt von Anfang bis Ende. Sie haben einen Ansprechpartner für alles.
+                    </p>
+                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                      Wir planen das Bad gemeinsam mit Ihnen, bauen es um und übergeben es fertig. Elektroarbeiten, Sanitär, Fliesen – alles inklusive.
+                    </p>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Fester Preis, fester Termin, 5 Jahre Garantie auf unsere Arbeit.
+                    </p>
+                  </>
+                )}
               </motion.div>
               
               <motion.div
