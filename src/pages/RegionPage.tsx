@@ -15,6 +15,8 @@ interface RegionData {
   title: string;
   description: string;
   heroImage: string;
+  metaTitle?: string;
+  metaDescription?: string;
   services: {
     badumbau: string;
     kuechenumbau: string;
@@ -245,30 +247,36 @@ function useRegionData(regionId: string | undefined) {
 
     // Try to get CMS data for this specific region
     const cmsRegionData = content?.region?.[regionId];
+    const fallbackData = fallbackRegionData[regionId];
     
     if (cmsRegionData) {
-      // Merge CMS data with defaults
+      // Merge CMS data with defaults, prioritizing CMS content
       const region: RegionData = {
-        title: cmsRegionData.title || fallbackRegionData[regionId]?.title || `Bäderberg in ${regionId}`,
-        description: cmsRegionData.description || fallbackRegionData[regionId]?.description || '',
-        heroImage: cmsRegionData.heroImage || fallbackRegionData[regionId]?.heroImage || '',
+        title: cmsRegionData.title || fallbackData?.title || `Bäderberg in ${regionId}`,
+        description: cmsRegionData.description || fallbackData?.description || '',
+        heroImage: cmsRegionData.heroImage || fallbackData?.heroImage || '',
+        metaTitle: cmsRegionData.metaTitle || `${cmsRegionData.title || fallbackData?.title} - Bäderberg`,
+        metaDescription: cmsRegionData.metaDescription || cmsRegionData.description || fallbackData?.description || '',
         services: {
           badumbau: cmsRegionData.services?.badumbau || cmsRegionData.badumbauText || defaultServices.badumbau,
           kuechenumbau: cmsRegionData.services?.kuechenumbau || cmsRegionData.kuechenumbauText || defaultServices.kuechenumbau,
           innenausbau: cmsRegionData.services?.innenausbau || cmsRegionData.innenausbauText || defaultServices.innenausbau
         },
-        whyUs: cmsRegionData.whyUs?.length > 0 ? cmsRegionData.whyUs : defaultWhyUs,
-        testimonials: cmsRegionData.testimonials?.length > 0 
+        whyUs: Array.isArray(cmsRegionData.whyUs) && cmsRegionData.whyUs.length > 0 
+          ? cmsRegionData.whyUs 
+          : defaultWhyUs,
+        testimonials: Array.isArray(cmsRegionData.testimonials) && cmsRegionData.testimonials.length > 0 
           ? cmsRegionData.testimonials 
-          : fallbackRegionData[regionId]?.testimonials || [],
-        faq: cmsRegionData.faq?.length > 0 ? cmsRegionData.faq : defaultFaq,
+          : fallbackData?.testimonials || [],
+        faq: Array.isArray(cmsRegionData.faq) && cmsRegionData.faq.length > 0 
+          ? cmsRegionData.faq 
+          : defaultFaq,
         contact: cmsRegionData.contact || defaultContact
       };
       return { region, isLoading };
     }
 
     // Fall back to static data
-    const fallbackData = fallbackRegionData[regionId];
     return { region: fallbackData || null, isLoading };
   }, [regionId, content, isLoading]);
 }
@@ -314,11 +322,14 @@ const RegionPage = () => {
     );
   }
 
+  // Get city name from contact or extract from title
+  const cityName = region.contact?.address?.city || region.title.replace('Bäderberg in ', '');
+
   return (
     <div className="min-h-screen flex flex-col">
       <SEOHead 
-        title={`${region.title} - Bäderberg`}
-        description={region.description}
+        title={region.metaTitle || `${region.title} - Bäderberg`}
+        description={region.metaDescription || region.description}
       />
       <Header />
       
@@ -337,7 +348,7 @@ const RegionPage = () => {
       {/* Services Section */}
       <section className="py-16 md:py-20 bg-secondary">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-foreground mb-10 text-center">Unsere Leistungen in {region.contact.address.city}</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-10 text-center">Unsere Leistungen in {cityName}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Badumbau */}
@@ -374,7 +385,7 @@ const RegionPage = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">Warum Bäderberg in {region.contact.address.city}?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8">Warum Bäderberg in {cityName}?</h2>
             
             <ul className="space-y-4">
               {region.whyUs.map((point, index) => (
@@ -464,51 +475,13 @@ const RegionPage = () => {
               </div>
               
               <div className="bg-background p-8 rounded-lg shadow-sm border border-border">
-                <h3 className="text-2xl font-bold text-foreground mb-6">Anfrage senden</h3>
-                <form className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">Name</label>
-                    <input 
-                      type="text" 
-                      id="name" 
-                      className="w-full px-4 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">E-Mail</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      className="w-full px-4 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">Telefon</label>
-                    <input 
-                      type="tel" 
-                      id="phone" 
-                      className="w-full px-4 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">Nachricht</label>
-                    <textarea 
-                      id="message" 
-                      rows={4}
-                      className="w-full px-4 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    ></textarea>
-                  </div>
-                  
-                  <button 
-                    type="submit"
-                    className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors font-medium"
-                  >
-                    Anfrage senden
-                  </button>
-                </form>
+                <h3 className="text-2xl font-bold text-foreground mb-6">Termin vereinbaren</h3>
+                <p className="text-muted-foreground mb-6">
+                  Rufen Sie uns an oder schreiben Sie uns – wir melden uns innerhalb von 24 Stunden bei Ihnen.
+                </p>
+                <Link to="/#contact" className="inline-flex items-center justify-center w-full bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors font-medium">
+                  Zum Kontaktformular <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </div>
             </div>
           </div>
@@ -520,4 +493,4 @@ const RegionPage = () => {
   );
 };
 
-export { RegionPage };
+export default RegionPage;
