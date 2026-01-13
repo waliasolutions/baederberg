@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Trash2, UserPlus, Shield, Users, Mail, Loader2 } from 'lucide-react';
+import { Trash2, UserPlus, Shield, Users, Mail, Loader2, Lock, Eye, EyeOff } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,7 +26,6 @@ interface UserRole {
   user_id: string;
   role: 'admin' | 'editor';
   created_at: string;
-  email?: string;
 }
 
 export function UserManagement() {
@@ -35,6 +34,8 @@ export function UserManagement() {
   const [users, setUsers] = useState<UserRole[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [newRole, setNewRole] = useState<'admin' | 'editor'>('editor');
   const [isAdding, setIsAdding] = useState(false);
 
@@ -52,7 +53,7 @@ export function UserManagement() {
         ...u,
         role: u.role as 'admin' | 'editor',
       })));
-    } catch (err) {
+    } catch {
       toast({
         title: 'Fehler',
         description: 'Benutzer konnten nicht geladen werden',
@@ -67,11 +68,10 @@ export function UserManagement() {
     fetchUsers();
   }, []);
 
-  const handleInviteUser = async (e: React.FormEvent) => {
+  const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newEmail.trim()) return;
+    if (!newEmail.trim() || !newPassword.trim()) return;
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(newEmail)) {
       toast({
@@ -82,30 +82,38 @@ export function UserManagement() {
       return;
     }
 
+    if (newPassword.length < 6) {
+      toast({
+        title: 'Passwort zu kurz',
+        description: 'Das Passwort muss mindestens 6 Zeichen haben',
+        variant: 'destructive'
+      });
+      return;
+    }
+
     setIsAdding(true);
     try {
-      const { data, error } = await supabase.functions.invoke('invite-user', {
-        body: { email: newEmail, role: newRole }
+      const { data, error } = await supabase.functions.invoke('create-user', {
+        body: { email: newEmail, password: newPassword, role: newRole }
       });
 
       if (error) throw error;
-
-      if (data?.error) {
-        throw new Error(data.error);
-      }
+      if (data?.error) throw new Error(data.error);
 
       toast({
         title: 'Erfolg',
-        description: data?.message || 'Einladung wurde gesendet'
+        description: data?.message || 'Benutzer wurde erstellt'
       });
       
       setNewEmail('');
+      setNewPassword('');
       setNewRole('editor');
       fetchUsers();
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Benutzer konnte nicht erstellt werden';
       toast({
         title: 'Fehler',
-        description: err.message || 'Einladung konnte nicht gesendet werden',
+        description: message,
         variant: 'destructive'
       });
     } finally {
@@ -113,22 +121,18 @@ export function UserManagement() {
     }
   };
 
-  const handleUpdateRole = async (userId: string, newRole: 'admin' | 'editor') => {
+  const handleUpdateRole = async (userId: string, role: 'admin' | 'editor') => {
     try {
       const { error } = await supabase
         .from('user_roles')
-        .update({ role: newRole })
+        .update({ role })
         .eq('user_id', userId);
 
       if (error) throw error;
 
-      toast({
-        title: 'Erfolg',
-        description: 'Rolle wurde aktualisiert'
-      });
-      
+      toast({ title: 'Erfolg', description: 'Rolle wurde aktualisiert' });
       fetchUsers();
-    } catch (err) {
+    } catch {
       toast({
         title: 'Fehler',
         description: 'Rolle konnte nicht aktualisiert werden',
@@ -155,13 +159,9 @@ export function UserManagement() {
 
       if (error) throw error;
 
-      toast({
-        title: 'Erfolg',
-        description: 'Benutzerrolle wurde entfernt'
-      });
-      
+      toast({ title: 'Erfolg', description: 'Benutzerrolle wurde entfernt' });
       fetchUsers();
-    } catch (err) {
+    } catch {
       toast({
         title: 'Fehler',
         description: 'Benutzerrolle konnte nicht entfernt werden',
@@ -175,9 +175,9 @@ export function UserManagement() {
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <Shield className="mx-auto h-12 w-12 text-slate-400 mb-4" />
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">Zugriff verweigert</h2>
-            <p className="text-slate-500">Nur Administratoren können Benutzer verwalten.</p>
+            <Shield className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Zugriff verweigert</h2>
+            <p className="text-muted-foreground">Nur Administratoren können Benutzer verwalten.</p>
           </div>
         </div>
       </AdminLayout>
@@ -188,29 +188,24 @@ export function UserManagement() {
     <AdminLayout>
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Benutzerverwaltung</h1>
-          <p className="text-slate-500 mt-1">
-            Verwalten Sie Administratoren und Editoren
-          </p>
+          <h1 className="text-3xl font-bold">Benutzerverwaltung</h1>
+          <p className="text-muted-foreground mt-1">Verwalten Sie Administratoren und Editoren</p>
         </div>
 
-        {/* Invite User Form */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserPlus className="h-5 w-5" />
-              Benutzer einladen
+              Benutzer erstellen
             </CardTitle>
-            <CardDescription>
-              Senden Sie eine Einladung per E-Mail an einen neuen Benutzer
-            </CardDescription>
+            <CardDescription>Erstellen Sie einen neuen Benutzer mit E-Mail und Passwort</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleInviteUser} className="flex flex-col sm:flex-row gap-4">
+            <form onSubmit={handleCreateUser} className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <Label htmlFor="email" className="sr-only">E-Mail</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
@@ -221,7 +216,28 @@ export function UserManagement() {
                   />
                 </div>
               </div>
-              <div className="w-full sm:w-40">
+              <div className="flex-1">
+                <Label htmlFor="password" className="sr-only">Passwort</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Passwort (min. 6 Zeichen)"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="pl-10 pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+              <div className="w-full sm:w-32">
                 <Label htmlFor="role" className="sr-only">Rolle</Label>
                 <Select value={newRole} onValueChange={(v) => setNewRole(v as 'admin' | 'editor')}>
                   <SelectTrigger>
@@ -233,47 +249,34 @@ export function UserManagement() {
                   </SelectContent>
                 </Select>
               </div>
-              <Button type="submit" disabled={isAdding || !newEmail.trim()}>
-                {isAdding ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Wird gesendet...
-                  </>
-                ) : (
-                  'Einladen'
-                )}
+              <Button type="submit" disabled={isAdding || !newEmail.trim() || !newPassword.trim()}>
+                {isAdding ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Erstellen...</> : 'Erstellen'}
               </Button>
             </form>
           </CardContent>
         </Card>
 
-        {/* Users List */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="h-5 w-5" />
               Benutzer mit CMS-Zugang
             </CardTitle>
-            <CardDescription>
-              {users.length} Benutzer haben Zugang zum CMS
-            </CardDescription>
+            <CardDescription>{users.length} Benutzer haben Zugang zum CMS</CardDescription>
           </CardHeader>
           <CardContent>
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
               </div>
             ) : users.length === 0 ? (
-              <div className="text-slate-500 py-8 text-center">
-                Keine Benutzer gefunden. Laden Sie den ersten Benutzer ein!
+              <div className="text-muted-foreground py-8 text-center">
+                Keine Benutzer gefunden. Erstellen Sie den ersten Benutzer!
               </div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y">
                 {users.map((u) => (
-                  <div 
-                    key={u.id} 
-                    className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-                  >
+                  <div key={u.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                       <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
                         u.role === 'admin' ? 'bg-amber-100 text-amber-600' : 'bg-blue-100 text-blue-600'
@@ -281,13 +284,13 @@ export function UserManagement() {
                         <Shield size={18} />
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900 text-sm truncate max-w-[250px]">
+                        <p className="font-medium text-sm truncate max-w-[250px]">
                           {u.user_id}
                           {u.user_id === user?.id && (
-                            <span className="ml-2 text-xs bg-slate-100 px-2 py-0.5 rounded">(Sie)</span>
+                            <span className="ml-2 text-xs bg-muted px-2 py-0.5 rounded">(Sie)</span>
                           )}
                         </p>
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-muted-foreground">
                           Hinzugefügt: {new Date(u.created_at).toLocaleDateString('de-CH')}
                         </p>
                       </div>
@@ -314,7 +317,7 @@ export function UserManagement() {
                             variant="ghost" 
                             size="icon"
                             disabled={u.user_id === user?.id}
-                            className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
                           >
                             <Trash2 size={18} />
                           </Button>
@@ -330,7 +333,7 @@ export function UserManagement() {
                             <AlertDialogCancel>Abbrechen</AlertDialogCancel>
                             <AlertDialogAction
                               onClick={() => handleDeleteUser(u.user_id)}
-                              className="bg-red-500 hover:bg-red-600"
+                              className="bg-destructive hover:bg-destructive/90"
                             >
                               Entfernen
                             </AlertDialogAction>
