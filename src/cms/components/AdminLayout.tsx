@@ -22,9 +22,7 @@ interface AdminLayoutProps {
 
 const navItems = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { path: '/admin/homepage', label: 'Startseite', icon: Home },
-  { path: '/admin/pages', label: 'Leistungsseiten', icon: FileEdit },
-  { path: '/admin/regions', label: 'Regionen', icon: MapPin },
+  { path: '/admin/content', label: 'Inhalte', icon: FileEdit },
   { path: '/admin/media', label: 'Medien', icon: Image },
   { path: '/admin/settings', label: 'Einstellungen', icon: Settings },
   { path: '/admin/users', label: 'Benutzer', icon: Users, adminOnly: true },
