@@ -572,9 +572,16 @@ export const defaultContent: Record<string, any> = {
     heading: 'In Ihrer Nähe für Sie da',
     subheading: 'Wir sind in verschiedenen Regionen der Schweiz aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.',
     items: [
-      { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich' },
-      { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil' },
-      { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ' }
+      { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich', heroImage: '/src/assets/regions/zurich-interior.jpg' },
+      { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil', heroImage: '/src/assets/regions/richterswil-interior.jpg' },
+      { slug: 'waedenswil', title: 'Bäderberg in Wädenswil', description: 'Bad, Küche und Innenausbau in Wädenswil', heroImage: '' },
+      { slug: 'lachen', title: 'Bäderberg in Lachen', description: 'Bad, Küche und Innenausbau in Lachen', heroImage: '' },
+      { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ', heroImage: '/src/assets/regions/pfaffikon-interior.jpg' },
+      { slug: 'zollikon', title: 'Bäderberg in Zollikon', description: 'Bad, Küche und Innenausbau in Zollikon', heroImage: '' },
+      { slug: 'kilchberg', title: 'Bäderberg in Kilchberg', description: 'Bad, Küche und Innenausbau in Kilchberg', heroImage: '' },
+      { slug: 'kuesnacht', title: 'Bäderberg in Küsnacht', description: 'Bad, Küche und Innenausbau in Küsnacht', heroImage: '' },
+      { slug: 'meilen', title: 'Bäderberg in Meilen', description: 'Bad, Küche und Innenausbau in Meilen', heroImage: '' },
+      { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad, Küche und Innenausbau in Erlenbach', heroImage: '' }
     ]
   },
   seo: {
@@ -614,7 +621,33 @@ export const defaultContent: Record<string, any> = {
         'Montage stilvoller Badmöbel',
         'Innovative Beleuchtungskonzepte',
         'Elektroarbeiten und Garantie inklusive'
-      ]
+      ],
+      whyProfessional: {
+        heading: 'Warum professioneller Badumbau?',
+        items: [
+          { title: 'Fachgerechte Planung spart Geld', description: 'Ein professionell geplantes Bad vermeidet teure Fehler. Wasserschäden durch falsch verlegte Leitungen oder undichte Abdichtungen kosten Sie später ein Vielfaches. Unsere Bauleiter kennen jede Norm und jedes Detail.' },
+          { title: 'Qualität, die bleibt', description: 'Ein Bad nutzen Sie täglich für viele Jahre. Hochwertige Materialien und fachgerechte Montage bedeuten weniger Reparaturen und mehr Freude am Raum. Wir verbauen nur, was wir auch selbst nutzen würden.' },
+          { title: 'Zeitersparnis durch Koordination', description: 'Sanitär, Elektrik, Fliesen, Maler – alles muss perfekt zusammenpassen. Ihr persönlicher Bauleiter koordiniert alle Gewerke. Sie haben nur einen Ansprechpartner und sparen wertvolle Zeit.' },
+          { title: 'Garantie und Sicherheit', description: 'Nach dem Umbau sind wir weiter für Sie da. Mit unserer Garantie sind Sie abgesichert. Bei Problemen ist Ihr Bauleiter nur einen Anruf entfernt – ohne Diskussion, ohne Verzögerung.' }
+        ],
+        promise: 'Wir bauen Ihr Bad so, wie wir es für uns selbst bauen würden. Sorgfältig geplant, sauber ausgeführt, mit Materialien die halten. Kein Marketing-Versprechen – sondern unser Standard.'
+      },
+      processSteps: {
+        heading: 'So läuft es ab',
+        subheading: 'Einfach und klar',
+        steps: [
+          { title: '1. Erstgespräch', description: 'Wir besprechen Ihre Wünsche und Ihr Budget.' },
+          { title: '2. Planung', description: 'Ihr Bauleiter plant mit Ihnen gemeinsam.' },
+          { title: '3. Umbau', description: 'Unser Team baut sauber und termingerecht.' },
+          { title: '4. Übergabe', description: 'Sie bekommen Ihr fertiges Bad mit Garantie.' }
+        ]
+      },
+      cta: {
+        heading: 'Jetzt Termin vereinbaren',
+        subheading: 'Wir beraten Sie gerne – kostenlos und unverbindlich.',
+        buttonText: 'Jetzt Kontakt aufnehmen',
+        buttonLink: '/#contact'
+      }
     },
     kuechenumbau: {
       metaTitle: 'Küchenumbau - Bäderberg',
@@ -630,7 +663,33 @@ export const defaultContent: Record<string, any> = {
         'Einbau von Arbeitsplatten und individuellen Rückwänden',
         'Fachgerechte Montage',
         'Elektroarbeiten und Garantie inklusive'
-      ]
+      ],
+      whyProfessional: {
+        heading: 'Warum professioneller Küchenumbau?',
+        items: [
+          { title: 'Millimeterarbeit ist Pflicht', description: 'Eine Küche muss passen – auf den Millimeter. Schiefe Arbeitsplatten, Lücken an den Wänden oder falsch eingebaute Geräte ruinieren das Ergebnis. Unsere Monteure arbeiten mit Präzision und jahrelanger Erfahrung.' },
+          { title: 'Elektrik und Wasser – keine Experimente', description: 'Herd, Geschirrspüler, Dunstabzug – alles braucht Strom und oft auch Wasser. Fehler bei der Installation sind gefährlich und teuer. Wir planen und installieren fachgerecht, damit alles sicher funktioniert.' },
+          { title: 'Langlebige Materialien, die sich lohnen', description: 'Eine Küche ist eine Investition für 15-20 Jahre. Billige Materialien sehen nach wenigen Jahren abgenutzt aus. Wir beraten Sie ehrlich, welche Arbeitsplatten, Fronten und Geräte wirklich halten.' },
+          { title: 'Alles aus einer Hand – stressfrei', description: 'Küche ausbauen, Elektrik anpassen, neue Küche montieren, Wände streichen – wir koordinieren alles. Sie haben einen Ansprechpartner und müssen sich um nichts kümmern. Termintreu und zuverlässig.' }
+        ],
+        promise: 'Ihre Küche wird so gebaut, dass Sie jahrelang Freude daran haben. Präzise Montage, hochwertige Materialien, fachgerechte Installation. Das ist unser Standard.'
+      },
+      processSteps: {
+        heading: 'So läuft es ab',
+        subheading: 'Einfach und klar',
+        steps: [
+          { title: '1. Erstgespräch', description: 'Wir besprechen Ihre Wünsche und Ihr Budget.' },
+          { title: '2. Planung', description: 'Ihr Projektleiter plant mit Ihnen gemeinsam.' },
+          { title: '3. Umbau', description: 'Unser Team baut sauber und termingerecht.' },
+          { title: '4. Übergabe', description: 'Sie bekommen Ihre fertige Küche mit Garantie.' }
+        ]
+      },
+      cta: {
+        heading: 'Jetzt Termin vereinbaren',
+        subheading: 'Wir beraten Sie gerne – kostenlos und unverbindlich.',
+        buttonText: 'Jetzt Kontakt aufnehmen',
+        buttonLink: '/#contact'
+      }
     },
     innenausbau: {
       metaTitle: 'Innenausbau - Bäderberg',
@@ -647,7 +706,33 @@ export const defaultContent: Record<string, any> = {
         'Treppen und Geländer',
         'Elektroarbeiten und Garantie inklusive',
         'Alles aus einer Hand'
-      ]
+      ],
+      whyProfessional: {
+        heading: 'Warum professioneller Innenausbau?',
+        items: [
+          { title: 'Komplexe Arbeiten gehören in Profihände', description: 'Innenausbau ist mehr als Wände streichen. Bodenbeläge müssen eben verlegt werden, Möbel passgenau eingebaut, Elektrik fachgerecht verlegt. Ein Fehler kann teuer werden. Unsere Fachkräfte wissen, worauf es ankommt.' },
+          { title: 'Alles aus einer Hand spart Zeit und Nerven', description: 'Verschiedene Handwerker zu koordinieren kostet Sie Zeit und Nerven. Bei uns läuft alles über Ihren persönlichen Bauleiter – von der Planung bis zur Übergabe. Sie haben nur einen Ansprechpartner.' },
+          { title: 'Qualität macht den Unterschied', description: 'Billige Materialien und unsaubere Arbeit sehen Sie schnell – und ärgern sich lange. Wir verbauen nur Materialien, die halten. Unsere Handwerker arbeiten sauber und präzise. Das sehen und spüren Sie jeden Tag.' },
+          { title: 'Garantie und Sicherheit inklusive', description: 'Nach dem Projekt sind wir weiter für Sie da. Mit Garantie auf alle Arbeiten. Bei Fragen oder Problemen ist Ihr Bauleiter nur einen Anruf entfernt – schnell, unkompliziert, zuverlässig.' }
+        ],
+        promise: 'Vom Boden bis zur Decke – alles aus einer Hand. Sorgfältige Planung, präzise Ausführung, verlässliche Betreuung. Keine leeren Versprechen, sondern ehrliche Handwerksarbeit.'
+      },
+      processSteps: {
+        heading: 'So läuft es ab',
+        subheading: 'Einfach und klar',
+        steps: [
+          { title: '1. Erstgespräch', description: 'Wir besprechen Ihre Wünsche und Ihr Budget.' },
+          { title: '2. Planung', description: 'Ihr Bauleiter plant mit Ihnen gemeinsam.' },
+          { title: '3. Umbau', description: 'Unser Team arbeitet sauber und termingerecht.' },
+          { title: '4. Übergabe', description: 'Sie bekommen Ihr fertiges Projekt mit Garantie.' }
+        ]
+      },
+      cta: {
+        heading: 'Jetzt Termin vereinbaren',
+        subheading: 'Wir beraten Sie gerne – kostenlos und unverbindlich.',
+        buttonText: 'Jetzt Kontakt aufnehmen',
+        buttonLink: '/#contact'
+      }
     }
   },
 

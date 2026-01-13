@@ -107,6 +107,7 @@ const defaultPageContent: PageContent = {
   features: []
 };
 
+// Use schema SSOT for region defaults
 const defaultRegion: RegionData = {
   slug: '',
   title: '',
@@ -114,36 +115,14 @@ const defaultRegion: RegionData = {
   heroImage: '',
   metaTitle: '',
   metaDescription: '',
-  services: {
-    badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne.',
-    kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse.',
-    innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
-  },
-  whyUs: [
-    'Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe',
-    '5 Jahre Garantie auf unsere Handwerksleistungen',
-    'Sorgfältige Arbeit mit hochwertigen Materialien',
-    'Transparente Preise ohne versteckte Kosten'
-  ],
+  services: defaultContent.regionDefaults.services,
+  whyUs: defaultContent.regionDefaults.whyUs,
   testimonials: [],
-  faq: [
-    { question: 'Wie lange dauert ein Umbau?', answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen.' },
-    { question: 'Brauche ich eine Baugenehmigung?', answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig.' }
-  ]
+  faq: defaultContent.regionDefaults.faq.slice(0, 2)
 };
 
-const staticRegionsData = [
-  { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich', heroImage: '/src/assets/regions/zurich-interior.jpg' },
-  { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil', heroImage: '/src/assets/regions/richterswil-interior.jpg' },
-  { slug: 'waedenswil', title: 'Bäderberg in Wädenswil', description: 'Bad, Küche und Innenausbau in Wädenswil', heroImage: '' },
-  { slug: 'lachen', title: 'Bäderberg in Lachen', description: 'Bad, Küche und Innenausbau in Lachen', heroImage: '' },
-  { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ', heroImage: '/src/assets/regions/pfaffikon-interior.jpg' },
-  { slug: 'zollikon', title: 'Bäderberg in Zollikon', description: 'Bad, Küche und Innenausbau in Zollikon', heroImage: '' },
-  { slug: 'kilchberg', title: 'Bäderberg in Kilchberg', description: 'Bad, Küche und Innenausbau in Kilchberg', heroImage: '' },
-  { slug: 'kuesnacht', title: 'Bäderberg in Küsnacht', description: 'Bad, Küche und Innenausbau in Küsnacht', heroImage: '' },
-  { slug: 'meilen', title: 'Bäderberg in Meilen', description: 'Bad, Küche und Innenausbau in Meilen', heroImage: '' },
-  { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad, Küche und Innenausbau in Erlenbach', heroImage: '' },
-];
+// Use schema SSOT for regions list
+const staticRegionsData = defaultContent.regions.items;
 
 const pageConfig = {
   home: { name: 'Startseite', path: '/', icon: Home },
