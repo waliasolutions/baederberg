@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, ChevronRight, Shield, MapPin, Twitter, Youtube } from 'lucide-react';
 import { useSectionContent } from '@/cms/context/ContentProvider';
+import { defaultContent } from '@/cms/schema';
 
 interface SocialLink {
   platform: 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'youtube';
@@ -67,21 +68,10 @@ const Footer = () => {
   const street = contactContent?.street || 'Zugerstrasse 18';
   const city = contactContent?.city || '8805 Richterswil';
   
-  // Default regions for footer
-  const defaultRegions = [
-    { slug: 'zurich', title: 'Zürich' },
-    { slug: 'richterswil', title: 'Richterswil' },
-    { slug: 'waedenswil', title: 'Wädenswil' },
-    { slug: 'lachen', title: 'Lachen' },
-    { slug: 'pfaeffikon', title: 'Pfäffikon SZ' },
-    { slug: 'zollikon', title: 'Zollikon' },
-    { slug: 'kilchberg', title: 'Kilchberg' },
-    { slug: 'kuesnacht', title: 'Küsnacht' },
-    { slug: 'meilen', title: 'Meilen' },
-    { slug: 'erlenbach', title: 'Erlenbach' }
-  ];
-  
-  const regions = regionsContent?.items?.length ? regionsContent.items : defaultRegions;
+  // Use schema SSOT for regions fallback
+  const regions = regionsContent?.items?.length 
+    ? regionsContent.items 
+    : defaultContent.regions.items;
   const regionsColumn1 = regions.slice(0, 5);
   const regionsColumn2 = regions.slice(5, 10);
 

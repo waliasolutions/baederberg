@@ -95,44 +95,27 @@ const BadumbauPage = () => {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center leading-tight">
-                Warum professioneller Badumbau?
+                {pageContent.whyProfessional.heading}
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div className="bg-secondary/20 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4 text-primary">Fachgerechte Planung spart Geld</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Ein professionell geplantes Bad vermeidet teure Fehler. Wasserschäden durch falsch verlegte Leitungen oder undichte Abdichtungen kosten Sie später ein Vielfaches. Unsere Bauleiter kennen jede Norm und jedes Detail.
-                  </p>
-                </div>
-                
-                <div className="bg-secondary/20 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4 text-primary">Qualität, die bleibt</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Ein Bad nutzen Sie täglich für viele Jahre. Hochwertige Materialien und fachgerechte Montage bedeuten weniger Reparaturen und mehr Freude am Raum. Wir verbauen nur, was wir auch selbst nutzen würden.
-                  </p>
-                </div>
-                
-                <div className="bg-secondary/20 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4 text-primary">Zeitersparnis durch Koordination</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Sanitär, Elektrik, Fliesen, Maler – alles muss perfekt zusammenpassen. Ihr persönlicher Bauleiter koordiniert alle Gewerke. Sie haben nur einen Ansprechpartner und sparen wertvolle Zeit.
-                  </p>
-                </div>
-                
-                <div className="bg-secondary/20 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4 text-primary">Garantie und Sicherheit</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Nach dem Umbau sind wir weiter für Sie da. Mit unserer Garantie sind Sie abgesichert. Bei Problemen ist Ihr Bauleiter nur einen Anruf entfernt – ohne Diskussion, ohne Verzögerung.
-                  </p>
-                </div>
+                {pageContent.whyProfessional.items.map((item, index) => (
+                  <div key={index} className="bg-secondary/20 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold mb-4 text-primary">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
               </div>
               
-              <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg">
-                <p className="text-lg leading-relaxed">
-                  <strong>Unser Versprechen:</strong> Wir bauen Ihr Bad so, wie wir es für uns selbst bauen würden. Sorgfältig geplant, sauber ausgeführt, mit Materialien die halten. Kein Marketing-Versprechen – sondern unser Standard.
-                </p>
-              </div>
+              {pageContent.whyProfessional.promise && (
+                <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg">
+                  <p className="text-lg leading-relaxed">
+                    <strong>Unser Versprechen:</strong> {pageContent.whyProfessional.promise}
+                  </p>
+                </div>
+              )}
             </motion.div>
           </div>
         </section>
@@ -146,19 +129,14 @@ const BadumbauPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">So läuft es ab</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">{pageContent.processSteps.heading}</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Einfach und klar
+                {pageContent.processSteps.subheading}
               </p>
             </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                { title: "1. Erstgespräch", desc: "Wir besprechen Ihre Wünsche und Ihr Budget." },
-                { title: "2. Planung", desc: "Ihr Bauleiter plant mit Ihnen gemeinsam." },
-                { title: "3. Umbau", desc: "Unser Team baut sauber und termingerecht." },
-                { title: "4. Übergabe", desc: "Sie bekommen Ihr fertiges Bad mit Garantie." }
-              ].map((step, index) => (
+              {pageContent.processSteps.steps.map((step, index) => (
                 <motion.div
                   key={index}
                   className="bg-background p-6 rounded-lg shadow-sm"
@@ -168,7 +146,7 @@ const BadumbauPage = () => {
                   transition={{ delay: index * 0.1 }}
                 >
                   <h3 className="text-xl font-semibold mb-3 text-primary">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -216,13 +194,13 @@ const BadumbauPage = () => {
               viewport={{ once: true }}
               className="max-w-3xl mx-auto"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Jetzt Termin vereinbaren</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">{pageContent.cta.heading}</h2>
               <p className="text-xl mb-8 text-white/90 leading-relaxed">
-                Wir beraten Sie gerne – kostenlos und unverbindlich.
+                {pageContent.cta.subheading}
               </p>
-              <Link to="/#contact">
+              <Link to={pageContent.cta.buttonLink}>
                 <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
-                  Jetzt Kontakt aufnehmen
+                  {pageContent.cta.buttonText}
                 </Button>
               </Link>
             </motion.div>
