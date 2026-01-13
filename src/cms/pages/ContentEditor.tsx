@@ -301,44 +301,12 @@ export default function ContentEditor() {
     }
   };
 
-  // ========== SYNC REGIONS ==========
+  // ========== SYNC FUNCTIONS ==========
 
   const syncRegions = async () => {
     setIsSyncing(true);
-    let syncedCount = 0;
     try {
-      for (const region of staticRegionsData) {
-        const exists = regions.some(r => r.slug === region.slug);
-        if (!exists) {
-          const contentData: RegionData = {
-            ...defaultRegion,
-            slug: region.slug,
-            title: region.title,
-            description: region.description,
-            heroImage: region.heroImage,
-            metaTitle: `${region.title} - Bäderberg`,
-            metaDescription: region.description,
-          };
-          const { slug, ...content } = contentData;
-          // Add contact from SSOT (regionDefaults)
-          const contentWithContact = {
-            ...content,
-            contact: defaultContent.regionDefaults?.contact || {
-              phone: '+41 76 753 44 78',
-              email: 'info@baederberg.ch',
-              address: { street: 'Zugerstrasse 18', city: 'Richterswil' }
-            }
-          };
-          await supabase.from('content').insert({
-            section_key: 'region',
-            content_key: slug,
-            content: contentWithContact as unknown as Json,
-            is_draft: false,
-            published_at: new Date().toISOString()
-          });
-          syncedCount++;
-        }
-      }
+      const syncedCount = await syncRegionsInternal();
       toast({ 
         title: 'Synchronisiert', 
         description: syncedCount > 0 ? `${syncedCount} Regionen importiert.` : 'Alle Regionen vorhanden.' 
@@ -352,39 +320,87 @@ export default function ContentEditor() {
     }
   };
 
-  const syncServicePages = async () => {
-    setIsSyncing(true);
-    let syncedCount = 0;
-    try {
-      const servicePages = ['badumbau', 'kuechenumbau', 'innenausbau'];
-      for (const pageKey of servicePages) {
-        const { data: existing } = await supabase
-          .from('content')
-          .select('id')
-          .eq('section_key', 'pages')
-          .eq('content_key', pageKey)
-          .maybeSingle();
 
-        if (!existing) {
-          const pageDefaults = defaultContent.pages?.[pageKey] || {};
-          await supabase.from('content').insert({
-            section_key: 'pages',
-            content_key: pageKey,
-            content: pageDefaults as unknown as Json,
-            is_draft: false,
-            published_at: new Date().toISOString()
-          });
-          syncedCount++;
-        }
+  const syncServicePages = async (): Promise<number> => {
+    let syncedCount = 0;
+    const servicePages = ['badumbau', 'kuechenumbau', 'innenausbau'];
+    for (const pageKey of servicePages) {
+      const { data: existing } = await supabase
+        .from('content')
+        .select('id')
+        .eq('section_key', 'pages')
+        .eq('content_key', pageKey)
+        .maybeSingle();
+
+      if (!existing) {
+        const pageDefaults = defaultContent.pages?.[pageKey] || {};
+        await supabase.from('content').insert({
+          section_key: 'pages',
+          content_key: pageKey,
+          content: pageDefaults as unknown as Json,
+          is_draft: false,
+          published_at: new Date().toISOString()
+        });
+        syncedCount++;
       }
+    }
+    return syncedCount;
+  };
+
+  const syncRegionsInternal = async (): Promise<number> => {
+    let syncedCount = 0;
+    for (const region of staticRegionsData) {
+      const exists = regions.some(r => r.slug === region.slug);
+      if (!exists) {
+        const contentData: RegionData = {
+          ...defaultRegion,
+          slug: region.slug,
+          title: region.title,
+          description: region.description,
+          heroImage: region.heroImage,
+          metaTitle: `${region.title} - Bäderberg`,
+          metaDescription: region.description,
+        };
+        const { slug, ...content } = contentData;
+        const contentWithContact = {
+          ...content,
+          contact: defaultContent.regionDefaults?.contact || {
+            phone: '+41 76 753 44 78',
+            email: 'info@baederberg.ch',
+            address: { street: 'Zugerstrasse 18', city: 'Richterswil' }
+          }
+        };
+        await supabase.from('content').insert({
+          section_key: 'region',
+          content_key: slug,
+          content: contentWithContact as unknown as Json,
+          is_draft: false,
+          published_at: new Date().toISOString()
+        });
+        syncedCount++;
+      }
+    }
+    return syncedCount;
+  };
+
+  const syncAllContent = async () => {
+    setIsSyncing(true);
+    try {
+      const [regionsCount, pagesCount] = await Promise.all([
+        syncRegionsInternal(),
+        syncServicePages()
+      ]);
+      const total = regionsCount + pagesCount;
       toast({ 
-        title: 'Synchronisiert', 
-        description: syncedCount > 0 ? `${syncedCount} Leistungsseiten importiert.` : 'Alle Leistungsseiten vorhanden.' 
+        title: 'Alle Inhalte synchronisiert', 
+        description: total > 0 
+          ? `${regionsCount} Regionen und ${pagesCount} Leistungsseiten importiert.` 
+          : 'Alle Inhalte bereits vorhanden.' 
       });
       await fetchAllData();
     } catch (err) {
       console.error('Sync error:', err);
-      toast({ title: 'Fehler', variant: 'destructive' });
+      toast({ title: 'Fehler beim Synchronisieren', variant: 'destructive' });
     } finally {
       setIsSyncing(false);
     }
@@ -983,6 +999,10 @@ export default function ContentEditor() {
               </div>
               <div className="flex items-center gap-2">
                 {isDirty && <Badge variant="outline" className="text-amber-600 border-amber-600">Ungespeichert</Badge>}
+                <Button variant="outline" onClick={syncAllContent} disabled={isSyncing}>
+                  {isSyncing ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <RefreshCw className="h-4 w-4 mr-2" />}
+                  Sync All
+                </Button>
                 {selectedPage === 'regions' && selectedRegion && (
                   <Button variant="destructive" size="icon" onClick={handleDeleteRegion}>
                     <Trash2 className="w-4 h-4" />
