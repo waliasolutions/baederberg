@@ -26,6 +26,7 @@ interface UserRole {
   user_id: string;
   role: 'admin' | 'editor';
   created_at: string;
+  email?: string;
 }
 
 export function UserManagement() {
@@ -42,14 +43,14 @@ export function UserManagement() {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const { data, error } = await supabase.functions.invoke('create-user', {
+        method: 'GET'
+      });
 
       if (error) throw error;
+      if (data?.error) throw new Error(data.error);
 
-      setUsers((data || []).map(u => ({
+      setUsers((data?.users || []).map((u: UserRole) => ({
         ...u,
         role: u.role as 'admin' | 'editor',
       })));
@@ -285,7 +286,7 @@ export function UserManagement() {
                       </div>
                       <div>
                         <p className="font-medium text-sm truncate max-w-[250px]">
-                          {u.user_id}
+                          {u.email || u.user_id}
                           {u.user_id === user?.id && (
                             <span className="ml-2 text-xs bg-muted px-2 py-0.5 rounded">(Sie)</span>
                           )}

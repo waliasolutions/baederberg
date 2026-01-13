@@ -17,48 +17,81 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+  // Verify calling user is admin (shared logic for GET and POST)
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader) {
+    return new Response(
+      JSON.stringify({ error: "Unauthorized" }),
+      { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
+  const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+  const supabaseUser = createClient(supabaseUrl, supabaseAnonKey, {
+    global: { headers: { Authorization: authHeader } }
+  });
+
+  const { data: { user: callingUser } } = await supabaseUser.auth.getUser();
+  if (!callingUser) {
+    return new Response(
+      JSON.stringify({ error: "Unauthorized" }),
+      { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
+  // Check if calling user is admin
+  const { data: callerRole } = await supabaseAdmin
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", callingUser.id)
+    .eq("role", "admin")
+    .maybeSingle();
+
+  if (!callerRole) {
+    return new Response(
+      JSON.stringify({ error: "Admin access required" }),
+      { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
+  // Handle GET request - list users with emails
+  if (req.method === "GET") {
+    try {
+      const { data: authUsers } = await supabaseAdmin.auth.admin.listUsers();
+      const { data: userRoles, error: rolesError } = await supabaseAdmin
+        .from("user_roles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (rolesError) throw rolesError;
+
+      const usersWithEmails = (userRoles || []).map(role => {
+        const authUser = authUsers?.users?.find(u => u.id === role.user_id);
+        return {
+          ...role,
+          email: authUser?.email || null
+        };
+      });
+
+      return new Response(
+        JSON.stringify({ users: usersWithEmails }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    } catch (error) {
+      console.error("List users error:", error);
+      return new Response(
+        JSON.stringify({ error: error.message }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+  }
+
+  // Handle POST request - create user
   try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-
-    // Verify calling user is admin
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-    const supabaseUser = createClient(supabaseUrl, supabaseAnonKey, {
-      global: { headers: { Authorization: authHeader } }
-    });
-
-    const { data: { user: callingUser } } = await supabaseUser.auth.getUser();
-    if (!callingUser) {
-      return new Response(
-        JSON.stringify({ error: "Unauthorized" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Check if calling user is admin
-    const { data: callerRole } = await supabaseAdmin
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", callingUser.id)
-      .eq("role", "admin")
-      .maybeSingle();
-
-    if (!callerRole) {
-      return new Response(
-        JSON.stringify({ error: "Admin access required" }),
-        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
     const { email, password, role }: CreateUserRequest = await req.json();
 
     // Validation
