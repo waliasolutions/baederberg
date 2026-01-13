@@ -6,6 +6,7 @@ import TestimonialCard from '@/components/TestimonialCard';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { realTestimonials } from '@/data/testimonials';
 import { usePublicContent } from '@/cms/context/ContentProvider';
+import { defaultContent } from '@/cms/schema';
 import SEOHead from '@/components/SEOHead';
 import zurichHero from '@/assets/regions/zurich-interior.jpg';
 import richterswilHero from '@/assets/regions/richterswil-interior.jpg';
@@ -43,200 +44,31 @@ interface RegionData {
   };
 }
 
-// Default contact info shared across all regions
-const defaultContact = {
-  phone: '+41 76 753 44 78',
-  email: 'info@baederberg.ch',
-  address: {
-    street: 'Zugerstrasse 18',
-    city: 'Richterswil'
-  }
+// Get defaults from SSOT (schema.ts)
+const regionDefaults = defaultContent.regionDefaults;
+
+// Static hero images for specific regions
+const regionHeroImages: Record<string, string> = {
+  'zurich': zurichHero,
+  'richterswil': richterswilHero,
+  'pfaeffikon': pfaffikonHero,
 };
 
-// Default FAQ shared across regions
-const defaultFaq = [
-  {
-    question: 'Wie lange dauert ein Umbau?',
-    answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.'
-  },
-  {
-    question: 'Brauche ich eine Baugenehmigung?',
-    answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.'
-  },
-  {
-    question: 'Können Sie auch in bewohnten Wohnungen arbeiten?',
-    answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.'
-  },
-  {
-    question: 'Was ist im Preis inbegriffen?',
-    answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.'
-  },
-  {
-    question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?',
-    answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.'
-  }
-];
-
-// Default why us points
-const defaultWhyUs = [
-  'Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe',
-  '5 Jahre Garantie auf unsere Handwerksleistungen',
-  'Sorgfältige Arbeit mit hochwertigen Materialien',
-  'Transparente Preise ohne versteckte Kosten'
-];
-
-// Default services text
-const defaultServices = {
-  badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.',
-  kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
-  innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
+// Static testimonials assignments for regions (when CMS has none)
+const regionTestimonialFallback: Record<string, number[]> = {
+  'zurich': [2, 0, 4],
+  'richterswil': [1, 6, 5],
+  'waedenswil': [15, 9, 8],
+  'lachen': [10, 17, 11],
+  'pfaeffikon': [3, 13, 7],
+  'zollikon': [12, 4, 18],
+  'kilchberg': [0, 11, 6],
+  'kuesnacht': [2, 5, 9],
+  'meilen': [8, 1, 10],
+  'erlenbach': [17, 19, 7],
 };
 
-// Static fallback data for regions (used when CMS data is not available)
-const fallbackRegionData: Record<string, RegionData> = {
-  'zurich': {
-    title: 'Bäderberg in Zürich',
-    description: 'Bad, Küche und Innenausbau in Zürich',
-    heroImage: zurichHero,
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[2],
-      realTestimonials[0],
-      realTestimonials[4]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'richterswil': {
-    title: 'Bäderberg in Richterswil',
-    description: 'Bad, Küche und Innenausbau in Richterswil',
-    heroImage: richterswilHero,
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[1],
-      realTestimonials[6],
-      realTestimonials[5]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'waedenswil': {
-    title: 'Bäderberg in Wädenswil',
-    description: 'Bad, Küche und Innenausbau in Wädenswil',
-    heroImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[15],
-      realTestimonials[9],
-      realTestimonials[8]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'lachen': {
-    title: 'Bäderberg in Lachen',
-    description: 'Bad, Küche und Innenausbau in Lachen',
-    heroImage: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[10],
-      realTestimonials[17],
-      realTestimonials[11]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'pfaeffikon': {
-    title: 'Bäderberg in Pfäffikon SZ',
-    description: 'Bad, Küche und Innenausbau in Pfäffikon SZ',
-    heroImage: pfaffikonHero,
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[3],
-      realTestimonials[13],
-      realTestimonials[7]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'zollikon': {
-    title: 'Bäderberg in Zollikon',
-    description: 'Bad, Küche und Innenausbau in Zollikon',
-    heroImage: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[12],
-      realTestimonials[4],
-      realTestimonials[18]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'kilchberg': {
-    title: 'Bäderberg in Kilchberg',
-    description: 'Bad, Küche und Innenausbau in Kilchberg',
-    heroImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[0],
-      realTestimonials[11],
-      realTestimonials[6]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'kuesnacht': {
-    title: 'Bäderberg in Küsnacht',
-    description: 'Bad, Küche und Innenausbau in Küsnacht',
-    heroImage: 'https://images.unsplash.com/photo-1589395937772-7c69f7cf1a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[2],
-      realTestimonials[5],
-      realTestimonials[9]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'meilen': {
-    title: 'Bäderberg in Meilen',
-    description: 'Bad, Küche und Innenausbau in Meilen',
-    heroImage: 'https://images.unsplash.com/photo-1505843795480-5cfb3c03f6ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[8],
-      realTestimonials[1],
-      realTestimonials[10]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  },
-  'erlenbach': {
-    title: 'Bäderberg in Erlenbach',
-    description: 'Bad, Küche und Innenausbau in Erlenbach',
-    heroImage: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80',
-    services: defaultServices,
-    whyUs: defaultWhyUs,
-    testimonials: [
-      realTestimonials[17],
-      realTestimonials[19],
-      realTestimonials[7]
-    ],
-    faq: defaultFaq,
-    contact: defaultContact
-  }
-};
-
-// Custom hook to fetch region data from CMS
+// Custom hook to fetch region data from CMS with SSOT fallbacks
 function useRegionData(regionId: string | undefined) {
   const { content, isLoading } = usePublicContent();
   
@@ -247,37 +79,57 @@ function useRegionData(regionId: string | undefined) {
 
     // Try to get CMS data for this specific region
     const cmsRegionData = content?.region?.[regionId];
-    const fallbackData = fallbackRegionData[regionId];
+    
+    // Get testimonials from fallback if not in CMS
+    const testimonialIndices = regionTestimonialFallback[regionId] || [0, 1, 2];
+    const fallbackTestimonials = testimonialIndices.map(i => realTestimonials[i]).filter(Boolean);
+    
+    // Get hero image from static map or use generic
+    const fallbackHeroImage = regionHeroImages[regionId] || 
+      'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80';
     
     if (cmsRegionData) {
-      // Merge CMS data with defaults, prioritizing CMS content
+      // Merge CMS data with SSOT defaults, prioritizing CMS content
       const region: RegionData = {
-        title: cmsRegionData.title || fallbackData?.title || `Bäderberg in ${regionId}`,
-        description: cmsRegionData.description || fallbackData?.description || '',
-        heroImage: cmsRegionData.heroImage || fallbackData?.heroImage || '',
-        metaTitle: cmsRegionData.metaTitle || `${cmsRegionData.title || fallbackData?.title} - Bäderberg`,
-        metaDescription: cmsRegionData.metaDescription || cmsRegionData.description || fallbackData?.description || '',
+        title: cmsRegionData.title || `Bäderberg in ${regionId}`,
+        description: cmsRegionData.description || '',
+        heroImage: cmsRegionData.heroImage || fallbackHeroImage,
+        metaTitle: cmsRegionData.metaTitle || `${cmsRegionData.title || `Bäderberg in ${regionId}`} - Bäderberg`,
+        metaDescription: cmsRegionData.metaDescription || cmsRegionData.description || '',
         services: {
-          badumbau: cmsRegionData.services?.badumbau || cmsRegionData.badumbauText || defaultServices.badumbau,
-          kuechenumbau: cmsRegionData.services?.kuechenumbau || cmsRegionData.kuechenumbauText || defaultServices.kuechenumbau,
-          innenausbau: cmsRegionData.services?.innenausbau || cmsRegionData.innenausbauText || defaultServices.innenausbau
+          badumbau: cmsRegionData.services?.badumbau || regionDefaults.services.badumbau,
+          kuechenumbau: cmsRegionData.services?.kuechenumbau || regionDefaults.services.kuechenumbau,
+          innenausbau: cmsRegionData.services?.innenausbau || regionDefaults.services.innenausbau
         },
         whyUs: Array.isArray(cmsRegionData.whyUs) && cmsRegionData.whyUs.length > 0 
           ? cmsRegionData.whyUs 
-          : defaultWhyUs,
+          : regionDefaults.whyUs,
         testimonials: Array.isArray(cmsRegionData.testimonials) && cmsRegionData.testimonials.length > 0 
           ? cmsRegionData.testimonials 
-          : fallbackData?.testimonials || [],
+          : fallbackTestimonials,
         faq: Array.isArray(cmsRegionData.faq) && cmsRegionData.faq.length > 0 
           ? cmsRegionData.faq 
-          : defaultFaq,
-        contact: cmsRegionData.contact || defaultContact
+          : regionDefaults.faq,
+        contact: cmsRegionData.contact || regionDefaults.contact
       };
       return { region, isLoading };
     }
 
-    // Fall back to static data
-    return { region: fallbackData || null, isLoading };
+    // No CMS data - create minimal fallback from SSOT defaults
+    const region: RegionData = {
+      title: `Bäderberg in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
+      description: `Bad, Küche und Innenausbau in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
+      heroImage: fallbackHeroImage,
+      metaTitle: `Bäderberg in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)} - Bäderberg`,
+      metaDescription: `Bad, Küche und Innenausbau in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
+      services: regionDefaults.services,
+      whyUs: regionDefaults.whyUs,
+      testimonials: fallbackTestimonials,
+      faq: regionDefaults.faq,
+      contact: regionDefaults.contact
+    };
+    
+    return { region, isLoading };
   }, [regionId, content, isLoading]);
 }
 
@@ -460,7 +312,7 @@ const RegionPage = () => {
                   
                   <div className="flex items-center">
                     <Phone className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                    <a href={`tel:${region.contact.phone}`} className="text-foreground hover:text-primary transition-colors">
+                    <a href={`tel:${region.contact.phone.replace(/\s/g, '')}`} className="text-foreground hover:text-primary transition-colors">
                       {region.contact.phone}
                     </a>
                   </div>
@@ -474,12 +326,15 @@ const RegionPage = () => {
                 </div>
               </div>
               
-              <div className="bg-background p-8 rounded-lg shadow-sm border border-border">
-                <h3 className="text-2xl font-bold text-foreground mb-6">Termin vereinbaren</h3>
+              <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
+                <h3 className="text-xl font-semibold text-foreground mb-4">Kostenlose Beratung</h3>
                 <p className="text-muted-foreground mb-6">
-                  Rufen Sie uns an oder schreiben Sie uns – wir melden uns innerhalb von 24 Stunden bei Ihnen.
+                  Rufen Sie uns an oder schreiben Sie uns eine E-Mail. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
                 </p>
-                <Link to="/#contact" className="inline-flex items-center justify-center w-full bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors font-medium">
+                <Link 
+                  to="/#contact" 
+                  className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors w-full justify-center"
+                >
                   Zum Kontaktformular <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>

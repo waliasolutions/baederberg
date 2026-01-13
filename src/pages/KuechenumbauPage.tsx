@@ -15,19 +15,6 @@ const KuechenumbauPage = () => {
   const { testimonials } = useTestimonialsByProject('Küchenumbau');
   const pageContent = usePageContent('kuechenumbau');
 
-  // Use CMS features or fallback
-  const features = pageContent.features.length > 0 ? pageContent.features : [
-    "Individuelle Küchenplanung",
-    "Persönlicher Projektleiter",
-    "Installation hochwertiger Küchengeräte",
-    "Einbau von Arbeitsplatten und individuellen Rückwänden",
-    "Fachgerechte Montage",
-    "Elektroarbeiten und Garantie inklusive"
-  ];
-
-  // Use CMS hero image or fallback
-  const heroImage = pageContent.heroImage || '/images/kitchen-modern.jpg';
-
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
@@ -41,7 +28,7 @@ const KuechenumbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <motion.img 
-            src={heroImage} 
+            src={pageContent.heroImage} 
             alt="Küche" 
             className="w-full h-full object-cover"
             style={{ scale: imageScale }}
@@ -75,23 +62,9 @@ const KuechenumbauPage = () => {
                 transition={{ duration: 0.7 }}
               >
                 <h2 className="text-3xl font-semibold mb-6 leading-tight">Was Sie bekommen</h2>
-                {pageContent.introText ? (
-                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {pageContent.introText}
-                  </p>
-                ) : (
-                  <>
-                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                      Ein persönlicher Projektleiter betreut Sie durch das ganze Projekt. Von der ersten Planung bis zur fertigen Küche.
-                    </p>
-                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                      Wir koordinieren alle Arbeiten: Ausbau der alten Küche, Anpassung von Elektrik und Wasser, Einbau der neuen Küche. Alles aus einer Hand.
-                    </p>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      Fester Preis, fester Termin, 5 Jahre Garantie.
-                    </p>
-                  </>
-                )}
+                <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {pageContent.introText}
+                </p>
               </motion.div>
               
               <motion.div
@@ -101,7 +74,7 @@ const KuechenumbauPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                {features.map((feature, index) => (
+                {pageContent.features.map((feature, index) => (
                   <div key={index} className="flex items-start gap-2 bg-background p-4 rounded-lg shadow-sm">
                     <CheckCircle className="text-primary flex-shrink-0 mt-0.5" size={20} />
                     <span className="text-sm font-medium leading-relaxed">{feature}</span>

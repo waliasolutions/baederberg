@@ -468,7 +468,7 @@ export const sectionLabels: Record<string, string> = {
   business: 'Unternehmensdaten'
 };
 
-// Default content values
+// Default content values - SINGLE SOURCE OF TRUTH
 export const defaultContent: Record<string, any> = {
   hero: {
     slides: [
@@ -596,5 +596,88 @@ export const defaultContent: Record<string, any> = {
     facebook: '',
     linkedin: '',
     youtube: ''
+  },
+  
+  // ========== SERVICE PAGES (SSOT) ==========
+  pages: {
+    badumbau: {
+      metaTitle: 'Badumbau - Bäderberg',
+      metaDescription: 'Wir bauen Ihr Bad um – persönlich geplant und realisiert. Professioneller Badumbau in der Region Zürich mit hochwertigen Materialien.',
+      heroHeading: 'Badumbau',
+      heroSubheading: 'Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.',
+      heroImage: '/lovable-uploads/bad-hero.jpg',
+      introText: 'Ein persönlicher Bauleiter übernimmt Ihr Projekt von Anfang bis Ende. Sie haben einen Ansprechpartner für alles. Wir planen das Bad gemeinsam mit Ihnen, bauen es um und übergeben es fertig. Elektroarbeiten, Sanitär, Fliesen – alles inklusive. Fester Preis, fester Termin, 5 Jahre Garantie auf unsere Arbeit.',
+      features: [
+        'Persönlicher Bauleiter',
+        'Individuelle Badplanung',
+        'Einbau hochwertiger Sanitäranlagen',
+        'Montage stilvoller Badmöbel',
+        'Innovative Beleuchtungskonzepte',
+        'Elektroarbeiten und Garantie inklusive'
+      ]
+    },
+    kuechenumbau: {
+      metaTitle: 'Küchenumbau - Bäderberg',
+      metaDescription: 'Professioneller Küchenumbau in der Region Zürich. Moderne Küchen nach Ihren Wünschen, handwerklich perfekt umgesetzt.',
+      heroHeading: 'Küchenumbau',
+      heroSubheading: 'Ihre neue Küche nach Mass – funktional und schön.',
+      heroImage: '/lovable-uploads/kueche-hero.jpg',
+      introText: 'Ein persönlicher Projektleiter betreut Sie durch das ganze Projekt. Von der ersten Planung bis zur fertigen Küche. Wir koordinieren alle Arbeiten: Ausbau der alten Küche, Anpassung von Elektrik und Wasser, Einbau der neuen Küche. Alles aus einer Hand. Fester Preis, fester Termin, 5 Jahre Garantie.',
+      features: [
+        'Individuelle Küchenplanung',
+        'Persönlicher Projektleiter',
+        'Installation hochwertiger Küchengeräte',
+        'Einbau von Arbeitsplatten und individuellen Rückwänden',
+        'Fachgerechte Montage',
+        'Elektroarbeiten und Garantie inklusive'
+      ]
+    },
+    innenausbau: {
+      metaTitle: 'Innenausbau - Bäderberg',
+      metaDescription: 'Hochwertiger Innenausbau in der Region Zürich. Massgeschneiderte Lösungen für Ihr Zuhause.',
+      heroHeading: 'Innenausbau',
+      heroSubheading: 'Räume nach Ihren Wünschen – alles aus einer Hand.',
+      heroImage: '/lovable-uploads/innenausbau-hero.jpg',
+      introText: 'Ein persönlicher Bauleiter koordiniert alle Arbeiten für Sie. Vom Boden bis zur Decke – Sie haben nur einen Ansprechpartner. Bodenbeläge, Wandverkleidungen, Möbeleinbau, Treppen, Elektrik – wir übernehmen alle Gewerke. Alles aus einer Hand. Fester Preis, fester Termin, 5 Jahre Garantie auf die Handwerksleistungen.',
+      features: [
+        'Fachgerechte Bauleitung',
+        'Individuelle Raumplanung',
+        'Massgeschneiderter Möbeleinbau',
+        'Bodenbeläge und Wandverkleidungen',
+        'Treppen und Geländer',
+        'Elektroarbeiten und Garantie inklusive',
+        'Alles aus einer Hand'
+      ]
+    }
+  },
+
+  // ========== REGION DEFAULTS (SSOT) ==========
+  regionDefaults: {
+    services: {
+      badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.',
+      kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
+      innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
+    },
+    whyUs: [
+      'Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe',
+      '5 Jahre Garantie auf unsere Handwerksleistungen',
+      'Sorgfältige Arbeit mit hochwertigen Materialien',
+      'Transparente Preise ohne versteckte Kosten'
+    ],
+    faq: [
+      { question: 'Wie lange dauert ein Umbau?', answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.' },
+      { question: 'Brauche ich eine Baugenehmigung?', answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.' },
+      { question: 'Können Sie auch in bewohnten Wohnungen arbeiten?', answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.' },
+      { question: 'Was ist im Preis inbegriffen?', answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.' },
+      { question: 'Wie gehen Sie mit unvorhergesehenen Problemen um?', answer: 'Sollten während des Umbaus Probleme auftauchen, informieren wir Sie sofort und besprechen das weitere Vorgehen gemeinsam.' }
+    ],
+    contact: {
+      phone: '+41 76 753 44 78',
+      email: 'info@baederberg.ch',
+      address: {
+        street: 'Zugerstrasse 18',
+        city: 'Richterswil'
+      }
+    }
   }
 };
