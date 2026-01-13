@@ -6,8 +6,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface InviteRequest {
+interface CreateUserRequest {
   email: string;
+  password: string;
   role: "admin" | "editor";
 }
 
@@ -58,11 +59,19 @@ serve(async (req) => {
       );
     }
 
-    const { email, role }: InviteRequest = await req.json();
+    const { email, password, role }: CreateUserRequest = await req.json();
 
-    if (!email || !role) {
+    // Validation
+    if (!email || !password || !role) {
       return new Response(
-        JSON.stringify({ error: "Email and role are required" }),
+        JSON.stringify({ error: "Email, password and role are required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (password.length < 6) {
+      return new Response(
+        JSON.stringify({ error: "Password must be at least 6 characters" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -74,14 +83,12 @@ serve(async (req) => {
       );
     }
 
-    // Check if user already exists in auth
+    // Check if user already exists
     const { data: existingUsers } = await supabaseAdmin.auth.admin.listUsers();
     const existingUser = existingUsers?.users?.find(u => u.email === email);
 
-    let userId: string;
-
     if (existingUser) {
-      // User exists - check if they already have a role
+      // Check if user already has a role
       const { data: existingRole } = await supabaseAdmin
         .from("user_roles")
         .select("id")
@@ -95,62 +102,61 @@ serve(async (req) => {
         );
       }
 
-      userId = existingUser.id;
-    } else {
-      // Create new user with invite
-      const { data: newUser, error: inviteError } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
-        redirectTo: `${req.headers.get("origin") || supabaseUrl}/admin`
-      });
+      // Assign role to existing user
+      const { error: roleError } = await supabaseAdmin
+        .from("user_roles")
+        .insert({ user_id: existingUser.id, role });
 
-      if (inviteError) {
-        console.error("Invite error:", inviteError);
+      if (roleError) {
         return new Response(
-          JSON.stringify({ error: `Failed to invite user: ${inviteError.message}` }),
+          JSON.stringify({ error: "Failed to assign role" }),
           { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
 
-      if (!newUser?.user) {
-        return new Response(
-          JSON.stringify({ error: "Failed to create user" }),
-          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
+      return new Response(
+        JSON.stringify({ success: true, message: `Role assigned to existing user: ${email}`, userId: existingUser.id }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
-      userId = newUser.user.id;
+    // Create new user with password (auto-confirmed)
+    const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true
+    });
+
+    if (createError || !newUser?.user) {
+      console.error("Create user error:", createError);
+      return new Response(
+        JSON.stringify({ error: createError?.message || "Failed to create user" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Assign role
     const { error: roleError } = await supabaseAdmin
       .from("user_roles")
-      .insert({
-        user_id: userId,
-        role: role
-      });
+      .insert({ user_id: newUser.user.id, role });
 
     if (roleError) {
       console.error("Role assignment error:", roleError);
       return new Response(
-        JSON.stringify({ error: "Failed to assign role" }),
+        JSON.stringify({ error: "User created but failed to assign role" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log(`User invited: ${email} as ${role}`);
+    console.log(`User created: ${email} as ${role}`);
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: existingUser 
-          ? `Role assigned to existing user: ${email}` 
-          : `Invitation sent to: ${email}`,
-        userId
-      }),
+      JSON.stringify({ success: true, message: `Benutzer erstellt: ${email}`, userId: newUser.user.id }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
 
   } catch (error) {
-    console.error("Invite error:", error);
+    console.error("Create user error:", error);
     return new Response(
       JSON.stringify({ error: error.message }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }

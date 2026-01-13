@@ -46,5 +46,5 @@ verify_jwt = false
 [functions.seed-content]
 verify_jwt = false
 
-[functions.invite-user]
+[functions.create-user]
 verify_jwt = false
