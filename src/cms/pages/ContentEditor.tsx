@@ -320,10 +320,19 @@ export default function ContentEditor() {
             metaDescription: region.description,
           };
           const { slug, ...content } = contentData;
+          // Add contact from SSOT (regionDefaults)
+          const contentWithContact = {
+            ...content,
+            contact: defaultContent.regionDefaults?.contact || {
+              phone: '+41 76 753 44 78',
+              email: 'info@baederberg.ch',
+              address: { street: 'Zugerstrasse 18', city: 'Richterswil' }
+            }
+          };
           await supabase.from('content').insert({
             section_key: 'region',
             content_key: slug,
-            content: content as unknown as Json,
+            content: contentWithContact as unknown as Json,
             is_draft: false,
             published_at: new Date().toISOString()
           });
@@ -333,6 +342,44 @@ export default function ContentEditor() {
       toast({ 
         title: 'Synchronisiert', 
         description: syncedCount > 0 ? `${syncedCount} Regionen importiert.` : 'Alle Regionen vorhanden.' 
+      });
+      await fetchAllData();
+    } catch (err) {
+      console.error('Sync error:', err);
+      toast({ title: 'Fehler', variant: 'destructive' });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const syncServicePages = async () => {
+    setIsSyncing(true);
+    let syncedCount = 0;
+    try {
+      const servicePages = ['badumbau', 'kuechenumbau', 'innenausbau'];
+      for (const pageKey of servicePages) {
+        const { data: existing } = await supabase
+          .from('content')
+          .select('id')
+          .eq('section_key', 'pages')
+          .eq('content_key', pageKey)
+          .maybeSingle();
+
+        if (!existing) {
+          const pageDefaults = defaultContent.pages?.[pageKey] || {};
+          await supabase.from('content').insert({
+            section_key: 'pages',
+            content_key: pageKey,
+            content: pageDefaults as unknown as Json,
+            is_draft: false,
+            published_at: new Date().toISOString()
+          });
+          syncedCount++;
+        }
+      }
+      toast({ 
+        title: 'Synchronisiert', 
+        description: syncedCount > 0 ? `${syncedCount} Leistungsseiten importiert.` : 'Alle Leistungsseiten vorhanden.' 
       });
       await fetchAllData();
     } catch (err) {

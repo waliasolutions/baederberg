@@ -77,24 +77,65 @@ export function ContentProvider({ children }: ContentProviderProps) {
       // Transform array of content items into nested object
       const contentMap: Record<string, any> = {};
       (data || []).forEach((item: any) => {
-        if (!contentMap[item.section_key]) {
-          contentMap[item.section_key] = {};
+        const sectionKey = item.section_key;
+        const contentKey = item.content_key;
+        
+        // For homepage sections with content_key = 'default', spread content directly
+        if (contentKey === 'default' && ['hero', 'services', 'about', 'gallery', 'testimonials', 'contact', 'footer', 'seo', 'business'].includes(sectionKey)) {
+          contentMap[sectionKey] = item.content;
+        } 
+        // For pages section (service pages: badumbau, kuechenumbau, innenausbau)
+        else if (sectionKey === 'pages') {
+          if (!contentMap.pages) {
+            contentMap.pages = {};
+          }
+          contentMap.pages[contentKey] = item.content;
         }
-        contentMap[item.section_key][item.content_key] = item.content;
+        // For region section (individual regions by slug)
+        else if (sectionKey === 'region') {
+          if (!contentMap.region) {
+            contentMap.region = {};
+          }
+          contentMap.region[contentKey] = item.content;
+        }
+        // For other nested content
+        else {
+          if (!contentMap[sectionKey]) {
+            contentMap[sectionKey] = {};
+          }
+          contentMap[sectionKey][contentKey] = item.content;
+        }
       });
 
       // Merge with defaults (defaults as fallback)
-      const mergedContent: Record<string, any> = {};
-      Object.keys(defaultContent).forEach(sectionKey => {
-        mergedContent[sectionKey] = {
-          ...defaultContent[sectionKey],
-          ...(contentMap[sectionKey] || {}),
-        };
+      const mergedContent: Record<string, any> = { ...defaultContent };
+      
+      // Merge homepage sections
+      ['hero', 'services', 'about', 'gallery', 'testimonials', 'contact', 'footer', 'seo', 'business'].forEach(sectionKey => {
+        if (contentMap[sectionKey]) {
+          mergedContent[sectionKey] = {
+            ...defaultContent[sectionKey],
+            ...contentMap[sectionKey],
+          };
+        }
       });
+      
+      // Merge pages (service pages)
+      if (contentMap.pages) {
+        mergedContent.pages = {
+          ...defaultContent.pages,
+        };
+        Object.keys(contentMap.pages).forEach(pageKey => {
+          mergedContent.pages[pageKey] = {
+            ...(defaultContent.pages?.[pageKey] || {}),
+            ...contentMap.pages[pageKey],
+          };
+        });
+      }
 
-      // Also include region-specific content (stored with section_key = 'region')
-      if (contentMap['region']) {
-        mergedContent['region'] = contentMap['region'];
+      // Keep region data as-is (merged with regionDefaults in useRegionData hook)
+      if (contentMap.region) {
+        mergedContent.region = contentMap.region;
       }
 
       setContent(mergedContent);
