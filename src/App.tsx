@@ -18,9 +18,7 @@ import { AdminLogin } from "./cms/pages/AdminLogin";
 import { AdminDashboard } from "./cms/pages/AdminDashboard";
 import { MediaLibrary } from "./cms/pages/MediaLibrary";
 import { UserManagement } from "./cms/pages/UserManagement";
-import { RegionsEditor } from "./cms/pages/RegionsEditor";
-import HomepageEditor from "./cms/pages/HomepageEditor";
-import PagesEditor from "./cms/pages/PagesEditor";
+import ContentEditor from "./cms/pages/ContentEditor";
 import SettingsEditor from "./cms/pages/SettingsEditor";
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -55,10 +53,9 @@ const App = () => (
               {/* CMS Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/homepage" element={<HomepageEditor />} />
-              <Route path="/admin/pages" element={<PagesEditor />} />
-              <Route path="/admin/regions" element={<RegionsEditor />} />
-              <Route path="/admin/regions/:regionSlug" element={<RegionsEditor />} />
+              <Route path="/admin/content" element={<ContentEditor />} />
+              <Route path="/admin/content/:pageType" element={<ContentEditor />} />
+              <Route path="/admin/content/:pageType/:regionSlug" element={<ContentEditor />} />
               <Route path="/admin/media" element={<MediaLibrary />} />
               <Route path="/admin/settings" element={<SettingsEditor />} />
               <Route path="/admin/users" element={<UserManagement />} />
