@@ -20,6 +20,7 @@ import IconPicker from '../components/IconPicker';
 import { SeoEditor, HeroEditor, FeaturesEditor, FaqEditor, TestimonialsEditor, ServicesEditor } from '../components/editors';
 import type { FaqItem, TestimonialItem } from '../components/editors';
 import { defaultContent } from '../schema';
+import { realTestimonials } from '@/data/testimonials';
 import type { Json } from '@/integrations/supabase/types';
 import { cn } from '@/lib/utils';
 
@@ -383,18 +384,60 @@ export default function ContentEditor() {
     return syncedCount;
   };
 
+  const syncTestimonials = async (): Promise<number> => {
+    // Check if testimonials already exist in DB
+    const { data: existing } = await supabase
+      .from('content')
+      .select('content')
+      .eq('section_key', 'testimonials')
+      .eq('content_key', 'default')
+      .maybeSingle();
+
+    const existingItems = (existing?.content as any)?.items || [];
+    
+    // Only sync if there are no testimonials in DB yet
+    if (existingItems.length === 0) {
+      const testimonialsData = {
+        heading: defaultContent.testimonials.heading,
+        items: realTestimonials.map(t => ({
+          author: t.author,
+          quote: t.quote,
+          rating: t.rating,
+          project: t.project
+        }))
+      };
+      
+      await supabase.from('content').upsert({
+        section_key: 'testimonials',
+        content_key: 'default',
+        content: testimonialsData as unknown as Json,
+        is_draft: false,
+        published_at: new Date().toISOString()
+      }, { onConflict: 'section_key,content_key' });
+      
+      return realTestimonials.length;
+    }
+    return 0;
+  };
+
   const syncAllContent = async () => {
     setIsSyncing(true);
     try {
-      const [regionsCount, pagesCount] = await Promise.all([
+      const [regionsCount, pagesCount, testimonialsCount] = await Promise.all([
         syncRegionsInternal(),
-        syncServicePages()
+        syncServicePages(),
+        syncTestimonials()
       ]);
-      const total = regionsCount + pagesCount;
+      const total = regionsCount + pagesCount + testimonialsCount;
+      const parts = [];
+      if (regionsCount > 0) parts.push(`${regionsCount} Regionen`);
+      if (pagesCount > 0) parts.push(`${pagesCount} Leistungsseiten`);
+      if (testimonialsCount > 0) parts.push(`${testimonialsCount} Bewertungen`);
+      
       toast({ 
         title: 'Alle Inhalte synchronisiert', 
         description: total > 0 
-          ? `${regionsCount} Regionen und ${pagesCount} Leistungsseiten importiert.` 
+          ? `${parts.join(', ')} importiert.` 
           : 'Alle Inhalte bereits vorhanden.' 
       });
       await fetchAllData();
@@ -690,8 +733,8 @@ export default function ContentEditor() {
                       newItems[index] = { ...item, category: e.target.value };
                       updateHomepageSection('gallery', { ...homepageData.gallery, items: newItems });
                     }}>
-                      <option value="Badezimmer">Badezimmer</option>
-                      <option value="Küche">Küche</option>
+                      <option value="Badumbau">Badumbau</option>
+                      <option value="Küchenumbau">Küchenumbau</option>
                       <option value="Innenausbau">Innenausbau</option>
                     </select>
                   </div>
@@ -707,7 +750,7 @@ export default function ContentEditor() {
               </div>
             ))}
             <Button variant="outline" onClick={() => {
-              updateHomepageSection('gallery', { ...homepageData.gallery, items: [...homepageData.gallery.items, { title: '', image: '', category: 'Badezimmer' }] });
+              updateHomepageSection('gallery', { ...homepageData.gallery, items: [...homepageData.gallery.items, { title: '', image: '', category: 'Badumbau' }] });
             }}><Plus className="h-4 w-4 mr-2" />Bild hinzufügen</Button>
           </CardContent>
         </Card>
