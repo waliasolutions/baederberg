@@ -855,253 +855,273 @@ export default function ContentEditor() {
     const cta = page.cta || defaultPageContent.cta;
     
     return (
-      <div className="space-y-6">
-        <SeoEditor
-          metaTitle={page.metaTitle}
-          metaDescription={page.metaDescription}
-          path={config.path}
-          onChange={(field, value) => updatePageField(pageKey, field, value)}
-        />
-        <HeroEditor
-          heading={page.heroHeading}
-          subheading={page.heroSubheading}
-          image={page.heroImage}
-          showImage={true}
-          onChange={(field, value) => updatePageField(pageKey, field, value)}
-        />
-        <FeaturesEditor
-          introText={page.introText}
-          features={page.features}
-          showIntro={true}
-          onChange={(field, value) => updatePageField(pageKey, field, value)}
-        />
-        
-        {/* Why Professional Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Star className="h-4 w-4" />
-              Warum professionell?
-            </CardTitle>
-            <CardDescription>Vorteile und Versprechen für den professionellen Service</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label>Überschrift</Label>
-              <Input 
-                value={whyProfessional.heading} 
-                onChange={(e) => updatePageField(pageKey, 'whyProfessional', {
-                  ...whyProfessional,
-                  heading: e.target.value
-                })} 
-                placeholder="z.B. Warum ein professioneller Badumbau?"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label className="text-base font-semibold">Vorteile</Label>
-              {whyProfessional.items?.map((item, index) => (
-                <div key={index} className="border rounded-lg p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm">Vorteil {index + 1}</span>
-                    <Button variant="ghost" size="icon" onClick={() => {
-                      const newItems = whyProfessional.items.filter((_, i) => i !== index);
-                      updatePageField(pageKey, 'whyProfessional', { ...whyProfessional, items: newItems });
-                    }}><Trash2 className="h-4 w-4" /></Button>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Titel</Label>
-                    <Input 
-                      value={item.title} 
-                      onChange={(e) => {
-                        const newItems = [...whyProfessional.items];
-                        newItems[index] = { ...item, title: e.target.value };
-                        updatePageField(pageKey, 'whyProfessional', { ...whyProfessional, items: newItems });
-                      }} 
-                      placeholder="z.B. Fachmännische Planung"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Beschreibung</Label>
-                    <Textarea 
-                      value={item.description} 
-                      onChange={(e) => {
-                        const newItems = [...whyProfessional.items];
-                        newItems[index] = { ...item, description: e.target.value };
-                        updatePageField(pageKey, 'whyProfessional', { ...whyProfessional, items: newItems });
-                      }} 
-                      placeholder="Beschreibung des Vorteils"
-                      rows={2}
-                    />
-                  </div>
-                </div>
-              ))}
-              <Button variant="outline" onClick={() => {
-                updatePageField(pageKey, 'whyProfessional', { 
-                  ...whyProfessional, 
-                  items: [...(whyProfessional.items || []), { title: '', description: '' }] 
-                });
-              }}><Plus className="h-4 w-4 mr-2" />Vorteil hinzufügen</Button>
-            </div>
-            
-            <div className="space-y-2">
-              <Label>Versprechen</Label>
-              <Textarea 
-                value={whyProfessional.promise} 
-                onChange={(e) => updatePageField(pageKey, 'whyProfessional', {
-                  ...whyProfessional,
-                  promise: e.target.value
-                })} 
-                placeholder="z.B. Wir garantieren Ihnen höchste Qualität..."
-                rows={3}
-              />
-            </div>
-          </CardContent>
-        </Card>
-        
-        {/* Process Steps Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Layers className="h-4 w-4" />
-              Ablauf / Prozess
-            </CardTitle>
-            <CardDescription>Die Schritte Ihres Projekts im Überblick</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+      <Tabs defaultValue="seo" className="space-y-4">
+        <TabsList className="grid w-full grid-cols-6">
+          <TabsTrigger value="seo">SEO</TabsTrigger>
+          <TabsTrigger value="hero">Hero</TabsTrigger>
+          <TabsTrigger value="features">Leistungen</TabsTrigger>
+          <TabsTrigger value="why">Warum wir?</TabsTrigger>
+          <TabsTrigger value="process">Ablauf</TabsTrigger>
+          <TabsTrigger value="cta">CTA</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="seo">
+          <SeoEditor
+            metaTitle={page.metaTitle}
+            metaDescription={page.metaDescription}
+            path={config.path}
+            onChange={(field, value) => updatePageField(pageKey, field, value)}
+          />
+        </TabsContent>
+
+        <TabsContent value="hero">
+          <HeroEditor
+            heading={page.heroHeading}
+            subheading={page.heroSubheading}
+            image={page.heroImage}
+            showImage={true}
+            onChange={(field, value) => updatePageField(pageKey, field, value)}
+          />
+        </TabsContent>
+
+        <TabsContent value="features">
+          <FeaturesEditor
+            introText={page.introText}
+            features={page.features}
+            showIntro={true}
+            onChange={(field, value) => updatePageField(pageKey, field, value)}
+          />
+        </TabsContent>
+
+        <TabsContent value="why">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Star className="h-4 w-4" />
+                Warum professionell?
+              </CardTitle>
+              <CardDescription>Vorteile und Versprechen für den professionellen Service</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label>Überschrift</Label>
                 <Input 
-                  value={processSteps.heading} 
-                  onChange={(e) => updatePageField(pageKey, 'processSteps', {
-                    ...processSteps,
+                  value={whyProfessional.heading} 
+                  onChange={(e) => updatePageField(pageKey, 'whyProfessional', {
+                    ...whyProfessional,
                     heading: e.target.value
                   })} 
-                  placeholder="z.B. So läuft es ab"
+                  placeholder="z.B. Warum ein professioneller Badumbau?"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label className="text-base font-semibold">Vorteile</Label>
+                {whyProfessional.items?.map((item, index) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-sm">Vorteil {index + 1}</span>
+                      <Button variant="ghost" size="icon" onClick={() => {
+                        const newItems = whyProfessional.items.filter((_, i) => i !== index);
+                        updatePageField(pageKey, 'whyProfessional', { ...whyProfessional, items: newItems });
+                      }}><Trash2 className="h-4 w-4" /></Button>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Titel</Label>
+                      <Input 
+                        value={item.title} 
+                        onChange={(e) => {
+                          const newItems = [...whyProfessional.items];
+                          newItems[index] = { ...item, title: e.target.value };
+                          updatePageField(pageKey, 'whyProfessional', { ...whyProfessional, items: newItems });
+                        }} 
+                        placeholder="z.B. Fachmännische Planung"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Beschreibung</Label>
+                      <Textarea 
+                        value={item.description} 
+                        onChange={(e) => {
+                          const newItems = [...whyProfessional.items];
+                          newItems[index] = { ...item, description: e.target.value };
+                          updatePageField(pageKey, 'whyProfessional', { ...whyProfessional, items: newItems });
+                        }} 
+                        placeholder="Beschreibung des Vorteils"
+                        rows={2}
+                      />
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" onClick={() => {
+                  updatePageField(pageKey, 'whyProfessional', { 
+                    ...whyProfessional, 
+                    items: [...(whyProfessional.items || []), { title: '', description: '' }] 
+                  });
+                }}><Plus className="h-4 w-4 mr-2" />Vorteil hinzufügen</Button>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Versprechen</Label>
+                <Textarea 
+                  value={whyProfessional.promise} 
+                  onChange={(e) => updatePageField(pageKey, 'whyProfessional', {
+                    ...whyProfessional,
+                    promise: e.target.value
+                  })} 
+                  placeholder="z.B. Wir garantieren Ihnen höchste Qualität..."
+                  rows={3}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="process">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Layers className="h-4 w-4" />
+                Ablauf / Prozess
+              </CardTitle>
+              <CardDescription>Die Schritte Ihres Projekts im Überblick</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Überschrift</Label>
+                  <Input 
+                    value={processSteps.heading} 
+                    onChange={(e) => updatePageField(pageKey, 'processSteps', {
+                      ...processSteps,
+                      heading: e.target.value
+                    })} 
+                    placeholder="z.B. So läuft es ab"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Untertitel</Label>
+                  <Input 
+                    value={processSteps.subheading} 
+                    onChange={(e) => updatePageField(pageKey, 'processSteps', {
+                      ...processSteps,
+                      subheading: e.target.value
+                    })} 
+                    placeholder="z.B. Einfach und klar"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label className="text-base font-semibold">Schritte</Label>
+                {processSteps.steps?.map((step, index) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-sm">Schritt {index + 1}</span>
+                      <Button variant="ghost" size="icon" onClick={() => {
+                        const newSteps = processSteps.steps.filter((_, i) => i !== index);
+                        updatePageField(pageKey, 'processSteps', { ...processSteps, steps: newSteps });
+                      }}><Trash2 className="h-4 w-4" /></Button>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <Label>Titel</Label>
+                        <Input 
+                          value={step.title} 
+                          onChange={(e) => {
+                            const newSteps = [...processSteps.steps];
+                            newSteps[index] = { ...step, title: e.target.value };
+                            updatePageField(pageKey, 'processSteps', { ...processSteps, steps: newSteps });
+                          }} 
+                          placeholder="z.B. Beratung"
+                        />
+                      </div>
+                      <div className="col-span-2 space-y-2">
+                        <Label>Beschreibung</Label>
+                        <Input 
+                          value={step.description} 
+                          onChange={(e) => {
+                            const newSteps = [...processSteps.steps];
+                            newSteps[index] = { ...step, description: e.target.value };
+                            updatePageField(pageKey, 'processSteps', { ...processSteps, steps: newSteps });
+                          }} 
+                          placeholder="Kurze Beschreibung des Schritts"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" onClick={() => {
+                  updatePageField(pageKey, 'processSteps', { 
+                    ...processSteps, 
+                    steps: [...(processSteps.steps || []), { title: '', description: '' }] 
+                  });
+                }}><Plus className="h-4 w-4 mr-2" />Schritt hinzufügen</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="cta">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                Call-to-Action
+              </CardTitle>
+              <CardDescription>Der abschliessende Aufruf zum Handeln</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label>Überschrift</Label>
+                <Input 
+                  value={cta.heading} 
+                  onChange={(e) => updatePageField(pageKey, 'cta', {
+                    ...cta,
+                    heading: e.target.value
+                  })} 
+                  placeholder="z.B. Jetzt Termin vereinbaren"
                 />
               </div>
               <div className="space-y-2">
                 <Label>Untertitel</Label>
                 <Input 
-                  value={processSteps.subheading} 
-                  onChange={(e) => updatePageField(pageKey, 'processSteps', {
-                    ...processSteps,
+                  value={cta.subheading} 
+                  onChange={(e) => updatePageField(pageKey, 'cta', {
+                    ...cta,
                     subheading: e.target.value
                   })} 
-                  placeholder="z.B. Einfach und klar"
+                  placeholder="z.B. Wir beraten Sie gerne – kostenlos und unverbindlich."
                 />
               </div>
-            </div>
-            
-            <div className="space-y-2">
-              <Label className="text-base font-semibold">Schritte</Label>
-              {processSteps.steps?.map((step, index) => (
-                <div key={index} className="border rounded-lg p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm">Schritt {index + 1}</span>
-                    <Button variant="ghost" size="icon" onClick={() => {
-                      const newSteps = processSteps.steps.filter((_, i) => i !== index);
-                      updatePageField(pageKey, 'processSteps', { ...processSteps, steps: newSteps });
-                    }}><Trash2 className="h-4 w-4" /></Button>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="space-y-2">
-                      <Label>Titel</Label>
-                      <Input 
-                        value={step.title} 
-                        onChange={(e) => {
-                          const newSteps = [...processSteps.steps];
-                          newSteps[index] = { ...step, title: e.target.value };
-                          updatePageField(pageKey, 'processSteps', { ...processSteps, steps: newSteps });
-                        }} 
-                        placeholder="z.B. Beratung"
-                      />
-                    </div>
-                    <div className="col-span-2 space-y-2">
-                      <Label>Beschreibung</Label>
-                      <Input 
-                        value={step.description} 
-                        onChange={(e) => {
-                          const newSteps = [...processSteps.steps];
-                          newSteps[index] = { ...step, description: e.target.value };
-                          updatePageField(pageKey, 'processSteps', { ...processSteps, steps: newSteps });
-                        }} 
-                        placeholder="Kurze Beschreibung des Schritts"
-                      />
-                    </div>
-                  </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Button Text</Label>
+                  <Input 
+                    value={cta.buttonText} 
+                    onChange={(e) => updatePageField(pageKey, 'cta', {
+                      ...cta,
+                      buttonText: e.target.value
+                    })} 
+                    placeholder="z.B. Jetzt Kontakt aufnehmen"
+                  />
                 </div>
-              ))}
-              <Button variant="outline" onClick={() => {
-                updatePageField(pageKey, 'processSteps', { 
-                  ...processSteps, 
-                  steps: [...(processSteps.steps || []), { title: '', description: '' }] 
-                });
-              }}><Plus className="h-4 w-4 mr-2" />Schritt hinzufügen</Button>
-            </div>
-          </CardContent>
-        </Card>
-        
-        {/* CTA Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm flex items-center gap-2">
-              <Phone className="h-4 w-4" />
-              Call-to-Action
-            </CardTitle>
-            <CardDescription>Der abschliessende Aufruf zum Handeln</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label>Überschrift</Label>
-              <Input 
-                value={cta.heading} 
-                onChange={(e) => updatePageField(pageKey, 'cta', {
-                  ...cta,
-                  heading: e.target.value
-                })} 
-                placeholder="z.B. Jetzt Termin vereinbaren"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Untertitel</Label>
-              <Input 
-                value={cta.subheading} 
-                onChange={(e) => updatePageField(pageKey, 'cta', {
-                  ...cta,
-                  subheading: e.target.value
-                })} 
-                placeholder="z.B. Wir beraten Sie gerne – kostenlos und unverbindlich."
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Button Text</Label>
-                <Input 
-                  value={cta.buttonText} 
-                  onChange={(e) => updatePageField(pageKey, 'cta', {
-                    ...cta,
-                    buttonText: e.target.value
-                  })} 
-                  placeholder="z.B. Jetzt Kontakt aufnehmen"
-                />
+                <div className="space-y-2">
+                  <Label>Button Link</Label>
+                  <Input 
+                    value={cta.buttonLink} 
+                    onChange={(e) => updatePageField(pageKey, 'cta', {
+                      ...cta,
+                      buttonLink: e.target.value
+                    })} 
+                    placeholder="z.B. /#contact"
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Button Link</Label>
-                <Input 
-                  value={cta.buttonLink} 
-                  onChange={(e) => updatePageField(pageKey, 'cta', {
-                    ...cta,
-                    buttonLink: e.target.value
-                  })} 
-                  placeholder="z.B. /#contact"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     );
   };
 
