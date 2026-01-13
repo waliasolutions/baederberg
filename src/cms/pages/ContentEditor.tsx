@@ -23,6 +23,7 @@ import { defaultContent } from '../schema';
 import { realTestimonials } from '@/data/testimonials';
 import type { Json } from '@/integrations/supabase/types';
 import { cn } from '@/lib/utils';
+import { useAuth } from '../hooks/useAuth';
 
 // ========== TYPES ==========
 
@@ -185,6 +186,7 @@ export default function ContentEditor() {
   const { pageType: urlPageType, regionSlug } = useParams<{ pageType?: string; regionSlug?: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isAdmin } = useAuth();
 
   // State
   const [selectedPage, setSelectedPage] = useState<PageType>('home');
@@ -1320,10 +1322,12 @@ export default function ContentEditor() {
               </div>
               <div className="flex items-center gap-2">
                 {isDirty && <Badge variant="outline" className="text-amber-600 border-amber-600">Ungespeichert</Badge>}
-                <Button variant="outline" onClick={syncAllContent} disabled={isSyncing}>
-                  {isSyncing ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <RefreshCw className="h-4 w-4 mr-2" />}
-                  Sync All
-                </Button>
+                {isAdmin && (
+                  <Button variant="outline" onClick={syncAllContent} disabled={isSyncing}>
+                    {isSyncing ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <RefreshCw className="h-4 w-4 mr-2" />}
+                    Sync All
+                  </Button>
+                )}
                 {selectedPage === 'regions' && selectedRegion && (
                   <Button variant="destructive" size="icon" onClick={handleDeleteRegion}>
                     <Trash2 className="w-4 h-4" />

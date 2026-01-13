@@ -185,21 +185,23 @@ export function AdminDashboard() {
             <CardContent><Button asChild variant="outline" className="w-full"><Link to="/admin/media">Medien öffnen</Link></Button></CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-100 rounded-lg"><Palette className="text-purple-600" size={24} /></div>
-                <div>
-                  <CardTitle className="text-lg">Design anpassen</CardTitle>
-                  <CardDescription>Farben und Themes</CardDescription>
+          {isAdmin && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-purple-100 rounded-lg"><Palette className="text-purple-600" size={24} /></div>
+                  <div>
+                    <CardTitle className="text-lg">Design anpassen</CardTitle>
+                    <CardDescription>Farben und Themes</CardDescription>
+                  </div>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent><Button asChild variant="outline" className="w-full"><Link to="/admin/themes">Design öffnen</Link></Button></CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent><Button asChild variant="outline" className="w-full"><Link to="/admin/themes">Design öffnen</Link></Button></CardContent>
+            </Card>
+          )}
         </div>
 
-        <ThemePreview colors={activeTheme?.colors} themeName={activeTheme?.name} />
+        {isAdmin && <ThemePreview colors={activeTheme?.colors} themeName={activeTheme?.name} />}
 
         <Card>
           <CardHeader>
