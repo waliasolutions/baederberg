@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -24,8 +23,7 @@ export function AdminLogin() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showBootstrap, setShowBootstrap] = useState(false);
   const [isBootstrapping, setIsBootstrapping] = useState(false);
-  const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
-  const { signIn, signUp, user, isAdmin, isEditor, isLoading } = useAuth();
+  const { signIn, user, isAdmin, isEditor, isLoading } = useAuth();
   const navigate = useNavigate();
 
   // Redirect if already logged in and has role
@@ -109,36 +107,19 @@ export function AdminLogin() {
     
     setIsSubmitting(true);
     
-    if (activeTab === 'login') {
-      const { error } = await signIn(email, password);
-      
-      if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          toast.error('Ungültige Anmeldedaten');
-        } else {
-          toast.error(error.message);
-        }
-        setIsSubmitting(false);
-        return;
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      if (error.message.includes('Invalid login credentials')) {
+        toast.error('Ungültige Anmeldedaten');
+      } else {
+        toast.error(error.message);
       }
-      
-      toast.success('Erfolgreich angemeldet');
-    } else {
-      const { error } = await signUp(email, password);
-      
-      if (error) {
-        if (error.message.includes('already registered')) {
-          toast.error('E-Mail bereits registriert');
-        } else {
-          toast.error(error.message);
-        }
-        setIsSubmitting(false);
-        return;
-      }
-      
-      toast.success('Konto erstellt! Bitte prüfen Sie Ihre E-Mail zur Bestätigung.');
+      setIsSubmitting(false);
+      return;
     }
     
+    toast.success('Erfolgreich angemeldet');
     setIsSubmitting(false);
   };
 
@@ -202,62 +183,47 @@ export function AdminLogin() {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">CMS Zugang</CardTitle>
           <CardDescription>
-            Melden Sie sich an oder erstellen Sie ein Konto
+            Melden Sie sich an
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'login' | 'signup')}>
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="login">Anmelden</TabsTrigger>
-              <TabsTrigger value="signup">Registrieren</TabsTrigger>
-            </TabsList>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">E-Mail</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@example.com"
+                disabled={isSubmitting}
+                autoComplete="email"
+              />
+              {errors.email && (
+                <p className="text-sm text-destructive">{errors.email}</p>
+              )}
+            </div>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">E-Mail</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@example.com"
-                  disabled={isSubmitting}
-                  autoComplete="email"
-                />
-                {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email}</p>
-                )}
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="password">Passwort</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  disabled={isSubmitting}
-                  autoComplete={activeTab === 'login' ? 'current-password' : 'new-password'}
-                />
-                {errors.password && (
-                  <p className="text-sm text-destructive">{errors.password}</p>
-                )}
-              </div>
-              
-              <TabsContent value="login" className="mt-0 pt-0">
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? 'Anmelden...' : 'Anmelden'}
-                </Button>
-              </TabsContent>
-              
-              <TabsContent value="signup" className="mt-0 pt-0">
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? 'Registrieren...' : 'Konto erstellen'}
-                </Button>
-              </TabsContent>
-            </form>
-          </Tabs>
+            <div className="space-y-2">
+              <Label htmlFor="password">Passwort</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                disabled={isSubmitting}
+                autoComplete="current-password"
+              />
+              {errors.password && (
+                <p className="text-sm text-destructive">{errors.password}</p>
+              )}
+            </div>
+            
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? 'Anmelden...' : 'Anmelden'}
+            </Button>
+          </form>
           
           <div className="mt-6 text-center text-sm text-slate-500">
             <p>Nur für autorisierte Benutzer.</p>
