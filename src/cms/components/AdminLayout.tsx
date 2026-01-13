@@ -29,7 +29,7 @@ const navItems = [
 ];
 
 export function AdminLayout({ children }: AdminLayoutProps) {
-  const { user, signOut, isAdmin, isEditor } = useAuth();
+  const { user, signOut, isAdmin, isEditor, isLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -39,7 +39,23 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     navigate('/admin/login');
   };
 
-  if (!user || (!isAdmin && !isEditor)) {
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="animate-pulse text-slate-500">Laden...</div>
+      </div>
+    );
+  }
+
+  // Redirect to login if not authenticated
+  if (!user) {
+    navigate('/admin/login');
+    return null;
+  }
+
+  // Show access denied only if logged in but lacks proper role
+  if (!isAdmin && !isEditor) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
