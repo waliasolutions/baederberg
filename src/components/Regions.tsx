@@ -35,19 +35,7 @@ const Regions = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <motion.div 
-            className="flex items-center justify-center gap-2 mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <MapPin size={20} className="text-primary" />
-            <h2 className="text-sm md:text-base text-primary font-medium">
-              Unsere Regionen
-            </h2>
-          </motion.div>
-          <motion.h3 
+          <motion.h3
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

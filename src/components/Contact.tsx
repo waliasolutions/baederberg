@@ -71,9 +71,6 @@ const Contact = () => {
           viewport={{ once: true }} 
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-secondary rounded-full">
-            Kontakt
-          </span>
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6">
             {heading}
           </h3>
