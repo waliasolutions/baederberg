@@ -25,7 +25,7 @@ const VideoSection = () => {
           </div>
 
           <motion.div
-            className="relative rounded-2xl overflow-hidden shadow-xl bg-black"
+            className="relative rounded-2xl overflow-hidden shadow-xl bg-black max-w-full"
             initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}

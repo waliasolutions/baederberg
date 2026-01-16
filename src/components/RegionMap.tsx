@@ -75,7 +75,7 @@ const RegionMap = () => {
   };
 
   return (
-    <div ref={ref} className={`relative h-[500px] w-full rounded-xl overflow-hidden shadow-lg ${inView ? 'animate-fade-in' : 'opacity-0'}`}>
+    <div ref={ref} className={`relative h-[350px] sm:h-[400px] md:h-[500px] w-full rounded-xl overflow-hidden shadow-lg ${inView ? 'animate-fade-in' : 'opacity-0'}`}>
       <div className="absolute inset-0 bg-secondary">
         <div ref={mapRef} className="relative w-full h-full overflow-hidden">
           <img 
@@ -126,7 +126,7 @@ const RegionMap = () => {
         </div>
       </div>
       
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/90 to-transparent p-8">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/90 to-transparent p-4 md:p-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Navigation size={20} className="text-[#0E5A94]" />
           <h4 className="text-sm font-medium text-[#0E5A94]">Unsere Standorte</h4>

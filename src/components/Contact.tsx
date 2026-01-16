@@ -98,25 +98,25 @@ const Contact = () => {
             )}
             
             <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">Name</label>
-                  <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                  <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[44px]" />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">E-Mail</label>
-                  <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                  <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[44px]" />
                 </div>
               </div>
               
               <div className="mb-4">
                 <label htmlFor="phone" className="block text-sm font-medium text-muted-foreground mb-1">Telefon</label>
-                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[44px]" />
               </div>
               
               <div className="mb-4">
                 <label htmlFor="service" className="block text-sm font-medium text-muted-foreground mb-1">Leistung</label>
-                <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white">
+                <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white min-h-[44px]">
                   <option value="">Bitte wählen</option>
                   <option value="Badumbau">Badumbau</option>
                   <option value="Küchenumbau">Küchenumbau</option>
@@ -126,7 +126,7 @@ const Contact = () => {
               
               <div className="mb-6">
                 <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">Nachricht</label>
-                <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"></textarea>
+                <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"></textarea>
               </div>
               
               <button 

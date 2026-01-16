@@ -189,7 +189,7 @@ const RegionPage = () => {
       <div className="relative h-[50vh] md:h-[60vh] bg-cover bg-center" style={{ backgroundImage: `url('${region.heroImage}')` }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="container mx-auto px-6 md:px-12 h-full flex flex-col justify-center items-start relative z-10">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold mb-4 break-words max-w-full">{region.title}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white font-bold mb-4 break-words hyphens-auto max-w-full">{region.title}</h1>
           <p className="text-lg md:text-xl text-white/90 mb-6">{region.description}</p>
           <a href="#contact" className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors">
             Kontakt aufnehmen <ArrowRight className="ml-2 h-5 w-5" />

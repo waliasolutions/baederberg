@@ -40,7 +40,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         ))}
       </div>
       
-      <p className="text-base text-muted-foreground leading-relaxed mb-6 flex-grow">
+      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 flex-grow">
         "{quote}"
       </p>
       
