@@ -78,7 +78,7 @@ const Footer = () => {
   return (
     <footer className="bg-footer text-footer-foreground">
       <div className="container px-6 md:px-12 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           <div>
             <Link to="/" className="text-2xl font-bold tracking-tight mb-6 inline-block">
               {companyName}

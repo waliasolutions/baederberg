@@ -41,7 +41,7 @@ const About = () => {
             <img 
               src={imageUrl}
               alt="Modernes Badezimmer" 
-              className="w-full rounded-2xl shadow-lg object-cover h-[280px] md:h-[350px] lg:h-[400px] max-h-[50vh]"
+              className="w-full rounded-2xl shadow-lg object-cover aspect-[4/3] max-h-[300px] md:max-h-[400px]"
             />
           </div>
           

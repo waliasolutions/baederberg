@@ -104,7 +104,7 @@ const Hero = () => {
       
       <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
         <div className="max-w-3xl mx-auto text-center px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 md:mb-10">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-8 md:mb-10 break-words">
             {currentSlide.heading}
           </h1>
           

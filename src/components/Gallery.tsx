@@ -59,12 +59,12 @@ const Gallery = () => {
         </div>
         
         <div className="flex justify-center mb-12">
-          <div className="inline-flex p-1 bg-secondary/30 rounded-lg">
+          <div className="inline-flex flex-wrap justify-center p-1 bg-secondary/30 rounded-lg gap-1">
             {filters.map((filter) => (
               <button
                 key={filter.label}
                 onClick={() => setActiveFilter(filter.value)}
-                className={`px-4 py-2 rounded-md text-sm transition-colors ${
+                className={`px-4 py-2.5 rounded-md text-sm min-h-[44px] transition-colors ${
                   activeFilter === filter.value 
                     ? 'bg-white text-primary shadow-sm' 
                     : 'text-primary/70 hover:text-primary'

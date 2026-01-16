@@ -70,8 +70,8 @@ const Header = () => {
           {isMobile ? (
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <button 
-                  className="p-2 rounded-md hover:bg-secondary/20 transition-colors focus:outline-none"
+              <button 
+                  className="p-3 rounded-md hover:bg-secondary/20 transition-colors focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Open menu"
                 >
                   <Menu size={32} className="text-foreground" />
