@@ -76,24 +76,24 @@ const Footer = () => {
   const regionsColumn2 = regions.slice(5, 10);
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-footer text-footer-foreground">
       <div className="container px-6 md:px-12 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <Link to="/" className="text-2xl font-bold tracking-tight mb-6 inline-block">
               {companyName}
             </Link>
-            <p className="text-primary-foreground/80 mb-6">
+            <p className="text-footer-foreground/80 mb-6">
               {tagline}
             </p>
             <div className="space-y-4 mb-6">
               <div className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-primary-foreground/80" />
-                <p className="text-primary-foreground/80 text-sm">5 Jahre Garantie auf alle Arbeiten</p>
+                <Shield className="h-5 w-5 text-footer-foreground/80" />
+                <p className="text-footer-foreground/80 text-sm">5 Jahre Garantie auf alle Arbeiten</p>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-primary-foreground/80" />
-                <p className="text-primary-foreground/80 text-sm">Kostenlose Vermessung vor der Installation</p>
+                <MapPin className="h-5 w-5 text-footer-foreground/80" />
+                <p className="text-footer-foreground/80 text-sm">Kostenlose Vermessung vor der Installation</p>
               </div>
             </div>
             {finalSocialLinks.length > 0 && (
@@ -106,7 +106,7 @@ const Footer = () => {
                       href={link.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+                      className="h-10 w-10 flex items-center justify-center rounded-full bg-footer-foreground/10 hover:bg-footer-foreground/20 transition-colors"
                       aria-label={link.platform}
                     >
                       <Icon size={18} />
@@ -121,25 +121,25 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-6">Leistungen</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/badumbau" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                <Link to="/badumbau" className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                   <ChevronRight size={16} className="mr-2" />
                   Badumbau
                 </Link>
               </li>
               <li>
-                <Link to="/kuechenumbau" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                <Link to="/kuechenumbau" className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                   <ChevronRight size={16} className="mr-2" />
                   Küchenumbau
                 </Link>
               </li>
               <li>
-                <Link to="/innenausbau" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                <Link to="/innenausbau" className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                   <ChevronRight size={16} className="mr-2" />
                   Innenausbau
                 </Link>
               </li>
               <li>
-                <Link to="/#gallery" className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                <Link to="/#gallery" className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                   <ChevronRight size={16} className="mr-2" />
                   Projektreferenzen
                 </Link>
@@ -154,7 +154,7 @@ const Footer = () => {
                 <ul className="space-y-2">
                   {regionsColumn1.map((region) => (
                     <li key={region.slug}>
-                      <Link to={`/region/${region.slug}`} className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                      <Link to={`/region/${region.slug}`} className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                         <ChevronRight size={16} className="mr-2" />
                         {region.title}
                       </Link>
@@ -168,7 +168,7 @@ const Footer = () => {
                   <ul className="space-y-2">
                     {regionsColumn2.map((region) => (
                       <li key={region.slug}>
-                        <Link to={`/region/${region.slug}`} className="text-primary-foreground/80 hover:text-primary-foreground flex items-center transition-colors">
+                        <Link to={`/region/${region.slug}`} className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                           <ChevronRight size={16} className="mr-2" />
                           {region.title}
                         </Link>
@@ -183,38 +183,38 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-6">Kontakt</h4>
             <ul className="space-y-3">
-              <li className="text-primary-foreground/80">
+              <li className="text-footer-foreground/80">
                 {company}<br />
                 {street}<br />
                 {city}<br />
                 Schweiz
               </li>
-              <li className="text-primary-foreground/80">
+              <li className="text-footer-foreground/80">
                 {phone}
               </li>
-              <li className="text-primary-foreground/80">
+              <li className="text-footer-foreground/80">
                 {email}
               </li>
             </ul>
           </div>
         </div>
         
-        <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-primary-foreground/60">
+        <div className="mt-16 pt-8 border-t border-footer-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-sm text-footer-foreground/60">
             {copyright}
           </p>
           
-          <div className="flex flex-wrap gap-6 text-sm text-primary-foreground/60">
-            <Link to="/karriere" className="hover:text-primary-foreground transition-colors">
+          <div className="flex flex-wrap gap-6 text-sm text-footer-foreground/60">
+            <Link to="/karriere" className="hover:text-footer-foreground transition-colors">
               Karriere
             </Link>
-            <Link to="/impressum" className="hover:text-primary-foreground transition-colors">
+            <Link to="/impressum" className="hover:text-footer-foreground transition-colors">
               Impressum
             </Link>
-            <Link to="/datenschutz" className="hover:text-primary-foreground transition-colors">
+            <Link to="/datenschutz" className="hover:text-footer-foreground transition-colors">
               Datenschutz
             </Link>
-            <Link to="/agb" className="hover:text-primary-foreground transition-colors">
+            <Link to="/agb" className="hover:text-footer-foreground transition-colors">
               AGB
             </Link>
           </div>
