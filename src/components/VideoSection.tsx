@@ -6,27 +6,27 @@ const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section className="py-24 md:py-32 bg-background">
+    <section className="py-20 md:py-28 bg-background">
       <div className="container px-6 md:px-12">
         <motion.div
-          className="max-w-5xl mx-auto"
+          className="max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 font-inter">
               So arbeiten wir
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
               Erfahren Sie mehr über unsere Arbeitsweise und warum Kunden uns ihr Vertrauen schenken
             </p>
           </div>
 
           <motion.div
-            className="relative rounded-2xl overflow-hidden shadow-2xl bg-black"
-            initial={{ opacity: 0, scale: 0.95 }}
+            className="relative rounded-2xl overflow-hidden shadow-xl bg-black"
+            initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -48,35 +48,24 @@ const VideoSection = () => {
               </video>
 
               {!isPlaying && (
-                <motion.div
-                  className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer"
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: isPlaying ? 0 : 1 }}
-                  transition={{ duration: 0.3 }}
+                <div
+                  className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-opacity duration-300"
                 >
-                  <motion.div
-                    className="w-20 h-20 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                  <div
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform duration-300"
                   >
-                    <Play className="w-8 h-8 text-primary ml-1" fill="currentColor" />
-                  </motion.div>
-                </motion.div>
+                    <Play className="w-6 h-6 md:w-8 md:h-8 text-primary ml-1" fill="currentColor" />
+                  </div>
+                </div>
               )}
             </div>
           </motion.div>
 
-          <motion.div
-            className="mt-8 text-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
               Von der Planung bis zur Fertigstellung – alles aus einer Hand
             </p>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

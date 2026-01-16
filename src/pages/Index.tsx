@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -19,10 +18,13 @@ const Index = () => {
   useEffect(() => {
     // Scroll to the anchor when loading the page with a hash
     if (location.hash) {
-      const element = document.querySelector(location.hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      // Small delay to ensure elements are rendered
+      setTimeout(() => {
+        const element = document.querySelector(location.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     } else {
       window.scrollTo(0, 0);
     }
@@ -36,9 +38,19 @@ const Index = () => {
       <Hero />
       <div className="w-full max-w-full overflow-x-hidden">
         <Services />
+        
+        {/* Gallery Section with clear separation */}
+        <div id="gallery" className="scroll-mt-24">
+          <Gallery />
+        </div>
+        
+        {/* Visual separator */}
+        <div className="h-8 md:h-12 bg-gradient-to-b from-background to-white"></div>
+        
+        {/* About Section with clear separation */}
         <About />
+        
         <VideoSection />
-        <Gallery />
         <Testimonials />
         <Contact />
         <Footer />

@@ -15,6 +15,16 @@ const InnenausbauPage = () => {
   const { testimonials } = useTestimonialsByProject('Innenausbau');
   const pageContent = usePageContent('innenausbau');
 
+  // Service-specific features for Innenausbau
+  const features = [
+    "Persönlicher Bauleiter",
+    "Individuelle Raumgestaltung",
+    "Einbaumöbel nach Mass",
+    "Hochwertige Materialien",
+    "Innovative Beleuchtungskonzepte",
+    "Elektroarbeiten und Garantie inklusive"
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
@@ -23,7 +33,7 @@ const InnenausbauPage = () => {
       />
       <Header />
       
-      <main className="pt-20">
+      <main className="pt-24 md:pt-28">
         {/* Hero Section */}
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -40,88 +50,44 @@ const InnenausbauPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight font-inter">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight font-inter">
                 {pageContent.heroHeading}
               </h1>
               
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed">
                 {pageContent.heroSubheading}
               </p>
             </motion.div>
           </div>
         </section>
         
-        {/* Introduction Section */}
+        {/* Centered Features Section */}
         <section className="py-16 md:py-24 bg-secondary/20">
-          <div className="container px-6 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-              >
-                <h2 className="text-3xl font-semibold mb-6 leading-tight">Was Sie bekommen</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
-                  {pageContent.introText}
-                </p>
-              </motion.div>
-              
-              <motion.div
-                className="grid grid-cols-2 gap-4"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-              >
-                {pageContent.features.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-2 bg-background p-4 rounded-lg shadow-sm">
-                    <CheckCircle className="text-primary flex-shrink-0 mt-0.5" size={20} />
-                    <span className="text-sm font-medium leading-relaxed">{feature}</span>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </section>
-        
-        {/* Why Professional Service Section */}
-        <section className="py-16 md:py-24 bg-background">
           <div className="container px-6 md:px-12">
             <motion.div
               className="max-w-4xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center leading-tight">
-                {pageContent.whyProfessional.heading}
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                {pageContent.whyProfessional.items.map((item, index) => (
-                  <div key={index} className="bg-secondary/20 p-6 rounded-lg">
-                    <h3 className="text-xl font-semibold mb-4 text-primary">{item.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {features.map((feature, index) => (
+                  <div 
+                    key={index} 
+                    className="flex items-center gap-3 p-4 bg-background rounded-lg shadow-sm"
+                  >
+                    <CheckCircle className="text-primary flex-shrink-0" size={24} />
+                    <span className="font-medium">{feature}</span>
                   </div>
                 ))}
               </div>
-              
-              {pageContent.whyProfessional.promise && (
-                <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg">
-                  <p className="text-lg leading-relaxed">
-                    <strong>Unser Versprechen:</strong> {pageContent.whyProfessional.promise}
-                  </p>
-                </div>
-              )}
             </motion.div>
           </div>
         </section>
         
         {/* Process Section */}
-        <section className="py-16 md:py-24 bg-secondary/20">
+        <section className="py-16 md:py-24 bg-background">
           <div className="container px-6 md:px-12">
             <motion.div
               className="text-center mb-12"
@@ -129,8 +95,8 @@ const InnenausbauPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">{pageContent.processSteps.heading}</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">{pageContent.processSteps.heading}</h2>
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 {pageContent.processSteps.subheading}
               </p>
             </motion.div>
@@ -139,14 +105,14 @@ const InnenausbauPage = () => {
               {pageContent.processSteps.steps.map((step, index) => (
                 <motion.div
                   key={index}
-                  className="bg-background p-6 rounded-lg shadow-sm"
+                  className="bg-secondary/20 p-6 rounded-lg"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <h3 className="text-xl font-semibold mb-3 text-primary">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                  <h3 className="text-lg md:text-xl font-semibold mb-3 text-primary">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">{step.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -154,10 +120,10 @@ const InnenausbauPage = () => {
         </section>
         
         {/* Testimonials Section */}
-        <section className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30">
+        <section className="py-20 md:py-28 bg-gradient-to-b from-background to-muted/30">
           <div className="container px-6 md:px-12">
             <motion.div 
-              className="text-center max-w-3xl mx-auto mb-16"
+              className="text-center max-w-3xl mx-auto mb-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -169,10 +135,10 @@ const InnenausbauPage = () => {
                   Kundenstimmen
                 </h2>
               </div>
-              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-tight">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6 leading-tight">
                 Zufriedene Kunden
               </h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                 Echte Erfahrungen von unseren Kunden
               </p>
             </motion.div>
@@ -194,12 +160,12 @@ const InnenausbauPage = () => {
               viewport={{ once: true }}
               className="max-w-3xl mx-auto"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">{pageContent.cta.heading}</h2>
-              <p className="text-xl mb-8 text-white/90 leading-relaxed">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight">{pageContent.cta.heading}</h2>
+              <p className="text-lg md:text-xl mb-8 text-white/90 leading-relaxed">
                 {pageContent.cta.subheading}
               </p>
               <Link to={pageContent.cta.buttonLink}>
-                <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
+                <Button size="lg" variant="secondary" className="text-base md:text-lg px-8 py-6">
                   {pageContent.cta.buttonText}
                 </Button>
               </Link>

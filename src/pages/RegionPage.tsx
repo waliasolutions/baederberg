@@ -162,7 +162,7 @@ const RegionPage = () => {
         <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center p-8">
-            <h1 className="text-3xl font-bold text-foreground mb-4">Region nicht gefunden</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Region nicht gefunden</h1>
             <p className="text-muted-foreground mb-8">Die gesuchte Region ist nicht verfügbar.</p>
             <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
               Zurück zur Startseite <ArrowRight className="ml-2 h-4 w-4" />
@@ -186,11 +186,11 @@ const RegionPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <div className="relative h-[60vh] md:h-[70vh] bg-cover bg-center" style={{ backgroundImage: `url('${region.heroImage}')` }}>
+      <div className="relative h-[50vh] md:h-[60vh] bg-cover bg-center" style={{ backgroundImage: `url('${region.heroImage}')` }}>
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="container mx-auto px-4 h-full flex flex-col justify-center items-start relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-4">{region.title}</h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-6">{region.description}</p>
+        <div className="container mx-auto px-6 md:px-12 h-full flex flex-col justify-center items-start relative z-10">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold mb-4 break-words max-w-full">{region.title}</h1>
+          <p className="text-lg md:text-xl text-white/90 mb-6">{region.description}</p>
           <a href="#contact" className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-md hover:bg-primary/90 transition-colors">
             Kontakt aufnehmen <ArrowRight className="ml-2 h-5 w-5" />
           </a>
@@ -199,14 +199,14 @@ const RegionPage = () => {
       
       {/* Services Section */}
       <section className="py-16 md:py-20 bg-secondary">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-foreground mb-10 text-center">Unsere Leistungen in {cityName}</h2>
+        <div className="container mx-auto px-6 md:px-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10 text-center">Unsere Leistungen in {cityName}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Badumbau */}
             <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Badumbau</h3>
-              <p className="text-muted-foreground mb-6">{region.services.badumbau}</p>
+              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Badumbau</h3>
+              <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.badumbau}</p>
               <Link to="/badumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
                 Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -214,8 +214,8 @@ const RegionPage = () => {
             
             {/* Küchenumbau */}
             <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Küchenumbau</h3>
-              <p className="text-muted-foreground mb-6">{region.services.kuechenumbau}</p>
+              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Küchenumbau</h3>
+              <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.kuechenumbau}</p>
               <Link to="/kuechenumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
                 Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -223,8 +223,8 @@ const RegionPage = () => {
             
             {/* Innenausbau */}
             <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Innenausbau</h3>
-              <p className="text-muted-foreground mb-6">{region.services.innenausbau}</p>
+              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Innenausbau</h3>
+              <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.innenausbau}</p>
               <Link to="/innenausbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
                 Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -235,15 +235,15 @@ const RegionPage = () => {
       
       {/* Why Us Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">Warum Bäderberg in {cityName}?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Warum Bäderberg in {cityName}?</h2>
             
             <ul className="space-y-4">
               {region.whyUs.map((point, index) => (
                 <li key={index} className="flex items-start">
                   <span className="text-primary mr-3 mt-1">•</span>
-                  <span className="text-lg text-muted-foreground">{point}</span>
+                  <span className="text-base md:text-lg text-muted-foreground">{point}</span>
                 </li>
               ))}
             </ul>
@@ -254,8 +254,8 @@ const RegionPage = () => {
       {/* Testimonials */}
       {region.testimonials.length > 0 && (
         <section id="testimonials" className="py-16 bg-secondary">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-10">Was unsere Kunden sagen</h2>
+          <div className="container mx-auto px-6 md:px-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">Was unsere Kunden sagen</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {region.testimonials.map((testimonial, index) => (
@@ -274,15 +274,15 @@ const RegionPage = () => {
       
       {/* FAQ */}
       <section id="faq" className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-10">Häufige Fragen</h2>
+        <div className="container mx-auto px-6 md:px-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">Häufige Fragen</h2>
           
           <div className="max-w-3xl mx-auto">
             <div className="space-y-4">
               {region.faq.map((item, index) => (
                 <div key={index} className="bg-background p-6 rounded-lg shadow-sm border border-border">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{item.question}</h3>
-                  <p className="text-muted-foreground">{item.answer}</p>
+                  <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">{item.question}</h3>
+                  <p className="text-muted-foreground text-sm md:text-base">{item.answer}</p>
                 </div>
               ))}
             </div>
@@ -292,12 +292,12 @@ const RegionPage = () => {
       
       {/* Contact */}
       <section id="contact" className="py-16 bg-secondary">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
               <div>
-                <h2 className="text-3xl font-bold text-foreground mb-6">Kontaktieren Sie uns</h2>
-                <p className="text-lg text-muted-foreground mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Kontaktieren Sie uns</h2>
+                <p className="text-base md:text-lg text-muted-foreground mb-8">
                   Haben Sie Fragen oder möchten Sie ein unverbindliches Angebot? Kontaktieren Sie uns:
                 </p>
                 
@@ -327,8 +327,8 @@ const RegionPage = () => {
               </div>
               
               <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Kostenlose Beratung</h3>
-                <p className="text-muted-foreground mb-6">
+                <h3 className="text-lg md:text-xl font-semibold text-foreground mb-4">Kostenlose Beratung</h3>
+                <p className="text-muted-foreground mb-6 text-sm md:text-base">
                   Rufen Sie uns an oder schreiben Sie uns eine E-Mail. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
                 </p>
                 <Link 
