@@ -1,6 +1,5 @@
 import { useInView } from 'react-intersection-observer';
 import RegionMap from './RegionMap';
-import { MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSectionContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
@@ -35,15 +34,15 @@ const Regions = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <motion.h3
-            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
+          <motion.h2 
+            className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             {heading}
-          </motion.h3>
+          </motion.h2>
           <motion.p 
             className="text-muted-foreground text-lg"
             initial={{ opacity: 0 }}

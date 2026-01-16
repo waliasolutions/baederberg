@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, MessageCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
@@ -129,15 +129,9 @@ const KuechenumbauPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <MessageCircle size={20} className="text-primary" />
-                <h2 className="text-sm md:text-base text-primary font-medium">
-                  Kundenstimmen
-                </h2>
-              </div>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6 leading-tight">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6 leading-tight">
                 Zufriedene Kunden
-              </h3>
+              </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                 Echte Erfahrungen von unseren Kunden
               </p>
