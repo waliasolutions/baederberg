@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSectionContent } from '@/cms/context/ContentProvider';
@@ -34,10 +33,6 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { ref } = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -56,15 +51,6 @@ const Contact = () => {
     }, 1500);
   };
 
-  const formFieldVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: 0.2 + custom * 0.1, duration: 0.5 }
-    })
-  };
-
   const contactInfo = [
     { icon: <Phone size={18} />, title: "Telefon", content: phone },
     { icon: <Mail size={18} />, title: "E-Mail", content: email },
@@ -76,95 +62,64 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 md:py-32">
+    <section id="contact" className="py-20 md:py-28">
       <div className="container px-6 md:px-12">
         <motion.div 
-          className="text-center max-w-3xl mx-auto mb-16" 
-          initial={{ opacity: 0, y: 30 }} 
+          className="text-center max-w-3xl mx-auto mb-12" 
+          initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true, margin: "-100px" }} 
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true }} 
+          transition={{ duration: 0.6 }}
         >
-          <motion.h2 
-            className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-secondary rounded-full" 
-            initial={{ opacity: 0, scale: 0.8 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <span className="inline-block px-3 py-1 mb-4 text-sm md:text-base text-primary bg-secondary rounded-full">
             Kontakt
-          </motion.h2>
-          <motion.h3 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6" 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
+          </span>
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6">
             {heading}
-          </motion.h3>
-          <motion.p 
-            className="text-muted-foreground text-lg" 
-            initial={{ opacity: 0 }} 
-            whileInView={{ opacity: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
+          </h3>
+          <p className="text-muted-foreground text-base md:text-lg">
             {subheading}
-          </motion.p>
+          </p>
         </motion.div>
         
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <motion.div 
             className="bg-white rounded-2xl p-8 shadow-sm" 
-            initial={{ opacity: 0, x: -50 }} 
+            initial={{ opacity: 0, x: -30 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
-            transition={{ duration: 0.7, type: "spring", stiffness: 50 }}
-            whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+            transition={{ duration: 0.6 }}
           >
-            <motion.h4 
-              className="text-2xl font-semibold mb-6" 
-              initial={{ opacity: 0, y: 10 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              viewport={{ once: true }} 
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
+            <h4 className="text-xl md:text-2xl font-semibold mb-6">
               Schreiben Sie uns
-            </motion.h4>
+            </h4>
             
             {isSuccess && (
-              <motion.div 
-                className="mb-6 p-4 bg-green-50 text-green-800 rounded-lg" 
-                initial={{ opacity: 0, height: 0 }} 
-                animate={{ opacity: 1, height: 'auto' }}
-              >
+              <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-lg">
                 Vielen Dank für Ihre Nachricht! Wir melden uns bald bei Ihnen.
-              </motion.div>
+              </div>
             )}
             
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <motion.div custom={0} variants={formFieldVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                <div>
                   <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">Name</label>
                   <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
-                </motion.div>
-                <motion.div custom={1} variants={formFieldVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                </div>
+                <div>
                   <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">E-Mail</label>
                   <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
-                </motion.div>
+                </div>
               </div>
               
               <div className="mb-4">
-                <motion.div custom={2} variants={formFieldVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <label htmlFor="phone" className="block text-sm font-medium text-muted-foreground mb-1">Telefon</label>
-                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
-                </motion.div>
+                <label htmlFor="phone" className="block text-sm font-medium text-muted-foreground mb-1">Telefon</label>
+                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
               
               <div className="mb-4">
                 <label htmlFor="service" className="block text-sm font-medium text-muted-foreground mb-1">Leistung</label>
-                <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20">
+                <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white">
                   <option value="">Bitte wählen</option>
                   <option value="Badumbau">Badumbau</option>
                   <option value="Küchenumbau">Küchenumbau</option>
@@ -177,12 +132,10 @@ const Contact = () => {
                 <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows={4} className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"></textarea>
               </div>
               
-              <motion.button 
+              <button 
                 type="submit" 
                 disabled={isSubmitting} 
-                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg flex items-center justify-center gap-2 hover:shadow-lg transition-all"
-                whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
-                whileTap={{ scale: 0.98 }}
+                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
               >
                 {isSubmitting ? (
                   <>
@@ -198,30 +151,25 @@ const Contact = () => {
                     Nachricht senden
                   </>
                 )}
-              </motion.button>
+              </button>
             </form>
           </motion.div>
           
           <div>
             <motion.div 
               className="bg-white rounded-2xl p-8 shadow-sm mb-8" 
-              initial={{ opacity: 0, x: 50 }} 
+              initial={{ opacity: 0, x: 30 }} 
               whileInView={{ opacity: 1, x: 0 }} 
               viewport={{ once: true }} 
-              transition={{ duration: 0.7, type: "spring", stiffness: 50, delay: 0.1 }}
-              whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <motion.h4 className="text-2xl font-semibold mb-6">So erreichen Sie uns</motion.h4>
+              <h4 className="text-xl md:text-2xl font-semibold mb-6">So erreichen Sie uns</h4>
               
               <div className="space-y-6">
                 {contactInfo.map((item, index) => (
-                  <motion.div 
+                  <div 
                     key={item.title} 
-                    className="flex items-start gap-4" 
-                    initial={{ opacity: 0, x: 20 }} 
-                    whileInView={{ opacity: 1, x: 0 }} 
-                    viewport={{ once: true }} 
-                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                    className="flex items-start gap-4"
                   >
                     <div className="mt-1 h-8 w-8 flex items-center justify-center rounded-full bg-primary/10 text-primary">
                       {item.icon}
@@ -230,20 +178,19 @@ const Contact = () => {
                       <h5 className="font-medium mb-1">{item.title}</h5>
                       <p className="text-muted-foreground">{item.content}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </motion.div>
             
             <motion.div 
               className="bg-white rounded-2xl p-8 shadow-sm" 
-              initial={{ opacity: 0, x: 50 }} 
+              initial={{ opacity: 0, x: 30 }} 
               whileInView={{ opacity: 1, x: 0 }} 
               viewport={{ once: true }} 
-              transition={{ duration: 0.7, type: "spring", stiffness: 50, delay: 0.3 }}
-              whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.h4 className="text-2xl font-semibold mb-6">Wann Sie uns erreichen</motion.h4>
+              <h4 className="text-xl md:text-2xl font-semibold mb-6">Wann Sie uns erreichen</h4>
               
               <div className="space-y-3">
                 <div className="flex justify-between">

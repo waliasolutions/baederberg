@@ -47,7 +47,7 @@ const Gallery = () => {
     : projects;
 
   return (
-    <section id="gallery" className="py-24 md:py-32">
+    <section className="py-20 md:py-28 scroll-mt-24">
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">

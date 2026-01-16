@@ -2,29 +2,17 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile();
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,14 +43,26 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-background border-b border-border/50 transition-all duration-300">
-      <div className="container mx-auto px-4 py-4">
+      <div className={cn(
+        "container mx-auto px-4 transition-all duration-300",
+        isScrolled ? "py-2" : "py-4"
+      )}>
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center z-50">
-            <div className="bg-white p-1.5 md:p-2 rounded-md mr-2">
+          {/* Logo - Larger by default, shrinks on scroll */}
+          <Link to="/" className="flex items-center z-50 flex-shrink-0">
+            <div className={cn(
+              "bg-white rounded-md mr-2 transition-all duration-300",
+              isScrolled ? "p-1" : "p-1.5 md:p-2"
+            )}>
               <img 
                 src="/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png" 
                 alt="Bäderberg Logo" 
-                className="h-14 w-14 md:h-16 md:w-16 object-contain" 
+                className={cn(
+                  "object-contain transition-all duration-300",
+                  isScrolled 
+                    ? "h-10 w-10 md:h-12 md:w-12" 
+                    : "h-16 w-16 md:h-20 md:w-20"
+                )}
               />
             </div>
           </Link>
@@ -116,29 +116,30 @@ const Header = () => {
               </SheetContent>
             </Sheet>
           ) : (
-            <NavigationMenu className="hidden md:flex">
-              <NavigationMenuList className="flex items-center gap-2">
-                {mainNavItems.map((item) => (
-                  <NavigationMenuItem key={item.path}>
-            <Link 
-              to={item.path} 
-              className="px-4 py-2 text-base font-medium text-foreground rounded-lg hover:bg-secondary/20 transition-colors font-inter"
-            >
-              {item.title}
-            </Link>
-                  </NavigationMenuItem>
-                ))}
-                
-                <NavigationMenuItem>
-                  <Link 
-                    to="/#contact" 
-                    className="ml-3 px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-sm text-base font-inter"
-                  >
-                    Kontakt
-                  </Link>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+            /* Desktop Navigation - Full width centered */
+            <div className="hidden md:flex items-center justify-between flex-1 ml-8">
+              <nav className="flex-1 flex justify-center">
+                <ul className="flex items-center gap-8">
+                  {mainNavItems.map((item) => (
+                    <li key={item.path}>
+                      <Link 
+                        to={item.path} 
+                        className="px-3 py-2 text-lg font-medium text-foreground rounded-lg hover:bg-secondary/20 transition-colors"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              
+              <Link 
+                to="/#contact" 
+                className="flex-shrink-0 px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-sm text-lg"
+              >
+                Kontakt
+              </Link>
+            </div>
           )}
         </div>
       </div>

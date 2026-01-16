@@ -205,6 +205,9 @@ const Footer = () => {
           </p>
           
           <div className="flex flex-wrap gap-6 text-sm text-primary-foreground/60">
+            <Link to="/karriere" className="hover:text-primary-foreground transition-colors">
+              Karriere
+            </Link>
             <Link to="/impressum" className="hover:text-primary-foreground transition-colors">
               Impressum
             </Link>
