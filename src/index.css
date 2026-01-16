@@ -17,6 +17,9 @@
 
     --primary: 215 80% 25%;
     --primary-foreground: 210 40% 98%;
+    
+    --footer: 215 80% 20%;
+    --footer-foreground: 210 40% 98%;
 
     --secondary: 215 14% 94%;
     --secondary-foreground: 215 80% 25%;
