@@ -7,7 +7,7 @@ const AgbPage = () => {
     <div className="min-h-screen bg-background">
       <SEOHead 
         title="Allgemeine Geschäftsbedingungen - Bäderberg"
-        description="Allgemeine Geschäftsbedingungen der Bäderberg GmbH für Bad-, Küchen- und Innenausbau in der Schweiz."
+        description="Allgemeine Geschäftsbedingungen der Bäderberg GmbH für Bad-, Küchen- und Innenausbau."
       />
       <Header />
       
@@ -247,7 +247,7 @@ const AgbPage = () => {
 
                 <h3 className="text-lg font-semibold mt-6 mb-3">d) Recht und Gerichtsstand</h3>
                 <p className="text-muted-foreground">
-                  Auf das Vertragsverhältnis ist ausschliesslich schweizerisches Recht unter Ausschluss des Kollisionsrechts anwendbar. Ausschliesslicher Gerichtsstand ist der Sitz der Bäderberg GmbH in der Schweiz, soweit keine zwingenden gesetzlichen Bestimmungen entgegenstehen.
+                  Auf das Vertragsverhältnis ist ausschliesslich schweizerisches Recht unter Ausschluss des Kollisionsrechts anwendbar. Ausschliesslicher Gerichtsstand ist der Sitz der Bäderberg GmbH, soweit keine zwingenden gesetzlichen Bestimmungen entgegenstehen.
                 </p>
 
                 {/* Section 8 */}

@@ -50,7 +50,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const companyName = footerContent?.companyName || 'Bäderberg';
-  const tagline = footerContent?.tagline || 'Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau in der Schweiz.';
+  const tagline = footerContent?.tagline || 'Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau.';
   const copyright = footerContent?.copyright || `© ${currentYear} Bäderberg. Alle Rechte vorbehalten.`;
   
   // Build social links from business content or footer content
@@ -186,8 +186,7 @@ const Footer = () => {
               <li className="text-footer-foreground/80">
                 {company}<br />
                 {street}<br />
-                {city}<br />
-                Schweiz
+                {city}
               </li>
               <li className="text-footer-foreground/80">
                 {phone}

@@ -57,7 +57,7 @@ const Contact = () => {
     { 
       icon: <MapPin size={18} />, 
       title: "Unser Standort", 
-      content: <>{company}<br />{street}<br />{city}<br />Schweiz</>
+      content: <>{company}<br />{street}<br />{city}</>
     }
   ];
 

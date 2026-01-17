@@ -41,7 +41,7 @@ const UeberUnsPage = () => {
     <div className="min-h-screen bg-background">
       <SEOHead 
         title="Über Uns | Bäderberg - Ihr Partner für Bäder, Küchen & Innenausbau"
-        description="Lernen Sie Bäderberg kennen - Ihr zuverlässiger Partner für hochwertige Bäder, Küchen und Innenausbau in der Schweiz. Qualität und Kundenzufriedenheit stehen bei uns an erster Stelle."
+        description="Lernen Sie Bäderberg kennen - Ihr zuverlässiger Partner für hochwertige Bäder, Küchen und Innenausbau. Qualität und Kundenzufriedenheit stehen bei uns an erster Stelle."
       />
       <Header />
       
@@ -66,7 +66,7 @@ const UeberUnsPage = () => {
               Über Bäderberg
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl">
-              Ihr Partner für hochwertige Bäder, Küchen und Innenausbau in der Schweiz
+              Ihr Partner für hochwertige Bäder, Küchen und Innenausbau
             </p>
           </motion.div>
         </div>
