@@ -16,7 +16,7 @@ interface ContactContent {
 const Contact = () => {
   const contactContent = useSectionContent<ContactContent>('contact');
   
-  const heading = contactContent?.heading || 'Lassen Sie uns ins Gespräch kommen';
+  const heading = contactContent?.heading || 'Kontakt';
   const subheading = contactContent?.subheading || 'Wir freuen uns darauf, Sie kennenzulernen und Ihre Ideen zu hören. Schreiben Sie uns oder rufen Sie an.';
   const phone = contactContent?.phone || '+41 76 753 44 78';
   const email = contactContent?.email || 'info@baederberg.ch';

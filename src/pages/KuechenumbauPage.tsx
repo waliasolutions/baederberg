@@ -15,15 +15,6 @@ const KuechenumbauPage = () => {
   const { testimonials } = useTestimonialsByProject('Küchenumbau');
   const pageContent = usePageContent('kuechenumbau');
 
-  // Service-specific features for Küchenumbau
-  const features = [
-    "Persönlicher Bauleiter",
-    "Individuelle Küchenplanung",
-    "Einbau moderner Küchengeräte",
-    "Hochwertige Arbeitsflächen",
-    "Innovative Beleuchtungskonzepte",
-    "Elektroarbeiten und Garantie inklusive"
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,7 +63,7 @@ const KuechenumbauPage = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {features.map((feature, index) => (
+                {pageContent.features.map((feature, index) => (
                   <div 
                     key={index} 
                     className="flex items-center gap-3 p-4 bg-background rounded-lg shadow-sm"
