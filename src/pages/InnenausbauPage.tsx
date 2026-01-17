@@ -15,15 +15,6 @@ const InnenausbauPage = () => {
   const { testimonials } = useTestimonialsByProject('Innenausbau');
   const pageContent = usePageContent('innenausbau');
 
-  // Service-specific features for Innenausbau
-  const features = [
-    "Persönlicher Bauleiter",
-    "Individuelle Raumgestaltung",
-    "Einbaumöbel nach Mass",
-    "Hochwertige Materialien",
-    "Innovative Beleuchtungskonzepte",
-    "Elektroarbeiten und Garantie inklusive"
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,7 +63,7 @@ const InnenausbauPage = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {features.map((feature, index) => (
+                {pageContent.features.map((feature, index) => (
                   <div 
                     key={index} 
                     className="flex items-center gap-3 p-4 bg-background rounded-lg shadow-sm"

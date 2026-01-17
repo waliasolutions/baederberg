@@ -47,9 +47,13 @@ export function SEOHead({ title, description, ogImage, noIndex }: SEOHeadProps) 
   const gtmId = seoContent?.gtmId;
   const gtmHead = seoContent?.gtmHead;
   
+  // Use published domain for SEO
+  const publishedDomain = 'https://baederberg.lovable.app';
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const canonicalUrl = `${publishedDomain}${currentPath}`;
+  
   // Ensure OG image is absolute URL
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-  const absoluteOgImage = finalOgImage.startsWith('http') ? finalOgImage : `${baseUrl}${finalOgImage}`;
+  const absoluteOgImage = finalOgImage.startsWith('http') ? finalOgImage : `${publishedDomain}${finalOgImage}`;
 
   return (
     <Helmet>
@@ -62,6 +66,7 @@ export function SEOHead({ title, description, ogImage, noIndex }: SEOHeadProps) 
       <meta property="og:description" content={finalDescription} />
       <meta property="og:image" content={absoluteOgImage} />
       <meta property="og:type" content="website" />
+      <meta property="og:url" content={canonicalUrl} />
       <meta property="og:locale" content={language.replace('-', '_')} />
       
       {/* Twitter Card */}
@@ -71,10 +76,10 @@ export function SEOHead({ title, description, ogImage, noIndex }: SEOHeadProps) 
       <meta name="twitter:image" content={absoluteOgImage} />
       
       {/* Hreflang */}
-      <link rel="alternate" hrefLang={hreflang} href={typeof window !== 'undefined' ? window.location.href : ''} />
+      <link rel="alternate" hrefLang={hreflang} href={canonicalUrl} />
       
       {/* Canonical */}
-      <link rel="canonical" href={typeof window !== 'undefined' ? window.location.href : ''} />
+      <link rel="canonical" href={canonicalUrl} />
       
       {/* No index if specified */}
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
