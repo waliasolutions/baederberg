@@ -45,32 +45,34 @@ const UeberUnsPage = () => {
       />
       <Header />
       
-      {/* Hero Section */}
-      <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
-        <motion.img
-          src={imageUrl}
-          alt="Bäderberg - Über Uns"
-          className="absolute inset-0 w-full h-full object-cover"
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-        <div className="container px-6 md:px-12 h-full relative z-20 flex flex-col justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 break-words">
-              Über Bäderberg
-            </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl">
-              Ihr Partner für hochwertige Bäder, Küchen und Innenausbau
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <main className="pt-24 md:pt-28">
+        {/* Hero Section */}
+        <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
+          <div className="absolute inset-0 bg-black/50 z-10"></div>
+          <motion.img
+            src={imageUrl}
+            alt="Bäderberg - Über uns"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          />
+          <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
+            <motion.div
+              className="flex flex-col gap-6 max-w-3xl text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+                Über uns
+              </h1>
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+                Ihr Partner für hochwertige Bäder, Küchen und Innenausbau
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
       {/* Main Content Section */}
       <section className="py-16 md:py-24 bg-white">
@@ -154,6 +156,7 @@ const UeberUnsPage = () => {
           </motion.div>
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>
