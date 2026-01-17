@@ -11,6 +11,7 @@ import KuechenumbauPage from "./pages/KuechenumbauPage";
 import InnenausbauPage from "./pages/InnenausbauPage";
 import KarrierePage from "./pages/KarrierePage";
 import AgbPage from "./pages/AgbPage";
+import UeberUnsPage from "./pages/UeberUnsPage";
 import { useEffect } from "react";
 
 // CMS
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/innenausbau" element={<InnenausbauPage />} />
               <Route path="/karriere" element={<KarrierePage />} />
               <Route path="/agb" element={<AgbPage />} />
+              <Route path="/ueber-uns" element={<UeberUnsPage />} />
               
               {/* CMS Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

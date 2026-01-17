@@ -1,7 +1,7 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
-import About from '@/components/About';
+
 import VideoSection from '@/components/VideoSection';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
@@ -44,11 +44,6 @@ const Index = () => {
           <Gallery />
         </div>
         
-        {/* Visual separator */}
-        <div className="h-8 md:h-12 bg-gradient-to-b from-background to-white"></div>
-        
-        {/* About Section with clear separation */}
-        <About />
         
         <VideoSection />
         <Testimonials />

@@ -38,7 +38,7 @@ const Header = () => {
     { title: "Küchen", path: "/kuechenumbau" },
     { title: "Innenausbau", path: "/innenausbau" },
     { title: "Projekte", path: "/#gallery" },
-    { title: "Über Uns", path: "/#about" },
+    { title: "Über Uns", path: "/ueber-uns" },
   ];
 
   return (
