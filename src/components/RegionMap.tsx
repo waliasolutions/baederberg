@@ -80,7 +80,7 @@ const RegionMap = () => {
         <div ref={mapRef} className="relative w-full h-full overflow-hidden">
           <img 
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Switzerland_location_map.svg/1200px-Switzerland_location_map.svg.png" 
-            alt="Karte der Serviceregionen in der Schweiz"
+            alt="Karte der Serviceregionen"
             className="absolute inset-0 w-full h-full object-contain opacity-80"
           />
           

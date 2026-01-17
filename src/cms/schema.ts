@@ -570,7 +570,7 @@ export const defaultContent: Record<string, any> = {
   },
   regions: {
     heading: 'In Ihrer Nähe für Sie da',
-    subheading: 'Wir sind in verschiedenen Regionen der Schweiz aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.',
+    subheading: 'Wir sind in verschiedenen Regionen aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.',
     items: [
       { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich', heroImage: '/src/assets/regions/zurich-interior.jpg' },
       { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil', heroImage: '/src/assets/regions/richterswil-interior.jpg' },
