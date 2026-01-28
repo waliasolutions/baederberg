@@ -78,16 +78,9 @@ const Header = () => {
               </SheetTrigger>
               <SheetContent side="right" className="p-0 w-full sm:max-w-sm">
                 <div className="flex flex-col h-full">
-                  <div className="px-4 py-4 border-b border-border flex items-center justify-between">
-                    <h3 className="text-lg font-medium">Menü</h3>
-                    <button
-                      onClick={() => setIsMenuOpen(false)}
-                      className="p-2 rounded-md hover:bg-secondary/20 transition-colors"
-                      aria-label="Close menu"
-                    >
-                      <X size={24} />
-                    </button>
-                  </div>
+                <div className="px-4 py-4 border-b border-border">
+                  <h3 className="text-lg font-medium">Menü</h3>
+                </div>
                   
                   <nav className="flex flex-col px-2 py-4 overflow-y-auto flex-1">
                     {mainNavItems.map((item) => (
