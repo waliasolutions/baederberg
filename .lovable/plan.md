@@ -1,99 +1,158 @@
 
 
-## Plan: Remove Kitchen References from All Region Pages
-
-The database contains 10 region records, each with multiple "Küche" references that need to be cleaned up. The region names themselves are correct and properly formatted.
+## Plan: Add New Badumbau Images, Remove Descriptions, Add Lightbox
 
 ---
 
-### Summary of Issues Found
+### Summary
 
-| Region | Kitchen References Found |
-|--------|-------------------------|
-| erlenbach | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| kilchberg | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| kuesnacht | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| lachen | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| meilen | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| pfaeffikon | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| richterswil | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| waedenswil | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| zollikon | description, metaDescription, services.kuechenumbau, faq[0].answer |
-| zurich | description, metaDescription, services.kuechenumbau, faq[0].answer |
+This plan adds 10 new bathroom reference images, removes all text descriptions from gallery cards (image-only view), and implements a lightbox for full-screen image viewing on click.
 
 ---
 
 ### Changes Required
 
-For each of the 10 regions, update the database content to:
-
-1. **description**: Change from "Bad, Küche und Innenausbau in [Region]" to "Bad und Innenausbau in [Region]"
-
-2. **metaDescription**: Change from "Bad, Küche und Innenausbau in [Region]" to "Bad und Innenausbau in [Region]"
-
-3. **services**: Remove the `kuechenumbau` key entirely (keep only `badumbau` and `innenausbau`)
-
-4. **faq[0].answer**: Change from "Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab." to "Ein Badumbau dauert 3-6 Wochen, ein Innenausbau-Projekt je nach Umfang 2-6 Wochen. Der genaue Zeitplan hängt vom Umfang ab."
+| Task | Type | Description |
+|------|------|-------------|
+| 1 | Files | Copy 10 new images to public/images (badumbau-k through badumbau-t) |
+| 2 | Database | Update gallery content to add 10 new Badumbau items |
+| 3 | Component | Modify ProjectCard to remove title, add lightbox functionality |
+| 4 | Component | Update Gallery to provide all images for lightbox navigation |
 
 ---
 
-### Database Updates
+### Task 1: Copy New Images
 
-10 SQL UPDATE statements will be executed - one for each region. Each update will set the corrected content JSON with:
+Copy the 10 uploaded images to the public folder:
+- `user-uploads://bad-k.jpeg` → `public/images/badumbau-k.jpg`
+- `user-uploads://bad-l.jpeg` → `public/images/badumbau-l.jpg`
+- `user-uploads://bad-m.jpeg` → `public/images/badumbau-m.jpg`
+- `user-uploads://bad-n.jpeg` → `public/images/badumbau-n.jpg`
+- `user-uploads://bad-o.jpeg` → `public/images/badumbau-o.jpg`
+- `user-uploads://bad-p.jpeg` → `public/images/badumbau-p.jpg`
+- `user-uploads://bad-q.jpeg` → `public/images/badumbau-q.jpg`
+- `user-uploads://bad-r.jpeg` → `public/images/badumbau-r.jpg`
+- `user-uploads://bad-s.jpeg` → `public/images/badumbau-s.jpg`
+- `user-uploads://bad-t.jpeg` → `public/images/badumbau-t.jpg`
 
-- Proper region name in title (already correct)
-- Description without "Küche"
-- Meta description without "Küche"
-- Services object with only badumbau and innenausbau (no kuechenumbau)
-- Updated FAQ answer without "Küchenumbau" reference
+---
 
-**Example update for Richterswil:**
+### Task 2: Update Gallery Database
+
+Update the database to include all 22 gallery items (20 Badumbau + 2 Innenausbau):
+
 ```sql
 UPDATE content SET content = '{
-  "title": "Bäderberg in Richterswil",
-  "description": "Bad und Innenausbau in Richterswil",
-  "metaTitle": "Bäderberg in Richterswil - Bäderberg",
-  "metaDescription": "Bad und Innenausbau in Richterswil",
-  "heroImage": "/src/assets/regions/richterswil-interior.jpg",
-  "services": {
-    "badumbau": "Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.",
-    "innenausbau": "Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um."
-  },
-  "whyUs": [...],
-  "faq": [
-    {"question": "Wie lange dauert ein Umbau?", "answer": "Ein Badumbau dauert 3-6 Wochen, ein Innenausbau-Projekt je nach Umfang 2-6 Wochen. Der genaue Zeitplan hängt vom Umfang ab."},
-    ...
-  ],
-  "testimonials": []
+  "heading": "Was wir für andere gestaltet haben",
+  "subheading": "Hier sehen Sie einige unserer abgeschlossenen Projekte.",
+  "items": [
+    {"image": "/images/badumbau-a.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-b.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-c.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-d.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-e.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-f.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-g.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-h.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-i.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-j.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-k.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-l.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-m.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-n.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-o.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-p.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-q.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-r.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-s.jpg", "category": "Badumbau"},
+    {"image": "/images/badumbau-t.jpg", "category": "Badumbau"},
+    {"image": "/images/innenausbau-a.jpg", "category": "Innenausbau"},
+    {"image": "/images/innenausbau-b.jpg", "category": "Innenausbau"}
+  ]
 }'
-WHERE section_key = 'region' AND content_key = 'richterswil';
+WHERE section_key = 'gallery' AND content_key = 'default';
+```
+
+Note: Title field removed from all items since we no longer display descriptions.
+
+---
+
+### Task 3: Update ProjectCard Component
+
+Modify `src/components/ProjectCard.tsx` to:
+
+1. **Remove the title section** (the `<div className="p-5">` with the h3)
+2. **Add Dialog/Lightbox functionality** using the existing Radix Dialog component
+3. **Make the card clickable** to open the image in full screen
+
+New structure:
+```tsx
+import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogTitle } from '@/components/ui/dialog';
+import { X } from 'lucide-react';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+
+interface ProjectCardProps {
+  image: string;
+  index: number;
+}
+
+const ProjectCard = ({ image, index }) => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <div className="group overflow-hidden bg-white rounded-xl shadow-sm 
+                        transition-all duration-300 hover:shadow-lg cursor-pointer">
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <img src={image} alt="Project" className="..." />
+            <div className="absolute inset-0 bg-gradient-to-t ..." />
+          </div>
+        </div>
+      </DialogTrigger>
+      
+      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-transparent border-none">
+        <VisuallyHidden.Root>
+          <DialogTitle>Project Image</DialogTitle>
+        </VisuallyHidden.Root>
+        <img src={image} alt="Project" className="max-w-full max-h-[90vh] object-contain" />
+        <DialogClose className="absolute top-4 right-4 text-white hover:text-white/80">
+          <X className="w-8 h-8" />
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  );
+};
 ```
 
 ---
 
-### Region Names Verification
+### Task 4: Update Gallery Component
 
-All region names are already correct:
-- zurich -> "Bäderberg in Zürich" (correct umlaut)
-- richterswil -> "Bäderberg in Richterswil"
-- waedenswil -> "Bäderberg in Wädenswil" (correct umlaut)
-- lachen -> "Bäderberg in Lachen"
-- pfaeffikon -> "Bäderberg in Pfäffikon SZ"
-- zollikon -> "Bäderberg in Zollikon"
-- kilchberg -> "Bäderberg in Kilchberg"
-- kuesnacht -> "Bäderberg in Küsnacht" (correct umlaut)
-- meilen -> "Bäderberg in Meilen"
-- erlenbach -> "Bäderberg in Erlenbach"
+Modify `src/components/Gallery.tsx` to:
+
+1. **Simplify the data structure** - only pass `image` instead of `title`, `images`, `tags`
+2. **Update the ProjectCard usage** accordingly
+
+```tsx
+const projects = items.map(item => ({
+  image: item.image || '/images/bathroom-modern.jpg',
+  category: item.category
+}));
+
+// In render:
+<ProjectCard
+  key={index}
+  image={project.image}
+  index={index}
+/>
+```
 
 ---
 
-### Implementation Summary
+### Visual Result
 
-| Task | Action |
-|------|--------|
-| Database | 10 UPDATE statements to fix all region content |
-| Schema defaults | Already updated (regionDefaults is correct in schema.ts) |
-| RegionPage.tsx | Already updated (only shows badumbau and innenausbau) |
-
-No code changes needed - only database content updates. The RegionPage.tsx component already only displays the two services (badumbau and innenausbau), and the schema.ts defaults are already correct.
+| Before | After |
+|--------|-------|
+| Cards with image + title text | Clean image-only cards |
+| No click interaction | Click opens full-screen lightbox |
+| 12 total images | 22 total images (20 Badumbau + 2 Innenausbau) |
 
