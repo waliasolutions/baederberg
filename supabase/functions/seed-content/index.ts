@@ -17,12 +17,6 @@ const defaultContent = {
         backgroundImage: "/images/bathroom-modern.jpg"
       },
       {
-        heading: "Küchenbau Spezialist",
-        ctaText: "Mehr erfahren",
-        ctaLink: "/kuechenumbau",
-        backgroundImage: "/images/kitchen-modern.jpg"
-      },
-      {
         heading: "Facharbeiten im Innenausbau",
         ctaText: "Mehr erfahren",
         ctaLink: "/innenausbau",
@@ -40,8 +34,8 @@ const defaultContent = {
     city: "8805 Richterswil"
   },
   about: {
-    heading: "Ihr Bad, Ihre Küche, Ihr Innenausbau",
-    paragraph1: "Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.",
+    heading: "Ihr Bad, Ihr Innenausbau",
+    paragraph1: "Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder und Innenräume – sorgfältig und nach Ihren Wünschen.",
     paragraph2: "Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.",
     features: [
       {
@@ -76,7 +70,7 @@ const defaultContent = {
       { author: "Lionel Sigrist", quote: "Von Beginn weg war die Zusammenarbeit super. Die Bäderberg GmbH ist auf unsere Wünsche eingegangen.", rating: 5, project: "Badumbau" },
       { author: "Claudio Hofer", quote: "Ich habe mit Serghei zwei Badezimmer umbauen lassen. Super Arbeit und angenehmer Kontakt.", rating: 5, project: "Badumbau" },
       { author: "Benjamin Tacquet", quote: "Wir haben mit Bäderberg eine komplette Boden- und Badsanierung durchgeführt und sind mit dem Ergebnis sehr zufrieden.", rating: 5, project: "Badumbau" },
-      { author: "Kay Moeller-Heske", quote: "Klare Weiterempfehlung wg Verlässlichkeit, Erreichbarkeit, Kreativität, Qualität der Umsetzung.", rating: 5, project: "Küchenumbau" },
+      { author: "Kay Moeller-Heske", quote: "Klare Weiterempfehlung wg Verlässlichkeit, Erreichbarkeit, Kreativität, Qualität der Umsetzung.", rating: 5, project: "Innenausbau" },
       { author: "Katharina Gut", quote: "Wir können die Firma Bäderberg unbedingt weiter empfehlen! Hoch-professionelle Arbeit.", rating: 5, project: "Innenausbau" },
       { author: "Rolf Haller", quote: "Durchgehend freundlich und professionell - stets Lösungsorientiert. Alles aus einer Hand zum fairen Preis.", rating: 5, project: "Innenausbau" },
       { author: "Coiffure Vogue Wädenswil", quote: "Top Leistung, saubere schöne Arbeit, super freundlich.", rating: 5, project: "Innenausbau" },

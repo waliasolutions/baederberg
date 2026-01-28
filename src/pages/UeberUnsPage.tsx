@@ -29,7 +29,7 @@ const UeberUnsPage = () => {
   // Use schema defaults (SSOT)
   const schemaDefaults = defaultContent.about || {};
   
-  const heading = aboutContent?.heading || schemaDefaults.heading || 'Ihr Bad, Ihre Küche, Ihr Innenausbau';
+  const heading = aboutContent?.heading || schemaDefaults.heading || 'Ihr Bad, Ihr Innenausbau';
   const paragraph1 = aboutContent?.paragraph1 || schemaDefaults.paragraph1 || '';
   const paragraph2 = aboutContent?.paragraph2 || schemaDefaults.paragraph2 || '';
   const imageUrl = aboutContent?.image || modernBathroom;
@@ -40,8 +40,8 @@ const UeberUnsPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Über Uns | Bäderberg - Ihr Partner für Bäder, Küchen & Innenausbau"
-        description="Lernen Sie Bäderberg kennen - Ihr zuverlässiger Partner für hochwertige Bäder, Küchen und Innenausbau. Qualität und Kundenzufriedenheit stehen bei uns an erster Stelle."
+        title="Über Uns | Bäderberg - Ihr Partner für Bäder & Innenausbau"
+        description="Lernen Sie Bäderberg kennen - Ihr zuverlässiger Partner für hochwertige Bäder und Innenausbau. Qualität und Kundenzufriedenheit stehen bei uns an erster Stelle."
       />
       <Header />
       
@@ -68,7 +68,7 @@ const UeberUnsPage = () => {
                 Über uns
               </h1>
               <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-                Ihr Partner für hochwertige Bäder, Küchen und Innenausbau
+                Ihr Partner für hochwertige Bäder und Innenausbau
               </p>
             </motion.div>
           </div>

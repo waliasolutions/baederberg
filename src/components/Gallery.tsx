@@ -38,7 +38,6 @@ const Gallery = () => {
   const filters = [
     { label: "Alle", value: null },
     { label: "Badumbau", value: "Badumbau" },
-    { label: "Küchenumbau", value: "Küchenumbau" },
     { label: "Innenausbau", value: "Innenausbau" }
   ];
 

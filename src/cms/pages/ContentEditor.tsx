@@ -111,13 +111,13 @@ interface RegionData {
   heroImage: string;
   metaTitle: string;
   metaDescription: string;
-  services: { badumbau: string; kuechenumbau: string; innenausbau: string };
+  services: { badumbau: string; innenausbau: string };
   whyUs: string[];
   testimonials: TestimonialItem[];
   faq: FaqItem[];
 }
 
-type PageType = 'home' | 'badumbau' | 'kuechenumbau' | 'innenausbau' | 'regions';
+type PageType = 'home' | 'badumbau' | 'innenausbau' | 'regions';
 
 // ========== DEFAULTS ==========
 
@@ -176,7 +176,6 @@ const staticRegionsData = defaultContent.regions.items;
 const pageConfig = {
   home: { name: 'Startseite', path: '/', icon: Home },
   badumbau: { name: 'Badumbau', path: '/badumbau', icon: Layers },
-  kuechenumbau: { name: 'Küchenumbau', path: '/kuechenumbau', icon: Layers },
   innenausbau: { name: 'Innenausbau', path: '/innenausbau', icon: Layers },
 };
 
@@ -193,7 +192,6 @@ export default function ContentEditor() {
   const [homepageData, setHomepageData] = useState<HomepageData>(defaultHomepageData);
   const [pagesData, setPagesData] = useState<Record<string, PageContent>>({
     badumbau: { ...defaultPageContent, metaTitle: 'Badumbau - Bäderberg', heroHeading: 'Badumbau' },
-    kuechenumbau: { ...defaultPageContent, metaTitle: 'Küchenumbau - Bäderberg', heroHeading: 'Küchenumbau' },
     innenausbau: { ...defaultPageContent, metaTitle: 'Innenausbau - Bäderberg', heroHeading: 'Innenausbau' },
   });
   const [regions, setRegions] = useState<RegionData[]>([]);
@@ -353,7 +351,7 @@ export default function ContentEditor() {
 
   const syncServicePages = async (): Promise<number> => {
     let syncedCount = 0;
-    const servicePages = ['badumbau', 'kuechenumbau', 'innenausbau'];
+    const servicePages = ['badumbau', 'innenausbau'];
     for (const pageKey of servicePages) {
       const { data: existing } = await supabase
         .from('content')

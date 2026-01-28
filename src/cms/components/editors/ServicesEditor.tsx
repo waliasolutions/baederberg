@@ -6,7 +6,6 @@ import { Layers } from 'lucide-react';
 
 interface ServicesData {
   badumbau: string;
-  kuechenumbau: string;
   innenausbau: string;
 }
 
@@ -31,14 +30,6 @@ export function ServicesEditor({ services, onChange }: ServicesEditorProps) {
           <Textarea
             value={services.badumbau}
             onChange={(e) => onChange('badumbau', e.target.value)}
-            rows={3}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>Küchenumbau</Label>
-          <Textarea
-            value={services.kuechenumbau}
-            onChange={(e) => onChange('kuechenumbau', e.target.value)}
             rows={3}
           />
         </div>

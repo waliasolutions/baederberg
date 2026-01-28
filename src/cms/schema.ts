@@ -224,7 +224,7 @@ export const contentSchema: Record<string, SectionSchema> = {
         },
         project: { 
           type: 'select', 
-          options: ['Badumbau', 'Küchenumbau', 'Innenausbau'],
+          options: ['Badumbau', 'Innenausbau'],
           label: 'Projekttyp'
         }
       }
@@ -298,7 +298,7 @@ export const contentSchema: Record<string, SectionSchema> = {
         },
         category: {
           type: 'select',
-          options: ['Badumbau', 'Küchenumbau', 'Innenausbau'],
+          options: ['Badumbau', 'Innenausbau'],
           label: 'Kategorie',
           required: true
         }
@@ -351,11 +351,6 @@ export const contentSchema: Record<string, SectionSchema> = {
           maxLength: 300,
           label: 'Badumbau Beschreibung'
         },
-        kuechenumbauText: {
-          type: 'richtext',
-          maxLength: 300,
-          label: 'Küchenumbau Beschreibung'
-        },
         innenausbauText: {
           type: 'richtext',
           maxLength: 300,
@@ -370,13 +365,13 @@ export const contentSchema: Record<string, SectionSchema> = {
       type: 'text',
       maxLength: 60,
       label: 'Meta-Titel',
-      default: 'Bäderberg - Bad, Küche & Innenausbau'
+      default: 'Bäderberg - Bad & Innenausbau'
     },
     metaDescription: {
       type: 'text',
       maxLength: 160,
       label: 'Meta-Beschreibung',
-      default: 'Ihr Spezialist für hochwertige Bad-, Küchen- und Innenrenovationen in der Region Zürich und Umgebung.'
+      default: 'Ihr Spezialist für hochwertige Bad- und Innenrenovationen in der Region Zürich und Umgebung.'
     },
     ogImage: {
       type: 'image',
@@ -479,12 +474,6 @@ export const defaultContent: Record<string, any> = {
         backgroundImage: '/images/bathroom-modern.jpg'
       },
       {
-        heading: 'Küchenbau Spezialist',
-        ctaText: 'Mehr erfahren',
-        ctaLink: '/kuechenumbau',
-        backgroundImage: '/images/kitchen-modern.jpg'
-      },
-      {
         heading: 'Facharbeiten im Innenausbau',
         ctaText: 'Mehr erfahren',
         ctaLink: '/innenausbau',
@@ -494,19 +483,13 @@ export const defaultContent: Record<string, any> = {
   },
   services: {
     heading: 'Unsere Leistungen für Ihr Zuhause',
-    subheading: 'Bad, Küche, Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.',
+    subheading: 'Bad und Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.',
     items: [
       {
         title: 'Badumbau',
         description: 'Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.',
         image: '/images/bathroom-modern.jpg',
         link: '/badumbau'
-      },
-      {
-        title: 'Küchenumbau',
-        description: 'Ihre neue Küche nach Mass – funktional und schön.',
-        image: '/images/kitchen-modern.jpg',
-        link: '/kuechenumbau'
       },
       {
         title: 'Innenausbau',
@@ -526,8 +509,8 @@ export const defaultContent: Record<string, any> = {
     city: '8805 Richterswil'
   },
   about: {
-    heading: 'Ihr Bad, Ihre Küche, Ihr Innenausbau',
-    paragraph1: 'Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder, Küchen und Innenräume – sorgfältig und nach Ihren Wünschen.',
+    heading: 'Ihr Bad, Ihr Innenausbau',
+    paragraph1: 'Wir sind Handwerker aus der Region Zürich. Wir planen und bauen Bäder und Innenräume – sorgfältig und nach Ihren Wünschen.',
     paragraph2: 'Alles aus einer Hand. Mit persönlicher Betreuung von Anfang bis Ende.',
     features: [
       {
@@ -553,7 +536,7 @@ export const defaultContent: Record<string, any> = {
   },
   footer: {
     companyName: 'Bäderberg GmbH',
-    tagline: 'Ihr Partner für Bad, Küche und Innenausbau',
+    tagline: 'Ihr Partner für Bad und Innenausbau',
     copyright: '© 2024 Bäderberg GmbH. Alle Rechte vorbehalten.'
   },
   gallery: {
@@ -561,32 +544,32 @@ export const defaultContent: Record<string, any> = {
     subheading: 'Hier sehen Sie einige unserer abgeschlossenen Projekte. Vielleicht entdecken Sie etwas, das Ihnen gefällt und Sie inspiriert.',
     items: [
       { title: 'Badezimmer Walk-In Dusche', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
-      { title: 'Küche mit Kochinsel', image: '/images/kitchen-modern.jpg', category: 'Küchenumbau' },
       { title: 'Gäste-WC Kompakt', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
       { title: 'Badezimmer Spa Design', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
-      { title: 'Küche Induktion Modern', image: '/images/kitchen-modern.jpg', category: 'Küchenumbau' },
-      { title: 'Einbauschrank Modern', image: '/images/interior-living.jpg', category: 'Innenausbau' }
+      { title: 'Einbauschrank Modern', image: '/images/interior-living.jpg', category: 'Innenausbau' },
+      { title: 'Wohnzimmer Renovation', image: '/images/interior-modern.jpg', category: 'Innenausbau' },
+      { title: 'Eingang Garderobe', image: '/images/interior-living.jpg', category: 'Innenausbau' }
     ]
   },
   regions: {
     heading: 'In Ihrer Nähe für Sie da',
     subheading: 'Wir sind in verschiedenen Regionen aktiv und betreuen Ihr Projekt mit lokaler Expertise und persönlichem Service.',
     items: [
-      { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad, Küche und Innenausbau in Zürich', heroImage: '/src/assets/regions/zurich-interior.jpg' },
-      { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad, Küche und Innenausbau in Richterswil', heroImage: '/src/assets/regions/richterswil-interior.jpg' },
-      { slug: 'waedenswil', title: 'Bäderberg in Wädenswil', description: 'Bad, Küche und Innenausbau in Wädenswil', heroImage: '' },
-      { slug: 'lachen', title: 'Bäderberg in Lachen', description: 'Bad, Küche und Innenausbau in Lachen', heroImage: '' },
-      { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad, Küche und Innenausbau in Pfäffikon SZ', heroImage: '/src/assets/regions/pfaffikon-interior.jpg' },
-      { slug: 'zollikon', title: 'Bäderberg in Zollikon', description: 'Bad, Küche und Innenausbau in Zollikon', heroImage: '' },
-      { slug: 'kilchberg', title: 'Bäderberg in Kilchberg', description: 'Bad, Küche und Innenausbau in Kilchberg', heroImage: '' },
-      { slug: 'kuesnacht', title: 'Bäderberg in Küsnacht', description: 'Bad, Küche und Innenausbau in Küsnacht', heroImage: '' },
-      { slug: 'meilen', title: 'Bäderberg in Meilen', description: 'Bad, Küche und Innenausbau in Meilen', heroImage: '' },
-      { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad, Küche und Innenausbau in Erlenbach', heroImage: '' }
+      { slug: 'zurich', title: 'Bäderberg in Zürich', description: 'Bad und Innenausbau in Zürich', heroImage: '/src/assets/regions/zurich-interior.jpg' },
+      { slug: 'richterswil', title: 'Bäderberg in Richterswil', description: 'Bad und Innenausbau in Richterswil', heroImage: '/src/assets/regions/richterswil-interior.jpg' },
+      { slug: 'waedenswil', title: 'Bäderberg in Wädenswil', description: 'Bad und Innenausbau in Wädenswil', heroImage: '' },
+      { slug: 'lachen', title: 'Bäderberg in Lachen', description: 'Bad und Innenausbau in Lachen', heroImage: '' },
+      { slug: 'pfaeffikon', title: 'Bäderberg in Pfäffikon SZ', description: 'Bad und Innenausbau in Pfäffikon SZ', heroImage: '/src/assets/regions/pfaffikon-interior.jpg' },
+      { slug: 'zollikon', title: 'Bäderberg in Zollikon', description: 'Bad und Innenausbau in Zollikon', heroImage: '' },
+      { slug: 'kilchberg', title: 'Bäderberg in Kilchberg', description: 'Bad und Innenausbau in Kilchberg', heroImage: '' },
+      { slug: 'kuesnacht', title: 'Bäderberg in Küsnacht', description: 'Bad und Innenausbau in Küsnacht', heroImage: '' },
+      { slug: 'meilen', title: 'Bäderberg in Meilen', description: 'Bad und Innenausbau in Meilen', heroImage: '' },
+      { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad und Innenausbau in Erlenbach', heroImage: '' }
     ]
   },
   seo: {
-    metaTitle: 'Bäderberg - Bad, Küche & Innenausbau',
-    metaDescription: 'Ihr Spezialist für hochwertige Bad-, Küchen- und Innenrenovationen in der Region Zürich und Umgebung.',
+    metaTitle: 'Bäderberg - Bad & Innenausbau',
+    metaDescription: 'Ihr Spezialist für hochwertige Bad- und Innenrenovationen in der Region Zürich und Umgebung.',
     ogImage: '',
     gtmId: '',
     gtmHead: '',
@@ -649,48 +632,6 @@ export const defaultContent: Record<string, any> = {
         buttonLink: '/#contact'
       }
     },
-    kuechenumbau: {
-      metaTitle: 'Küchenumbau - Bäderberg',
-      metaDescription: 'Professioneller Küchenumbau in der Region Zürich. Moderne Küchen nach Ihren Wünschen, handwerklich perfekt umgesetzt.',
-      heroHeading: 'Küchenumbau',
-      heroSubheading: 'Ihre neue Küche nach Mass – funktional und schön.',
-      heroImage: '/lovable-uploads/kueche-hero.jpg',
-      introText: 'Ein persönlicher Projektleiter betreut Sie durch das ganze Projekt. Von der ersten Planung bis zur fertigen Küche. Wir koordinieren alle Arbeiten: Ausbau der alten Küche, Anpassung von Elektrik und Wasser, Einbau der neuen Küche. Alles aus einer Hand. Fester Preis, fester Termin, 5 Jahre Garantie.',
-      features: [
-        'Individuelle Küchenplanung',
-        'Persönlicher Projektleiter',
-        'Installation hochwertiger Küchengeräte',
-        'Einbau von Arbeitsplatten und individuellen Rückwänden',
-        'Fachgerechte Montage',
-        'Elektroarbeiten und Garantie inklusive'
-      ],
-      whyProfessional: {
-        heading: 'Warum professioneller Küchenumbau?',
-        items: [
-          { title: 'Millimeterarbeit ist Pflicht', description: 'Eine Küche muss passen – auf den Millimeter. Schiefe Arbeitsplatten, Lücken an den Wänden oder falsch eingebaute Geräte ruinieren das Ergebnis. Unsere Monteure arbeiten mit Präzision und jahrelanger Erfahrung.' },
-          { title: 'Elektrik und Wasser – keine Experimente', description: 'Herd, Geschirrspüler, Dunstabzug – alles braucht Strom und oft auch Wasser. Fehler bei der Installation sind gefährlich und teuer. Wir planen und installieren fachgerecht, damit alles sicher funktioniert.' },
-          { title: 'Langlebige Materialien, die sich lohnen', description: 'Eine Küche ist eine Investition für 15-20 Jahre. Billige Materialien sehen nach wenigen Jahren abgenutzt aus. Wir beraten Sie ehrlich, welche Arbeitsplatten, Fronten und Geräte wirklich halten.' },
-          { title: 'Alles aus einer Hand – stressfrei', description: 'Küche ausbauen, Elektrik anpassen, neue Küche montieren, Wände streichen – wir koordinieren alles. Sie haben einen Ansprechpartner und müssen sich um nichts kümmern. Termintreu und zuverlässig.' }
-        ],
-        promise: 'Ihre Küche wird so gebaut, dass Sie jahrelang Freude daran haben. Präzise Montage, hochwertige Materialien, fachgerechte Installation. Das ist unser Standard.'
-      },
-      processSteps: {
-        heading: 'So läuft es ab',
-        subheading: 'Einfach und klar',
-        steps: [
-          { title: '1. Erstgespräch', description: 'Wir besprechen Ihre Wünsche und Ihr Budget.' },
-          { title: '2. Planung', description: 'Ihr Projektleiter plant mit Ihnen gemeinsam.' },
-          { title: '3. Umbau', description: 'Unser Team baut sauber und termingerecht.' },
-          { title: '4. Übergabe', description: 'Sie bekommen Ihre fertige Küche mit Garantie.' }
-        ]
-      },
-      cta: {
-        heading: 'Jetzt Termin vereinbaren',
-        subheading: 'Wir beraten Sie gerne – kostenlos und unverbindlich.',
-        buttonText: 'Jetzt Kontakt aufnehmen',
-        buttonLink: '/#contact'
-      }
-    },
     innenausbau: {
       metaTitle: 'Innenausbau - Bäderberg',
       metaDescription: 'Hochwertiger Innenausbau in der Region Zürich. Massgeschneiderte Lösungen für Ihr Zuhause.',
@@ -740,7 +681,6 @@ export const defaultContent: Record<string, any> = {
   regionDefaults: {
     services: {
       badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.',
-      kuechenumbau: 'Neue Küche? Wir planen, bauen ein und kümmern uns um Elektro und Anschlüsse. Alles aus einer Hand.',
       innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
     },
     whyUs: [
@@ -750,7 +690,7 @@ export const defaultContent: Record<string, any> = {
       'Transparente Preise ohne versteckte Kosten'
     ],
     faq: [
-      { question: 'Wie lange dauert ein Umbau?', answer: 'Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab.' },
+      { question: 'Wie lange dauert ein Umbau?', answer: 'Ein Badumbau dauert 3-6 Wochen, ein Innenausbau-Projekt je nach Umfang 2-6 Wochen. Der genaue Zeitplan hängt vom Umfang ab.' },
       { question: 'Brauche ich eine Baugenehmigung?', answer: 'Für die meisten Umbauten ist keine Baugenehmigung nötig. Wir prüfen das für Sie und beraten Sie zu den Anforderungen.' },
       { question: 'Können Sie auch in bewohnten Wohnungen arbeiten?', answer: 'Ja, wir planen die Arbeiten so, dass Sie möglichst wenig gestört werden und weiter in Ihrer Wohnung leben können.' },
       { question: 'Was ist im Preis inbegriffen?', answer: 'Planung, Material, Einbau, Elektro- und Sanitärarbeiten sowie Entsorgung. Wir besprechen alle Kosten vorab transparent mit Ihnen.' },

@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import RegionPage from "./pages/RegionPage";
 import NotFound from "./pages/NotFound";
 import BadumbauPage from "./pages/BadumbauPage";
-import KuechenumbauPage from "./pages/KuechenumbauPage";
+
 import InnenausbauPage from "./pages/InnenausbauPage";
 import KarrierePage from "./pages/KarrierePage";
 import AgbPage from "./pages/AgbPage";
@@ -49,7 +49,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/region/:regionId" element={<RegionPage />} />
               <Route path="/badumbau" element={<BadumbauPage />} />
-              <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
+              
               <Route path="/innenausbau" element={<InnenausbauPage />} />
               <Route path="/karriere" element={<KarrierePage />} />
               <Route path="/agb" element={<AgbPage />} />

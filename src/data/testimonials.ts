@@ -83,7 +83,7 @@ export const realTestimonials: Testimonial[] = [
     author: "Kay Moeller-Heske",
     quote: "Klare Weiterempfehlung unsererseits wg Verlässlichkeit, Erreichbarkeit, Kreativität, Qualität der Umsetzung und gutem Preis/Leistungsverhältnis!",
     rating: 5,
-    project: "Küchenumbau"
+    project: "Innenausbau"
   },
   {
     author: "Katharina Gut",
@@ -148,12 +148,6 @@ export const badumbauTestimonials = [
   realTestimonials[0],  // Motorcycle Driver
   realTestimonials[1],  // Nicoleta Salvadori-Curniuc
   realTestimonials[10]  // Claudio Hofer
-];
-
-export const kuechenumbauTestimonials = [
-  realTestimonials[12], // Kay Moeller-Heske
-  realTestimonials[14], // Rolf Haller
-  realTestimonials[13]  // Katharina Gut
 ];
 
 export const innenausbauTestimonials = [

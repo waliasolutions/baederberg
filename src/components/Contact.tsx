@@ -119,7 +119,6 @@ const Contact = () => {
                 <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white min-h-[44px]">
                   <option value="">Bitte wählen</option>
                   <option value="Badumbau">Badumbau</option>
-                  <option value="Küchenumbau">Küchenumbau</option>
                   <option value="Innenausbau">Innenausbau</option>
                 </select>
               </div>

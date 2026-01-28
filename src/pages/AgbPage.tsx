@@ -7,7 +7,7 @@ const AgbPage = () => {
     <div className="min-h-screen bg-background">
       <SEOHead 
         title="Allgemeine Geschäftsbedingungen - Bäderberg"
-        description="Allgemeine Geschäftsbedingungen der Bäderberg GmbH für Bad-, Küchen- und Innenausbau."
+        description="Allgemeine Geschäftsbedingungen der Bäderberg GmbH für Bad- und Innenausbau."
       />
       <Header />
       

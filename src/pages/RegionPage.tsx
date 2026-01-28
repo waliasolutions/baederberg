@@ -20,7 +20,6 @@ interface RegionData {
   metaDescription?: string;
   services: {
     badumbau: string;
-    kuechenumbau: string;
     innenausbau: string;
   };
   whyUs: string[];
@@ -98,7 +97,6 @@ function useRegionData(regionId: string | undefined) {
         metaDescription: cmsRegionData.metaDescription || cmsRegionData.description || '',
         services: {
           badumbau: cmsRegionData.services?.badumbau || regionDefaults.services.badumbau,
-          kuechenumbau: cmsRegionData.services?.kuechenumbau || regionDefaults.services.kuechenumbau,
           innenausbau: cmsRegionData.services?.innenausbau || regionDefaults.services.innenausbau
         },
         whyUs: Array.isArray(cmsRegionData.whyUs) && cmsRegionData.whyUs.length > 0 
@@ -118,10 +116,10 @@ function useRegionData(regionId: string | undefined) {
     // No CMS data - create minimal fallback from SSOT defaults
     const region: RegionData = {
       title: `Bäderberg in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
-      description: `Bad, Küche und Innenausbau in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
+      description: `Bad und Innenausbau in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
       heroImage: fallbackHeroImage,
       metaTitle: `Bäderberg in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)} - Bäderberg`,
-      metaDescription: `Bad, Küche und Innenausbau in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
+      metaDescription: `Bad und Innenausbau in ${regionId.charAt(0).toUpperCase() + regionId.slice(1)}`,
       services: regionDefaults.services,
       whyUs: regionDefaults.whyUs,
       testimonials: fallbackTestimonials,
@@ -202,21 +200,12 @@ const RegionPage = () => {
         <div className="container mx-auto px-6 md:px-12">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10 text-center">Unsere Leistungen in {cityName}</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Badumbau */}
             <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Badumbau</h3>
               <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.badumbau}</p>
               <Link to="/badumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
-                Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-            
-            {/* Küchenumbau */}
-            <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
-              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Küchenumbau</h3>
-              <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.kuechenumbau}</p>
-              <Link to="/kuechenumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
                 Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
