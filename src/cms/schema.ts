@@ -548,7 +548,8 @@ export const defaultContent: Record<string, any> = {
       { title: 'Badezimmer Spa Design', image: '/images/bathroom-modern.jpg', category: 'Badumbau' },
       { title: 'Einbauschrank Modern', image: '/images/interior-living.jpg', category: 'Innenausbau' },
       { title: 'Wohnzimmer Renovation', image: '/images/interior-modern.jpg', category: 'Innenausbau' },
-      { title: 'Eingang Garderobe', image: '/images/interior-living.jpg', category: 'Innenausbau' }
+      { title: 'Eingang Garderobe', image: '/images/interior-living.jpg', category: 'Innenausbau' },
+      { title: 'Dachzimmer Einbauschrank', image: '/images/innenausbau-c.jpg', category: 'Innenausbau' }
     ]
   },
   regions: {
