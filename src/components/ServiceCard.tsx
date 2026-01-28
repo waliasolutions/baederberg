@@ -23,8 +23,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     switch (title) {
       case "Badumbau":
         return "/badumbau";
-      case "Küchenumbau":
-        return "/kuechenumbau";
       case "Innenausbau":
         return "/innenausbau";
       default:

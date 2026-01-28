@@ -9,7 +9,7 @@ const KarrierePage = () => {
     {
       icon: <Briefcase className="h-8 w-8" />,
       title: "Spannende Projekte",
-      description: "Arbeiten Sie an vielfältigen Projekten im Bereich Bad-, Küchen- und Innenausbau."
+      description: "Arbeiten Sie an vielfältigen Projekten im Bereich Bad- und Innenausbau."
     },
     {
       icon: <Users className="h-8 w-8" />,
@@ -32,7 +32,7 @@ const KarrierePage = () => {
     <div className="min-h-screen bg-background">
       <SEOHead 
         title="Karriere bei Bäderberg - Jobs in Zürich"
-        description="Karriere bei Bäderberg - Werden Sie Teil unseres Teams und gestalten Sie mit uns hochwertige Bad-, Küchen- und Innenausbauprojekte."
+        description="Karriere bei Bäderberg - Werden Sie Teil unseres Teams und gestalten Sie mit uns hochwertige Bad- und Innenausbauprojekte."
       />
       <Header />
       

@@ -50,7 +50,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const companyName = footerContent?.companyName || 'Bäderberg';
-  const tagline = footerContent?.tagline || 'Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau.';
+  const tagline = footerContent?.tagline || 'Ihr Spezialist für hochwertige Badumbauten und Innenausbau.';
   const copyright = footerContent?.copyright || `© ${currentYear} Bäderberg. Alle Rechte vorbehalten.`;
   
   // Build social links from business content or footer content
@@ -124,12 +124,6 @@ const Footer = () => {
                 <Link to="/badumbau" className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
                   <ChevronRight size={16} className="mr-2" />
                   Badumbau
-                </Link>
-              </li>
-              <li>
-                <Link to="/kuechenumbau" className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
-                  <ChevronRight size={16} className="mr-2" />
-                  Küchenumbau
                 </Link>
               </li>
               <li>
