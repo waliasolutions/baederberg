@@ -1,345 +1,186 @@
 
-# Plan: Remove Küchenbau/Küchenumbau Service
+## Plan: Deep QA Fixes - Remove Kitchen Content, Fix Duplicate Button, Add Legal Pages
 
-Since the kitchen renovation service is no longer offered, we need to remove all references from the codebase including pages, navigation, footer, CMS schema, content, images, and meta information.
+### Issues Identified
 
----
+1. **Kitchen slide still showing in Hero**: The database still contains the "Küchenbau Spezialist" slide. The code was updated but the database content was not cleaned up.
 
-## Summary of Changes
+2. **Duplicate close button in mobile menu**: The `SheetContent` component has a built-in close button (X) at line 66 of `sheet.tsx`, AND the Header component adds its own close button at line 83-89. This results in two X buttons appearing.
 
-| Category | Files Affected | Action |
-|----------|----------------|--------|
-| Page | `src/pages/KuechenumbauPage.tsx` | Delete entire file |
-| Routes | `src/App.tsx` | Remove import and route |
-| Navigation | `src/components/Header.tsx` | Remove "Küchen" menu item |
-| Footer | `src/components/Footer.tsx` | Remove "Küchenumbau" link |
-| Contact Form | `src/components/Contact.tsx` | Remove service option |
-| Gallery | `src/components/Gallery.tsx` | Remove filter button |
-| Services | `src/cms/schema.ts` | Remove from defaults |
-| Hero Slider | `src/cms/schema.ts` | Remove kitchen slide |
-| CMS Editor | `src/cms/pages/ContentEditor.tsx` | Remove page config |
-| CMS Services Editor | `src/cms/components/editors/ServicesEditor.tsx` | Remove field |
-| Region Pages | `src/pages/RegionPage.tsx` | Remove service section and interface |
-| Testimonials | `src/data/testimonials.ts` | Remove kitchen export, update homepage selection |
-| Sitemap | `public/sitemap.xml` | Remove kitchen URL |
-| Meta/SEO | Multiple files | Update descriptions |
-| Seed Data | `supabase/functions/seed-content/index.ts` | Remove kitchen slide |
-| Media Hook | `src/cms/hooks/useMedia.ts` | Remove kitchen image references |
+3. **Karriere link in footer**: Link at line 201 needs to be removed as requested.
+
+4. **Missing Impressum and Datenschutz pages**: Links exist in footer but pages don't exist.
+
+5. **HTML5 footer still mentions Küchen**: Line 9 still references "Bad- und Küchenumbauten"
 
 ---
 
-## Detailed Changes
+### Task 1: Clean Kitchen Content from Database
 
-### 1. Delete KuechenumbauPage
+**Action**: Update the database hero content to remove the kitchen slide.
 
-**File:** `src/pages/KuechenumbauPage.tsx`
+**SQL Update Required**:
+```sql
+-- Update the hero slides content to remove kitchen slide
+UPDATE content 
+SET content = '{"slides": [{"heading": "Wir bauen Ihr Bad gemeinsam um", "ctaText": "Mehr erfahren", "ctaLink": "/badumbau", "backgroundImage": "/images/bathroom-modern.jpg"}, {"heading": "Facharbeiten im Innenausbau", "ctaText": "Mehr erfahren", "ctaLink": "/innenausbau", "backgroundImage": "/images/interior-living.jpg"}]}'
+WHERE section_key = 'hero' AND content_key = 'default';
 
-**Action:** Delete the entire file
+-- Also update the older record if it exists
+UPDATE content 
+SET content = '[{"heading": "Wir bauen Ihr Bad gemeinsam um", "ctaText": "Mehr erfahren", "ctaLink": "/badumbau", "backgroundImage": "/images/bathroom-modern.jpg"}, {"heading": "Facharbeiten im Innenausbau", "ctaText": "Mehr erfahren", "ctaLink": "/innenausbau", "backgroundImage": "/images/interior-living.jpg"}]'
+WHERE section_key = 'hero' AND content_key = 'slides';
+```
 
 ---
 
-### 2. Update App Router
+### Task 2: Fix Duplicate Close Button in Mobile Menu
 
-**File:** `src/App.tsx`
+**File**: `src/components/Header.tsx`
 
-Remove import:
+**Issue**: Lines 83-89 add a custom close button, but the `SheetContent` component already has a built-in close button.
+
+**Solution**: Remove the duplicate close button from the Header while keeping the custom header with "Menü" title.
+
+**Change**:
 ```tsx
-// DELETE: import KuechenumbauPage from "./pages/KuechenumbauPage";
+// Before (lines 81-90):
+<div className="px-4 py-4 border-b border-border flex items-center justify-between">
+  <h3 className="text-lg font-medium">Menü</h3>
+  <button
+    onClick={() => setIsMenuOpen(false)}
+    className="p-2 rounded-md hover:bg-secondary/20 transition-colors"
+    aria-label="Close menu"
+  >
+    <X size={24} />
+  </button>
+</div>
+
+// After:
+<div className="px-4 py-4 border-b border-border">
+  <h3 className="text-lg font-medium">Menü</h3>
+</div>
 ```
 
-Remove route:
+This removes the custom close button since SheetContent already provides one in the top-right corner.
+
+---
+
+### Task 3: Remove Karriere Link from Footer
+
+**File**: `src/components/Footer.tsx`
+
+**Change**: Remove lines 201-203:
 ```tsx
-// DELETE: <Route path="/kuechenumbau" element={<KuechenumbauPage />} />
+// Remove:
+<Link to="/karriere" className="hover:text-footer-foreground transition-colors">
+  Karriere
+</Link>
 ```
+
+**Note**: Keep the KarrierePage.tsx and route in case they want it accessible directly via URL, just not prominently linked.
 
 ---
 
-### 3. Update Header Navigation
+### Task 4: Create Impressum Page
 
-**File:** `src/components/Header.tsx`
+**New File**: `src/pages/ImpressumPage.tsx`
 
-Update `mainNavItems` array from:
+Following the exact styling of AgbPage.tsx:
+- Same `main` wrapper with `pt-24 md:pt-28`
+- Same `max-w-4xl` container
+- Same `prose prose-slate` typography
+- Same heading styles
+
+Content structure (standard Swiss Impressum):
+- Company name and legal form
+- Address
+- Contact information (phone, email)
+- UID number
+- Responsible person
+- Liability disclaimer
+- Copyright notice
+
+---
+
+### Task 5: Create Datenschutz Page
+
+**New File**: `src/pages/DatenschutzPage.tsx`
+
+Following the exact styling of AgbPage.tsx with standard Swiss GDPR-compliant content:
+- Data controller information
+- Types of data collected
+- Purpose of data processing
+- Legal basis
+- Data sharing and third parties
+- Cookies and tracking
+- User rights
+- Contact for data protection inquiries
+
+---
+
+### Task 6: Add Routes for New Pages
+
+**File**: `src/App.tsx`
+
+Add imports and routes:
 ```tsx
-const mainNavItems = [
-  { title: "Badumbau", path: "/badumbau" },
-  { title: "Küchen", path: "/kuechenumbau" },  // DELETE this line
-  { title: "Innenausbau", path: "/innenausbau" },
-  { title: "Projekte", path: "/#gallery" },
-  { title: "Über Uns", path: "/ueber-uns" },
-];
-```
+import ImpressumPage from "./pages/ImpressumPage";
+import DatenschutzPage from "./pages/DatenschutzPage";
 
-To:
-```tsx
-const mainNavItems = [
-  { title: "Badumbau", path: "/badumbau" },
-  { title: "Innenausbau", path: "/innenausbau" },
-  { title: "Projekte", path: "/#gallery" },
-  { title: "Über Uns", path: "/ueber-uns" },
-];
+// Add routes:
+<Route path="/impressum" element={<ImpressumPage />} />
+<Route path="/datenschutz" element={<DatenschutzPage />} />
 ```
 
 ---
 
-### 4. Update Footer
+### Task 7: Update HTML5 Footer
 
-**File:** `src/components/Footer.tsx`
+**File**: `html5-version/includes/footer.html`
 
-Remove the "Küchenumbau" link from the services list (lines 129-134).
-
----
-
-### 5. Update Contact Form
-
-**File:** `src/components/Contact.tsx`
-
-Remove "Küchenumbau" option from the service dropdown:
-```tsx
-<option value="Küchenumbau">Küchenumbau</option>  // DELETE this line
+**Change line 9** from:
+```html
+<p>Ihr Spezialist für hochwertige Bad- und Küchenumbauten sowie Innenausbau in der Schweiz.</p>
+```
+to:
+```html
+<p>Ihr Spezialist für hochwertige Badumbauten und Innenausbau in der Schweiz.</p>
 ```
 
----
-
-### 6. Update Gallery Filters
-
-**File:** `src/components/Gallery.tsx`
-
-Update filters array from:
-```tsx
-const filters = [
-  { label: "Alle", value: null },
-  { label: "Badumbau", value: "Badumbau" },
-  { label: "Küchenumbau", value: "Küchenumbau" },  // DELETE
-  { label: "Innenausbau", value: "Innenausbau" }
-];
-```
-
-To:
-```tsx
-const filters = [
-  { label: "Alle", value: null },
-  { label: "Badumbau", value: "Badumbau" },
-  { label: "Innenausbau", value: "Innenausbau" }
-];
-```
+Also remove Karriere link and ensure legal links are correct.
 
 ---
 
-### 7. Update CMS Schema - Hero Slides
+### Task 8: Fix Sheet Accessibility Warning
 
-**File:** `src/cms/schema.ts`
+**File**: `src/components/ui/sheet.tsx`
 
-In `defaultContent.hero.slides`, remove the kitchen slide:
-```tsx
-{
-  heading: 'Küchenbau Spezialist',
-  ctaText: 'Mehr erfahren',
-  ctaLink: '/kuechenumbau',
-  backgroundImage: '/images/kitchen-modern.jpg'
-}  // DELETE this entire slide object
-```
+Add `DialogTitle` and `DialogDescription` using `VisuallyHidden` to fix the console error about missing title for screen readers.
 
 ---
 
-### 8. Update CMS Schema - Services
+### Summary of Changes
 
-**File:** `src/cms/schema.ts`
-
-In `defaultContent.services`, update:
-- `subheading`: Change from "Bad, Küche, Innenausbau..." to "Bad und Innenausbau..."
-- Remove kitchen item from `items` array
-
----
-
-### 9. Update CMS Schema - About Section
-
-**File:** `src/cms/schema.ts`
-
-Update `defaultContent.about.heading` from:
-"Ihr Bad, Ihre Küche, Ihr Innenausbau" to "Ihr Bad, Ihr Innenausbau"
-
-Update `defaultContent.about.paragraph1` to remove "Küchen" reference.
+| File | Action |
+|------|--------|
+| Database (hero content) | SQL migration to remove kitchen slide |
+| `src/components/Header.tsx` | Remove duplicate close button (lines 83-89) |
+| `src/components/Footer.tsx` | Remove Karriere link (lines 201-203) |
+| `src/pages/ImpressumPage.tsx` | Create new page (styled like AGB) |
+| `src/pages/DatenschutzPage.tsx` | Create new page (styled like AGB) |
+| `src/App.tsx` | Add routes for Impressum and Datenschutz |
+| `html5-version/includes/footer.html` | Remove "Küchen" reference |
+| `src/components/ui/sheet.tsx` | Add VisuallyHidden title for accessibility |
 
 ---
 
-### 10. Update CMS Schema - Footer
+### Technical Notes
 
-**File:** `src/cms/schema.ts`
+1. **Database Update**: The content table stores hero slides in JSON format. Both `content_key = 'slides'` and `content_key = 'default'` records need to be updated to remove the kitchen slide.
 
-Update `defaultContent.footer.tagline` from:
-"Ihr Partner für Bad, Küche und Innenausbau" to "Ihr Partner für Bad und Innenausbau"
+2. **SheetContent Close Button**: The Radix Dialog primitive automatically adds a close button. Having a second one causes visual duplication on mobile.
 
----
+3. **Legal Pages**: Swiss law requires Impressum with company registration details. GDPR-style Datenschutz is also standard practice.
 
-### 11. Update CMS Schema - Gallery Items
-
-**File:** `src/cms/schema.ts`
-
-Remove kitchen gallery items:
-```tsx
-{ title: 'Küche mit Kochinsel', image: '/images/kitchen-modern.jpg', category: 'Küchenumbau' },
-{ title: 'Küche Induktion Modern', image: '/images/kitchen-modern.jpg', category: 'Küchenumbau' },
-```
-
----
-
-### 12. Update CMS Schema - Regions
-
-**File:** `src/cms/schema.ts`
-
-Update all region descriptions from "Bad, Küche und Innenausbau in [Region]" to "Bad und Innenausbau in [Region]".
-
----
-
-### 13. Update CMS Schema - SEO
-
-**File:** `src/cms/schema.ts`
-
-Update:
-- `seo.metaTitle`: "Bäderberg - Bad & Innenausbau"
-- `seo.metaDescription`: Remove "Küchen-" reference
-
----
-
-### 14. Delete CMS Schema - Kuechenumbau Page
-
-**File:** `src/cms/schema.ts`
-
-Delete the entire `pages.kuechenumbau` object (lines 652-692).
-
----
-
-### 15. Update CMS Schema - Region Defaults
-
-**File:** `src/cms/schema.ts`
-
-Remove `regionDefaults.services.kuechenumbau` property and update FAQ answer text.
-
----
-
-### 16. Update CMS Content Editor
-
-**File:** `src/cms/pages/ContentEditor.tsx`
-
-Remove from `pageConfig`:
-```tsx
-kuechenumbau: { name: 'Küchenumbau', path: '/kuechenumbau', icon: Layers },
-```
-
----
-
-### 17. Update CMS Services Editor
-
-**File:** `src/cms/components/editors/ServicesEditor.tsx`
-
-Remove the Küchenumbau field and update the interface.
-
----
-
-### 18. Update Region Page
-
-**File:** `src/pages/RegionPage.tsx`
-
-- Remove `kuechenumbau` from the `services` interface (line 23)
-- Remove the Küchenumbau service section (lines 215-222)
-
----
-
-### 19. Update ServiceCard
-
-**File:** `src/components/ServiceCard.tsx`
-
-Remove kitchen case from `getServiceRoute`:
-```tsx
-case "Küchenumbau":
-  return "/kuechenumbau";  // DELETE these 2 lines
-```
-
----
-
-### 20. Update Testimonials Data
-
-**File:** `src/data/testimonials.ts`
-
-- Change Kay Moeller-Heske's project from "Küchenumbau" to "Innenausbau" (he can stay since the testimonial is generic about quality)
-- Remove `kuechenumbauTestimonials` export
-- Update `homepageTestimonials` to not include kitchen testimonial
-
----
-
-### 21. Update Sitemap
-
-**File:** `public/sitemap.xml`
-
-Remove:
-```xml
-<url>
-  <loc>https://baederberg.lovable.app/kuechenumbau</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.9</priority>
-</url>
-```
-
----
-
-### 22. Update Index.html
-
-**File:** `index.html`
-
-- Update title: "Bäderberg - Bad & Innenausbau"
-- Update description: Remove "Küchen-" reference
-
----
-
-### 23. Update Seed Content Function
-
-**File:** `supabase/functions/seed-content/index.ts`
-
-- Remove kitchen slide from hero
-- Update about heading
-- Change Kay Moeller-Heske testimonial project type
-
----
-
-### 24. Update Media Hook
-
-**File:** `src/cms/hooks/useMedia.ts`
-
-Remove kitchen image references:
-```tsx
-{ url: '/lovable-uploads/kueche-hero.jpg', filename: 'kueche-hero.jpg', folder: 'hero' },
-{ url: '/lovable-uploads/kueche-service.jpg', filename: 'kueche-service.jpg', folder: 'services' },
-```
-
----
-
-### 25. Update Other Pages with Meta Descriptions
-
-**Files to update:**
-- `src/pages/AgbPage.tsx`: Update description to remove "Küchen-"
-- `src/pages/UeberUnsPage.tsx`: Update title and description to remove "Küchen"
-- `src/pages/KarrierePage.tsx`: Update descriptions to remove "Küchen-"
-
----
-
-## HTML5 Version Updates (for sync)
-
-The HTML5 version will also need updates:
-- `html5-version/includes/header.html`: Remove Küchen nav link
-- `html5-version/includes/footer.html`: Remove Küchenumbau link
-- `html5-version/includes/services.html`: Remove kitchen service card
-- `html5-version/index.html`: Update meta
-
----
-
-## Technical Notes
-
-1. **Grid Layout Change**: The Services section currently uses a 3-column grid. With 2 services instead of 3, this will need CSS adjustment or the grid will look unbalanced. Consider using `md:grid-cols-2` instead of `lg:grid-cols-3`.
-
-2. **Hero Slider**: Reducing from 3 slides to 2 is fine - the slider handles any number of slides.
-
-3. **Gallery**: After removing kitchen items, ensure there are enough Badumbau and Innenausbau items for a balanced gallery.
-
-4. **Testimonials**: Kay Moeller-Heske's testimonial is generic ("Verlässlichkeit, Erreichbarkeit, Kreativität, Qualität") so it can be reassigned to Innenausbau without issue.
-
-5. **CMS Database**: If there's any kitchen-related content stored in the database, it will remain but won't be displayed since the page and routes are removed.
+4. **Content Consistency**: The HTML5 version footer still mentions "Küchen" and needs synchronization with React version changes.
