@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
-import { X } from 'lucide-react';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 
 interface ProjectCardProps {
@@ -8,10 +8,11 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ image, index }) => {
+  const [open, setOpen] = useState(false);
   const delay = index * 100;
   
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div 
           className="group overflow-hidden bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-lg cursor-pointer" 
@@ -31,15 +32,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ image, index }) => {
         </div>
       </DialogTrigger>
       
-      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-transparent border-none shadow-none [&>button]:hidden">
+      <DialogContent 
+        className="max-w-[95vw] max-h-[95vh] p-0 bg-transparent border-none shadow-none [&>button]:hidden"
+        onInteractOutside={() => setOpen(false)}
+        onEscapeKeyDown={() => setOpen(false)}
+      >
         <VisuallyHidden.Root>
           <DialogTitle>Projekt Bild</DialogTitle>
         </VisuallyHidden.Root>
-        <div className="relative flex items-center justify-center">
+        <div 
+          className="relative flex items-center justify-center cursor-pointer"
+          onClick={() => setOpen(false)}
+        >
           <img 
             src={image} 
             alt="Projekt Referenz" 
-            className="max-w-full max-h-[90vh] object-contain rounded-lg" 
+            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
           />
         </div>
       </DialogContent>

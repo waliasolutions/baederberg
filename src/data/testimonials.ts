@@ -8,14 +8,14 @@ export interface Testimonial {
 
 export const realTestimonials: Testimonial[] = [
   {
-    author: "Motorcycle Driver",
-    quote: "Herr Capatina hat ein tolles und fähiges Team beisammen. Unsere Wünsche wurden voll und ganz umgesetzt. Obwohl wir spezielle Bodenplatten verwendet haben und die Verlegeart höchste Präzision verlangt wurde alles 1A umgesetzt.",
+    author: "Christine B",
+    quote: "Die Bäderberg GmbH hat unser Badezimmer schnell und professionell komplett umgebaut. Am Ende der Arbeitstage wurde das Material aufgeräumt und der Boden gereinigt, so dass man während des Umbaus ohne grössere Unannehmlichkeiten wohnen konnte.",
     rating: 5,
     project: "Badumbau"
   },
   {
-    author: "Nicoleta Salvadori-Curniuc",
-    quote: "Sehr zufrieden mit der kompletten Renovation unserem Badezimmer. Nach 3 Jahren funktioniert alles immer einwandfrei. Vielen Dank!",
+    author: "Motorcycle Driver",
+    quote: "Herr Capatina hat ein tolles und fähiges Team beisammen. Unsere Wünsche wurden voll und ganz umgesetzt. Obwohl wir spezielle Bodenplatten verwendet haben und die Verlegeart höchste Präzision verlangt wurde alles 1A umgesetzt.",
     rating: 5,
     project: "Badumbau"
   },
@@ -44,12 +44,6 @@ export const realTestimonials: Testimonial[] = [
     project: "Badumbau"
   },
   {
-    author: "Patricia Schmid",
-    quote: "Sehr zu empfehlen! Extrem kompetent, lösungsorientiert und in zügigem Tempo haben Herr Capatina und sein Team bei mir zwei Bäder komplett renoviert und zu neuem Glanz verholfen.",
-    rating: 5,
-    project: "Badumbau"
-  },
-  {
     author: "Boris Radoicic",
     quote: "Das Team Bäderberg ist sehr kompetent, freundlich und professionell. Sie haben bei uns im gesamten Haus den Boden neu verlegt und dazu noch die Gartenplatten. Das Preis-Leistungsverhältnis ist ausgezeichnet.",
     rating: 5,
@@ -68,6 +62,18 @@ export const realTestimonials: Testimonial[] = [
     project: "Badumbau"
   },
   {
+    author: "Patricia Schmid",
+    quote: "Sehr zu empfehlen! Extrem kompetent, lösungsorientiert und in zügigem Tempo haben Herr Capatina und sein Team bei mir zwei Bäder komplett renoviert und zu neuem Glanz verholfen.",
+    rating: 5,
+    project: "Badumbau"
+  },
+  {
+    author: "Kay Moeller-Heske",
+    quote: "Klare Weiterempfehlung unsererseits wg Verlässlichkeit, Erreichbarkeit, Kreativität, Qualität der Umsetzung und gutem Preis/Leistungsverhältnis!",
+    rating: 5,
+    project: "Innenausbau"
+  },
+  {
     author: "Claudio Hofer",
     quote: "Ich habe mit Serghei zwei Badezimmer umbauen lassen. Super Arbeit und angenehmer Kontakt.",
     rating: 5,
@@ -78,12 +84,6 @@ export const realTestimonials: Testimonial[] = [
     quote: "Wir haben mit Bäderberg eine komplette Boden- und Badsanierung im Haus durchgeführt und sind mit dem Ergebnis sehr zufrieden. Zuverlässiges Unternehmen, tolle Beratung, qualitäts- und kundenorientiert mit Menschen, denen man vertrauen kann. Ich kann sie nur wärmstens empfehlen.",
     rating: 5,
     project: "Badumbau"
-  },
-  {
-    author: "Kay Moeller-Heske",
-    quote: "Klare Weiterempfehlung unsererseits wg Verlässlichkeit, Erreichbarkeit, Kreativität, Qualität der Umsetzung und gutem Preis/Leistungsverhältnis!",
-    rating: 5,
-    project: "Innenausbau"
   },
   {
     author: "Katharina Gut",
@@ -98,10 +98,10 @@ export const realTestimonials: Testimonial[] = [
     project: "Innenausbau"
   },
   {
-    author: "Coiffure Vogue Wädenswil",
-    quote: "Top Leistung, saubere schöne Arbeit, super freundlich, saubere Leistung, ich kann diese Firma nur empfehlen 👍👌",
+    author: "Albert Peter",
+    quote: "Danke vielmals für das Traumbadezimmer, das ihr genau nach meinen Wünschen so professionell und speditiv erledigt habt. Nur empfehlenswert. DANKE",
     rating: 5,
-    project: "Innenausbau"
+    project: "Badumbau"
   },
   {
     author: "victor poalelungi",
@@ -110,10 +110,10 @@ export const realTestimonials: Testimonial[] = [
     project: "Innenausbau"
   },
   {
-    author: "Albert Peter",
-    quote: "Danke vielmals für das Traumbadezimmer, das ihr genau nach meinen Wünschen so professionell und speditiv erledigt habt. Nur empfehlenswert. DANKE",
+    author: "Coiffure Vogue Wädenswil",
+    quote: "Top Leistung, saubere schöne Arbeit, super freundlich, saubere Leistung, ich kann diese Firma nur empfehlen 👍👌",
     rating: 5,
-    project: "Badumbau"
+    project: "Innenausbau"
   },
   {
     author: "Läubli Daniel",
@@ -122,8 +122,26 @@ export const realTestimonials: Testimonial[] = [
     project: "Innenausbau"
   },
   {
+    author: "Lodo GOPE",
+    quote: "Alte Dusche zu einem modernen begehbare Dusche. Super gemacht.",
+    rating: 5,
+    project: "Badumbau"
+  },
+  {
     author: "Marzia Mura",
     quote: "Herr Capatina hat unsere beiden Duschräume renoviert. Wir sind mit der Arbeit sehr zufrieden und schätzen die Liebe zum Detail und die Fähigkeit, Probleme zu lösen. Wir würden jederzeit wieder mit ihm zusammenarbeiten.",
+    rating: 5,
+    project: "Badumbau"
+  },
+  {
+    author: "Diana Treasțin",
+    quote: "Nach der Zusammenarbeit mit Serghei sieht unser Badezimmer genau so aus, wie wir es uns vorgestellt haben: frisch, modern und praktisch. Die hohe Qualität der Arbeit lässt uns darauf schließen, dass es auch langlebig ist. Wir können SM CAPATINA uneingeschränkt empfehlen!",
+    rating: 5,
+    project: "Badumbau"
+  },
+  {
+    author: "Tis Baumer",
+    quote: "Highly recommend. Positiv: Ansprechbarkeit, Pünktlichkeit, Qualität, Professionalität, Wert. Leistungen: Möbelmontage, Fliesenarbeiten, Installation von sanitären Anlagen, Erneuerung von Duschen.",
     rating: 5,
     project: "Badumbau"
   }
@@ -134,24 +152,24 @@ export const getTestimonialsByProject = (projectType: string): Testimonial[] => 
   return realTestimonials.filter(t => t.project === projectType);
 };
 
-// Specific selections for different pages
+// Specific selections for different pages - diverse mix of impactful reviews
 export const homepageTestimonials = [
-  realTestimonials[2],  // Christian Hess
-  realTestimonials[14], // Rolf Haller
-  realTestimonials[6],  // Patricia Schmid
-  realTestimonials[4],  // Kodeli
-  realTestimonials[11], // Benjamin Tacquet
-  realTestimonials[12]  // Kay Moeller-Heske
+  realTestimonials[0],  // Christine B (newest, detailed)
+  realTestimonials[2],  // Christian Hess (comprehensive)
+  realTestimonials[9],  // Patricia Schmid (strong recommendation)
+  realTestimonials[5],  // Derk Mous (multiple bathrooms)
+  realTestimonials[12], // Benjamin Tacquet (full house)
+  realTestimonials[14]  // Rolf Haller (professional, on budget)
 ];
 
 export const badumbauTestimonials = [
-  realTestimonials[0],  // Motorcycle Driver
-  realTestimonials[1],  // Nicoleta Salvadori-Curniuc
-  realTestimonials[10]  // Claudio Hofer
+  realTestimonials[1],  // Motorcycle Driver
+  realTestimonials[7],  // Márton Szőnyi
+  realTestimonials[11]  // Claudio Hofer
 ];
 
 export const innenausbauTestimonials = [
-  realTestimonials[7],  // Boris Radoicic
+  realTestimonials[6],  // Boris Radoicic
   realTestimonials[3],  // Acilas Physiotherapie
-  realTestimonials[15]  // Coiffure Vogue Wädenswil
+  realTestimonials[17]  // Coiffure Vogue Wädenswil
 ];
