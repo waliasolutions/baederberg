@@ -1,112 +1,99 @@
 
 
-## Plan: Remove Kitchen Content from Database + Fix Services Grid
+## Plan: Remove Kitchen References from All Region Pages
 
-The code was updated to remove kitchen references, but the **database still contains kitchen-related content** that the CMS fetches. Since the components prioritize CMS data over defaults, the old kitchen items are still displayed.
+The database contains 10 region records, each with multiple "Küche" references that need to be cleaned up. The region names themselves are correct and properly formatted.
 
 ---
 
-### Root Cause
+### Summary of Issues Found
 
-The `Services` and `Gallery` components use this logic:
-```tsx
-const servicesData = (servicesContent?.items?.length 
-  ? servicesContent.items  // Uses CMS data if exists
-  : defaultServicesData.items  // Falls back to defaults only if CMS empty
-)
-```
-
-The CMS database has:
-- **Gallery**: 6 items including 2 kitchen items ("Küche mit Kochinsel", "Küche Induktion Modern")
-- **Services**: 3 items including "Küchenumbau" with kitchen description and link
+| Region | Kitchen References Found |
+|--------|-------------------------|
+| erlenbach | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| kilchberg | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| kuesnacht | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| lachen | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| meilen | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| pfaeffikon | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| richterswil | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| waedenswil | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| zollikon | description, metaDescription, services.kuechenumbau, faq[0].answer |
+| zurich | description, metaDescription, services.kuechenumbau, faq[0].answer |
 
 ---
 
 ### Changes Required
 
-| Task | Type | Description |
-|------|------|-------------|
-| 1 | Database Update | Remove kitchen items from `gallery` content |
-| 2 | Database Update | Remove kitchen service from `services` content |
-| 3 | Code Change | Fix Services grid to use 2-column layout |
+For each of the 10 regions, update the database content to:
+
+1. **description**: Change from "Bad, Küche und Innenausbau in [Region]" to "Bad und Innenausbau in [Region]"
+
+2. **metaDescription**: Change from "Bad, Küche und Innenausbau in [Region]" to "Bad und Innenausbau in [Region]"
+
+3. **services**: Remove the `kuechenumbau` key entirely (keep only `badumbau` and `innenausbau`)
+
+4. **faq[0].answer**: Change from "Ein Badumbau dauert 3-6 Wochen, ein Küchenumbau 2-4 Wochen. Der genaue Zeitplan hängt vom Umfang ab." to "Ein Badumbau dauert 3-6 Wochen, ein Innenausbau-Projekt je nach Umfang 2-6 Wochen. Der genaue Zeitplan hängt vom Umfang ab."
 
 ---
 
-### Task 1: Update Gallery Database Content
+### Database Updates
 
-**SQL Update:**
-Remove the 2 kitchen items from gallery, keeping only Badumbau and Innenausbau items:
+10 SQL UPDATE statements will be executed - one for each region. Each update will set the corrected content JSON with:
 
+- Proper region name in title (already correct)
+- Description without "Küche"
+- Meta description without "Küche"
+- Services object with only badumbau and innenausbau (no kuechenumbau)
+- Updated FAQ answer without "Küchenumbau" reference
+
+**Example update for Richterswil:**
 ```sql
-UPDATE content 
-SET content = '{
-  "heading": "Was wir für andere gestaltet haben",
-  "subheading": "Hier sehen Sie einige unserer abgeschlossenen Projekte. Vielleicht entdecken Sie etwas, das Ihnen gefällt und Sie inspiriert.",
-  "items": [
-    {"title": "Badezimmer Walk-In Dusche", "image": "/images/bathroom-modern.jpg", "category": "Badumbau"},
-    {"title": "Gäste-WC Kompakt", "image": "/images/bathroom-modern.jpg", "category": "Badumbau"},
-    {"title": "Badezimmer Spa Design", "image": "/images/bathroom-modern.jpg", "category": "Badumbau"},
-    {"title": "Einbauschrank Modern", "image": "/images/interior-living.jpg", "category": "Innenausbau"}
-  ]
+UPDATE content SET content = '{
+  "title": "Bäderberg in Richterswil",
+  "description": "Bad und Innenausbau in Richterswil",
+  "metaTitle": "Bäderberg in Richterswil - Bäderberg",
+  "metaDescription": "Bad und Innenausbau in Richterswil",
+  "heroImage": "/src/assets/regions/richterswil-interior.jpg",
+  "services": {
+    "badumbau": "Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.",
+    "innenausbau": "Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um."
+  },
+  "whyUs": [...],
+  "faq": [
+    {"question": "Wie lange dauert ein Umbau?", "answer": "Ein Badumbau dauert 3-6 Wochen, ein Innenausbau-Projekt je nach Umfang 2-6 Wochen. Der genaue Zeitplan hängt vom Umfang ab."},
+    ...
+  ],
+  "testimonials": []
 }'
-WHERE section_key = 'gallery' AND content_key = 'default';
+WHERE section_key = 'region' AND content_key = 'richterswil';
 ```
 
 ---
 
-### Task 2: Update Services Database Content
+### Region Names Verification
 
-**SQL Update:**
-Remove "Küchenumbau" service and update the subheading:
-
-```sql
-UPDATE content 
-SET content = '{
-  "heading": "Unsere Leistungen für Ihr Zuhause",
-  "subheading": "Bad und Innenausbau – wir begleiten Sie von der Planung bis zur Fertigstellung. Alles aus einer Hand.",
-  "items": [
-    {
-      "title": "Badumbau",
-      "description": "Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.",
-      "image": "/images/bathroom-modern.jpg",
-      "link": "/badumbau"
-    },
-    {
-      "title": "Innenausbau",
-      "description": "Räume nach Ihren Wünschen – alles aus einer Hand.",
-      "image": "/images/interior-living.jpg",
-      "link": "/innenausbau"
-    }
-  ]
-}'
-WHERE section_key = 'services' AND content_key = 'default';
-```
+All region names are already correct:
+- zurich -> "Bäderberg in Zürich" (correct umlaut)
+- richterswil -> "Bäderberg in Richterswil"
+- waedenswil -> "Bäderberg in Wädenswil" (correct umlaut)
+- lachen -> "Bäderberg in Lachen"
+- pfaeffikon -> "Bäderberg in Pfäffikon SZ"
+- zollikon -> "Bäderberg in Zollikon"
+- kilchberg -> "Bäderberg in Kilchberg"
+- kuesnacht -> "Bäderberg in Küsnacht" (correct umlaut)
+- meilen -> "Bäderberg in Meilen"
+- erlenbach -> "Bäderberg in Erlenbach"
 
 ---
 
-### Task 3: Fix Services Grid Layout
+### Implementation Summary
 
-**File:** `src/components/Services.tsx`
+| Task | Action |
+|------|--------|
+| Database | 10 UPDATE statements to fix all region content |
+| Schema defaults | Already updated (regionDefaults is correct in schema.ts) |
+| RegionPage.tsx | Already updated (only shows badumbau and innenausbau) |
 
-**Change line 52** from:
-```tsx
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-```
-
-To:
-```tsx
-<div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto">
-```
-
-This changes the grid to 2 columns on medium screens and above (removing the 3-column layout), and centers the grid with a max width for better visual balance with only 2 cards.
-
----
-
-### Summary
-
-| Issue | Solution |
-|-------|----------|
-| Kitchen images in Referenzen (Gallery) | SQL update to remove kitchen items from database |
-| Kitchen service cards on homepage | SQL update to remove kitchen service from database |
-| Services grid unbalanced with 2 items | Change grid from 3-column to 2-column centered layout |
+No code changes needed - only database content updates. The RegionPage.tsx component already only displays the two services (badumbau and innenausbau), and the schema.ts defaults are already correct.
 
