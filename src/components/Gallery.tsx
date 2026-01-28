@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import ProjectCard from './ProjectCard';
 import { useSectionContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
+import { cn } from '@/lib/utils';
 
 interface GalleryItem {
   image?: string;
@@ -16,6 +18,28 @@ interface GalleryContent {
 
 // Get defaults from schema (SSOT)
 const defaultGalleryData = defaultContent.gallery;
+
+const GalleryImage = ({ image, index }: { image: string; index: number }) => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "transition-all duration-700 ease-out",
+        inView 
+          ? "opacity-100 translate-y-0" 
+          : "opacity-0 translate-y-8"
+      )}
+      style={{ transitionDelay: `${(index % 6) * 80}ms` }}
+    >
+      <ProjectCard image={image} index={index} />
+    </div>
+  );
+};
 
 const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
@@ -47,25 +71,26 @@ const Gallery = () => {
     <section className="py-20 md:py-28 scroll-mt-24">
       <div className="container px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 font-inter">
             {heading}
-          </h2>
+          </h1>
           <p className="text-muted-foreground text-lg">
             {subheading}
           </p>
         </div>
         
         <div className="flex justify-center mb-12">
-          <div className="inline-flex flex-wrap justify-center p-1 bg-secondary/30 rounded-lg gap-1">
+          <div className="inline-flex flex-wrap justify-center p-1.5 bg-secondary/40 rounded-full gap-1 shadow-sm">
             {filters.map((filter) => (
               <button
                 key={filter.label}
                 onClick={() => setActiveFilter(filter.value)}
-                className={`px-4 py-2.5 rounded-md text-sm min-h-[44px] transition-colors ${
+                className={cn(
+                  "px-6 py-2.5 rounded-full text-sm font-medium min-h-[44px] transition-all duration-300",
                   activeFilter === filter.value 
-                    ? 'bg-white text-primary shadow-sm' 
-                    : 'text-primary/70 hover:text-primary'
-                }`}
+                    ? "bg-primary text-primary-foreground shadow-md" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                )}
               >
                 {filter.label}
               </button>
@@ -73,10 +98,10 @@ const Gallery = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredProjects.map((project, index) => (
-            <ProjectCard
-              key={index}
+            <GalleryImage
+              key={`${project.image}-${index}`}
               image={project.image}
               index={index}
             />
