@@ -42,7 +42,7 @@ const ImpressumPage = () => {
 
                 <h3 className="text-lg font-semibold mt-6 mb-3">Vertretungsberechtigte Person</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Geschäftsführer: Stefan Bäderberg
+                  Geschäftsführer: Serghei Capatina
                 </p>
 
                 <h3 className="text-lg font-semibold mt-6 mb-3">Handelsregister</h3>
