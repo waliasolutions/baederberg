@@ -4,7 +4,6 @@ import { useSectionContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
 
 interface GalleryItem {
-  title: string;
   image?: string;
   category: string;
 }
@@ -30,9 +29,8 @@ const Gallery = () => {
     ? galleryContent.items 
     : defaultGalleryData.items
   ).map((item: GalleryItem) => ({
-    title: item.title,
-    images: [item.image || '/images/bathroom-modern.jpg'],
-    tags: [item.category]
+    image: item.image || '/images/bathroom-modern.jpg',
+    category: item.category
   }));
 
   const filters = [
@@ -42,7 +40,7 @@ const Gallery = () => {
   ];
 
   const filteredProjects = activeFilter 
-    ? projects.filter(project => project.tags.includes(activeFilter))
+    ? projects.filter(project => project.category === activeFilter)
     : projects;
 
   return (
@@ -78,10 +76,8 @@ const Gallery = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <ProjectCard
-              key={project.title}
-              title={project.title}
-              images={project.images}
-              tags={project.tags}
+              key={index}
+              image={project.image}
               index={index}
             />
           ))}
