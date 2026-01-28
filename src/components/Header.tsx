@@ -36,7 +36,7 @@ const Header = () => {
   const mainNavItems = [
     { title: "Badumbau", path: "/badumbau" },
     { title: "Innenausbau", path: "/innenausbau" },
-    { title: "Projekte", path: "/#gallery" },
+    { title: "Projekte", path: "/projekte" },
     { title: "Über Uns", path: "/ueber-uns" },
   ];
 

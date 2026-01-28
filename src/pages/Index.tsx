@@ -1,9 +1,7 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
-
 import VideoSection from '@/components/VideoSection';
-import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -38,13 +36,6 @@ const Index = () => {
       <Hero />
       <div className="w-full max-w-full overflow-x-hidden">
         <Services />
-        
-        {/* Gallery Section with clear separation */}
-        <div id="gallery" className="scroll-mt-24">
-          <Gallery />
-        </div>
-        
-        
         <VideoSection />
         <Testimonials />
         <Contact />
