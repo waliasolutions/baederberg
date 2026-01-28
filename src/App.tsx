@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import BadumbauPage from "./pages/BadumbauPage";
 
 import InnenausbauPage from "./pages/InnenausbauPage";
+import ProjektePage from "./pages/ProjektePage";
 import KarrierePage from "./pages/KarrierePage";
 import AgbPage from "./pages/AgbPage";
 import UeberUnsPage from "./pages/UeberUnsPage";
@@ -53,6 +54,7 @@ const App = () => (
               <Route path="/badumbau" element={<BadumbauPage />} />
               
               <Route path="/innenausbau" element={<InnenausbauPage />} />
+              <Route path="/projekte" element={<ProjektePage />} />
               <Route path="/karriere" element={<KarrierePage />} />
               <Route path="/agb" element={<AgbPage />} />
               <Route path="/ueber-uns" element={<UeberUnsPage />} />
