@@ -1,12 +1,12 @@
 
 
-## Plan: Replace External Video with Local Video File
+## Plan: Add Video Poster Image
 
 ---
 
 ### Summary
 
-Replace the external video URL with a locally hosted video file to ensure reliable playback and eliminate dependency on the external server.
+Add a poster/thumbnail image for the video section that displays before the video starts playing. This provides a better user experience by showing a relevant preview instead of a black frame.
 
 ---
 
@@ -14,50 +14,41 @@ Replace the external video URL with a locally hosted video file to ensure reliab
 
 | Task | Type | Description |
 |------|------|-------------|
-| 1 | Files | Copy uploaded video to public folder |
-| 2 | Component | Update video source URL in VideoSection |
+| 1 | Files | Copy uploaded poster image to public folder |
+| 2 | Component | Update video element with poster attribute |
 
 ---
 
-### Task 1: Copy Video to Public Folder
+### Task 1: Copy Poster Image to Public Folder
 
-Copy the uploaded video file to the public folder for direct URL access:
+Copy the uploaded poster image to the public folder alongside the video:
 
-`user-uploads://Erklaerungsvideo_Baederber_web.mp4` → `public/videos/erklaerungsvideo.mp4`
-
-Using the public folder is appropriate here because:
-- Video files are typically large and shouldn't be bundled with JavaScript
-- Direct URL access allows for streaming and better browser caching
-- HTML5 video elements work best with static URLs
+`user-uploads://baederberg-preview.jpg` → `public/videos/erklaerungsvideo-poster.jpg`
 
 ---
 
 ### Task 2: Update VideoSection Component
 
-Modify `src/components/VideoSection.tsx` to use the local video path:
+Modify `src/components/VideoSection.tsx` to use the poster image:
 
-**Before (line 43-46):**
+**Current (line 38-39):**
 ```tsx
-<source
-  src="https://www.baederberg.ch/wp-content/uploads/2022/06/Erklaerungsvideo_Baederber_web.mp4"
-  type="video/mp4"
-/>
+preload="metadata"
+poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect width='1920' height='1080' fill='%23000'/%3E%3C/svg%3E"
 ```
 
-**After:**
+**Updated:**
 ```tsx
-<source
-  src="/videos/erklaerungsvideo.mp4"
-  type="video/mp4"
-/>
+preload="metadata"
+poster="/videos/erklaerungsvideo-poster.jpg"
 ```
 
 ---
 
-### Benefits
+### Result
 
-- Video loads from your own server (faster, more reliable)
-- No dependency on external URL availability
-- Better control over video quality and compression
-- Improved SEO (self-hosted assets)
+- The video will display the animated illustration (couple dreaming of their new bathroom) as a preview thumbnail
+- Users will see this image until they click play
+- The play button overlay will appear on top of the poster image
+- Better visual appeal and context for what the video is about
 
