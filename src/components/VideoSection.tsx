@@ -41,7 +41,7 @@ const VideoSection = () => {
                 onPause={() => setIsPlaying(false)}
               >
                 <source
-                  src="https://www.baederberg.ch/wp-content/uploads/2022/06/Erklaerungsvideo_Baederber_web.mp4"
+                  src="/videos/erklaerungsvideo.mp4"
                   type="video/mp4"
                 />
                 Ihr Browser unterstützt das Video-Tag nicht.
