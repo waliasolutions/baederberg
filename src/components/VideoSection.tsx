@@ -1,9 +1,16 @@
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlayClick = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
 
   return (
     <section className="py-20 md:py-28 bg-background">
@@ -33,6 +40,7 @@ const VideoSection = () => {
           >
             <div className="relative" style={{ paddingBottom: '56.25%' }}>
               <video
+                ref={videoRef}
                 className="absolute inset-0 w-full h-full object-cover"
                 controls
                 preload="metadata"
@@ -50,6 +58,7 @@ const VideoSection = () => {
               {!isPlaying && (
                 <div
                   className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-opacity duration-300"
+                  onClick={handlePlayClick}
                 >
                   <div
                     className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform duration-300"
