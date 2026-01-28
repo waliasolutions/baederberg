@@ -1,0 +1,169 @@
+
+<section class="video-section" id="video">
+  <div class="container">
+    <div class="video-wrapper">
+      <div class="section-header">
+        <h2>So arbeiten wir</h2>
+        <p>Erfahren Sie mehr über unsere Arbeitsweise und warum Kunden uns ihr Vertrauen schenken</p>
+      </div>
+
+      <div class="video-container">
+        <video 
+          class="video-player"
+          controls 
+          preload="metadata"
+          poster="../public/videos/erklaerungsvideo-poster.jpg"
+        >
+          <source 
+            src="../public/videos/erklaerungsvideo.mp4" 
+            type="video/mp4"
+          >
+          Ihr Browser unterstützt das Video-Tag nicht.
+        </video>
+        
+        <div class="video-overlay" id="video-overlay">
+          <button class="play-button" aria-label="Video abspielen">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <p class="video-caption">Von der Planung bis zur Fertigstellung – alles aus einer Hand</p>
+    </div>
+  </div>
+</section>
+
+<style>
+.video-section {
+  padding: 5rem 0;
+  background-color: var(--background, #fff);
+}
+
+.video-wrapper {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.video-section .section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.video-section .section-header h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.video-section .section-header p {
+  color: var(--text-muted, #6b7280);
+  font-size: 1.125rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.video-container {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: #000;
+}
+
+.video-player {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.video-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.play-button {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  color: var(--primary, #9b8b6c);
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+.play-button svg {
+  margin-left: 4px;
+}
+
+.video-caption {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted, #6b7280);
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    padding: 3rem 0;
+  }
+  
+  .video-section .section-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .play-button {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .play-button svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.querySelector('.video-section .video-player');
+  const overlay = document.getElementById('video-overlay');
+  
+  if (video && overlay) {
+    overlay.addEventListener('click', function() {
+      video.play();
+    });
+    
+    video.addEventListener('play', function() {
+      overlay.classList.add('hidden');
+    });
+    
+    video.addEventListener('pause', function() {
+      overlay.classList.remove('hidden');
+    });
+  }
+});
+</script>
