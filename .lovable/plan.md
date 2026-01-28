@@ -1,14 +1,12 @@
 
 
-## Plan: Fix Lightbox Close-on-Click + Replace Homepage Testimonials
+## Plan: Replace External Video with Local Video File
 
 ---
 
 ### Summary
 
-This plan addresses two issues:
-1. Fix the lightbox gallery so it closes when clicking outside the image
-2. Replace all homepage testimonials with the 22 new Google reviews provided (excluding owner responses)
+Replace the external video URL with a locally hosted video file to ensure reliable playback and eliminate dependency on the external server.
 
 ---
 
@@ -16,107 +14,50 @@ This plan addresses two issues:
 
 | Task | Type | Description |
 |------|------|-------------|
-| 1 | Component | Fix ProjectCard lightbox to properly close on outside click |
-| 2 | Data | Update testimonials.ts with 22 new customer reviews |
-| 3 | Data | Update homepage testimonials selection |
+| 1 | Files | Copy uploaded video to public folder |
+| 2 | Component | Update video source URL in VideoSection |
 
 ---
 
-### Task 1: Fix Lightbox Close Behavior
+### Task 1: Copy Video to Public Folder
 
-**Problem**: The current `DialogContent` has `bg-transparent` which allows click events to pass through the overlay, preventing the dialog from closing when clicking outside.
+Copy the uploaded video file to the public folder for direct URL access:
 
-**Solution**: Modify `src/components/ProjectCard.tsx` to:
-- Add an explicit click handler on the overlay/background area to close the dialog
-- Wrap the image in a container that stops click propagation
-- Use controlled dialog state with `open` and `onOpenChange`
+`user-uploads://Erklaerungsvideo_Baederber_web.mp4` → `public/videos/erklaerungsvideo.mp4`
 
+Using the public folder is appropriate here because:
+- Video files are typically large and shouldn't be bundled with JavaScript
+- Direct URL access allows for streaming and better browser caching
+- HTML5 video elements work best with static URLs
+
+---
+
+### Task 2: Update VideoSection Component
+
+Modify `src/components/VideoSection.tsx` to use the local video path:
+
+**Before (line 43-46):**
 ```tsx
-import { useState } from 'react';
+<source
+  src="https://www.baederberg.ch/wp-content/uploads/2022/06/Erklaerungsvideo_Baederber_web.mp4"
+  type="video/mp4"
+/>
+```
 
-const ProjectCard = ({ image, index }) => {
-  const [open, setOpen] = useState(false);
-  
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {/* ... existing trigger ... */}
-      </DialogTrigger>
-      
-      <DialogContent 
-        className="max-w-[95vw] max-h-[95vh] p-0 bg-transparent border-none shadow-none [&>button]:hidden"
-        onInteractOutside={() => setOpen(false)}
-      >
-        <div 
-          className="relative flex items-center justify-center"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <img ... />
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-};
+**After:**
+```tsx
+<source
+  src="/videos/erklaerungsvideo.mp4"
+  type="video/mp4"
+/>
 ```
 
 ---
 
-### Task 2: Update Testimonials Data
+### Benefits
 
-Replace the content in `src/data/testimonials.ts` with 22 new reviews:
-
-| # | Author | Project Type |
-|---|--------|--------------|
-| 1 | Christine B | Badumbau |
-| 2 | Motorcycle Driver | Badumbau |
-| 3 | Christian Hess | Badumbau |
-| 4 | Acilas Physiotherapie & Athletiktraining | Innenausbau |
-| 5 | Kodeli | Badumbau |
-| 6 | Derk Mous | Badumbau |
-| 7 | Boris Radoicic | Innenausbau |
-| 8 | Márton Szőnyi | Badumbau |
-| 9 | Lionel Sigrist | Badumbau |
-| 10 | Patricia Schmid | Badumbau |
-| 11 | Kay Moeller-Heske | Innenausbau |
-| 12 | Claudio Hofer | Badumbau |
-| 13 | Benjamin Tacquet | Badumbau |
-| 14 | Katharina Gut | Innenausbau |
-| 15 | Rolf Haller | Innenausbau |
-| 16 | Albert Peter | Badumbau |
-| 17 | victor poalelungi | Innenausbau |
-| 18 | Coiffure Vogue Wädenswil | Innenausbau |
-| 19 | Läubli Daniel | Innenausbau |
-| 20 | Lodo GOPE | Badumbau |
-| 21 | Marzia Mura | Badumbau |
-| 22 | Diana Treasțin | Badumbau |
-| 23 | Tis Baumer | Badumbau |
-
-**Note**: Owner responses from "Bäderberg GmbH (Inhaber)" are excluded as requested.
-
----
-
-### Task 3: Update Homepage Testimonials Selection
-
-The `homepageTestimonials` array in `src/data/testimonials.ts` will be updated to show a diverse selection of the first 6 most impactful reviews for the homepage carousel:
-
-1. Christine B (newest, detailed review)
-2. Christian Hess (comprehensive feedback)
-3. Patricia Schmid (strong recommendation)
-4. Derk Mous (multiple bathrooms)
-5. Benjamin Tacquet (full house renovation)
-6. Rolf Haller (professional, on budget)
-
----
-
-### Technical Details
-
-**Lightbox Fix Approach**:
-The Radix Dialog component should close on overlay click by default. The issue is that with `bg-transparent` on the content, the clickable area becomes ambiguous. Adding `onInteractOutside` handler ensures the dialog closes when clicking anywhere outside the image content area.
-
-**Testimonials Structure**:
-Each testimonial object contains:
-- `author`: Customer name (string)
-- `quote`: Review text without "...Mehr" truncation indicators (string)
-- `rating`: Always 5 stars (number)
-- `project`: "Badumbau" or "Innenausbau" (string)
+- Video loads from your own server (faster, more reliable)
+- No dependency on external URL availability
+- Better control over video quality and compression
+- Improved SEO (self-hosted assets)
 
