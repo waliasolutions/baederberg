@@ -761,7 +761,6 @@ export default function ContentEditor() {
                       updateHomepageSection('gallery', { ...homepageData.gallery, items: newItems });
                     }}>
                       <option value="Badumbau">Badumbau</option>
-                      <option value="Küchenumbau">Küchenumbau</option>
                       <option value="Innenausbau">Innenausbau</option>
                     </select>
                   </div>

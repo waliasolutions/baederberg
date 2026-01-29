@@ -41,8 +41,8 @@ interface FooterData {
 }
 
 const defaultSEO: SEOData = {
-  metaTitle: 'Bäderberg - Bad, Küche & Innenausbau',
-  metaDescription: 'Ihr Spezialist für hochwertige Bad-, Küchen- und Innenrenovationen in der Region Zürich und Umgebung.',
+  metaTitle: 'Bäderberg - Bad & Innenausbau',
+  metaDescription: 'Ihr Spezialist für hochwertige Bad- und Innenrenovationen in der Region Zürich und Umgebung.',
   ogImage: '',
   gtmId: '',
   gtmHead: '',
@@ -64,7 +64,7 @@ const defaultBusiness: BusinessData = {
 
 const defaultFooter: FooterData = {
   companyName: 'Bäderberg GmbH',
-  tagline: 'Ihr Partner für Bad, Küche und Innenausbau',
+  tagline: 'Ihr Partner für Bad und Innenausbau',
   copyright: '© 2024 Bäderberg GmbH. Alle Rechte vorbehalten.'
 };
 
