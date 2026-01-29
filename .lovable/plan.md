@@ -1,54 +1,76 @@
 
 
-## Plan: Add Video Poster Image
+## Zusammenfassung
+
+Es gibt zwei Aufgaben:
+1. **Fehlende Innenausbau-Bild hinzufügen** - Das hochgeladene Bild (Zimmer mit Einbauschrank und beleuchteter Nische) zur Projekte-Galerie hinzufügen
+2. **Google Analytics einrichten** - Die Measurement ID `G-40Z9HJ9DH4` in index.html integrieren und in der Datenschutzerklärung dokumentieren
 
 ---
 
-### Summary
+## Schritt 1: Innenausbau-Bild hinzufügen
 
-Add a poster/thumbnail image for the video section that displays before the video starts playing. This provides a better user experience by showing a relevant preview instead of a black frame.
+Das hochgeladene Bild wird als `innenausbau-e.jpg` gespeichert und der Galerie hinzugefügt:
 
----
-
-### Changes Required
-
-| Task | Type | Description |
-|------|------|-------------|
-| 1 | Files | Copy uploaded poster image to public folder |
-| 2 | Component | Update video element with poster attribute |
+| Aktion | Detail |
+|--------|--------|
+| Bild kopieren | `user-uploads://innenausbau-c.jpeg` → `public/images/innenausbau-e.jpg` |
+| Schema aktualisieren | Neuen Eintrag in `src/cms/schema.ts` hinzufügen |
+| Titel | "Einbauschrank mit Beleuchtung" |
+| Kategorie | Innenausbau |
 
 ---
 
-### Task 1: Copy Poster Image to Public Folder
+## Schritt 2: Google Analytics Integration
 
-Copy the uploaded poster image to the public folder alongside the video:
+Google Analytics (GA4) wird zusätzlich zum bestehenden GTM hinzugefügt:
 
-`user-uploads://baederberg-preview.jpg` → `public/videos/erklaerungsvideo-poster.jpg`
+```text
+Bestehendes Tracking:
+├── Google Tag Manager (GTM-TLXXF8V) ✓ bereits vorhanden
 
----
-
-### Task 2: Update VideoSection Component
-
-Modify `src/components/VideoSection.tsx` to use the poster image:
-
-**Current (line 38-39):**
-```tsx
-preload="metadata"
-poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect width='1920' height='1080' fill='%23000'/%3E%3C/svg%3E"
+Neu hinzuzufügen:
+└── Google Analytics 4 (G-40Z9HJ9DH4) ← wird ergänzt
 ```
 
-**Updated:**
-```tsx
-preload="metadata"
-poster="/videos/erklaerungsvideo-poster.jpg"
+Das GA4-Script wird im `<head>` der `index.html` eingefügt:
+
+```html
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-40Z9HJ9DH4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-40Z9HJ9DH4');
+</script>
 ```
 
 ---
 
-### Result
+## Schritt 3: Datenschutzerklärung aktualisieren
 
-- The video will display the animated illustration (couple dreaming of their new bathroom) as a preview thumbnail
-- Users will see this image until they click play
-- The play button overlay will appear on top of the poster image
-- Better visual appeal and context for what the video is about
+Ein neuer Abschnitt wird nach "6. Cookies" eingefügt, der Google Analytics rechtlich dokumentiert:
+
+**Neuer Abschnitt "7. Webanalyse mit Google Analytics":**
+
+Inhalt:
+- Erklärung, dass GA4 zur Analyse des Nutzerverhaltens verwendet wird
+- Nennung der Measurement ID: G-40Z9HJ9DH4
+- Hinweis auf anonymisierte IP-Adressen
+- Hinweis auf Widerspruchsmöglichkeit (Opt-Out Link)
+- Information zur Datenübertragung in die USA
+
+Die nachfolgenden Abschnitte werden entsprechend neu nummeriert (7→8, 8→9, usw.).
+
+---
+
+## Betroffene Dateien
+
+| Datei | Änderung |
+|-------|----------|
+| `public/images/innenausbau-e.jpg` | Neues Bild (kopiert) |
+| `src/cms/schema.ts` | Neuer Galerie-Eintrag |
+| `index.html` | GA4-Script hinzufügen |
+| `src/pages/DatenschutzPage.tsx` | Neuer Abschnitt für Google Analytics |
 
