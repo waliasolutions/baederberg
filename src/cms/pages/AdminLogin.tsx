@@ -42,13 +42,9 @@ export function AdminLogin() {
 
   const checkIfFirstAdmin = async () => {
     try {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('id')
-        .eq('role', 'admin')
-        .limit(1);
+      const { data: hasAdmin, error } = await supabase.rpc('check_admin_exists');
       
-      if (!error && (!data || data.length === 0)) {
+      if (!error && hasAdmin === false) {
         setShowBootstrap(true);
       }
     } catch (err) {
