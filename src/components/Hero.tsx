@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useSectionContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
-import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface HeroSlide {
   heading: string;
@@ -93,10 +92,10 @@ const Hero = () => {
           style={{ y }}
           className="absolute inset-0"
         >
-          <OptimizedImage 
+          <img
             src={currentSlide.url}
             alt={currentSlide.heading}
-            priority={true}
+            loading="eager"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
