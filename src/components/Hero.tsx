@@ -45,20 +45,38 @@ const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   
-  // Preload all images on mount
+  // Preload all images immediately using link preload for faster loading
   useEffect(() => {
-    const imagePromises = slideImages.map((slide) => {
-      return new Promise((resolve, reject) => {
+    // Add preload links to head for faster image loading
+    slideImages.forEach((slide, index) => {
+      const existingLink = document.querySelector(`link[href="${slide.url}"]`);
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = index === 0 ? 'preload' : 'prefetch';
+        link.as = 'image';
+        link.href = slide.url;
+        if (index === 0) {
+          link.setAttribute('fetchpriority', 'high');
+        }
+        document.head.appendChild(link);
+      }
+    });
+
+    // Also preload via Image objects for immediate availability
+    const loadPromises = slideImages.map((slide) => {
+      return new Promise<void>((resolve) => {
         const img = new Image();
         img.src = slide.url;
-        img.onload = resolve;
-        img.onerror = reject;
+        if (img.complete) {
+          resolve();
+        } else {
+          img.onload = () => resolve();
+          img.onerror = () => resolve(); // Continue even on error
+        }
       });
     });
 
-    Promise.all(imagePromises)
-      .then(() => setImagesLoaded(true))
-      .catch((error) => console.error('Failed to preload images:', error));
+    Promise.all(loadPromises).then(() => setImagesLoaded(true));
   }, [slideImages]);
   
   useEffect(() => {
@@ -80,15 +98,30 @@ const Hero = () => {
 
   const currentSlide = slideImages[currentIndex];
 
+  // Show skeleton until first image is loaded
+  if (!imagesLoaded) {
+    return (
+      <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden bg-muted">
+        <div className="absolute inset-0 animate-pulse bg-muted" />
+        <div className="container relative z-10 flex flex-col h-full justify-center items-center px-4 mx-auto">
+          <div className="max-w-3xl mx-auto text-center px-4">
+            <div className="h-12 md:h-16 bg-muted-foreground/20 rounded-lg w-3/4 mx-auto mb-8" />
+            <div className="h-12 w-40 bg-muted-foreground/20 rounded-lg mx-auto" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden bg-gray-900">
+    <div className="relative h-[calc(100vh-0px)] max-w-full overflow-hidden bg-muted">
       <AnimatePresence initial={false}>
         <motion.div 
           key={currentIndex}
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           style={{ y }}
           className="absolute inset-0"
         >
@@ -96,6 +129,8 @@ const Hero = () => {
             src={currentSlide.url}
             alt={currentSlide.heading}
             loading="eager"
+            decoding="sync"
+            fetchPriority="high"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />

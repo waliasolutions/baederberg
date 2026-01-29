@@ -8,7 +8,6 @@ import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 import SEOHead from '@/components/SEOHead';
 import { usePageContent } from '@/cms/hooks/usePageContent';
-import { OptimizedImage } from '@/components/ui/optimized-image';
 
 const InnenausbauPage = () => {
   const { scrollY } = useScroll();
@@ -30,10 +29,11 @@ const InnenausbauPage = () => {
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
           <motion.div style={{ scale: imageScale }} className="absolute inset-0">
-            <OptimizedImage 
+            <img 
               src={pageContent.heroImage} 
               alt="Innenausbau" 
-              priority={true}
+              loading="eager"
+              decoding="sync"
               className="w-full h-full object-cover"
             />
           </motion.div>
