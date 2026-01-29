@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useSectionContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface HeroSlide {
   heading: string;
@@ -90,13 +91,13 @@ const Hero = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
           style={{ y }}
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0"
         >
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ 
-              backgroundImage: `url('${currentSlide.url}')`,
-            }}
+          <OptimizedImage 
+            src={currentSlide.url}
+            alt={currentSlide.heading}
+            priority={true}
+            className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
         </motion.div>
