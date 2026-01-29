@@ -96,7 +96,27 @@ const DatenschutzPage = () => {
                   Die meisten Browser akzeptieren Cookies automatisch. Sie können Ihren Browser jedoch so konfigurieren, dass keine Cookies auf Ihrem Computer gespeichert werden oder stets ein Hinweis erscheint, bevor ein neuer Cookie angelegt wird.
                 </p>
 
-                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">7. Ihre Rechte</h2>
+                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">7. Webanalyse mit Google Analytics</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Diese Website nutzt Google Analytics 4 (GA4), einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Wir verwenden die Measurement ID: <strong>G-40Z9HJ9DH4</strong>.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Google Analytics verwendet Cookies, die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  <strong>IP-Anonymisierung:</strong> Wir haben auf dieser Website die Funktion IP-Anonymisierung aktiviert. Dadurch wird Ihre IP-Adresse von Google innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum vor der Übermittlung in die USA gekürzt.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  <strong>Widerspruch gegen Datenerfassung:</strong> Sie können die Erfassung Ihrer Daten durch Google Analytics verhindern, indem Sie das unter folgendem Link verfügbare Browser-Add-on herunterladen und installieren: <a href="https://tools.google.com/dlpage/gaoptout?hl=de" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://tools.google.com/dlpage/gaoptout</a>
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  <strong>Datenübermittlung in die USA:</strong> Wir weisen darauf hin, dass Google Daten in die USA übermittelt. Die USA gelten nach Schweizer und EU-Recht als ein Land mit unzureichendem Datenschutzniveau. Google hat sich jedoch zur Einhaltung des EU-US Data Privacy Framework verpflichtet.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Weitere Informationen zum Umgang mit Nutzerdaten bei Google Analytics finden Sie in der Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://policies.google.com/privacy</a>
+                </p>
+
+                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">8. Ihre Rechte</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Sie haben das Recht:
                 </p>
@@ -109,7 +129,7 @@ const DatenschutzPage = () => {
                   <li>– Ihre personenbezogenen Daten in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten</li>
                 </ul>
 
-                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">8. Datensicherheit</h2>
+                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">9. Datensicherheit</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Wir verwenden innerhalb des Website-Besuchs das verbreitete SSL-Verfahren (Secure Socket Layer) in Verbindung mit der jeweils höchsten Verschlüsselungsstufe, die von Ihrem Browser unterstützt wird. Ob eine einzelne Seite unseres Internetauftrittes verschlüsselt übertragen wird, erkennen Sie an der geschlossenen Darstellung des Schlüssel- beziehungsweise Schloss-Symbols in der Statusleiste Ihres Browsers.
                 </p>
@@ -117,7 +137,7 @@ const DatenschutzPage = () => {
                   Wir bedienen uns im Übrigen geeigneter technischer und organisatorischer Sicherheitsmassnahmen, um Ihre Daten gegen zufällige oder vorsätzliche Manipulationen, teilweisen oder vollständigen Verlust, Zerstörung oder gegen den unbefugten Zugriff Dritter zu schützen.
                 </p>
 
-                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">9. Kontakt für Datenschutzanfragen</h2>
+                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">10. Kontakt für Datenschutzanfragen</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Bei Fragen zur Erhebung, Verarbeitung oder Nutzung Ihrer personenbezogenen Daten, bei Auskünften, Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich bitte an:
                 </p>
@@ -128,7 +148,7 @@ const DatenschutzPage = () => {
                   E-Mail: info@baederberg.ch
                 </p>
 
-                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">10. Änderungen dieser Datenschutzerklärung</h2>
+                <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">11. Änderungen dieser Datenschutzerklärung</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen in der Datenschutzerklärung umzusetzen. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung.
                 </p>
