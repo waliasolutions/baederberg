@@ -1,76 +1,63 @@
 
+## Problem-Analyse
 
-## Zusammenfassung
+Das neue Innenausbau-Bild wird nicht angezeigt, weil:
 
-Es gibt zwei Aufgaben:
-1. **Fehlende Innenausbau-Bild hinzufügen** - Das hochgeladene Bild (Zimmer mit Einbauschrank und beleuchteter Nische) zur Projekte-Galerie hinzufügen
-2. **Google Analytics einrichten** - Die Measurement ID `G-40Z9HJ9DH4` in index.html integrieren und in der Datenschutzerklärung dokumentieren
+| Ebene | Status |
+|-------|--------|
+| Bild-Datei (`public/images/innenausbau-e.jpg`) | Vorhanden |
+| Schema (`src/cms/schema.ts`) | Eintrag vorhanden |
+| Datenbank (`content` Tabelle) | **Fehlt** |
 
----
-
-## Schritt 1: Innenausbau-Bild hinzufügen
-
-Das hochgeladene Bild wird als `innenausbau-e.jpg` gespeichert und der Galerie hinzugefügt:
-
-| Aktion | Detail |
-|--------|--------|
-| Bild kopieren | `user-uploads://innenausbau-c.jpeg` → `public/images/innenausbau-e.jpg` |
-| Schema aktualisieren | Neuen Eintrag in `src/cms/schema.ts` hinzufügen |
-| Titel | "Einbauschrank mit Beleuchtung" |
-| Kategorie | Innenausbau |
+Die Galerie-Komponente holt ihre Daten aus der Datenbank. Die Datenbank enthält aktuell nur **2 Innenausbau-Bilder** (`innenausbau-a.jpg`, `innenausbau-b.jpg`), während die neuen Bilder (`innenausbau-c.jpg`, `innenausbau-d.jpg`, `innenausbau-e.jpg`) nur im Schema definiert wurden.
 
 ---
 
-## Schritt 2: Google Analytics Integration
+## Lösung
 
-Google Analytics (GA4) wird zusätzlich zum bestehenden GTM hinzugefügt:
+Die Datenbank-Tabelle `content` muss aktualisiert werden, um alle 5 Innenausbau-Bilder zu enthalten:
 
 ```text
-Bestehendes Tracking:
-├── Google Tag Manager (GTM-TLXXF8V) ✓ bereits vorhanden
-
-Neu hinzuzufügen:
-└── Google Analytics 4 (G-40Z9HJ9DH4) ← wird ergänzt
-```
-
-Das GA4-Script wird im `<head>` der `index.html` eingefügt:
-
-```html
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-40Z9HJ9DH4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-40Z9HJ9DH4');
-</script>
+Aktuelle Innenausbau-Bilder in DB:   Fehlende Bilder:
+├── innenausbau-a.jpg               ├── innenausbau-c.jpg
+└── innenausbau-b.jpg               ├── innenausbau-d.jpg
+                                    └── innenausbau-e.jpg
 ```
 
 ---
 
-## Schritt 3: Datenschutzerklärung aktualisieren
+## Technische Umsetzung
 
-Ein neuer Abschnitt wird nach "6. Cookies" eingefügt, der Google Analytics rechtlich dokumentiert:
+Die `gallery` Sektion in der `content` Tabelle wird mit folgendem SQL aktualisiert:
 
-**Neuer Abschnitt "7. Webanalyse mit Google Analytics":**
-
-Inhalt:
-- Erklärung, dass GA4 zur Analyse des Nutzerverhaltens verwendet wird
-- Nennung der Measurement ID: G-40Z9HJ9DH4
-- Hinweis auf anonymisierte IP-Adressen
-- Hinweis auf Widerspruchsmöglichkeit (Opt-Out Link)
-- Information zur Datenübertragung in die USA
-
-Die nachfolgenden Abschnitte werden entsprechend neu nummeriert (7→8, 8→9, usw.).
+```sql
+UPDATE content 
+SET content = jsonb_set(
+  content,
+  '{items}',
+  content->'items' || '[
+    {"image": "/images/innenausbau-c.jpg", "category": "Innenausbau"},
+    {"image": "/images/innenausbau-d.jpg", "category": "Innenausbau"},
+    {"image": "/images/innenausbau-e.jpg", "category": "Innenausbau"}
+  ]'::jsonb
+)
+WHERE section_key = 'gallery' AND content_key = 'default';
+```
 
 ---
 
 ## Betroffene Dateien
 
-| Datei | Änderung |
-|-------|----------|
-| `public/images/innenausbau-e.jpg` | Neues Bild (kopiert) |
-| `src/cms/schema.ts` | Neuer Galerie-Eintrag |
-| `index.html` | GA4-Script hinzufügen |
-| `src/pages/DatenschutzPage.tsx` | Neuer Abschnitt für Google Analytics |
+| Datei/Ressource | Änderung |
+|-----------------|----------|
+| Supabase `content` Tabelle | 3 neue Innenausbau-Einträge hinzufügen |
 
+---
+
+## Ergebnis nach Umsetzung
+
+| Filter | Vorher | Nachher |
+|--------|--------|---------|
+| Innenausbau | 2 Bilder | 5 Bilder |
+| Badumbau | 22 Bilder | 22 Bilder |
+| Alle | 24 Bilder | 27 Bilder |
