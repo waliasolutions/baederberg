@@ -8,6 +8,7 @@ import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { useTestimonialsByProject } from '@/cms/hooks/useTestimonials';
 import SEOHead from '@/components/SEOHead';
 import { usePageContent } from '@/cms/hooks/usePageContent';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 const BadumbauPage = () => {
   const { scrollY } = useScroll();
@@ -28,12 +29,14 @@ const BadumbauPage = () => {
         {/* Hero Section */}
         <section className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/50 z-10"></div>
-          <motion.img 
-            src={pageContent.heroImage} 
-            alt="Badezimmer" 
-            className="w-full h-full object-cover"
-            style={{ scale: imageScale }}
-          />
+          <motion.div style={{ scale: imageScale }} className="absolute inset-0">
+            <OptimizedImage 
+              src={pageContent.heroImage} 
+              alt="Badezimmer" 
+              priority={true}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
           <div className="container px-6 md:px-12 absolute inset-0 z-20 flex flex-col justify-center">
             <motion.div 
               className="flex flex-col gap-6 max-w-3xl text-white"

@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react';
 import { useSectionContent } from '@/cms/context/ContentProvider';
 import { DynamicIcon } from '@/lib/DynamicIcon';
 import { defaultContent } from '@/cms/schema';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import modernBathroom from '/lovable-uploads/modern-bathroom-interior.jpg';
 
 interface AboutFeature {
@@ -38,9 +39,10 @@ const About = () => {
       <div className="container px-6 md:px-12">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <img 
+            <OptimizedImage 
               src={imageUrl}
-              alt="Modernes Badezimmer" 
+              alt="Modernes Badezimmer"
+              aspectRatio="4/3"
               className="w-full rounded-2xl shadow-lg object-cover aspect-[4/3] max-h-[300px] md:max-h-[400px]"
             />
           </div>

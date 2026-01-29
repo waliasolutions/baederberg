@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface ProjectCardProps {
   image: string;
@@ -22,9 +23,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ image, index }) => {
           }}
         >
           <div className="relative aspect-[4/3] overflow-hidden">
-            <img 
+            <OptimizedImage 
               src={image} 
-              alt="Projekt Referenz" 
+              alt="Projekt Referenz"
+              aspectRatio="4/3"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
