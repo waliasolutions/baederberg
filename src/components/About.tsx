@@ -26,7 +26,7 @@ const About = () => {
   // Use schema defaults (SSOT)
   const schemaDefaults = defaultContent.about || {};
   
-  const heading = aboutContent?.heading || schemaDefaults.heading || 'Ihr Bad, Ihre Küche, Ihr Innenausbau';
+  const heading = aboutContent?.heading || schemaDefaults.heading || 'Ihr Bad, Ihr Innenausbau';
   const paragraph1 = aboutContent?.paragraph1 || schemaDefaults.paragraph1 || '';
   const paragraph2 = aboutContent?.paragraph2 || schemaDefaults.paragraph2 || '';
   const imageUrl = aboutContent?.image || modernBathroom;

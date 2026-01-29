@@ -69,7 +69,7 @@ const AgbPage = () => {
                   Entwurfs-, Planungs- und Projektierungsleistungen werden ausschliesslich bei entsprechender Beauftragung gemäss separater Planungs-/Projektierungsvereinbarung honoriert.
                 </p>
                 <p className="text-muted-foreground">
-                  Gestalterische und technische Gesamtplanungen (z. B. Haustechnik, Elektro/Sanitär, Küchenplanung, Innenarchitektur/Raumgestaltung, Möbel- und Einrichtungsgestaltung etc.) werden – soweit beauftragt – gemäss separater Vereinbarung honoriert.
+                  Gestalterische und technische Gesamtplanungen (z. B. Haustechnik, Elektro/Sanitär, Innenarchitektur/Raumgestaltung, Möbel- und Einrichtungsgestaltung etc.) werden – soweit beauftragt – gemäss separater Vereinbarung honoriert.
                 </p>
                 <p className="text-muted-foreground">
                   Koordinationsleistungen (insbesondere Koordination zwischen Kunde und Lieferanten sowie zwischen Projekt und Dritten) stellen eine gesondert zu vergütende Zusatzleistung dar und werden – sofern beauftragt – nach Vereinbarung abgerechnet.

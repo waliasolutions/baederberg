@@ -31,8 +31,8 @@ export function SEOHead({ title, description, ogImage, noIndex }: SEOHeadProps) 
   const heroContent = useSectionContent<HeroContent>('hero');
   
   // Defaults
-  const defaultTitle = 'Bäderberg - Bad, Küche & Innenausbau';
-  const defaultDescription = 'Ihr Spezialist für hochwertige Bad-, Küchen- und Innenrenovationen in der Region Zürich und Umgebung.';
+  const defaultTitle = 'Bäderberg - Bad & Innenausbau';
+  const defaultDescription = 'Ihr Spezialist für hochwertige Bad- und Innenrenovationen in der Region Zürich und Umgebung.';
   
   // Get first hero image as default OG image
   const firstHeroImage = heroContent?.slides?.[0]?.backgroundImage;
