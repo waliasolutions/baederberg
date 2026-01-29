@@ -41,10 +41,9 @@ export function useAuth() {
           session: session,
         }));
 
-        // Defer role fetch to avoid deadlock
+        // Fetch role immediately for authenticated users
         if (session?.user) {
-          setTimeout(async () => {
-            const role = await fetchUserRole(session.user.id);
+          fetchUserRole(session.user.id).then(role => {
             setAuthState(prev => ({
               ...prev,
               role,
@@ -52,7 +51,7 @@ export function useAuth() {
               isEditor: role === 'editor' || role === 'admin',
               isLoading: false,
             }));
-          }, 0);
+          });
         } else {
           setAuthState(prev => ({
             ...prev,
