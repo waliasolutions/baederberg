@@ -33,22 +33,52 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setIsError(false);
+    setErrorMessage('');
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Fehler beim Senden der Nachricht');
+      }
+
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 5000);
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-    }, 1500);
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setIsError(true);
+      setErrorMessage(
+        error instanceof Error 
+          ? error.message 
+          : 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -94,6 +124,12 @@ const Contact = () => {
             {isSuccess && (
               <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-lg">
                 Vielen Dank für Ihre Nachricht! Wir melden uns bald bei Ihnen.
+              </div>
+            )}
+            
+            {isError && (
+              <div className="mb-6 p-4 bg-red-50 text-red-800 rounded-lg">
+                {errorMessage}
               </div>
             )}
             
