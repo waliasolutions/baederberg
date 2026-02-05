@@ -75,6 +75,13 @@ const ImpressumPage = () => {
                   Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
                 </p>
 
+                 <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-4">Webdesign & Programmierung</h2>
+                 <p className="text-muted-foreground leading-relaxed">
+                   <a href="https://walia-solutions.ch" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
+                     Walia Solutions
+                   </a>
+                 </p>
+ 
                 <div className="mt-12 pt-8 border-t border-border">
                   <p className="text-sm text-muted-foreground">
                     Stand: Januar 2025
