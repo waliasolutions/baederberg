@@ -1,83 +1,69 @@
 
-## QA-Korrektur: Region Pages Synchronisation
+## Region Pages Content-Verbesserung
 
-### Problem-Zusammenfassung
+### Problem-Analyse
 
-Die Region-Seiten zeigen inkonsistente Ortsnamen an. Beispiel: Auf der Seite "Bäderberg in Meilen" steht "Unsere Leistungen in Richterswil" statt "Unsere Leistungen in Meilen".
+Die aktuellen Region-Seiten haben sehr dünne Inhalte:
 
----
+| Bereich | Aktuell | Problem |
+|---------|---------|---------|
+| **Badumbau** | "Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne." | Zu kurz, keine Details |
+| **Innenausbau** | "Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um." | Zu kurz, keine Substanz |
+| **Warum wir** | 4 generische Punkte | Keine konkreten Vorteile |
 
-### Gefundene Probleme
-
-| Problem | Betroffene Seiten | Ursache |
-|---------|-------------------|---------|
-| **Falscher Ortsname in Überschriften** | Meilen, Erlenbach, Zollikon, Kilchberg, Küsnacht, Lachen, Wädenswil, alle neuen Regionen | `cityName` nutzt `contact.address.city` aus `regionDefaults`, welches fix auf "Richterswil" gesetzt ist |
-| **5 Regionen auf Karte ohne Schema** | Menzingen, Freienbach, Rapperswil, Horgen, Rüti | RegionMap hat 15 Einträge, Schema nur 10 |
-| **Fehlende Testimonial-Fallbacks** | Menzingen, Freienbach, Rapperswil, Horgen, Rüti | `regionTestimonialFallback` kennt diese Regionen nicht |
-| **Footer zeigt "Bäderberg in X"** | Alle Footer-Links | Sollte nur "Zürich", "Meilen" etc. anzeigen |
-| **HTML5 nicht synchron** | Alle HTML5-Regions-Dateien | 5 neue Regionen fehlen |
+Die Service-Detail-Seiten (BadumbauPage, InnenausbauPage) haben hingegen sehr guten Inhalt mit konkreten Features.
 
 ---
 
-### Lösung
+### Strategie
 
-#### 1. RegionPage.tsx - cityName Logik korrigieren
+Die Region-Seiten sollen mehr von den konkreten Leistungen zeigen, ohne die Detail-Seiten zu kopieren. Der Ton bleibt positiv und konkret, ohne zu belehren.
 
-Die Priorität muss umgekehrt werden: Erst den Ortsnamen aus dem Titel extrahieren, dann als Fallback die Kontaktadresse nutzen.
+---
 
-```text
-Vorher (falsch):
-cityName = contact.address.city || title.replace(...)
-  → Richterswil für alle Seiten
+### Neue Inhalte
 
-Nachher (korrekt):
-cityName = title.replace('Bäderberg in ', '') || contact.address.city
-  → Meilen für /region/meilen
-  → Erlenbach für /region/erlenbach
-  → usw.
+#### 1. Erweiterte Service-Beschreibungen
+
+**Badumbau (neu):**
+```
+Ihr persönlicher Bauleiter plant mit Ihnen und koordiniert den
+gesamten Umbau. Sanitär, Elektrik, Fliesen, Badmöbel –
+alles läuft über einen Ansprechpartner. Fester Preis,
+fester Termin, 5 Jahre Garantie.
 ```
 
-#### 2. Schema.ts - 5 neue Regionen hinzufügen
-
-```text
-regions.items (aktuell 10):
-├── zurich, richterswil, waedenswil, lachen, pfaeffikon
-├── zollikon, kilchberg, kuesnacht, meilen, erlenbach
-
-regions.items (neu 15):
-├── + menzingen
-├── + freienbach
-├── + rapperswil
-├── + horgen
-└── + rueti
+**Innenausbau (neu):**
+```
+Ein Ansprechpartner für alles: Bodenbeläge, Einbauschränke,
+Wandverkleidungen, Treppen. Wir übernehmen die Koordination
+aller Gewerke. Fester Preis, fester Termin, 5 Jahre Garantie.
 ```
 
-#### 3. RegionPage.tsx - Testimonial-Fallbacks ergänzen
+#### 2. Service-Karten mit Feature-Liste
 
-```text
-regionTestimonialFallback (neu):
-├── menzingen: [14, 3, 12]
-├── freienbach: [6, 16, 0]
-├── rapperswil: [13, 5, 18]
-├── horgen: [7, 2, 11]
-└── rueti: [4, 15, 9]
-```
+Jede Service-Karte bekommt 3-4 konkrete Leistungspunkte:
 
-#### 4. Footer.tsx - Regions-Anzeige vereinfachen
+**Badumbau:**
+- Persönlicher Bauleiter
+- Sanitär & Elektrik inklusive
+- 5 Jahre Garantie
 
-```text
-Vorher: "Bäderberg in Zürich"
-Nachher: "Zürich"
-```
+**Innenausbau:**
+- Fachgerechte Bauleitung
+- Alle Gewerke koordiniert
+- 5 Jahre Garantie
 
-Änderung: Ersetze `region.title` durch Extraktion des reinen Ortsnamens.
+#### 3. Überarbeitete "Warum Bäderberg" Punkte
 
-#### 5. HTML5-Version synchronisieren
+Die bisherigen Punkte sind okay, aber zu generisch. Hier konkretere Versionen:
 
-Neue Regions-Links zu den Include-Dateien hinzufügen:
-- `regions-list.html`
-- `regions-list-column1.html`
-- `regions-list-column2.html`
+| Alt | Neu |
+|-----|-----|
+| "Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe" | "Ein Ansprechpartner von Anfang bis Ende" |
+| "5 Jahre Garantie auf unsere Handwerksleistungen" | "5 Jahre Garantie auf alle Arbeiten" |
+| "Sorgfältige Arbeit mit hochwertigen Materialien" | "Saubere Arbeit, hochwertige Materialien" |
+| "Transparente Preise ohne versteckte Kosten" | "Fester Preis – keine Überraschungen" |
 
 ---
 
@@ -85,23 +71,85 @@ Neue Regions-Links zu den Include-Dateien hinzufügen:
 
 | Datei | Änderung |
 |-------|----------|
-| `src/pages/RegionPage.tsx` | `cityName` Logik korrigieren, Testimonial-Fallbacks ergänzen |
-| `src/cms/schema.ts` | 5 neue Regionen zu `regions.items` hinzufügen |
-| `src/components/Footer.tsx` | Regions-Titel auf Ortsnamen reduzieren |
-| `html5-version/includes/regions-list.html` | 5 neue Regionen |
-| `html5-version/includes/regions-list-column1.html` | Neu aufteilen |
-| `html5-version/includes/regions-list-column2.html` | Neu aufteilen |
+| `src/cms/schema.ts` | Neue `regionDefaults.services` und `regionDefaults.whyUs` Texte |
+| `src/pages/RegionPage.tsx` | Service-Karten mit Feature-Liste erweitern |
+
+---
+
+### Technische Umsetzung
+
+#### RegionPage.tsx - Service Cards mit Features
+
+```text
+Vorher:
+┌─────────────────────────────┐
+│ Badumbau                    │
+│ [kurzer Text]               │
+│ → Mehr erfahren             │
+└─────────────────────────────┘
+
+Nachher:
+┌─────────────────────────────┐
+│ Badumbau                    │
+│ [erweiterter Text]          │
+│                             │
+│ ✓ Persönlicher Bauleiter    │
+│ ✓ Sanitär & Elektrik inkl.  │
+│ ✓ 5 Jahre Garantie          │
+│                             │
+│ → Mehr erfahren             │
+└─────────────────────────────┘
+```
+
+#### Schema.ts - Neue regionDefaults
+
+```typescript
+regionDefaults: {
+  services: {
+    badumbau: 'Ihr persönlicher Bauleiter plant mit Ihnen und koordiniert den gesamten Umbau. Sanitär, Elektrik, Fliesen, Badmöbel – alles läuft über einen Ansprechpartner. Fester Preis, fester Termin, 5 Jahre Garantie.',
+    innenausbau: 'Ein Ansprechpartner für alles: Bodenbeläge, Einbauschränke, Wandverkleidungen, Treppen. Wir übernehmen die Koordination aller Gewerke. Fester Preis, fester Termin, 5 Jahre Garantie.'
+  },
+  serviceFeatures: {
+    badumbau: [
+      'Persönlicher Bauleiter',
+      'Sanitär & Elektrik inklusive',
+      '5 Jahre Garantie'
+    ],
+    innenausbau: [
+      'Fachgerechte Bauleitung',
+      'Alle Gewerke koordiniert',
+      '5 Jahre Garantie'
+    ]
+  },
+  whyUs: [
+    'Ein Ansprechpartner von Anfang bis Ende',
+    '5 Jahre Garantie auf alle Arbeiten',
+    'Saubere Arbeit, hochwertige Materialien',
+    'Fester Preis – keine Überraschungen'
+  ],
+  // ... rest bleibt gleich
+}
+```
+
+---
+
+### Inhaltsprinzipien
+
+Die neuen Texte folgen diesen Regeln:
+
+| Prinzip | Umsetzung |
+|---------|-----------|
+| **Konkret** | "Persönlicher Bauleiter", "5 Jahre Garantie" statt vage Versprechen |
+| **Positiv** | Was wir machen, nicht was andere falsch machen |
+| **Kein Fluff** | Keine "Wohlfühloase", keine "exklusiv" oder "erstklassig" |
+| **Nicht belehrend** | Keine "Sie sollten..." oder "Wichtig ist..." |
 
 ---
 
 ### Erwartetes Ergebnis
 
-Nach der Korrektur:
-
-| Seite | Korrekte Anzeige |
-|-------|-----------------|
-| `/region/meilen` | "Unsere Leistungen in Meilen" |
-| `/region/erlenbach` | "Unsere Leistungen in Erlenbach" |
-| `/region/menzingen` | "Unsere Leistungen in Menzingen" |
-| `/region/horgen` | "Unsere Leistungen in Horgen" |
-| Footer | "Zürich", "Meilen", "Horgen" (ohne "Bäderberg in") |
+Nach der Umsetzung zeigen die Region-Seiten:
+- Mehr Substanz in den Service-Beschreibungen
+- Konkrete Features als Checkmarks
+- Kürzere, prägnantere "Warum wir" Punkte
+- Gleicher Ton wie die Hauptseiten (direkt, ehrlich, konkret)
