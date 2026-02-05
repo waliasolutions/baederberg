@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface ServiceCardProps {
   title: string;
@@ -38,10 +37,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       className="group relative rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
     >
       <div className="aspect-[4/3] w-full overflow-hidden">
-        <OptimizedImage
+        <img
           src={imageSrc}
           alt={title}
-          aspectRatio="4/3"
+          loading="eager"
+          decoding="async"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
