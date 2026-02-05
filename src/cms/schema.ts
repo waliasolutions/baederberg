@@ -688,14 +688,26 @@ export const defaultContent: Record<string, any> = {
   // ========== REGION DEFAULTS (SSOT) ==========
   regionDefaults: {
     services: {
-      badumbau: 'Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne. Persönlich betreut, sauber ausgeführt.',
-      innenausbau: 'Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um.'
+       badumbau: 'Ihr persönlicher Bauleiter plant mit Ihnen und koordiniert den gesamten Umbau. Sanitär, Elektrik, Fliesen, Badmöbel – alles läuft über einen Ansprechpartner. Fester Preis, fester Termin, 5 Jahre Garantie.',
+       innenausbau: 'Ein Ansprechpartner für alles: Bodenbeläge, Einbauschränke, Wandverkleidungen, Treppen. Wir übernehmen die Koordination aller Gewerke. Fester Preis, fester Termin, 5 Jahre Garantie.'
+     },
+     serviceFeatures: {
+       badumbau: [
+         'Persönlicher Bauleiter',
+         'Sanitär & Elektrik inklusive',
+         '5 Jahre Garantie'
+       ],
+       innenausbau: [
+         'Fachgerechte Bauleitung',
+         'Alle Gewerke koordiniert',
+         '5 Jahre Garantie'
+       ]
     },
     whyUs: [
-      'Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe',
-      '5 Jahre Garantie auf unsere Handwerksleistungen',
-      'Sorgfältige Arbeit mit hochwertigen Materialien',
-      'Transparente Preise ohne versteckte Kosten'
+       'Ein Ansprechpartner von Anfang bis Ende',
+       '5 Jahre Garantie auf alle Arbeiten',
+       'Saubere Arbeit, hochwertige Materialien',
+       'Fester Preis – keine Überraschungen'
     ],
     faq: [
       { question: 'Wie lange dauert ein Umbau?', answer: 'Ein Badumbau dauert 3-6 Wochen, ein Innenausbau-Projekt je nach Umfang 2-6 Wochen. Der genaue Zeitplan hängt vom Umfang ab.' },
