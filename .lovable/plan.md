@@ -1,71 +1,107 @@
 
-## Fix für flackernde Service-Karten
+## QA-Korrektur: Region Pages Synchronisation
 
-### Problem-Analyse
+### Problem-Zusammenfassung
 
-Die Service-Karten auf der Startseite verwenden die `OptimizedImage` Komponente, die folgende Probleme verursacht:
+Die Region-Seiten zeigen inkonsistente Ortsnamen an. Beispiel: Auf der Seite "Bäderberg in Meilen" steht "Unsere Leistungen in Richterswil" statt "Unsere Leistungen in Meilen".
 
-| Problem | Ursache |
-|---------|---------|
-| Doppelter Ladezustand | Skeleton + Bild mit Opacity-Übergang |
-| Race Condition | `Image()` Preload vs. tatsächliches `onLoad` Event |
-| Verzögerter Übergang | 300ms Opacity-Transition bei jedem Laden |
+---
+
+### Gefundene Probleme
+
+| Problem | Betroffene Seiten | Ursache |
+|---------|-------------------|---------|
+| **Falscher Ortsname in Überschriften** | Meilen, Erlenbach, Zollikon, Kilchberg, Küsnacht, Lachen, Wädenswil, alle neuen Regionen | `cityName` nutzt `contact.address.city` aus `regionDefaults`, welches fix auf "Richterswil" gesetzt ist |
+| **5 Regionen auf Karte ohne Schema** | Menzingen, Freienbach, Rapperswil, Horgen, Rüti | RegionMap hat 15 Einträge, Schema nur 10 |
+| **Fehlende Testimonial-Fallbacks** | Menzingen, Freienbach, Rapperswil, Horgen, Rüti | `regionTestimonialFallback` kennt diese Regionen nicht |
+| **Footer zeigt "Bäderberg in X"** | Alle Footer-Links | Sollte nur "Zürich", "Meilen" etc. anzeigen |
+| **HTML5 nicht synchron** | Alle HTML5-Regions-Dateien | 5 neue Regionen fehlen |
+
+---
 
 ### Lösung
 
-Die gleiche Strategie wie beim Hero-Slider anwenden: Native `<img>` Tags mit optimierten Ladeattributen verwenden.
+#### 1. RegionPage.tsx - cityName Logik korrigieren
+
+Die Priorität muss umgekehrt werden: Erst den Ortsnamen aus dem Titel extrahieren, dann als Fallback die Kontaktadresse nutzen.
 
 ```text
-Vorher (ServiceCard.tsx):
-├── OptimizedImage Komponente
-│   ├── Skeleton (animate-pulse)
-│   ├── opacity-0 → opacity-100 Übergang
-│   └── Doppelte Ladezustandsverwaltung
-└── Verursacht Flackern
+Vorher (falsch):
+cityName = contact.address.city || title.replace(...)
+  → Richterswil für alle Seiten
 
-Nachher (ServiceCard.tsx):
-├── Native <img> Tag
-│   ├── loading="eager" (sofortiges Laden)
-│   ├── decoding="async" (nicht blockierend)
-│   └── Kein Ladezustand notwendig
-└── Kein Flackern
+Nachher (korrekt):
+cityName = title.replace('Bäderberg in ', '') || contact.address.city
+  → Meilen für /region/meilen
+  → Erlenbach für /region/erlenbach
+  → usw.
 ```
+
+#### 2. Schema.ts - 5 neue Regionen hinzufügen
+
+```text
+regions.items (aktuell 10):
+├── zurich, richterswil, waedenswil, lachen, pfaeffikon
+├── zollikon, kilchberg, kuesnacht, meilen, erlenbach
+
+regions.items (neu 15):
+├── + menzingen
+├── + freienbach
+├── + rapperswil
+├── + horgen
+└── + rueti
+```
+
+#### 3. RegionPage.tsx - Testimonial-Fallbacks ergänzen
+
+```text
+regionTestimonialFallback (neu):
+├── menzingen: [14, 3, 12]
+├── freienbach: [6, 16, 0]
+├── rapperswil: [13, 5, 18]
+├── horgen: [7, 2, 11]
+└── rueti: [4, 15, 9]
+```
+
+#### 4. Footer.tsx - Regions-Anzeige vereinfachen
+
+```text
+Vorher: "Bäderberg in Zürich"
+Nachher: "Zürich"
+```
+
+Änderung: Ersetze `region.title` durch Extraktion des reinen Ortsnamens.
+
+#### 5. HTML5-Version synchronisieren
+
+Neue Regions-Links zu den Include-Dateien hinzufügen:
+- `regions-list.html`
+- `regions-list-column1.html`
+- `regions-list-column2.html`
+
+---
 
 ### Betroffene Dateien
 
 | Datei | Änderung |
 |-------|----------|
-| `src/components/ServiceCard.tsx` | `OptimizedImage` durch native `<img>` ersetzen |
+| `src/pages/RegionPage.tsx` | `cityName` Logik korrigieren, Testimonial-Fallbacks ergänzen |
+| `src/cms/schema.ts` | 5 neue Regionen zu `regions.items` hinzufügen |
+| `src/components/Footer.tsx` | Regions-Titel auf Ortsnamen reduzieren |
+| `html5-version/includes/regions-list.html` | 5 neue Regionen |
+| `html5-version/includes/regions-list-column1.html` | Neu aufteilen |
+| `html5-version/includes/regions-list-column2.html` | Neu aufteilen |
 
-### Code-Änderungen
+---
 
-**ServiceCard.tsx:**
+### Erwartetes Ergebnis
 
-```tsx
-// Entfernen
-import { OptimizedImage } from '@/components/ui/optimized-image';
+Nach der Korrektur:
 
-// Ändern von:
-<OptimizedImage
-  src={imageSrc}
-  alt={title}
-  aspectRatio="4/3"
-  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-/>
-
-// Ändern zu:
-<img
-  src={imageSrc}
-  alt={title}
-  loading="eager"
-  decoding="async"
-  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-/>
-```
-
-### Warum diese Lösung funktioniert
-
-1. **Kein Ladezustand**: Kein Skeleton oder Opacity-Übergang = kein Flackern
-2. **Sofortiges Laden**: `loading="eager"` lädt die Bilder sofort, da sie above-the-fold sind
-3. **Nicht-blockierend**: `decoding="async"` verhindert UI-Blockierung während des Decodierens
-4. **Konsistenz**: Gleiche Strategie wie Hero-Slider und Service-Seiten
+| Seite | Korrekte Anzeige |
+|-------|-----------------|
+| `/region/meilen` | "Unsere Leistungen in Meilen" |
+| `/region/erlenbach` | "Unsere Leistungen in Erlenbach" |
+| `/region/menzingen` | "Unsere Leistungen in Menzingen" |
+| `/region/horgen` | "Unsere Leistungen in Horgen" |
+| Footer | "Zürich", "Meilen", "Horgen" (ohne "Bäderberg in") |
