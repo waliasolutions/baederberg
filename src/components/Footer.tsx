@@ -72,8 +72,8 @@ const Footer = () => {
   const regions = regionsContent?.items?.length 
     ? regionsContent.items 
     : defaultContent.regions.items;
-  const regionsColumn1 = regions.slice(0, 5);
-  const regionsColumn2 = regions.slice(5, 10);
+   const regionsColumn1 = regions.slice(0, 8);
+   const regionsColumn2 = regions.slice(8, 15);
 
   return (
     <footer className="bg-footer text-footer-foreground">
