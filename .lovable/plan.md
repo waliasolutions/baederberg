@@ -1,99 +1,71 @@
 
+## Fix für flackernde Service-Karten
 
-## Zusammenfassung
+### Problem-Analyse
 
-Die Website zeigt in manchen Browsern einen **Umleitungsfehler (Redirect Loop)**, weil:
+Die Service-Karten auf der Startseite verwenden die `OptimizedImage` Komponente, die folgende Probleme verursacht:
 
-1. Die `AdminLogin.tsx` Komponente prüft auf der Login-Seite, ob bereits ein Admin existiert (`user_roles` Tabelle)
-2. Diese Abfrage wird durch **Row Level Security (RLS)** blockiert für unauthentifizierte Benutzer
-3. In manchen Browsern führt dies zu einem inkonsistenten Auth-State und endlosen Weiterleitungen
+| Problem | Ursache |
+|---------|---------|
+| Doppelter Ladezustand | Skeleton + Bild mit Opacity-Übergang |
+| Race Condition | `Image()` Preload vs. tatsächliches `onLoad` Event |
+| Verzögerter Übergang | 300ms Opacity-Transition bei jedem Laden |
 
----
+### Lösung
 
-## Ursache des Problems
-
-| Komponente | Problem |
-|------------|---------|
-| `AdminLogin.tsx` Zeile 43-56 | Ruft `checkIfFirstAdmin()` auf, die `user_roles` abfragt |
-| RLS Policy auf `user_roles` | Nur angemeldete Benutzer können ihre eigenen Rollen sehen |
-| `AdminLayout.tsx` Zeile 52-55 | Leitet zu `/admin/login` wenn kein User vorhanden |
-| `useAuth.ts` Zeile 46-55 | Verwendet `setTimeout` für Rollen-Abruf, was Race Conditions verursacht |
-
-**Race Condition Ablauf:**
-1. Browser lädt Seite
-2. `isLoading` ist kurzzeitig `false` bevor Rollen geladen sind
-3. `AdminLayout` sieht keinen User → leitet zu `/admin/login`
-4. `AdminLogin` sieht User ohne Rolle → leitet zurück zu `/admin`
-5. Endlose Schleife
-
----
-
-## Lösung
-
-### 1. SECURITY DEFINER Funktion erstellen
-
-Eine neue SQL-Funktion, die RLS umgeht und für anonyme Benutzer funktioniert:
-
-```sql
-CREATE OR REPLACE FUNCTION public.check_admin_exists()
-RETURNS boolean
-LANGUAGE sql
-STABLE
-SECURITY DEFINER
-SET search_path = pg_catalog, pg_temp
-AS $$
-  SELECT EXISTS (
-    SELECT 1 FROM public.user_roles 
-    WHERE role = 'admin' 
-    LIMIT 1
-  );
-$$;
-```
-
-Diese Funktion:
-- Läuft mit den Rechten des Erstellers (Postgres)
-- Kann von anonymen Benutzern aufgerufen werden
-- Umgeht RLS sicher für diese spezifische Prüfung
-
-### 2. AdminLogin.tsx aktualisieren
-
-Die `checkIfFirstAdmin` Funktion wird angepasst um die neue RPC-Funktion zu nutzen:
+Die gleiche Strategie wie beim Hero-Slider anwenden: Native `<img>` Tags mit optimierten Ladeattributen verwenden.
 
 ```text
-Vorher:                              Nachher:
-├── supabase.from('user_roles')      ├── supabase.rpc('check_admin_exists')
-│   .select('id')                    │   .then(hasAdmin => ...)
-│   .eq('role', 'admin')             │
-│   .limit(1)                        │
-└── Wird von RLS blockiert           └── Funktioniert für alle Benutzer
+Vorher (ServiceCard.tsx):
+├── OptimizedImage Komponente
+│   ├── Skeleton (animate-pulse)
+│   ├── opacity-0 → opacity-100 Übergang
+│   └── Doppelte Ladezustandsverwaltung
+└── Verursacht Flackern
+
+Nachher (ServiceCard.tsx):
+├── Native <img> Tag
+│   ├── loading="eager" (sofortiges Laden)
+│   ├── decoding="async" (nicht blockierend)
+│   └── Kein Ladezustand notwendig
+└── Kein Flackern
 ```
 
-### 3. useAuth.ts verbessern
+### Betroffene Dateien
 
-Das `setTimeout` wird durch synchronen Code ersetzt um Race Conditions zu vermeiden:
+| Datei | Änderung |
+|-------|----------|
+| `src/components/ServiceCard.tsx` | `OptimizedImage` durch native `<img>` ersetzen |
 
-```text
-Vorher:                              Nachher:
-├── setTimeout(() => {...}, 0)       ├── Direkter async/await Aufruf
-└── Race Condition möglich           └── Konsistenter State
+### Code-Änderungen
+
+**ServiceCard.tsx:**
+
+```tsx
+// Entfernen
+import { OptimizedImage } from '@/components/ui/optimized-image';
+
+// Ändern von:
+<OptimizedImage
+  src={imageSrc}
+  alt={title}
+  aspectRatio="4/3"
+  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+/>
+
+// Ändern zu:
+<img
+  src={imageSrc}
+  alt={title}
+  loading="eager"
+  decoding="async"
+  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+/>
 ```
 
----
+### Warum diese Lösung funktioniert
 
-## Betroffene Dateien
-
-| Datei | Aktion |
-|-------|--------|
-| Migration (SQL) | `check_admin_exists()` Funktion erstellen |
-| `src/cms/pages/AdminLogin.tsx` | RPC-Aufruf statt direkter Tabellenabfrage |
-| `src/cms/hooks/useAuth.ts` | `setTimeout` entfernen, async/await verwenden |
-
----
-
-## Erwartetes Ergebnis
-
-Nach der Implementierung:
-- Keine Redirect-Loops mehr in Firefox, Safari oder anderen Browsern
-- Schnellerer Auth-State ohne Race Conditions
-- Sichere Admin-Prüfung die RLS nicht verletzt
-
+1. **Kein Ladezustand**: Kein Skeleton oder Opacity-Übergang = kein Flackern
+2. **Sofortiges Laden**: `loading="eager"` lädt die Bilder sofort, da sie above-the-fold sind
+3. **Nicht-blockierend**: `decoding="async"` verhindert UI-Blockierung während des Decodierens
+4. **Konsistenz**: Gleiche Strategie wie Hero-Slider und Service-Seiten
