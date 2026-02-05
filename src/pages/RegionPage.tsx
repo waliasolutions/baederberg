@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TestimonialCard from '@/components/TestimonialCard';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
+ import { Check } from 'lucide-react';
 import { realTestimonials } from '@/data/testimonials';
 import { usePublicContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
@@ -210,7 +211,17 @@ const RegionPage = () => {
             {/* Badumbau */}
             <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Badumbau</h3>
-              <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.badumbau}</p>
+               <p className="text-muted-foreground mb-4 text-sm md:text-base">{region.services.badumbau}</p>
+               
+               <ul className="space-y-2 mb-6">
+                 {regionDefaults.serviceFeatures.badumbau.map((feature, index) => (
+                   <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
+                     <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                     <span>{feature}</span>
+                   </li>
+                 ))}
+               </ul>
+               
               <Link to="/badumbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
                 Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -219,7 +230,17 @@ const RegionPage = () => {
             {/* Innenausbau */}
             <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Innenausbau</h3>
-              <p className="text-muted-foreground mb-6 text-sm md:text-base">{region.services.innenausbau}</p>
+               <p className="text-muted-foreground mb-4 text-sm md:text-base">{region.services.innenausbau}</p>
+               
+               <ul className="space-y-2 mb-6">
+                 {regionDefaults.serviceFeatures.innenausbau.map((feature, index) => (
+                   <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
+                     <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                     <span>{feature}</span>
+                   </li>
+                 ))}
+               </ul>
+               
               <Link to="/innenausbau" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
                 Mehr erfahren <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
