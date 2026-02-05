@@ -567,7 +567,12 @@ export const defaultContent: Record<string, any> = {
       { slug: 'kilchberg', title: 'Bäderberg in Kilchberg', description: 'Bad und Innenausbau in Kilchberg', heroImage: '' },
       { slug: 'kuesnacht', title: 'Bäderberg in Küsnacht', description: 'Bad und Innenausbau in Küsnacht', heroImage: '' },
       { slug: 'meilen', title: 'Bäderberg in Meilen', description: 'Bad und Innenausbau in Meilen', heroImage: '' },
-      { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad und Innenausbau in Erlenbach', heroImage: '' }
+     { slug: 'erlenbach', title: 'Bäderberg in Erlenbach', description: 'Bad und Innenausbau in Erlenbach', heroImage: '' },
+     { slug: 'menzingen', title: 'Bäderberg in Menzingen', description: 'Bad und Innenausbau in Menzingen', heroImage: '' },
+     { slug: 'freienbach', title: 'Bäderberg in Freienbach SZ', description: 'Bad und Innenausbau in Freienbach', heroImage: '' },
+     { slug: 'rapperswil', title: 'Bäderberg in Rapperswil SG', description: 'Bad und Innenausbau in Rapperswil', heroImage: '' },
+     { slug: 'horgen', title: 'Bäderberg in Horgen', description: 'Bad und Innenausbau in Horgen', heroImage: '' },
+     { slug: 'rueti', title: 'Bäderberg in Rüti ZH', description: 'Bad und Innenausbau in Rüti', heroImage: '' }
     ]
   },
   seo: {
