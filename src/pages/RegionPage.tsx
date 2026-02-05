@@ -65,6 +65,12 @@ const regionTestimonialFallback: Record<string, number[]> = {
   'kuesnacht': [2, 5, 9],
   'meilen': [8, 1, 10],
   'erlenbach': [17, 19, 7],
+ // 5 neue Regionen (aus RegionMap)
+ 'menzingen': [14, 3, 12],
+ 'freienbach': [6, 16, 0],
+ 'rapperswil': [13, 5, 18],
+ 'horgen': [7, 2, 11],
+ 'rueti': [4, 15, 9],
 };
 
 // Custom hook to fetch region data from CMS with SSOT fallbacks
@@ -172,8 +178,8 @@ const RegionPage = () => {
     );
   }
 
-  // Get city name from contact or extract from title
-  const cityName = region.contact?.address?.city || region.title.replace('Bäderberg in ', '');
+  // Get city name from title (prioritize title, fallback to contact address)
+  const cityName = region.title.replace('Bäderberg in ', '') || region.contact?.address?.city;
 
   return (
     <div className="min-h-screen flex flex-col">

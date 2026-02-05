@@ -148,10 +148,10 @@ const Footer = () => {
                 <ul className="space-y-2">
                   {regionsColumn1.map((region) => (
                     <li key={region.slug}>
-                      <Link to={`/region/${region.slug}`} className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
-                        <ChevronRight size={16} className="mr-2" />
-                        {region.title}
-                      </Link>
+                    <Link to={`/region/${region.slug}`} className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
+                      <ChevronRight size={16} className="mr-2" />
+                      {region.title.replace('Bäderberg in ', '')}
+                    </Link>
                     </li>
                   ))}
                 </ul>
@@ -162,10 +162,10 @@ const Footer = () => {
                   <ul className="space-y-2">
                     {regionsColumn2.map((region) => (
                       <li key={region.slug}>
-                        <Link to={`/region/${region.slug}`} className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
-                          <ChevronRight size={16} className="mr-2" />
-                          {region.title}
-                        </Link>
+                      <Link to={`/region/${region.slug}`} className="text-footer-foreground/80 hover:text-footer-foreground flex items-center transition-colors">
+                        <ChevronRight size={16} className="mr-2" />
+                        {region.title.replace('Bäderberg in ', '')}
+                      </Link>
                       </li>
                     ))}
                   </ul>
