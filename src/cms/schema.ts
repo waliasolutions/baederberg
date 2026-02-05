@@ -471,13 +471,13 @@ export const defaultContent: Record<string, any> = {
         heading: 'Wir bauen Ihr Bad gemeinsam um',
         ctaText: 'Mehr erfahren',
         ctaLink: '/badumbau',
-        backgroundImage: '/images/bathroom-modern.jpg'
+        backgroundImage: '/images/bathroom-modern-optimized.jpg'
       },
       {
         heading: 'Facharbeiten im Innenausbau',
         ctaText: 'Mehr erfahren',
         ctaLink: '/innenausbau',
-        backgroundImage: '/images/interior-living.jpg'
+        backgroundImage: '/images/interior-living-optimized.jpg'
       }
     ]
   },
@@ -488,13 +488,13 @@ export const defaultContent: Record<string, any> = {
       {
         title: 'Badumbau',
         description: 'Wir bauen Ihr Bad um – persönlich geplant, professionell ausgeführt.',
-        image: '/images/bathroom-modern.jpg',
+        image: '/images/bathroom-modern-optimized.jpg',
         link: '/badumbau'
       },
       {
         title: 'Innenausbau',
         description: 'Räume nach Ihren Wünschen – alles aus einer Hand.',
-        image: '/images/interior-living.jpg',
+        image: '/images/interior-living-optimized.jpg',
         link: '/innenausbau'
       }
     ]

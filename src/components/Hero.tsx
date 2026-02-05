@@ -27,7 +27,7 @@ const Hero = () => {
   const schemaDefaults = defaultContent.hero?.slides || [];
   const slideImages = heroContent?.slides?.length 
     ? heroContent.slides.map((slide, index) => ({
-        url: slide.backgroundImage || schemaDefaults[index]?.backgroundImage || '/images/bathroom-modern.jpg',
+        url: slide.backgroundImage || schemaDefaults[index]?.backgroundImage || '/images/bathroom-modern-optimized.jpg',
         heading: slide.heading || schemaDefaults[index]?.heading || '',
         description: slide.description || '',
         ctaLink: slide.ctaLink || schemaDefaults[index]?.ctaLink || '/',
