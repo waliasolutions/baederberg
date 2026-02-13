@@ -9,9 +9,24 @@ import { realTestimonials } from '@/data/testimonials';
 import { usePublicContent } from '@/cms/context/ContentProvider';
 import { defaultContent } from '@/cms/schema';
 import SEOHead from '@/components/SEOHead';
-import zurichHero from '@/assets/regions/zurich-interior.jpg';
-import richterswilHero from '@/assets/regions/richterswil-interior.jpg';
-import pfaffikonHero from '@/assets/regions/pfaffikon-interior.jpg';
+// Static hero images for all 15 regions (build-safe /public/ paths)
+const regionHeroImages: Record<string, string> = {
+  'zurich': '/assets/regions/zurich-interior.jpg',
+  'richterswil': '/assets/regions/richterswil-interior.jpg',
+  'pfaeffikon': '/assets/regions/pfaffikon-interior.jpg',
+  'waedenswil': '/lovable-uploads/bad-hero.jpg',
+  'lachen': '/lovable-uploads/innenausbau-hero.jpg',
+  'zollikon': '/lovable-uploads/kueche-hero.jpg',
+  'kilchberg': '/images/badumbau-a.jpg',
+  'kuesnacht': '/images/innenausbau-a.jpg',
+  'meilen': '/images/badumbau-b.jpg',
+  'erlenbach': '/images/badumbau-c.jpg',
+  'menzingen': '/images/badumbau-d.jpg',
+  'freienbach': '/images/innenausbau-b.jpg',
+  'rapperswil': '/images/badumbau-e.jpg',
+  'horgen': '/images/badumbau-f.jpg',
+  'rueti': '/images/innenausbau-c.jpg',
+};
 
 interface RegionData {
   title: string;
@@ -46,13 +61,6 @@ interface RegionData {
 
 // Get defaults from SSOT (schema.ts)
 const regionDefaults = defaultContent.regionDefaults;
-
-// Static hero images for specific regions
-const regionHeroImages: Record<string, string> = {
-  'zurich': zurichHero,
-  'richterswil': richterswilHero,
-  'pfaeffikon': pfaffikonHero,
-};
 
 // Static testimonials assignments for regions (when CMS has none)
 const regionTestimonialFallback: Record<string, number[]> = {
