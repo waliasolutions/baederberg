@@ -1,155 +1,83 @@
 
-## Region Pages Content-Verbesserung
 
-### Problem-Analyse
+## Media Library & CMS Deep QA -- Ueberarbeiteter Plan
 
-Die aktuellen Region-Seiten haben sehr dünne Inhalte:
+### 1. Fehlende Bilder: Daten von Logik trennen
 
-| Bereich | Aktuell | Problem |
-|---------|---------|---------|
-| **Badumbau** | "Wir bauen Ihr Bad um – von der Planung bis zur fertigen Dusche oder Badewanne." | Zu kurz, keine Details |
-| **Innenausbau** | "Vom Möbeleinbau bis zum neuen Boden – wir setzen Ihre Raumideen fachgerecht um." | Zu kurz, keine Substanz |
-| **Warum wir** | 4 generische Punkte | Keine konkreten Vorteile |
+**Problem:** 27 Bilder in DB, aber 58+ im Projekt. Die `syncProjectImages`-Liste ist direkt im `useMedia.ts` Hook.
 
-Die Service-Detail-Seiten (BadumbauPage, InnenausbauPage) haben hingegen sehr guten Inhalt mit konkreten Features.
+**Loesung:** Neue Datei `src/cms/constants/initialMedia.ts` mit allen Bild-Eintraegen. Der Hook importiert nur das Array.
 
----
-
-### Strategie
-
-Die Region-Seiten sollen mehr von den konkreten Leistungen zeigen, ohne die Detail-Seiten zu kopieren. Der Ton bleibt positiv und konkret, ohne zu belehren.
-
----
-
-### Neue Inhalte
-
-#### 1. Erweiterte Service-Beschreibungen
-
-**Badumbau (neu):**
-```
-Ihr persönlicher Bauleiter plant mit Ihnen und koordiniert den
-gesamten Umbau. Sanitär, Elektrik, Fliesen, Badmöbel –
-alles läuft über einen Ansprechpartner. Fester Preis,
-fester Termin, 5 Jahre Garantie.
-```
-
-**Innenausbau (neu):**
-```
-Ein Ansprechpartner für alles: Bodenbeläge, Einbauschränke,
-Wandverkleidungen, Treppen. Wir übernehmen die Koordination
-aller Gewerke. Fester Preis, fester Termin, 5 Jahre Garantie.
-```
-
-#### 2. Service-Karten mit Feature-Liste
-
-Jede Service-Karte bekommt 3-4 konkrete Leistungspunkte:
-
-**Badumbau:**
-- Persönlicher Bauleiter
-- Sanitär & Elektrik inklusive
-- 5 Jahre Garantie
-
-**Innenausbau:**
-- Fachgerechte Bauleitung
-- Alle Gewerke koordiniert
-- 5 Jahre Garantie
-
-#### 3. Überarbeitete "Warum Bäderberg" Punkte
-
-Die bisherigen Punkte sind okay, aber zu generisch. Hier konkretere Versionen:
-
-| Alt | Neu |
-|-----|-----|
-| "Alles aus einer Hand – vom ersten Gespräch bis zur Übergabe" | "Ein Ansprechpartner von Anfang bis Ende" |
-| "5 Jahre Garantie auf unsere Handwerksleistungen" | "5 Jahre Garantie auf alle Arbeiten" |
-| "Sorgfältige Arbeit mit hochwertigen Materialien" | "Saubere Arbeit, hochwertige Materialien" |
-| "Transparente Preise ohne versteckte Kosten" | "Fester Preis – keine Überraschungen" |
-
----
-
-### Betroffene Dateien
-
-| Datei | Änderung |
+| Datei | Aenderung |
 |-------|----------|
-| `src/cms/schema.ts` | Neue `regionDefaults.services` und `regionDefaults.whyUs` Texte |
-| `src/pages/RegionPage.tsx` | Service-Karten mit Feature-Liste erweitern |
+| `src/cms/constants/initialMedia.ts` | **Neu** -- Alle 58 Bild-Definitionen als exportiertes Array |
+| `src/cms/hooks/useMedia.ts` | Import von `initialMedia.ts`, `syncProjectImages` wird schlank |
 
----
-
-### Technische Umsetzung
-
-#### RegionPage.tsx - Service Cards mit Features
+Neue Bilder (31 Stueck):
 
 ```text
-Vorher:
-┌─────────────────────────────┐
-│ Badumbau                    │
-│ [kurzer Text]               │
-│ → Mehr erfahren             │
-└─────────────────────────────┘
-
-Nachher:
-┌─────────────────────────────┐
-│ Badumbau                    │
-│ [erweiterter Text]          │
-│                             │
-│ ✓ Persönlicher Bauleiter    │
-│ ✓ Sanitär & Elektrik inkl.  │
-│ ✓ 5 Jahre Garantie          │
-│                             │
-│ → Mehr erfahren             │
-└─────────────────────────────┘
+/images/badumbau-a.jpg bis /images/badumbau-v.jpg  (22, folder: gallery)
+/images/innenausbau-a.jpg bis /images/innenausbau-e.jpg  (5, folder: gallery)
+/images/bathroom-modern-optimized.jpg  (1, folder: gallery)
+/images/interior-living-optimized.jpg  (1, folder: gallery)
+/lovable-uploads/kueche-hero.jpg  (1, folder: hero)
+/lovable-uploads/kueche-service.jpg  (1, folder: services)
 ```
 
-#### Schema.ts - Neue regionDefaults
+Alle neuen Pfade zeigen auf `/public/` oder `/lovable-uploads/` -- also Build-sicher.
+
+---
+
+### 2. Kaputte `/src/assets/` Pfade in der DB korrigieren (Kritisch)
+
+**Problem:** 14 Eintraege in der `media`-Tabelle haben `/src/assets/...` URLs. Diese brechen im Production-Build, weil Vite die Dateien hasht und umbenennt.
+
+**Loesung:** Diese 14 Eintraege per SQL-Update auf korrekte `/public/`-Pfade umschreiben. Dafuer muessen die 14 Dateien aus `src/assets/` nach `public/assets/` kopiert werden (einmalig).
+
+| Schritt | Aktion |
+|---------|--------|
+| 1 | Bilder von `src/assets/projects/` und `src/assets/regions/` nach `public/assets/projects/` und `public/assets/regions/` kopieren |
+| 2 | SQL UPDATE: `/src/assets/projects/X.jpg` → `/assets/projects/X.jpg` fuer alle 14 Eintraege |
+| 3 | `initialMedia.ts` nutzt nur `/assets/...` Pfade (ohne `/src`) |
+
+Die Dateien in `src/assets/` bleiben bestehen fuer bestehende Vite-Imports in Komponenten. Die neuen `/public/assets/` Kopien sind fuer das CMS/die Media Library.
+
+---
+
+### 3. Autosave: Seiteneffekte absichern
+
+**Problem:** `useContent` hat einen Autosave-Timer der immer laeuft wenn `isDirty === true`. Der `ContentEditor` nutzt seine eigene Save-Logik mit `is_draft: false`. Wenn jemand spaeter `updateContent()` aus `useContent` im Editor aufruft, wuerde der Autosave zuschlagen und als Draft speichern -- das ueberschreibt moeglicherweise den publizierten Stand.
+
+**Loesung:** `useContent` bekommt eine Option `disableAutosave: boolean` (default `false`).
 
 ```typescript
-regionDefaults: {
-  services: {
-    badumbau: 'Ihr persönlicher Bauleiter plant mit Ihnen und koordiniert den gesamten Umbau. Sanitär, Elektrik, Fliesen, Badmöbel – alles läuft über einen Ansprechpartner. Fester Preis, fester Termin, 5 Jahre Garantie.',
-    innenausbau: 'Ein Ansprechpartner für alles: Bodenbeläge, Einbauschränke, Wandverkleidungen, Treppen. Wir übernehmen die Koordination aller Gewerke. Fester Preis, fester Termin, 5 Jahre Garantie.'
-  },
-  serviceFeatures: {
-    badumbau: [
-      'Persönlicher Bauleiter',
-      'Sanitär & Elektrik inklusive',
-      '5 Jahre Garantie'
-    ],
-    innenausbau: [
-      'Fachgerechte Bauleitung',
-      'Alle Gewerke koordiniert',
-      '5 Jahre Garantie'
-    ]
-  },
-  whyUs: [
-    'Ein Ansprechpartner von Anfang bis Ende',
-    '5 Jahre Garantie auf alle Arbeiten',
-    'Saubere Arbeit, hochwertige Materialien',
-    'Fester Preis – keine Überraschungen'
-  ],
-  // ... rest bleibt gleich
+// useContent.ts
+export function useContent(sectionKey?: string, options?: { disableAutosave?: boolean }) {
+  // ...
+  useEffect(() => {
+    if (isDirty && !options?.disableAutosave) {
+      // autosave logic
+    }
+  }, [isDirty, saveContent, options?.disableAutosave]);
 }
 ```
 
 ---
 
-### Inhaltsprinzipien
+### Zusammenfassung der Aenderungen
 
-Die neuen Texte folgen diesen Regeln:
+| Prioritaet | Datei | Aenderung |
+|------------|-------|----------|
+| Blocker | `src/cms/constants/initialMedia.ts` | **Neu:** 58 Bild-Definitionen, sauber getrennt von Hook-Logik |
+| Blocker | `src/cms/hooks/useMedia.ts` | Import initialMedia, syncProjectImages verschlanken |
+| Kritisch | Dateien kopieren | `src/assets/projects/*` und `src/assets/regions/*` nach `public/assets/` |
+| Kritisch | DB media Tabelle | SQL UPDATE: 14 Pfade von `/src/assets/...` auf `/assets/...` |
+| Absicherung | `src/cms/hooks/useContent.ts` | `disableAutosave` Option hinzufuegen |
 
-| Prinzip | Umsetzung |
-|---------|-----------|
-| **Konkret** | "Persönlicher Bauleiter", "5 Jahre Garantie" statt vage Versprechen |
-| **Positiv** | Was wir machen, nicht was andere falsch machen |
-| **Kein Fluff** | Keine "Wohlfühloase", keine "exklusiv" oder "erstklassig" |
-| **Nicht belehrend** | Keine "Sie sollten..." oder "Wichtig ist..." |
+### Bereits validiert (keine Aenderung noetig)
 
----
+- Save/Publish-Flow: `is_draft: false` im Editor, Public-View liest nur published
+- RLS Policies: RESTRICTIVE korrekt fuer public-read/admin-write
+- Revision History, Theme-System, Image Upload + Optimization: funktional
+- Region Sync, Testimonials Sync: korrekt
 
-### Erwartetes Ergebnis
-
-Nach der Umsetzung zeigen die Region-Seiten:
-- Mehr Substanz in den Service-Beschreibungen
-- Konkrete Features als Checkmarks
-- Kürzere, prägnantere "Warum wir" Punkte
-- Gleicher Ton wie die Hauptseiten (direkt, ehrlich, konkret)
