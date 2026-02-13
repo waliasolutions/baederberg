@@ -5,7 +5,7 @@ import { defaultContent } from '../schema';
 
 const AUTOSAVE_INTERVAL = 30000; // 30 seconds
 
-export function useContent(sectionKey?: string) {
+export function useContent(sectionKey?: string, options?: { disableAutosave?: boolean }) {
   const [content, setContent] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -205,7 +205,7 @@ export function useContent(sectionKey?: string) {
 
   // Autosave logic
   useEffect(() => {
-    if (isDirty) {
+    if (isDirty && !options?.disableAutosave) {
       if (autosaveTimerRef.current) {
         clearTimeout(autosaveTimerRef.current);
       }
@@ -225,7 +225,7 @@ export function useContent(sectionKey?: string) {
         clearTimeout(autosaveTimerRef.current);
       }
     };
-  }, [isDirty, saveContent]);
+  }, [isDirty, saveContent, options?.disableAutosave]);
 
   // Initial fetch
   useEffect(() => {
