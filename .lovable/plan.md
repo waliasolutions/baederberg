@@ -1,83 +1,52 @@
 
 
-## Media Library & CMS Deep QA -- Ueberarbeiteter Plan
+## Fehlende Region Hero-Bilder zuweisen
 
-### 1. Fehlende Bilder: Daten von Logik trennen
+### Ausgangslage
 
-**Problem:** 27 Bilder in DB, aber 58+ im Projekt. Die `syncProjectImages`-Liste ist direkt im `useMedia.ts` Hook.
+- 15 Regionen insgesamt
+- Nur 3 haben Hero-Bilder (Zuerich, Richterswil, Pfaeffikon) -- die restlichen 12 zeigen ein generisches Unsplash-Bild
+- Die 3 vorhandenen DB-Eintraege haben kaputte `/src/assets/`-Pfade
+- In `public/assets/regions/` liegen 6 Dateien (hero + interior fuer die 3 Regionen)
 
-**Loesung:** Neue Datei `src/cms/constants/initialMedia.ts` mit allen Bild-Eintraegen. Der Hook importiert nur das Array.
+### Loesung
 
-| Datei | Aenderung |
-|-------|----------|
-| `src/cms/constants/initialMedia.ts` | **Neu** -- Alle 58 Bild-Definitionen als exportiertes Array |
-| `src/cms/hooks/useMedia.ts` | Import von `initialMedia.ts`, `syncProjectImages` wird schlank |
+#### 1. Hero-Bilder den 12 fehlenden Regionen zuweisen
 
-Neue Bilder (31 Stueck):
+Da keine regionsspezifischen Fotos vorliegen, werden vorhandene Projekt-Bilder gleichmaessig verteilt. Die Bilder passen thematisch (Bad, Kueche, Innenausbau) und sind build-sicher in `/public/`.
 
-```text
-/images/badumbau-a.jpg bis /images/badumbau-v.jpg  (22, folder: gallery)
-/images/innenausbau-a.jpg bis /images/innenausbau-e.jpg  (5, folder: gallery)
-/images/bathroom-modern-optimized.jpg  (1, folder: gallery)
-/images/interior-living-optimized.jpg  (1, folder: gallery)
-/lovable-uploads/kueche-hero.jpg  (1, folder: hero)
-/lovable-uploads/kueche-service.jpg  (1, folder: services)
-```
+| Region | Bild | Thema |
+|--------|------|-------|
+| Waedenswil | `/lovable-uploads/bad-hero.jpg` | Bad |
+| Lachen | `/lovable-uploads/innenausbau-hero.jpg` | Innenausbau |
+| Zollikon | `/lovable-uploads/kueche-hero.jpg` | Kueche |
+| Kilchberg | `/images/badumbau-a.jpg` | Bad |
+| Kuesnacht | `/images/innenausbau-a.jpg` | Innenausbau |
+| Meilen | `/images/badumbau-b.jpg` | Bad |
+| Erlenbach | `/images/badumbau-c.jpg` | Bad |
+| Menzingen | `/images/badumbau-d.jpg` | Bad |
+| Freienbach | `/images/innenausbau-b.jpg` | Innenausbau |
+| Rapperswil | `/images/badumbau-e.jpg` | Bad |
+| Horgen | `/images/badumbau-f.jpg` | Bad |
+| Rueti | `/images/innenausbau-c.jpg` | Innenausbau |
 
-Alle neuen Pfade zeigen auf `/public/` oder `/lovable-uploads/` -- also Build-sicher.
+#### 2. Bestehende 3 kaputte Pfade korrigieren
 
----
+| Region | Alt (kaputt) | Neu (korrekt) |
+|--------|-------------|---------------|
+| Zuerich | `/src/assets/regions/zurich-interior.jpg` | `/assets/regions/zurich-interior.jpg` |
+| Richterswil | `/src/assets/regions/richterswil-interior.jpg` | `/assets/regions/richterswil-interior.jpg` |
+| Pfaeffikon | `/src/assets/regions/pfaffikon-interior.jpg` | `/assets/regions/pfaffikon-interior.jpg` |
 
-### 2. Kaputte `/src/assets/` Pfade in der DB korrigieren (Kritisch)
+#### 3. Code-Aenderung: `RegionPage.tsx`
 
-**Problem:** 14 Eintraege in der `media`-Tabelle haben `/src/assets/...` URLs. Diese brechen im Production-Build, weil Vite die Dateien hasht und umbenennt.
+Die statische `regionHeroImages`-Map (Zeile 51-55) wird um alle 15 Regionen erweitert, sodass keine Region mehr auf das Unsplash-Fallback zurueckfaellt. Dabei werden build-sichere `/public/`-Pfade statt Vite-Imports verwendet.
 
-**Loesung:** Diese 14 Eintraege per SQL-Update auf korrekte `/public/`-Pfade umschreiben. Dafuer muessen die 14 Dateien aus `src/assets/` nach `public/assets/` kopiert werden (einmalig).
+### Technische Schritte
 
 | Schritt | Aktion |
 |---------|--------|
-| 1 | Bilder von `src/assets/projects/` und `src/assets/regions/` nach `public/assets/projects/` und `public/assets/regions/` kopieren |
-| 2 | SQL UPDATE: `/src/assets/projects/X.jpg` → `/assets/projects/X.jpg` fuer alle 14 Eintraege |
-| 3 | `initialMedia.ts` nutzt nur `/assets/...` Pfade (ohne `/src`) |
-
-Die Dateien in `src/assets/` bleiben bestehen fuer bestehende Vite-Imports in Komponenten. Die neuen `/public/assets/` Kopien sind fuer das CMS/die Media Library.
-
----
-
-### 3. Autosave: Seiteneffekte absichern
-
-**Problem:** `useContent` hat einen Autosave-Timer der immer laeuft wenn `isDirty === true`. Der `ContentEditor` nutzt seine eigene Save-Logik mit `is_draft: false`. Wenn jemand spaeter `updateContent()` aus `useContent` im Editor aufruft, wuerde der Autosave zuschlagen und als Draft speichern -- das ueberschreibt moeglicherweise den publizierten Stand.
-
-**Loesung:** `useContent` bekommt eine Option `disableAutosave: boolean` (default `false`).
-
-```typescript
-// useContent.ts
-export function useContent(sectionKey?: string, options?: { disableAutosave?: boolean }) {
-  // ...
-  useEffect(() => {
-    if (isDirty && !options?.disableAutosave) {
-      // autosave logic
-    }
-  }, [isDirty, saveContent, options?.disableAutosave]);
-}
-```
-
----
-
-### Zusammenfassung der Aenderungen
-
-| Prioritaet | Datei | Aenderung |
-|------------|-------|----------|
-| Blocker | `src/cms/constants/initialMedia.ts` | **Neu:** 58 Bild-Definitionen, sauber getrennt von Hook-Logik |
-| Blocker | `src/cms/hooks/useMedia.ts` | Import initialMedia, syncProjectImages verschlanken |
-| Kritisch | Dateien kopieren | `src/assets/projects/*` und `src/assets/regions/*` nach `public/assets/` |
-| Kritisch | DB media Tabelle | SQL UPDATE: 14 Pfade von `/src/assets/...` auf `/assets/...` |
-| Absicherung | `src/cms/hooks/useContent.ts` | `disableAutosave` Option hinzufuegen |
-
-### Bereits validiert (keine Aenderung noetig)
-
-- Save/Publish-Flow: `is_draft: false` im Editor, Public-View liest nur published
-- RLS Policies: RESTRICTIVE korrekt fuer public-read/admin-write
-- Revision History, Theme-System, Image Upload + Optimization: funktional
-- Region Sync, Testimonials Sync: korrekt
+| 1 | DB: `heroImage` fuer alle 15 Regionen per SQL UPDATE setzen (3 korrigieren, 12 neu) |
+| 2 | `RegionPage.tsx`: Vite-Imports (Zeile 12-14) entfernen, `regionHeroImages` mit allen 15 Public-Pfaden befuellen |
+| 3 | Unsplash-Fallback bleibt als allerletzter Fallback bestehen |
 
