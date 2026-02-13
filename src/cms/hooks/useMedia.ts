@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { MediaItem } from '../types';
+import { initialMedia } from '../constants/initialMedia';
 
 export function useMedia() {
   const [media, setMedia] = useState<MediaItem[]>([]);
@@ -227,38 +228,10 @@ export function useMedia() {
     setIsLoading(true);
     setError(null);
     
-    const projectImages = [
-      // Hero and service images
-      { url: '/lovable-uploads/bad-hero.jpg', filename: 'bad-hero.jpg', folder: 'hero' },
-      { url: '/lovable-uploads/bad-service.jpg', filename: 'bad-service.jpg', folder: 'services' },
-      { url: '/lovable-uploads/innenausbau-hero.jpg', filename: 'innenausbau-hero.jpg', folder: 'hero' },
-      { url: '/lovable-uploads/innenausbau-service.jpg', filename: 'innenausbau-service.jpg', folder: 'services' },
-      { url: '/lovable-uploads/modern-bathroom-interior.jpg', filename: 'modern-bathroom-interior.jpg', folder: 'general' },
-      { url: '/lovable-uploads/7a284723-d9c7-4c90-9fad-7fcb311fe8c6.png', filename: 'logo-1.png', folder: 'branding' },
-      { url: '/lovable-uploads/7b5a5a87-6002-4a90-aa3a-50bb91b165bf.png', filename: 'logo-2.png', folder: 'branding' },
-      // Public images
-      { url: '/images/bathroom-modern.jpg', filename: 'bathroom-modern.jpg', folder: 'gallery' },
-      { url: '/images/interior-living.jpg', filename: 'interior-living.jpg', folder: 'gallery' },
-      { url: '/images/interior-modern.jpg', filename: 'interior-modern.jpg', folder: 'gallery' },
-      // Gallery project images from src/assets/projects/
-      { url: '/src/assets/projects/built-in-wardrobe.jpg', filename: 'built-in-wardrobe.jpg', folder: 'gallery' },
-      { url: '/src/assets/projects/entryway-built-in-storage.jpg', filename: 'entryway-built-in-storage.jpg', folder: 'gallery' },
-      { url: '/src/assets/projects/guest-bathroom-compact.jpg', filename: 'guest-bathroom-compact.jpg', folder: 'gallery' },
-      { url: '/src/assets/projects/master-bathroom-spa.jpg', filename: 'master-bathroom-spa.jpg', folder: 'gallery' },
-      { url: '/src/assets/projects/modern-bathroom-renovation.jpg', filename: 'modern-bathroom-renovation.jpg', folder: 'gallery' },
-      // Region images from src/assets/regions/
-      { url: '/src/assets/regions/pfaffikon-hero.jpg', filename: 'pfaffikon-hero.jpg', folder: 'regions' },
-      { url: '/src/assets/regions/pfaffikon-interior.jpg', filename: 'pfaffikon-interior.jpg', folder: 'regions' },
-      { url: '/src/assets/regions/richterswil-hero.jpg', filename: 'richterswil-hero.jpg', folder: 'regions' },
-      { url: '/src/assets/regions/richterswil-interior.jpg', filename: 'richterswil-interior.jpg', folder: 'regions' },
-      { url: '/src/assets/regions/zurich-hero.jpg', filename: 'zurich-hero.jpg', folder: 'regions' },
-      { url: '/src/assets/regions/zurich-interior.jpg', filename: 'zurich-interior.jpg', folder: 'regions' },
-    ];
-    
     let syncedCount = 0;
     
     try {
-      for (const img of projectImages) {
+      for (const img of initialMedia) {
         // Check if already exists
         const { data: existing } = await supabase
           .from('media')
