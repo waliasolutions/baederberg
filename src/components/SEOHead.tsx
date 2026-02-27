@@ -48,7 +48,7 @@ export function SEOHead({ title, description, ogImage, noIndex }: SEOHeadProps) 
   const gtmHead = seoContent?.gtmHead;
   
   // Use published domain for SEO
-  const publishedDomain = 'https://baederberg.lovable.app';
+  const publishedDomain = 'https://baederberg.ch';
   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
   const canonicalUrl = `${publishedDomain}${currentPath}`;
   
