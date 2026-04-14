@@ -295,33 +295,36 @@ const handler = async (req: Request): Promise<Response> => {
       return fakeSuccessResponse();
     }
 
-    // --- Layer 3: Turnstile CAPTCHA verification ---
-    if (!payload.turnstileToken) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: "Sicherheitsüberprüfung fehlgeschlagen. Bitte laden Sie die Seite neu.",
-        }),
-        {
-          status: 403,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
-    }
+    // --- Layer 3: Turnstile CAPTCHA verification (skipped if secret not configured) ---
+    const turnstileSecret = Deno.env.get("TURNSTILE_SECRET_KEY");
+    if (turnstileSecret) {
+      if (!payload.turnstileToken) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "Sicherheitsüberprüfung fehlgeschlagen. Bitte laden Sie die Seite neu.",
+          }),
+          {
+            status: 403,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
 
-    const turnstileValid = await verifyTurnstileToken(payload.turnstileToken, clientIp);
-    if (!turnstileValid) {
-      console.log("Spam blocked: Turnstile verification failed");
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: "Sicherheitsüberprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.",
-        }),
-        {
-          status: 403,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
+      const turnstileValid = await verifyTurnstileToken(payload.turnstileToken, clientIp);
+      if (!turnstileValid) {
+        console.log("Spam blocked: Turnstile verification failed");
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "Sicherheitsüberprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+          }),
+          {
+            status: 403,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
     }
 
     // --- Layer 4: Input validation ---
