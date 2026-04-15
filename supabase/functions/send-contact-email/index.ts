@@ -166,7 +166,18 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("E-Mail-Service ist nicht konfiguriert");
     }
 
-    const formData: ContactFormData = await req.json();
+    const { _hp, _t, ...contactData } = await req.json();
+
+    // Spam detection: honeypot filled or submission too fast (<3s)
+    if (_hp || (typeof _t === "number" && _t < 3000)) {
+      console.log("Spam detected, silently rejected");
+      return new Response(
+        JSON.stringify({ success: true, message: "E-Mail erfolgreich gesendet" }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } },
+      );
+    }
+
+    const formData: ContactFormData = contactData;
 
     // Validate form data
     const validationErrors = validateFormData(formData);

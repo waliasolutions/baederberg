@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSectionContent } from '@/cms/context/ContentProvider';
+import { useSpamProtection } from '@/hooks/use-spam-protection';
 
 interface ContactContent {
   heading?: string;
@@ -31,6 +32,7 @@ const Contact = () => {
     service: '',
     message: ''
   });
+  const { honeypotProps, getSpamFields, isSpamLikely } = useSpamProtection();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -47,6 +49,14 @@ const Contact = () => {
     setIsError(false);
     setErrorMessage('');
 
+    if (isSpamLikely()) {
+      setIsSuccess(true);
+      setTimeout(() => setIsSuccess(false), 5000);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`,
@@ -55,7 +65,7 @@ const Contact = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ ...formData, ...getSpamFields() }),
         }
       );
 
@@ -150,6 +160,11 @@ const Contact = () => {
                 <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[44px]" />
               </div>
               
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-5000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}>
+                <label htmlFor="_office_phone">Phone</label>
+                <input type="text" id="_office_phone" {...honeypotProps} />
+              </div>
+
               <div className="mb-4">
                 <label htmlFor="service" className="block text-sm font-medium text-muted-foreground mb-1">Leistung</label>
                 <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white min-h-[44px]">
