@@ -78,6 +78,8 @@ const Contact = () => {
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 5000);
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).dataLayer?.push({ event: 'contact_form_submitted' });
     } catch (error) {
       console.error('Contact form error:', error);
       setIsError(true);
